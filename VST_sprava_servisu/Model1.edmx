@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Region" EntityType="Model1.Store.Region" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Zakaznik" EntityType="Model1.Store.Zakaznik" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Jazyk" EntityType="Model1.Store.Jazyk" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Provoz" EntityType="Model1.Store.Provoz" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Umisteni" EntityType="Model1.Store.Umisteni" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="RegionZakaznik" Association="Model1.Store.RegionZakaznik">
+      <End Role="Region" EntitySet="Region" />
+      <End Role="Zakaznik" EntitySet="Zakaznik" />
+    </AssociationSet>
+    <AssociationSet Name="JazykZakaznik" Association="Model1.Store.JazykZakaznik">
+      <End Role="Jazyk" EntitySet="Jazyk" />
+      <End Role="Zakaznik" EntitySet="Zakaznik" />
+    </AssociationSet>
+    <AssociationSet Name="ProvozZakaznik" Association="Model1.Store.ProvozZakaznik">
+      <End Role="Provoz" EntitySet="Provoz" />
+      <End Role="Zakaznik" EntitySet="Zakaznik" />
+    </AssociationSet>
+    <AssociationSet Name="UmisteniProvoz" Association="Model1.Store.UmisteniProvoz">
+      <End Role="Umisteni" EntitySet="Umisteni" />
+      <End Role="Provoz" EntitySet="Provoz" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Region">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NazevRegionu" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Zakaznik">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NazevZakaznika" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="KodSAP" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="RegionId" Type="int" Nullable="false" />
+    <Property Name="IC" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="DIC" Type="nvarchar(max)" Nullable="false" DefaultValue="20" />
+    <Property Name="Telefon" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Kontakt" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="JazykId" Type="int" Nullable="false" />
+    <Property Name="Adresa" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Jazyk">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NazevJazyku" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Provoz">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ZakaznikId" Type="int" Nullable="false" />
+    <Property Name="NazevProvozu" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OddeleniVybuchu" Type="bit" Nullable="false" />
+    <Property Name="PotlaceniVybuchu" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Umisteni">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProvozId" Type="int" Nullable="false" />
+    <Property Name="NazevUmisteni" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="RegionZakaznik">
+    <End Role="Region" Type="Model1.Store.Region" Multiplicity="1" />
+    <End Role="Zakaznik" Type="Model1.Store.Zakaznik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Region">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Zakaznik">
+        <PropertyRef Name="RegionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JazykZakaznik">
+    <End Role="Jazyk" Type="Model1.Store.Jazyk" Multiplicity="1" />
+    <End Role="Zakaznik" Type="Model1.Store.Zakaznik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jazyk">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Zakaznik">
+        <PropertyRef Name="JazykId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProvozZakaznik">
+    <End Role="Provoz" Type="Model1.Store.Provoz" Multiplicity="*" />
+    <End Role="Zakaznik" Type="Model1.Store.Zakaznik" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Zakaznik">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Provoz">
+        <PropertyRef Name="ZakaznikId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UmisteniProvoz">
+    <End Role="Umisteni" Type="Model1.Store.Umisteni" Multiplicity="*" />
+    <End Role="Provoz" Type="Model1.Store.Provoz" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Provoz">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Umisteni">
+        <PropertyRef Name="ProvozId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Region" EntityType="Model1.Region" />
+          <EntitySet Name="Zakaznik" EntityType="Model1.Zakaznik" />
+          <AssociationSet Name="RegionZakaznik" Association="Model1.RegionZakaznik">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Zakaznik" EntitySet="Zakaznik" />
+          </AssociationSet>
+          <EntitySet Name="Jazyk" EntityType="Model1.Jazyk" />
+          <AssociationSet Name="JazykZakaznik" Association="Model1.JazykZakaznik">
+            <End Role="Jazyk" EntitySet="Jazyk" />
+            <End Role="Zakaznik" EntitySet="Zakaznik" />
+          </AssociationSet>
+          <EntitySet Name="Provoz" EntityType="Model1.Provoz" />
+          <AssociationSet Name="ProvozZakaznik" Association="Model1.ProvozZakaznik">
+            <End Role="Provoz" EntitySet="Provoz" />
+            <End Role="Zakaznik" EntitySet="Zakaznik" />
+          </AssociationSet>
+          <EntitySet Name="Umisteni" EntityType="Model1.Umisteni" />
+          <AssociationSet Name="UmisteniProvoz" Association="Model1.UmisteniProvoz">
+            <End Role="Umisteni" EntitySet="Umisteni" />
+            <End Role="Provoz" EntitySet="Provoz" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazevRegionu" Type="String" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="Zakaznik" Relationship="Model1.RegionZakaznik" FromRole="Region" ToRole="Zakaznik" />
+        </EntityType>
+        <EntityType Name="Zakaznik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazevZakaznika" Type="String" Nullable="false" MaxLength="Max" />
+          <Property Name="KodSAP" Type="String" Nullable="false" MaxLength="255" />
+          <NavigationProperty Name="Region" Relationship="Model1.RegionZakaznik" FromRole="Zakaznik" ToRole="Region" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <Property Name="IC" Type="String" Nullable="false" MaxLength="20" />
+          <Property Name="DIC" Type="String" Nullable="false" DefaultValue="20" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="25" />
+          <Property Name="Kontakt" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" />
+          <NavigationProperty Name="Jazyk" Relationship="Model1.JazykZakaznik" FromRole="Zakaznik" ToRole="Jazyk" />
+          <Property Name="JazykId" Type="Int32" Nullable="false" />
+          <Property Name="Adresa" Type="String" Nullable="false" MaxLength="Max" />
+          <NavigationProperty Name="Provoz" Relationship="Model1.ProvozZakaznik" FromRole="Zakaznik" ToRole="Provoz" />
+        </EntityType>
+        <Association Name="RegionZakaznik">
+          <End Type="Model1.Region" Role="Region" Multiplicity="1" />
+          <End Type="Model1.Zakaznik" Role="Zakaznik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zakaznik">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Jazyk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazevJazyku" Type="String" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="Zakaznik" Relationship="Model1.JazykZakaznik" FromRole="Jazyk" ToRole="Zakaznik" />
+        </EntityType>
+        <Association Name="JazykZakaznik">
+          <End Type="Model1.Jazyk" Role="Jazyk" Multiplicity="1" />
+          <End Type="Model1.Zakaznik" Role="Zakaznik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jazyk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zakaznik">
+              <PropertyRef Name="JazykId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Provoz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Zakaznik" Relationship="Model1.ProvozZakaznik" FromRole="Provoz" ToRole="Zakaznik" />
+          <Property Name="ZakaznikId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Umisteni" Relationship="Model1.UmisteniProvoz" FromRole="Provoz" ToRole="Umisteni" />
+          <Property Name="NazevProvozu" Type="String" Nullable="false" MaxLength="Max" />
+          <Property Name="OddeleniVybuchu" Type="Boolean" Nullable="false" />
+          <Property Name="PotlaceniVybuchu" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="ProvozZakaznik">
+          <End Type="Model1.Provoz" Role="Provoz" Multiplicity="*" />
+          <End Type="Model1.Zakaznik" Role="Zakaznik" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaznik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Provoz">
+              <PropertyRef Name="ZakaznikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Umisteni">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Provoz" Relationship="Model1.UmisteniProvoz" FromRole="Umisteni" ToRole="Provoz" />
+          <Property Name="ProvozId" Type="Int32" Nullable="false" />
+          <Property Name="NazevUmisteni" Type="String" Nullable="false" MaxLength="Max" />
+        </EntityType>
+        <Association Name="UmisteniProvoz">
+          <End Type="Model1.Umisteni" Role="Umisteni" Multiplicity="*" />
+          <End Type="Model1.Provoz" Role="Provoz" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Provoz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Umisteni">
+              <PropertyRef Name="ProvozId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Region">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Region)">
+        <MappingFragment StoreEntitySet="Region">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NazevRegionu" ColumnName="NazevRegionu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zakaznik">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Zakaznik)">
+        <MappingFragment StoreEntitySet="Zakaznik">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NazevZakaznika" ColumnName="NazevZakaznika" />
+          <ScalarProperty Name="KodSAP" ColumnName="KodSAP" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="IC" ColumnName="IC" />
+          <ScalarProperty Name="DIC" ColumnName="DIC" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Kontakt" ColumnName="Kontakt" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="JazykId" ColumnName="JazykId" />
+          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jazyk">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Jazyk)">
+        <MappingFragment StoreEntitySet="Jazyk">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NazevJazyku" ColumnName="NazevJazyku" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Provoz">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Provoz)">
+        <MappingFragment StoreEntitySet="Provoz">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ZakaznikId" ColumnName="ZakaznikId" />
+          <ScalarProperty Name="NazevProvozu" ColumnName="NazevProvozu" />
+          <ScalarProperty Name="OddeleniVybuchu" ColumnName="OddeleniVybuchu" />
+          <ScalarProperty Name="PotlaceniVybuchu" ColumnName="PotlaceniVybuchu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Umisteni">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Umisteni)">
+        <MappingFragment StoreEntitySet="Umisteni">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProvozId" ColumnName="ProvozId" />
+          <ScalarProperty Name="NazevUmisteni" ColumnName="NazevUmisteni" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
