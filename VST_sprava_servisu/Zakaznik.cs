@@ -19,6 +19,7 @@ namespace VST_sprava_servisu
         {
             this.DIC = "20";
             this.Provoz = new HashSet<Provoz>();
+            this.KontakniOsoba = new HashSet<KontakniOsoba>();
         }
     
         public int Id { get; set; }
@@ -37,5 +38,7 @@ namespace VST_sprava_servisu
         public virtual Jazyk Jazyk { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Provoz> Provoz { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KontakniOsoba> KontakniOsoba { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/09/2017 14:36:34
+-- Date Created: 11/09/2017 16:31:33
 -- Generated from EDMX file: C:\Users\novakp\documents\visual studio 2017\Projects\VST_sprava_servisu\VST_sprava_servisu\Model1.edmx
 -- --------------------------------------------------
 
@@ -18,36 +18,81 @@ GO
 -- --------------------------------------------------
 
 IF OBJECT_ID(N'[dbo].[FK_RegionZakaznik]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ZakaznikSet] DROP CONSTRAINT [FK_RegionZakaznik];
+    ALTER TABLE [dbo].[Zakaznik] DROP CONSTRAINT [FK_RegionZakaznik];
 GO
 IF OBJECT_ID(N'[dbo].[FK_JazykZakaznik]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ZakaznikSet] DROP CONSTRAINT [FK_JazykZakaznik];
+    ALTER TABLE [dbo].[Zakaznik] DROP CONSTRAINT [FK_JazykZakaznik];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ProvozZakaznik]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProvozSet] DROP CONSTRAINT [FK_ProvozZakaznik];
+    ALTER TABLE [dbo].[Provoz] DROP CONSTRAINT [FK_ProvozZakaznik];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UmisteniProvoz]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UmisteniSet] DROP CONSTRAINT [FK_UmisteniProvoz];
+    ALTER TABLE [dbo].[Umisteni] DROP CONSTRAINT [FK_UmisteniProvoz];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SerioveCisloArtikl]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SerioveCislo] DROP CONSTRAINT [FK_SerioveCisloArtikl];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProvozSCProvozu]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SCProvozu] DROP CONSTRAINT [FK_ProvozSCProvozu];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SerioveCisloSCProvozu]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SCProvozu] DROP CONSTRAINT [FK_SerioveCisloSCProvozu];
+GO
+IF OBJECT_ID(N'[dbo].[FK_StatusSCProvozu]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SCProvozu] DROP CONSTRAINT [FK_StatusSCProvozu];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProvozRevize]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Revize] DROP CONSTRAINT [FK_ProvozRevize];
+GO
+IF OBJECT_ID(N'[dbo].[FK_StatusRevizeRevize]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Revize] DROP CONSTRAINT [FK_StatusRevizeRevize];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RevizeSCRevize]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RevizeSC] DROP CONSTRAINT [FK_RevizeSCRevize];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RevizeSCSCProvozu]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RevizeSC] DROP CONSTRAINT [FK_RevizeSCSCProvozu];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[RegionSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[RegionSet];
+IF OBJECT_ID(N'[dbo].[Region]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Region];
 GO
-IF OBJECT_ID(N'[dbo].[ZakaznikSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ZakaznikSet];
+IF OBJECT_ID(N'[dbo].[Zakaznik]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Zakaznik];
 GO
-IF OBJECT_ID(N'[dbo].[JazykSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[JazykSet];
+IF OBJECT_ID(N'[dbo].[Jazyk]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Jazyk];
 GO
-IF OBJECT_ID(N'[dbo].[ProvozSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ProvozSet];
+IF OBJECT_ID(N'[dbo].[Provoz]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Provoz];
 GO
-IF OBJECT_ID(N'[dbo].[UmisteniSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UmisteniSet];
+IF OBJECT_ID(N'[dbo].[Umisteni]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Umisteni];
+GO
+IF OBJECT_ID(N'[dbo].[Artikl]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Artikl];
+GO
+IF OBJECT_ID(N'[dbo].[SerioveCislo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SerioveCislo];
+GO
+IF OBJECT_ID(N'[dbo].[SCProvozu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SCProvozu];
+GO
+IF OBJECT_ID(N'[dbo].[Status]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Status];
+GO
+IF OBJECT_ID(N'[dbo].[Revize]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Revize];
+GO
+IF OBJECT_ID(N'[dbo].[StatusRevize]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[StatusRevize];
+GO
+IF OBJECT_ID(N'[dbo].[RevizeSC]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RevizeSC];
 GO
 
 -- --------------------------------------------------
@@ -102,6 +147,83 @@ CREATE TABLE [dbo].[Umisteni] (
 );
 GO
 
+-- Creating table 'Artikl'
+CREATE TABLE [dbo].[Artikl] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Nazev] nvarchar(max)  NOT NULL,
+    [Oznaceni] nvarchar(max)  NOT NULL,
+    [Typ] nvarchar(max)  NOT NULL,
+    [RozsahProvoznichTeplot] nvarchar(max)  NOT NULL,
+    [KodSAP] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'SerioveCislo'
+CREATE TABLE [dbo].[SerioveCislo] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ArtiklId] int  NOT NULL,
+    [DatumVyroby] datetime  NOT NULL,
+    [DatumPosledniTlakoveZkousky] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'SCProvozu'
+CREATE TABLE [dbo].[SCProvozu] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ProvozId] int  NOT NULL,
+    [SerioveCisloId] int  NOT NULL,
+    [StatusId] int  NOT NULL,
+    [DatumPrirazeni] datetime  NOT NULL,
+    [DatumPosledniZmeny] datetime  NOT NULL,
+    [DatumVymeny] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'Status'
+CREATE TABLE [dbo].[Status] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [NazevStatusu] nvarchar(max)  NOT NULL,
+    [Aktivni] bit  NOT NULL,
+    [Neaktivni] bit  NOT NULL
+);
+GO
+
+-- Creating table 'Revize'
+CREATE TABLE [dbo].[Revize] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ProvozId] int  NOT NULL,
+    [DatumRevize] datetime  NOT NULL,
+    [StatusRevizeId] int  NOT NULL,
+    [DatumVystaveni] datetime  NOT NULL,
+    [ZjistenyStav] nvarchar(max)  NOT NULL,
+    [ProvedeneZasahy] nvarchar(max)  NOT NULL,
+    [OpatreniKOdstraneni] nvarchar(max)  NOT NULL,
+    [KontrolaProvedenaDne] datetime  NOT NULL,
+    [PristiKontrola] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'StatusRevize'
+CREATE TABLE [dbo].[StatusRevize] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [NazevStatusuRevize] nvarchar(max)  NOT NULL,
+    [Planovana] bit  NOT NULL,
+    [Potvrzena] bit  NOT NULL,
+    [Realizovana] bit  NOT NULL
+);
+GO
+
+-- Creating table 'RevizeSC'
+CREATE TABLE [dbo].[RevizeSC] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RevizeId] int  NOT NULL,
+    [SCProvozuId] int  NOT NULL,
+    [StavKoroze] nvarchar(max)  NOT NULL,
+    [StavZnecisteni] nvarchar(max)  NOT NULL,
+    [JineZavady] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -133,6 +255,48 @@ GO
 -- Creating primary key on [Id] in table 'Umisteni'
 ALTER TABLE [dbo].[Umisteni]
 ADD CONSTRAINT [PK_Umisteni]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Artikl'
+ALTER TABLE [dbo].[Artikl]
+ADD CONSTRAINT [PK_Artikl]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SerioveCislo'
+ALTER TABLE [dbo].[SerioveCislo]
+ADD CONSTRAINT [PK_SerioveCislo]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SCProvozu'
+ALTER TABLE [dbo].[SCProvozu]
+ADD CONSTRAINT [PK_SCProvozu]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Status'
+ALTER TABLE [dbo].[Status]
+ADD CONSTRAINT [PK_Status]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Revize'
+ALTER TABLE [dbo].[Revize]
+ADD CONSTRAINT [PK_Revize]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'StatusRevize'
+ALTER TABLE [dbo].[StatusRevize]
+ADD CONSTRAINT [PK_StatusRevize]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'RevizeSC'
+ALTER TABLE [dbo].[RevizeSC]
+ADD CONSTRAINT [PK_RevizeSC]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -198,6 +362,126 @@ GO
 CREATE INDEX [IX_FK_UmisteniProvoz]
 ON [dbo].[Umisteni]
     ([ProvozId]);
+GO
+
+-- Creating foreign key on [ArtiklId] in table 'SerioveCislo'
+ALTER TABLE [dbo].[SerioveCislo]
+ADD CONSTRAINT [FK_SerioveCisloArtikl]
+    FOREIGN KEY ([ArtiklId])
+    REFERENCES [dbo].[Artikl]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SerioveCisloArtikl'
+CREATE INDEX [IX_FK_SerioveCisloArtikl]
+ON [dbo].[SerioveCislo]
+    ([ArtiklId]);
+GO
+
+-- Creating foreign key on [ProvozId] in table 'SCProvozu'
+ALTER TABLE [dbo].[SCProvozu]
+ADD CONSTRAINT [FK_ProvozSCProvozu]
+    FOREIGN KEY ([ProvozId])
+    REFERENCES [dbo].[Provoz]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProvozSCProvozu'
+CREATE INDEX [IX_FK_ProvozSCProvozu]
+ON [dbo].[SCProvozu]
+    ([ProvozId]);
+GO
+
+-- Creating foreign key on [SerioveCisloId] in table 'SCProvozu'
+ALTER TABLE [dbo].[SCProvozu]
+ADD CONSTRAINT [FK_SerioveCisloSCProvozu]
+    FOREIGN KEY ([SerioveCisloId])
+    REFERENCES [dbo].[SerioveCislo]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SerioveCisloSCProvozu'
+CREATE INDEX [IX_FK_SerioveCisloSCProvozu]
+ON [dbo].[SCProvozu]
+    ([SerioveCisloId]);
+GO
+
+-- Creating foreign key on [StatusId] in table 'SCProvozu'
+ALTER TABLE [dbo].[SCProvozu]
+ADD CONSTRAINT [FK_StatusSCProvozu]
+    FOREIGN KEY ([StatusId])
+    REFERENCES [dbo].[Status]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_StatusSCProvozu'
+CREATE INDEX [IX_FK_StatusSCProvozu]
+ON [dbo].[SCProvozu]
+    ([StatusId]);
+GO
+
+-- Creating foreign key on [ProvozId] in table 'Revize'
+ALTER TABLE [dbo].[Revize]
+ADD CONSTRAINT [FK_ProvozRevize]
+    FOREIGN KEY ([ProvozId])
+    REFERENCES [dbo].[Provoz]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProvozRevize'
+CREATE INDEX [IX_FK_ProvozRevize]
+ON [dbo].[Revize]
+    ([ProvozId]);
+GO
+
+-- Creating foreign key on [StatusRevizeId] in table 'Revize'
+ALTER TABLE [dbo].[Revize]
+ADD CONSTRAINT [FK_StatusRevizeRevize]
+    FOREIGN KEY ([StatusRevizeId])
+    REFERENCES [dbo].[StatusRevize]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_StatusRevizeRevize'
+CREATE INDEX [IX_FK_StatusRevizeRevize]
+ON [dbo].[Revize]
+    ([StatusRevizeId]);
+GO
+
+-- Creating foreign key on [RevizeId] in table 'RevizeSC'
+ALTER TABLE [dbo].[RevizeSC]
+ADD CONSTRAINT [FK_RevizeSCRevize]
+    FOREIGN KEY ([RevizeId])
+    REFERENCES [dbo].[Revize]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RevizeSCRevize'
+CREATE INDEX [IX_FK_RevizeSCRevize]
+ON [dbo].[RevizeSC]
+    ([RevizeId]);
+GO
+
+-- Creating foreign key on [SCProvozuId] in table 'RevizeSC'
+ALTER TABLE [dbo].[RevizeSC]
+ADD CONSTRAINT [FK_RevizeSCSCProvozu]
+    FOREIGN KEY ([SCProvozuId])
+    REFERENCES [dbo].[SCProvozu]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RevizeSCSCProvozu'
+CREATE INDEX [IX_FK_RevizeSCSCProvozu]
+ON [dbo].[RevizeSC]
+    ([SCProvozuId]);
 GO
 
 -- --------------------------------------------------

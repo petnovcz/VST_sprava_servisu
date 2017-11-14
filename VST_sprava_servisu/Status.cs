@@ -12,27 +12,19 @@ namespace VST_sprava_servisu
     using System;
     using System.Collections.Generic;
     
-    public partial class Provoz
+    public partial class Status
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Provoz()
+        public Status()
         {
-            this.Umisteni = new HashSet<Umisteni>();
-            this.Revize = new HashSet<Revize>();
             this.SCProvozu = new HashSet<SCProvozu>();
         }
     
         public int Id { get; set; }
-        public int ZakaznikId { get; set; }
-        public string NazevProvozu { get; set; }
-        public bool OddeleniVybuchu { get; set; }
-        public bool PotlaceniVybuchu { get; set; }
+        public string NazevStatusu { get; set; }
+        public bool Aktivni { get; set; }
+        public bool Neaktivni { get; set; }
     
-        public virtual Zakaznik Zakaznik { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Umisteni> Umisteni { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Revize> Revize { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SCProvozu> SCProvozu { get; set; }
     }

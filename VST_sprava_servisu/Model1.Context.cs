@@ -30,5 +30,13 @@ namespace VST_sprava_servisu
         public virtual DbSet<Jazyk> Jazyk { get; set; }
         public virtual DbSet<Provoz> Provoz { get; set; }
         public virtual DbSet<Umisteni> Umisteni { get; set; }
+        public virtual DbSet<Artikl> Artikl { get; set; }
+        public virtual DbSet<Revize> Revize { get; set; }
+        public virtual DbSet<RevizeSC> RevizeSC { get; set; }
+        public virtual DbSet<SCProvozu> SCProvozu { get; set; }
+        public virtual DbSet<SerioveCislo> SerioveCislo { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<StatusRevize> StatusRevize { get; set; }
+        public virtual DbSet<KontakniOsoba> KontakniOsoba { get; set; }
     }
 }

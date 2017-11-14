@@ -18,8 +18,38 @@ namespace VST_sprava_servisu.Controllers
         public ActionResult Index()
         {
             string[] args = { "fdsfdsfsd", "fdfs" };
-            Main(args);
-            Main2(args);
+            //Main(args);
+            //Main2(args);
+
+            try
+            {
+                SAPbobsCOM.Company oCompany = new SAPbobsCOM.Company();
+                oCompany.CompanyDB = "SBO_SKOLENI";
+                oCompany.Server = "SQL";
+                oCompany.LicenseServer = "SQL:30000";
+                oCompany.DbUserName = "sa";
+                oCompany.DbPassword = "*2012Versino";
+                oCompany.UserName = "novakp";
+                oCompany.Password = "Celtic.13";
+                oCompany.DbServerType = SAPbobsCOM.BoDataServerTypes.dst_MSSQL2008;
+                oCompany.UseTrusted = true;
+                int ret = oCompany.Connect();
+                string ErrMsg = oCompany.GetLastErrorDescription();
+                int ErrNo = oCompany.GetLastErrorCode();
+                if (ErrNo != 0)
+                {
+                    ViewBag.ErrMsg = ErrMsg;
+                }
+                else
+                {
+                    ViewBag.ErrMsg = "Connected succesfully to SAP Business One";
+                }
+            }
+            catch (Exception Errmsg) { throw Errmsg; }
+
+
+
+
             return View();
         }
 
@@ -36,6 +66,13 @@ namespace VST_sprava_servisu.Controllers
 
             return View();
         }
+
+        static void SAP()
+        {
+            
+
+        }
+
         static void Main(string[] args)
         {
             // Create a new PDF document

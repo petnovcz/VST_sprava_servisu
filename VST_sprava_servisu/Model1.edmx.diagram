@@ -14,6 +14,23 @@
         <AssociationConnector Association="Model1.ProvozZakaznik" />
         <EntityTypeShape EntityType="Model1.Umisteni" Width="1.5" PointX="7.125" PointY="0.625" />
         <AssociationConnector Association="Model1.UmisteniProvoz" />
+        <EntityTypeShape EntityType="Model1.Artikl" Width="1.5" PointX="4.875" PointY="11.125" />
+        <EntityTypeShape EntityType="Model1.Revize" Width="1.5" PointX="7.375" PointY="4.625" />
+        <EntityTypeShape EntityType="Model1.RevizeSC" Width="1.5" PointX="11.625" PointY="3.125" />
+        <EntityTypeShape EntityType="Model1.SCProvozu" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model1.SerioveCislo" Width="1.5" PointX="7.125" PointY="11.25" />
+        <EntityTypeShape EntityType="Model1.Status" Width="1.5" PointX="7.125" PointY="8.625" />
+        <EntityTypeShape EntityType="Model1.StatusRevize" Width="1.5" PointX="5.125" PointY="14.125" />
+        <AssociationConnector Association="Model1.FK_SerioveCisloArtikl" />
+        <AssociationConnector Association="Model1.FK_ProvozRevize" />
+        <AssociationConnector Association="Model1.FK_ProvozSCProvozu" />
+        <AssociationConnector Association="Model1.FK_RevizeSCRevize" />
+        <AssociationConnector Association="Model1.FK_StatusRevizeRevize" />
+        <AssociationConnector Association="Model1.FK_RevizeSCSCProvozu" />
+        <AssociationConnector Association="Model1.FK_SerioveCisloSCProvozu" />
+        <AssociationConnector Association="Model1.FK_StatusSCProvozu" />
+        <EntityTypeShape EntityType="Model1.KontakniOsoba" Width="1.5" PointX="5.375" PointY="17.375" />
+        <AssociationConnector Association="Model1.FK_ZakaznikKontakniOsoba" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
