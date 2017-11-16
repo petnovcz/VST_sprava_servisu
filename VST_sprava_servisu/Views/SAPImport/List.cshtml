@@ -1,0 +1,36 @@
+﻿@model SAPOPImportParametr
+
+@{
+    ViewBag.Title = "List";
+}
+<div class="jumbotron">
+<h2>Seznam obchodních partnerů v SAP</h2>
+<h4>kteří ještě nebyly naimportovány do servisu</h4>
+<h4>Hledání probíhá dle polí Kód OP, Název OP a fakturační adresy OP</h4>
+</div>
+@using (Ajax.BeginForm("List", "SAPImport", new AjaxOptions
+{
+
+    InsertionMode = InsertionMode.Replace, 
+    UpdateTargetId = "List",
+
+}, new { htmlAttributes = new { @class = "form-inline" } }))
+{
+    string Search = "";
+    <div>
+        <div class="col-lg-3">@Html.EditorFor(x => Search, new { htmlAttributes = new { @class = "form-control " } }) </div>
+        <div class="col-lg-1"><input type="submit" value="Search" class="form-control " /></div>
+    </div>
+
+}
+
+@ViewBag.Result
+
+
+
+@Html.Partial("SAPOPList", Model.ListSAPOP)
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

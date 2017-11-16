@@ -1,0 +1,71 @@
+﻿@model List<SAPOP>
+
+
+@{
+    ViewBag.Title = "SAPOPList";
+}
+
+
+
+<table class="table" id="List">
+    <tr>
+        <th>
+            Kód OP
+        </th>
+        <th>
+            Název OP
+        </th>
+        <th>
+            Address, City,  ZipCode, Country
+        </th>
+        <th>
+            DIC
+        </th>
+        <th>
+            ICO
+        </th>
+        
+        <th>
+            Open
+        </th>
+        <th>
+            Total
+        </th>
+        <th></th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.ZipCode),  @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LicTradNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VatIdUnCmp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Open)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.ActionLink("Importuj do Servisu", "GenerateOPfromSAP", new { kodOP = item.CardCode }) 
+                
+            </td>
+        </tr>
+    }
+
+</table>
