@@ -35,6 +35,20 @@ namespace VST_sprava_servisu
             return View(zakaznik);
         }
 
+        public ActionResult Header(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Zakaznik zakaznik = db.Zakaznik.Find(id);
+            if (zakaznik == null)
+            {
+                return HttpNotFound();
+            }
+            return View(zakaznik);
+        }
+
         // GET: Zakaznici/Create
         public ActionResult Create()
         {

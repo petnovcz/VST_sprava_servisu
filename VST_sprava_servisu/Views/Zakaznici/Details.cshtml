@@ -4,95 +4,20 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Zakaznik</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NazevZakaznika)
-        </dt>
+@Html.Action("Header","Zakaznici",new { Zakaznik = Model.Id })
 
-        <dd>
-            @Html.DisplayFor(model => model.NazevZakaznika)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.KodSAP)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.KodSAP)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IC)
-        </dt>
+<div class="row">
+    <div id="provozy-list" class="col-lg-9">@Html.Action("Index","Provozy",new { Zakaznik = Model.Id})</div>
+    
+    <div class="col-lg-3">Kontaktní osoby (nepřiřažené k provozu)</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.IC)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DIC)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DIC)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefon)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Telefon)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Kontakt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Kontakt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Adresa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Adresa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Region.NazevRegionu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Region.NazevRegionu)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Jazyk.NazevJazyku)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Jazyk.NazevJazyku)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+   
+
+

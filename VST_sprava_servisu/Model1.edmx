@@ -4,367 +4,369 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="Model1StoreContainer">
-    <EntitySet Name="Region" EntityType="Model1.Store.Region" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Zakaznik" EntityType="Model1.Store.Zakaznik" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Jazyk" EntityType="Model1.Store.Jazyk" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Provoz" EntityType="Model1.Store.Provoz" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Umisteni" EntityType="Model1.Store.Umisteni" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Artikl" EntityType="Model1.Store.Artikl" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Revize" EntityType="Model1.Store.Revize" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RevizeSC" EntityType="Model1.Store.RevizeSC" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SCProvozu" EntityType="Model1.Store.SCProvozu" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SerioveCislo" EntityType="Model1.Store.SerioveCislo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Status" EntityType="Model1.Store.Status" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="StatusRevize" EntityType="Model1.Store.StatusRevize" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="KontakniOsoba" EntityType="Model1.Store.KontakniOsoba" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="RegionZakaznik" Association="Model1.Store.RegionZakaznik">
-      <End Role="Region" EntitySet="Region" />
-      <End Role="Zakaznik" EntitySet="Zakaznik" />
-    </AssociationSet>
-    <AssociationSet Name="JazykZakaznik" Association="Model1.Store.JazykZakaznik">
-      <End Role="Jazyk" EntitySet="Jazyk" />
-      <End Role="Zakaznik" EntitySet="Zakaznik" />
-    </AssociationSet>
-    <AssociationSet Name="ProvozZakaznik" Association="Model1.Store.ProvozZakaznik">
-      <End Role="Provoz" EntitySet="Provoz" />
-      <End Role="Zakaznik" EntitySet="Zakaznik" />
-    </AssociationSet>
-    <AssociationSet Name="UmisteniProvoz" Association="Model1.Store.UmisteniProvoz">
-      <End Role="Umisteni" EntitySet="Umisteni" />
-      <End Role="Provoz" EntitySet="Provoz" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SerioveCisloArtikl" Association="Model1.Store.FK_SerioveCisloArtikl">
-      <End Role="Artikl" EntitySet="Artikl" />
-      <End Role="SerioveCislo" EntitySet="SerioveCislo" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProvozRevize" Association="Model1.Store.FK_ProvozRevize">
-      <End Role="Provoz" EntitySet="Provoz" />
-      <End Role="Revize" EntitySet="Revize" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProvozSCProvozu" Association="Model1.Store.FK_ProvozSCProvozu">
-      <End Role="Provoz" EntitySet="Provoz" />
-      <End Role="SCProvozu" EntitySet="SCProvozu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RevizeSCRevize" Association="Model1.Store.FK_RevizeSCRevize">
-      <End Role="Revize" EntitySet="Revize" />
-      <End Role="RevizeSC" EntitySet="RevizeSC" />
-    </AssociationSet>
-    <AssociationSet Name="FK_StatusRevizeRevize" Association="Model1.Store.FK_StatusRevizeRevize">
-      <End Role="StatusRevize" EntitySet="StatusRevize" />
-      <End Role="Revize" EntitySet="Revize" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RevizeSCSCProvozu" Association="Model1.Store.FK_RevizeSCSCProvozu">
-      <End Role="SCProvozu" EntitySet="SCProvozu" />
-      <End Role="RevizeSC" EntitySet="RevizeSC" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SerioveCisloSCProvozu" Association="Model1.Store.FK_SerioveCisloSCProvozu">
-      <End Role="SerioveCislo" EntitySet="SerioveCislo" />
-      <End Role="SCProvozu" EntitySet="SCProvozu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_StatusSCProvozu" Association="Model1.Store.FK_StatusSCProvozu">
-      <End Role="Status" EntitySet="Status" />
-      <End Role="SCProvozu" EntitySet="SCProvozu" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ZakaznikKontakniOsoba" Association="Model1.Store.FK_ZakaznikKontakniOsoba">
-      <End Role="Zakaznik" EntitySet="Zakaznik" />
-      <End Role="KontakniOsoba" EntitySet="KontakniOsoba" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Region">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NazevRegionu" Type="nvarchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Zakaznik">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NazevZakaznika" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="KodSAP" Type="nvarchar" Nullable="false" MaxLength="255" />
-    <Property Name="RegionId" Type="int" Nullable="false" />
-    <Property Name="IC" Type="nvarchar" Nullable="false" MaxLength="20" />
-    <Property Name="DIC" Type="nvarchar(max)" Nullable="false" DefaultValue="20" />
-    <Property Name="Telefon" Type="nvarchar" Nullable="false" MaxLength="25" />
-    <Property Name="Kontakt" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="255" />
-    <Property Name="JazykId" Type="int" Nullable="false" />
-    <Property Name="Adresa" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Jazyk">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NazevJazyku" Type="nvarchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Provoz">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ZakaznikId" Type="int" Nullable="false" />
-    <Property Name="NazevProvozu" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="OddeleniVybuchu" Type="bit" Nullable="false" />
-    <Property Name="PotlaceniVybuchu" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Umisteni">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProvozId" Type="int" Nullable="false" />
-    <Property Name="NazevUmisteni" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Artikl">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nazev" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Oznaceni" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Typ" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="RozsahProvoznichTeplot" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="KodSAP" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Revize">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProvozId" Type="int" Nullable="false" />
-    <Property Name="DatumRevize" Type="datetime" Nullable="false" />
-    <Property Name="StatusRevizeId" Type="int" Nullable="false" />
-    <Property Name="DatumVystaveni" Type="datetime" Nullable="false" />
-    <Property Name="ZjistenyStav" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ProvedeneZasahy" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="OpatreniKOdstraneni" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="KontrolaProvedenaDne" Type="datetime" Nullable="false" />
-    <Property Name="PristiKontrola" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RevizeSC">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RevizeId" Type="int" Nullable="false" />
-    <Property Name="SCProvozuId" Type="int" Nullable="false" />
-    <Property Name="StavKoroze" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="StavZnecisteni" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="JineZavady" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SCProvozu">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProvozId" Type="int" Nullable="false" />
-    <Property Name="SerioveCisloId" Type="int" Nullable="false" />
-    <Property Name="StatusId" Type="int" Nullable="false" />
-    <Property Name="DatumPrirazeni" Type="datetime" Nullable="false" />
-    <Property Name="DatumPosledniZmeny" Type="datetime" Nullable="false" />
-    <Property Name="DatumVymeny" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SerioveCislo">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ArtiklId" Type="int" Nullable="false" />
-    <Property Name="DatumVyroby" Type="datetime" Nullable="false" />
-    <Property Name="DatumPosledniTlakoveZkousky" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Status">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NazevStatusu" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Aktivni" Type="bit" Nullable="false" />
-    <Property Name="Neaktivni" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="StatusRevize">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NazevStatusuRevize" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Planovana" Type="bit" Nullable="false" />
-    <Property Name="Potvrzena" Type="bit" Nullable="false" />
-    <Property Name="Realizovana" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="KontakniOsoba">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ZakaznikId" Type="int" Nullable="false" />
-    <Property Name="JmenoPrijmeni" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Pozice" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Telefon" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <Association Name="RegionZakaznik">
-    <End Role="Region" Type="Model1.Store.Region" Multiplicity="1" />
-    <End Role="Zakaznik" Type="Model1.Store.Zakaznik" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Region">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Zakaznik">
-        <PropertyRef Name="RegionId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="JazykZakaznik">
-    <End Role="Jazyk" Type="Model1.Store.Jazyk" Multiplicity="1" />
-    <End Role="Zakaznik" Type="Model1.Store.Zakaznik" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Jazyk">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Zakaznik">
-        <PropertyRef Name="JazykId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ProvozZakaznik">
-    <End Role="Provoz" Type="Model1.Store.Provoz" Multiplicity="*" />
-    <End Role="Zakaznik" Type="Model1.Store.Zakaznik" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Zakaznik">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Provoz">
-        <PropertyRef Name="ZakaznikId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UmisteniProvoz">
-    <End Role="Umisteni" Type="Model1.Store.Umisteni" Multiplicity="*" />
-    <End Role="Provoz" Type="Model1.Store.Provoz" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Provoz">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Umisteni">
-        <PropertyRef Name="ProvozId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SerioveCisloArtikl">
-    <End Role="Artikl" Type="Model1.Store.Artikl" Multiplicity="1" />
-    <End Role="SerioveCislo" Type="Model1.Store.SerioveCislo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Artikl">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SerioveCislo">
-        <PropertyRef Name="ArtiklId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProvozRevize">
-    <End Role="Provoz" Type="Model1.Store.Provoz" Multiplicity="1" />
-    <End Role="Revize" Type="Model1.Store.Revize" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Provoz">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Revize">
-        <PropertyRef Name="ProvozId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProvozSCProvozu">
-    <End Role="Provoz" Type="Model1.Store.Provoz" Multiplicity="1" />
-    <End Role="SCProvozu" Type="Model1.Store.SCProvozu" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Provoz">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SCProvozu">
-        <PropertyRef Name="ProvozId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RevizeSCRevize">
-    <End Role="Revize" Type="Model1.Store.Revize" Multiplicity="1" />
-    <End Role="RevizeSC" Type="Model1.Store.RevizeSC" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Revize">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="RevizeSC">
-        <PropertyRef Name="RevizeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_StatusRevizeRevize">
-    <End Role="StatusRevize" Type="Model1.Store.StatusRevize" Multiplicity="1" />
-    <End Role="Revize" Type="Model1.Store.Revize" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="StatusRevize">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Revize">
-        <PropertyRef Name="StatusRevizeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RevizeSCSCProvozu">
-    <End Role="SCProvozu" Type="Model1.Store.SCProvozu" Multiplicity="1" />
-    <End Role="RevizeSC" Type="Model1.Store.RevizeSC" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SCProvozu">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="RevizeSC">
-        <PropertyRef Name="SCProvozuId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SerioveCisloSCProvozu">
-    <End Role="SerioveCislo" Type="Model1.Store.SerioveCislo" Multiplicity="1" />
-    <End Role="SCProvozu" Type="Model1.Store.SCProvozu" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SerioveCislo">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SCProvozu">
-        <PropertyRef Name="SerioveCisloId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_StatusSCProvozu">
-    <End Role="Status" Type="Model1.Store.Status" Multiplicity="1" />
-    <End Role="SCProvozu" Type="Model1.Store.SCProvozu" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Status">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SCProvozu">
-        <PropertyRef Name="StatusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ZakaznikKontakniOsoba">
-    <End Role="Zakaznik" Type="Model1.Store.Zakaznik" Multiplicity="1" />
-    <End Role="KontakniOsoba" Type="Model1.Store.KontakniOsoba" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Zakaznik">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="KontakniOsoba">
-        <PropertyRef Name="ZakaznikId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artikl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nazev" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Oznaceni" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Typ" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RozsahProvoznichTeplot" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="KodSAP" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jazyk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NazevJazyku" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KontakniOsoba">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ZakaznikId" Type="int" Nullable="false" />
+          <Property Name="JmenoPrijmeni" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pozice" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Provoz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ZakaznikId" Type="int" Nullable="false" />
+          <Property Name="NazevProvozu" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OddeleniVybuchu" Type="bit" Nullable="false" />
+          <Property Name="PotlaceniVybuchu" Type="bit" Nullable="false" />
+          <Property Name="OdlehceniVybuchu" Type="bit" Nullable="false" />
+          <Property Name="AdresaProvozu" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NazevRegionu" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Revize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProvozId" Type="int" Nullable="false" />
+          <Property Name="DatumRevize" Type="datetime" Nullable="false" />
+          <Property Name="StatusRevizeId" Type="int" Nullable="false" />
+          <Property Name="DatumVystaveni" Type="datetime" Nullable="false" />
+          <Property Name="ZjistenyStav" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProvedeneZasahy" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OpatreniKOdstraneni" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="KontrolaProvedenaDne" Type="datetime" Nullable="false" />
+          <Property Name="PristiKontrola" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RevizeSC">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RevizeId" Type="int" Nullable="false" />
+          <Property Name="SCProvozuId" Type="int" Nullable="false" />
+          <Property Name="StavKoroze" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StavZnecisteni" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="JineZavady" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SCProvozu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProvozId" Type="int" Nullable="false" />
+          <Property Name="SerioveCisloId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="DatumPrirazeni" Type="datetime" Nullable="false" />
+          <Property Name="DatumPosledniZmeny" Type="datetime" Nullable="false" />
+          <Property Name="DatumVymeny" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SerioveCislo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArtiklId" Type="int" Nullable="false" />
+          <Property Name="DatumVyroby" Type="datetime" Nullable="false" />
+          <Property Name="DatumPosledniTlakoveZkousky" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazevStatusu" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Aktivni" Type="bit" Nullable="false" />
+          <Property Name="Neaktivni" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusRevize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazevStatusuRevize" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Planovana" Type="bit" Nullable="false" />
+          <Property Name="Potvrzena" Type="bit" Nullable="false" />
+          <Property Name="Realizovana" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Umisteni">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProvozId" Type="int" Nullable="false" />
+          <Property Name="NazevUmisteni" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zakaznik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazevZakaznika" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="KodSAP" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegionId" Type="int" Nullable="false" />
+          <Property Name="IC" Type="nvarchar" MaxLength="20" />
+          <Property Name="DIC" Type="nvarchar(max)" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="25" />
+          <Property Name="Kontakt" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="JazykId" Type="int" Nullable="false" />
+          <Property Name="Adresa" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_JazykZakaznik">
+          <End Role="Jazyk" Type="Self.Jazyk" Multiplicity="1" />
+          <End Role="Zakaznik" Type="Self.Zakaznik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jazyk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zakaznik">
+              <PropertyRef Name="JazykId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvozRevize">
+          <End Role="Provoz" Type="Self.Provoz" Multiplicity="1" />
+          <End Role="Revize" Type="Self.Revize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provoz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Revize">
+              <PropertyRef Name="ProvozId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvozSCProvozu">
+          <End Role="Provoz" Type="Self.Provoz" Multiplicity="1" />
+          <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provoz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SCProvozu">
+              <PropertyRef Name="ProvozId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvozZakaznik">
+          <End Role="Zakaznik" Type="Self.Zakaznik" Multiplicity="1" />
+          <End Role="Provoz" Type="Self.Provoz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaznik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Provoz">
+              <PropertyRef Name="ZakaznikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegionZakaznik">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="Zakaznik" Type="Self.Zakaznik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zakaznik">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevizeSCRevize">
+          <End Role="Revize" Type="Self.Revize" Multiplicity="1" />
+          <End Role="RevizeSC" Type="Self.RevizeSC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Revize">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RevizeSC">
+              <PropertyRef Name="RevizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevizeSCSCProvozu">
+          <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="1" />
+          <End Role="RevizeSC" Type="Self.RevizeSC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCProvozu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RevizeSC">
+              <PropertyRef Name="SCProvozuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerioveCisloArtikl">
+          <End Role="Artikl" Type="Self.Artikl" Multiplicity="1" />
+          <End Role="SerioveCislo" Type="Self.SerioveCislo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SerioveCislo">
+              <PropertyRef Name="ArtiklId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerioveCisloSCProvozu">
+          <End Role="SerioveCislo" Type="Self.SerioveCislo" Multiplicity="1" />
+          <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SerioveCislo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SCProvozu">
+              <PropertyRef Name="SerioveCisloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatusRevizeRevize">
+          <End Role="StatusRevize" Type="Self.StatusRevize" Multiplicity="1" />
+          <End Role="Revize" Type="Self.Revize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusRevize">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Revize">
+              <PropertyRef Name="StatusRevizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatusSCProvozu">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SCProvozu">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UmisteniProvoz">
+          <End Role="Provoz" Type="Self.Provoz" Multiplicity="1" />
+          <End Role="Umisteni" Type="Self.Umisteni" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provoz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Umisteni">
+              <PropertyRef Name="ProvozId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZakaznikKontakniOsoba">
+          <End Role="Zakaznik" Type="Self.Zakaznik" Multiplicity="1" />
+          <End Role="KontakniOsoba" Type="Self.KontakniOsoba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaznik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KontakniOsoba">
+              <PropertyRef Name="ZakaznikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="Artikl" EntityType="Self.Artikl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jazyk" EntityType="Self.Jazyk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KontakniOsoba" EntityType="Self.KontakniOsoba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provoz" EntityType="Self.Provoz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Revize" EntityType="Self.Revize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RevizeSC" EntityType="Self.RevizeSC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCProvozu" EntityType="Self.SCProvozu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SerioveCislo" EntityType="Self.SerioveCislo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusRevize" EntityType="Self.StatusRevize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Umisteni" EntityType="Self.Umisteni" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zakaznik" EntityType="Self.Zakaznik" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_JazykZakaznik" Association="Self.FK_JazykZakaznik">
+            <End Role="Jazyk" EntitySet="Jazyk" />
+            <End Role="Zakaznik" EntitySet="Zakaznik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvozRevize" Association="Self.FK_ProvozRevize">
+            <End Role="Provoz" EntitySet="Provoz" />
+            <End Role="Revize" EntitySet="Revize" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvozSCProvozu" Association="Self.FK_ProvozSCProvozu">
+            <End Role="Provoz" EntitySet="Provoz" />
+            <End Role="SCProvozu" EntitySet="SCProvozu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvozZakaznik" Association="Self.FK_ProvozZakaznik">
+            <End Role="Zakaznik" EntitySet="Zakaznik" />
+            <End Role="Provoz" EntitySet="Provoz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionZakaznik" Association="Self.FK_RegionZakaznik">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Zakaznik" EntitySet="Zakaznik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevizeSCRevize" Association="Self.FK_RevizeSCRevize">
+            <End Role="Revize" EntitySet="Revize" />
+            <End Role="RevizeSC" EntitySet="RevizeSC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevizeSCSCProvozu" Association="Self.FK_RevizeSCSCProvozu">
+            <End Role="SCProvozu" EntitySet="SCProvozu" />
+            <End Role="RevizeSC" EntitySet="RevizeSC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerioveCisloArtikl" Association="Self.FK_SerioveCisloArtikl">
+            <End Role="Artikl" EntitySet="Artikl" />
+            <End Role="SerioveCislo" EntitySet="SerioveCislo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerioveCisloSCProvozu" Association="Self.FK_SerioveCisloSCProvozu">
+            <End Role="SerioveCislo" EntitySet="SerioveCislo" />
+            <End Role="SCProvozu" EntitySet="SCProvozu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusRevizeRevize" Association="Self.FK_StatusRevizeRevize">
+            <End Role="StatusRevize" EntitySet="StatusRevize" />
+            <End Role="Revize" EntitySet="Revize" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusSCProvozu" Association="Self.FK_StatusSCProvozu">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="SCProvozu" EntitySet="SCProvozu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UmisteniProvoz" Association="Self.FK_UmisteniProvoz">
+            <End Role="Provoz" EntitySet="Provoz" />
+            <End Role="Umisteni" EntitySet="Umisteni" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZakaznikKontakniOsoba" Association="Self.FK_ZakaznikKontakniOsoba">
+            <End Role="Zakaznik" EntitySet="Zakaznik" />
+            <End Role="KontakniOsoba" EntitySet="KontakniOsoba" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -452,14 +454,14 @@
           <Property Name="KodSAP" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Region" Relationship="Model1.RegionZakaznik" FromRole="Zakaznik" ToRole="Region" />
           <Property Name="RegionId" Type="Int32" Nullable="false" />
-          <Property Name="IC" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-          <Property Name="DIC" Type="String" Nullable="false" DefaultValue="20" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
-          <Property Name="Kontakt" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="IC" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="DIC" Type="String" DefaultValue="20" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Telefon" Type="String" MaxLength="25" Unicode="true" FixedLength="false" />
+          <Property Name="Kontakt" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Jazyk" Relationship="Model1.JazykZakaznik" FromRole="Zakaznik" ToRole="Jazyk" />
           <Property Name="JazykId" Type="Int32" Nullable="false" />
-          <Property Name="Adresa" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Adresa" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Provoz" Relationship="Model1.ProvozZakaznik" FromRole="Zakaznik" ToRole="Provoz" />
           <NavigationProperty Name="KontakniOsoba" Relationship="Model1.FK_ZakaznikKontakniOsoba" FromRole="Zakaznik" ToRole="KontakniOsoba" />
         </EntityType>
@@ -508,6 +510,8 @@
           <Property Name="PotlaceniVybuchu" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Revize" Relationship="Model1.FK_ProvozRevize" FromRole="Provoz" ToRole="Revize" />
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_ProvozSCProvozu" FromRole="Provoz" ToRole="SCProvozu" />
+          <Property Name="OdlehceniVybuchu" Type="Boolean" Nullable="false" />
+          <Property Name="AdresaProvozu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="ProvozZakaznik">
           <End Type="Model1.Provoz" Role="Provoz" Multiplicity="*" />
@@ -795,7 +799,9 @@
     <EntitySetMapping Name="Provoz">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Provoz)">
         <MappingFragment StoreEntitySet="Provoz">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AdresaProvozu" ColumnName="AdresaProvozu" />
+                <ScalarProperty Name="OdlehceniVybuchu" ColumnName="OdlehceniVybuchu" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ZakaznikId" ColumnName="ZakaznikId" />
           <ScalarProperty Name="NazevProvozu" ColumnName="NazevProvozu" />
           <ScalarProperty Name="OddeleniVybuchu" ColumnName="OddeleniVybuchu" />

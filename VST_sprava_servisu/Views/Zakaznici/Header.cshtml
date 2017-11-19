@@ -1,0 +1,55 @@
+﻿@model VST_sprava_servisu.Zakaznik
+@{
+    Layout = "";
+}
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row" style="background-color:#f2f2f2">
+
+    <div class="col-lg-5" style="background-color:#f2f2f2">
+        <h2>@Html.DisplayFor(model => model.NazevZakaznika)</h2>
+        <h4>@Html.DisplayFor(model => model.KodSAP)</h4>
+        <h6>@Html.DisplayFor(model => model.Adresa)</h6>
+    </div>
+    <div class="col-lg-5" style="background-color:#f2f2f2">
+        <br>
+        <div class="row" style="background-color:#f2f2f2">
+            <div class="col-lg-2">DIČ</div><div class="col-lg-4">@Html.DisplayFor(model => model.DIC)</div>
+            <div class="col-lg-2">IČO</div><div class="col-lg-4">@Html.DisplayFor(model => model.IC)</div>
+            <div class="col-lg-2">Telefon</div><div class="col-lg-4">@Html.DisplayFor(model => model.Telefon)</div>
+            <div class="col-lg-2">Email</div><div class="col-lg-4">@Html.DisplayFor(model => model.Email)</div>
+            <div class="col-lg-2">Region</div><div class="col-lg-4">@Html.DisplayFor(model => model.Region.NazevRegionu)</div>
+            <div class="col-lg-2">Jazyk</div><div class="col-lg-4">@Html.DisplayFor(model => model.Jazyk.NazevJazyku)</div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-2">
+       <div class="row">
+           <br>
+            @Html.ActionLink("Edituj", "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-block btn-xs" }) 
+            @Html.ActionLink("Zpět na seznam", "Index", null, new { @class = "btn btn-default btn-block btn-xs" })
+        </div>
+    </div>
+
+
+
+
+
+</div>
+<hr>
+<div class="row">
+   
+    <div class="col-lg-2">@Html.ActionLink("Hlavní strana", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })</div>
+    <div class="col-lg-2">@Html.ActionLink("Nový provoz", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-block" })</div>
+
+    <div class="col-lg-3">Kontaktní osoby (nepřiřažené k provozu)</div>
+    
+</div>
+<hr>

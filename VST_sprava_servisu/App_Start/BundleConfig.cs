@@ -9,10 +9,15 @@ namespace VST_sprava_servisu
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-1.12.4.min.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+            "~/Scripts/jquery-ui-1.12.1.js"));
+
 
             // Použijte k vývoji a k získání informací vývojovou verzi produktu Modernizr. Až budete
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -22,6 +27,11 @@ namespace VST_sprava_servisu
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+
+            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+        "~/Content/themes/base/jquery.ui.core.css",
+        "~/Content/themes/base/jquery.ui.autocomplete.css",
+        "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
