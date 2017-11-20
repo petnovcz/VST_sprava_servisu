@@ -16,8 +16,8 @@ namespace VST_sprava_servisu
         // GET: KontaktniOsoby
         public ActionResult Index(int Zakaznik)
         {
-            var kontakniOsoba = db.KontakniOsoba.Include(k => k.Zakaznik).Include(k => k.Provoz);
-            kontakniOsoba.Where(m => m.ZakaznikId == Zakaznik);
+            var kontakniOsoba = db.KontakniOsoba.Include(k => k.Provoz).Include(k => k.Zakaznik).Where(k=>k.ZakaznikId == Zakaznik);
+            ViewBag.Zakaznik = Zakaznik;
             return View(kontakniOsoba.ToList());
         }
 
@@ -33,14 +33,16 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+
             return View(kontakniOsoba);
         }
 
         // GET: KontaktniOsoby/Create
         public ActionResult Create(int Zakaznik)
         {
-            ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", Zakaznik);
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m=>m.ZakaznikId == Zakaznik), "Id", "NazevProvozu");
+            ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", Zakaznik);
+            ViewBag.Zakaznik = Zakaznik;
             return View();
         }
 
@@ -58,8 +60,8 @@ namespace VST_sprava_servisu
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", kontakniOsoba.ProvozId);
             ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", kontakniOsoba.ZakaznikId);
-            ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.ZakaznikId == kontakniOsoba.ZakaznikId), "Id", "NazevProvozu", kontakniOsoba.ProvozId);
             return View(kontakniOsoba);
         }
 
@@ -75,8 +77,8 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", kontakniOsoba.ProvozId);
             ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", kontakniOsoba.ZakaznikId);
-            ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.ZakaznikId == kontakniOsoba.ZakaznikId), "Id", "NazevProvozu", kontakniOsoba.ProvozId);
             return View(kontakniOsoba);
         }
 
@@ -93,8 +95,8 @@ namespace VST_sprava_servisu
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", kontakniOsoba.ProvozId);
             ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", kontakniOsoba.ZakaznikId);
-            ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.ZakaznikId == kontakniOsoba.ZakaznikId), "Id", "NazevProvozu", kontakniOsoba.ProvozId);
             return View(kontakniOsoba);
         }
 

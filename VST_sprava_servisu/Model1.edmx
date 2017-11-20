@@ -34,7 +34,7 @@
           <Property Name="Telefon" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="SAPId" Type="int" />
-          <Property Name="Provoz" Type="int" />
+          <Property Name="ProvozId" Type="int" />
         </EntityType>
         <EntityType Name="Provoz">
           <Key>
@@ -155,6 +155,18 @@
             </Principal>
             <Dependent Role="Zakaznik">
               <PropertyRef Name="JazykId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvozKontakniOsoba">
+          <End Role="Provoz" Type="Self.Provoz" Multiplicity="0..1" />
+          <End Role="KontakniOsoba" Type="Self.KontakniOsoba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provoz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KontakniOsoba">
+              <PropertyRef Name="ProvozId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -320,6 +332,10 @@
             <End Role="Jazyk" EntitySet="Jazyk" />
             <End Role="Zakaznik" EntitySet="Zakaznik" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProvozKontakniOsoba" Association="Self.FK_ProvozKontakniOsoba">
+            <End Role="Provoz" EntitySet="Provoz" />
+            <End Role="KontakniOsoba" EntitySet="KontakniOsoba" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProvozRevize" Association="Self.FK_ProvozRevize">
             <End Role="Provoz" EntitySet="Provoz" />
             <End Role="Revize" EntitySet="Revize" />
@@ -435,12 +451,12 @@
             <End Role="SCProvozu" EntitySet="SCProvozu" />
           </AssociationSet>
           <EntitySet Name="KontakniOsoba" EntityType="Model1.KontakniOsoba" />
-          <AssociationSet Name="FK_ZakaznikKontakniOsoba" Association="Model1.FK_ZakaznikKontakniOsoba">
-            <End Role="Zakaznik" EntitySet="Zakaznik" />
+          <AssociationSet Name="FK_ProvozKontakniOsoba" Association="Model1.FK_ProvozKontakniOsoba">
+            <End Role="Provoz" EntitySet="Provoz" />
             <End Role="KontakniOsoba" EntitySet="KontakniOsoba" />
           </AssociationSet>
-          <AssociationSet Name="ProvozKontakniOsoba" Association="Model1.ProvozKontakniOsoba">
-            <End Role="Provoz" EntitySet="Provoz" />
+          <AssociationSet Name="FK_ZakaznikKontakniOsoba" Association="Model1.FK_ZakaznikKontakniOsoba">
+            <End Role="Zakaznik" EntitySet="Zakaznik" />
             <End Role="KontakniOsoba" EntitySet="KontakniOsoba" />
           </AssociationSet>
         </EntityContainer>
@@ -520,7 +536,7 @@
           <Property Name="OdlehceniVybuchu" Type="Boolean" Nullable="false" />
           <Property Name="AdresaProvozu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SAPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="KontakniOsoba" Relationship="Model1.ProvozKontakniOsoba" FromRole="Provoz" ToRole="KontakniOsoba" />
+          <NavigationProperty Name="KontakniOsoba" Relationship="Model1.FK_ProvozKontakniOsoba" FromRole="Provoz" ToRole="KontakniOsoba" />
         </EntityType>
         <Association Name="ProvozZakaznik">
           <End Type="Model1.Provoz" Role="Provoz" Multiplicity="*" />
@@ -752,11 +768,23 @@
           <Property Name="Pozice" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Telefon" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Zakaznik" Relationship="Model1.FK_ZakaznikKontakniOsoba" FromRole="KontakniOsoba" ToRole="Zakaznik" />
           <Property Name="SAPId" Type="Int32" />
-          <NavigationProperty Name="Provoz" Relationship="Model1.ProvozKontakniOsoba" FromRole="KontakniOsoba" ToRole="Provoz" />
-          <Property Name="ProvozId" Type="Int32" Nullable="false" />
+          <Property Name="ProvozId" Type="Int32" />
+          <NavigationProperty Name="Provoz" Relationship="Model1.FK_ProvozKontakniOsoba" FromRole="KontakniOsoba" ToRole="Provoz" />
+          <NavigationProperty Name="Zakaznik" Relationship="Model1.FK_ZakaznikKontakniOsoba" FromRole="KontakniOsoba" ToRole="Zakaznik" />
         </EntityType>
+        <Association Name="FK_ProvozKontakniOsoba">
+          <End Type="Model1.Provoz" Role="Provoz" Multiplicity="0..1" />
+          <End Type="Model1.KontakniOsoba" Role="KontakniOsoba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provoz">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KontakniOsoba">
+              <PropertyRef Name="ProvozId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ZakaznikKontakniOsoba">
           <End Type="Model1.Zakaznik" Role="Zakaznik" Multiplicity="1" />
           <End Type="Model1.KontakniOsoba" Role="KontakniOsoba" Multiplicity="*" />
@@ -766,18 +794,6 @@
             </Principal>
             <Dependent Role="KontakniOsoba">
               <PropertyRef Name="ZakaznikId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ProvozKontakniOsoba">
-          <End Type="Model1.Provoz" Role="Provoz" Multiplicity="1" />
-          <End Type="Model1.KontakniOsoba" Role="KontakniOsoba" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provoz">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="KontakniOsoba">
-              <PropertyRef Name="ProvozId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -927,19 +943,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="KontakniOsoba">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.KontakniOsoba)">
-        <MappingFragment StoreEntitySet="KontakniOsoba">
+          <EntitySetMapping Name="KontakniOsoba">
+            <EntityTypeMapping TypeName="Model1.KontakniOsoba">
+              <MappingFragment StoreEntitySet="KontakniOsoba">
+                <ScalarProperty Name="ProvozId" ColumnName="ProvozId" />
                 <ScalarProperty Name="SAPId" ColumnName="SAPId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Pozice" ColumnName="Pozice" />
+                <ScalarProperty Name="JmenoPrijmeni" ColumnName="JmenoPrijmeni" />
+                <ScalarProperty Name="ZakaznikId" ColumnName="ZakaznikId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="ZakaznikId" ColumnName="ZakaznikId" />
-          <ScalarProperty Name="JmenoPrijmeni" ColumnName="JmenoPrijmeni" />
-          <ScalarProperty Name="Pozice" ColumnName="Pozice" />
-          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

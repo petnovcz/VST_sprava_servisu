@@ -49,6 +49,8 @@ namespace VST_sprava_servisu
             return View(zakaznik);
         }
 
+
+
         // GET: Zakaznici/Create
         public ActionResult Create()
         {
@@ -137,15 +139,6 @@ namespace VST_sprava_servisu
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         public bool CreateFromSAPdata(SAPOP sapOP)
         {
 
@@ -165,13 +158,40 @@ namespace VST_sprava_servisu
                 db.Zakaznik.Add(zakaznik);
                 db.SaveChanges();
             }
-            
-           
 
-            
+
+
+
             return true;
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
