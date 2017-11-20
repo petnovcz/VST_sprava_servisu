@@ -33,6 +33,7 @@
           <Property Name="Pozice" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Telefon" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SAPId" Type="int" />
         </EntityType>
         <EntityType Name="Provoz">
           <Key>
@@ -744,6 +745,7 @@
           <Property Name="Telefon" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Zakaznik" Relationship="Model1.FK_ZakaznikKontakniOsoba" FromRole="KontakniOsoba" ToRole="Zakaznik" />
+          <Property Name="SAPId" Type="Int32" />
         </EntityType>
         <Association Name="FK_ZakaznikKontakniOsoba">
           <End Type="Model1.Zakaznik" Role="Zakaznik" Multiplicity="1" />
@@ -905,7 +907,8 @@
     <EntitySetMapping Name="KontakniOsoba">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.KontakniOsoba)">
         <MappingFragment StoreEntitySet="KontakniOsoba">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SAPId" ColumnName="SAPId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ZakaznikId" ColumnName="ZakaznikId" />
           <ScalarProperty Name="JmenoPrijmeni" ColumnName="JmenoPrijmeni" />
           <ScalarProperty Name="Pozice" ColumnName="Pozice" />

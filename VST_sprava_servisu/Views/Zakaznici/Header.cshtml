@@ -48,8 +48,9 @@
    
     <div class="col-lg-2">@Html.ActionLink("Hlavní strana", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })</div>
     <div class="col-lg-2">@Html.ActionLink("Nový provoz", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-block" })</div>
+    <div class="col-lg-2">@Html.ActionLink("Import provozů / dodacích adres", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-block" })</div>
 
-    <div class="col-lg-3">Kontaktní osoby (nepřiřažené k provozu)</div>
+    
     
 </div>
 <hr>

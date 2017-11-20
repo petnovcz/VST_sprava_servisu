@@ -13,7 +13,7 @@
 <div class="row">
     <div id="provozy-list" class="col-lg-9">@Html.Action("Index","Provozy",new { Zakaznik = Model.Id})</div>
     
-    <div class="col-lg-3">Kontaktní osoby (nepřiřažené k provozu)</div>
+    <div class="col-lg-3">@Html.Action("CPListByOP", "SAPImport", new { CardCode = Model.KodSAP })</div>
 
 </div>
 

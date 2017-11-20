@@ -1,0 +1,32 @@
+﻿@model List<VST_sprava_servisu.SAPContactPerson>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    Layout = "";
+}
+
+
+<table class="table">
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+
+
+          
+
+
+            
+        </tr>
+    }
+
+</table>

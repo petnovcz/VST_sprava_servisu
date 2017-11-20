@@ -20,6 +20,7 @@ namespace VST_sprava_servisu
         public string Pozice { get; set; }
         public string Telefon { get; set; }
         public string Email { get; set; }
+        public Nullable<int> SAPId { get; set; }
     
         public virtual Zakaznik Zakaznik { get; set; }
     }

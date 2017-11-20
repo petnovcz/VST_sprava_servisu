@@ -36,6 +36,80 @@ namespace VST_sprava_servisu
 
             return PartialView(SAPOP);
         }
+
+        public List<SAPContactPerson> SAPContactPerson(string SAPOP)
+
+        {
+            List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
+            string sql = @" Select CntctCode, CardCode, Name, Position, Tel1, Cellolar, E_MailL from OCPR";
+            sql = sql + @" Where CardCode = '" + SAPOP + "'";
+
+            SqlConnection cnn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql;
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+                    SAPContactPerson sapcp = new SAPContactPerson();
+                    if (dr.GetString(dr.GetOrdinal("CardCode")) != null)
+                    {
+                        sapcp.CntctCode = dr.GetInt32(dr.GetOrdinal("CntctCode"));
+                    }
+                    try
+                    {
+                        sapcp.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.Name = dr.GetString(dr.GetOrdinal("Name"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.Position = dr.GetString(dr.GetOrdinal("Position"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.Tel1 = dr.GetString(dr.GetOrdinal("Tel1"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.Cellolar = dr.GetString(dr.GetOrdinal("Cellolar"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.E_MaiL = dr.GetString(dr.GetOrdinal("E_MailL"));
+                    }
+                    catch { }
+
+                    SAPCP.Add(sapcp);
+                }
+            }
+            cnn.Close();
+
+
+            return SAPCP;
+        }
+
+        public ActionResult CPListByOP(string CardCode)
+        {
+            List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
+            SAPCP = SAPContactPerson(CardCode);
+
+            return View(SAPCP);
+        }
+
         public List<SAPOP> SAPOP (string Search)
         {
             List<SAPOP> listocrd = new List<SAPOP>();

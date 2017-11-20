@@ -425,6 +425,7 @@
     <Content Include="Views\Provozy\Edit.cshtml" />
     <Content Include="Views\Provozy\Index.cshtml" />
     <Content Include="Views\Zakaznici\Header.cshtml" />
+    <Content Include="Views\SAPImport\CPListByOP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

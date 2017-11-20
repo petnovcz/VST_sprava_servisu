@@ -12,7 +12,7 @@ namespace VST_sprava_servisu
     {
         [Key]
         public string Search { get; set; }
-        
+
 
         public List<SAPOP> ListSAPOP { get; set; }
 
@@ -20,11 +20,11 @@ namespace VST_sprava_servisu
 
     public class SAPOP
     {
-        
+
         [Key]
         public string CardCode { get; set; }
         public string CardName { get; set; }
-        
+
         public string Address { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; }
@@ -40,10 +40,22 @@ namespace VST_sprava_servisu
 
         public int Open { get; set; }
         public int Total { get; set; }
-        
+
 
     }
 
+    public class SAPContactPerson
+    {
+        [Key]
+        public int CntctCode { get; set; }
+        public string CardCode { get; set; } 
+        public string Name { get; set; }
+        public string Position { get; set; }
+        public string Tel1 { get; set; }
+        public string Cellolar { get; set; }
+        public string E_MaiL { get; set; }
+
+    }
 
 
 
