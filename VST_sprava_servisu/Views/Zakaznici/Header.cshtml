@@ -43,14 +43,47 @@
 
 
 </div>
-<hr>
-<div class="row">
-   
-    <div class="col-lg-2">@Html.ActionLink("Hlavní strana", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })</div>
-    <div class="col-lg-2">@Html.ActionLink("Nový provoz", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-block" })</div>
-    <div class="col-lg-2">@Html.ActionLink("Import provozů / dodacích adres", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-block" })</div>
 
-    
-    
+<div class="col-lg-12">
+    <div class="col-lg-4">
+        <div class="col-lg-2">Provozy
+        </div>
+        <div class="col-lg-10">
+            @Html.ActionLink(" ", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-home" })
+            @Html.ActionLink(" ", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
+            @Html.ActionLink(" ", "ImportSAPAddress", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-import" })
+
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="col-lg-2">
+            Kontakty
+        </div>
+        <div class="col-lg-10">
+            @Html.ActionLink(" ", "Index", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-home" })
+            @Html.ActionLink(" ", "Create", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
+            @Html.ActionLink(" ", "ImportSAPAddress", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-import" })
+
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="col-lg-2">
+            XXX
+        </div>
+        <div class="col-lg-10">
+            @Html.ActionLink(" ", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-home" })
+            @Html.ActionLink(" ", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
+            @Html.ActionLink(" ", "ImportSAPAddress", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-import" })
+
+        </div>
+    </div>
 </div>
-<hr>
+
+
+
+
+<div class="row" style="background-color:#f2f2f2">
+   
+    
+
+</div>

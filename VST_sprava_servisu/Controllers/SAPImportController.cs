@@ -36,81 +36,7 @@ namespace VST_sprava_servisu
 
             return PartialView(SAPOP);
         }
-
-        public List<SAPContactPerson> SAPContactPerson(string SAPOP)
-
-        {
-            List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
-            string sql = @" Select CntctCode, CardCode, Name, Position, Tel1, Cellolar, E_MailL from OCPR";
-            sql = sql + @" Where CardCode = '" + SAPOP + "'";
-
-            SqlConnection cnn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql;
-            cnn.Open();
-            cmd.ExecuteNonQuery();
-            SqlDataReader dr = cmd.ExecuteReader();
-
-            if (dr.HasRows)
-            {
-                //MAKES IT HERE   
-                while (dr.Read())
-                {
-                    SAPContactPerson sapcp = new SAPContactPerson();
-                    if (dr.GetString(dr.GetOrdinal("CardCode")) != null)
-                    {
-                        sapcp.CntctCode = dr.GetInt32(dr.GetOrdinal("CntctCode"));
-                    }
-                    try
-                    {
-                        sapcp.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
-                    }
-                    catch { }
-                    try
-                    {
-                        sapcp.Name = dr.GetString(dr.GetOrdinal("Name"));
-                    }
-                    catch { }
-                    try
-                    {
-                        sapcp.Position = dr.GetString(dr.GetOrdinal("Position"));
-                    }
-                    catch { }
-                    try
-                    {
-                        sapcp.Tel1 = dr.GetString(dr.GetOrdinal("Tel1"));
-                    }
-                    catch { }
-                    try
-                    {
-                        sapcp.Cellolar = dr.GetString(dr.GetOrdinal("Cellolar"));
-                    }
-                    catch { }
-                    try
-                    {
-                        sapcp.E_MaiL = dr.GetString(dr.GetOrdinal("E_MailL"));
-                    }
-                    catch { }
-
-                    SAPCP.Add(sapcp);
-                }
-            }
-            cnn.Close();
-
-
-            return SAPCP;
-        }
-
-        public ActionResult CPListByOP(string CardCode)
-        {
-            List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
-            SAPCP = SAPContactPerson(CardCode);
-
-            return View(SAPCP);
-        }
-
-        public List<SAPOP> SAPOP (string Search)
+        public List<SAPOP> SAPOP(string Search)
         {
             List<SAPOP> listocrd = new List<SAPOP>();
             string sql = @" Select CardCode,CardName,Address,City, ZipCode,Country,LicTradNum,VatIdUnCmp,";
@@ -128,7 +54,8 @@ namespace VST_sprava_servisu
                 sql = sql + @" from OCRD where (CHARINDEX(N'" + Search + "', CardName) > 0 ";
                 sql = sql + @" or CHARINDEX(N'" + Search + "', CardCode) > 0 ";
                 sql = sql + @" or CHARINDEX(N'" + Search + "', Address) > 0 ";
-                sql = sql + @") and "; }
+                sql = sql + @") and ";
+            }
             sql = sql + @" CardType = 'C' and";
             sql = sql + @" ((Select count(*) from OINV Z where Z.CardCode = CardCode ) > 0) and";
             sql = sql + @" ((select COUNT(*) from[Servis].[dbo].[Zakaznik] Z where Z.KodSAP COLLATE DATABASE_DEFAULT = CardCode COLLATE DATABASE_DEFAULT) = 0)";
@@ -198,8 +125,8 @@ namespace VST_sprava_servisu
                     {
                         ocrd.VatIdUnCmp = dr.GetString(dr.GetOrdinal("VatIdUnCmp"));
                     }
-                    catch { }                   
-                    ocrd.Open = dr.GetInt32(dr.GetOrdinal("Open"));                   
+                    catch { }
+                    ocrd.Open = dr.GetInt32(dr.GetOrdinal("Open"));
                     ocrd.Total = dr.GetInt32(dr.GetOrdinal("Total"));
                     listocrd.Add(ocrd);
                 }
@@ -227,7 +154,7 @@ namespace VST_sprava_servisu
                 //MAKES IT HERE   
                 while (dr.Read())
                 {
-                    
+
                     if (dr.GetString(dr.GetOrdinal("CardCode")) != null)
                     {
                         sapOP.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
@@ -294,7 +221,6 @@ namespace VST_sprava_servisu
             cnn.Close();
             return sapOP;
         }
-
         public ActionResult GenerateOPfromSAP(string kodOP)
         {
             SAPOP sapOP = new SAPOP();
@@ -318,6 +244,163 @@ namespace VST_sprava_servisu
 
             SAPOPlist.ListSAPOP = SAPOP(Search);
             return View("List", SAPOPlist);
+        }
+
+
+        // KONTAKTNÍ OSOBY
+        public List<SAPContactPerson> SAPContactPerson(string SAPOP)
+
+        {
+            List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
+            string sql = @" Select CntctCode, CardCode, Name, Position, Tel1, Cellolar, E_MailL from OCPR";
+            sql = sql + @" Where CardCode = '" + SAPOP + "'";
+
+            SqlConnection cnn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql;
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+                    SAPContactPerson sapcp = new SAPContactPerson();
+                    if (dr.GetString(dr.GetOrdinal("CardCode")) != null)
+                    {
+                        sapcp.CntctCode = dr.GetInt32(dr.GetOrdinal("CntctCode"));
+                    }
+                    try
+                    {
+                        sapcp.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.Name = dr.GetString(dr.GetOrdinal("Name"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.Position = dr.GetString(dr.GetOrdinal("Position"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.Tel1 = dr.GetString(dr.GetOrdinal("Tel1"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.Cellolar = dr.GetString(dr.GetOrdinal("Cellolar"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapcp.E_MaiL = dr.GetString(dr.GetOrdinal("E_MailL"));
+                    }
+                    catch { }
+
+                    SAPCP.Add(sapcp);
+                }
+            }
+            cnn.Close();
+
+
+            return SAPCP;
+        }
+        public ActionResult CPListByOP(string CardCode)
+        {
+            List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
+            SAPCP = SAPContactPerson(CardCode);
+
+            return View(SAPCP);
+        }
+
+        //SAP ADRESY - IMPORTOVÁNY JAKO PROVOZY
+        private List<SAPDeliveryAddress> LoadSAPDeliveryAddresses(string CardCode, int Zakaznik)
+        {
+            List<SAPDeliveryAddress> SAPDAList = new List<SAPDeliveryAddress>();
+
+            string sql = @" Select Address, CardCode, Street, ZipCode, City, Country from CRD1";
+            sql = sql + @" where CardCode = '" + CardCode + "' and AdresType = 'S' and";
+            sql = sql + @" (select count(*) from [Servis].[dbo].[Provoz] X where X.ZakaznikId = '" + Zakaznik + "' and X.SAPAddress COLLATE DATABASE_DEFAULT = Address COLLATE DATABASE_DEFAULT) = 0 ";
+
+            SqlConnection cnn = new SqlConnection(connectionString);
+            //SqlConnection con = new SqlConnection(cnn);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql;
+
+            cnn.Open();
+
+            cmd.ExecuteNonQuery();
+
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+                    SAPDeliveryAddress sapda = new SAPDeliveryAddress();
+                    if (dr.GetString(dr.GetOrdinal("CardCode")) != null)
+                    {
+                        sapda.Address = dr.GetString(dr.GetOrdinal("Address"));
+                    }
+                    try
+                    {
+                        sapda.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapda.Street = dr.GetString(dr.GetOrdinal("Street"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapda.ZipCode = dr.GetString(dr.GetOrdinal("ZipCode"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapda.City = dr.GetString(dr.GetOrdinal("City"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapda.Country = dr.GetString(dr.GetOrdinal("Country"));
+                    }
+                    catch { }
+
+
+                    SAPDAList.Add(sapda);
+                }
+            }
+            cnn.Close();
+
+            return SAPDAList;
+        }
+
+         
+        public ActionResult ImportSAPAddress(string CardCode, int Zakaznik)
+
+        {
+            List<SAPDeliveryAddress> SAPDAList = new List<SAPDeliveryAddress>();
+            SAPDAList = LoadSAPDeliveryAddresses(CardCode, Zakaznik);
+
+            var Zcontroller = DependencyResolver.Current.GetService<ProvozyController>();
+            Zcontroller.ControllerContext = new ControllerContext(this.Request.RequestContext, Zcontroller);
+
+            foreach (var item in SAPDAList)
+            {
+                bool result = Zcontroller.Generate(item.Address, item.CardCode, item.Street, item.City, item.Country, item.Country, Zakaznik);
+            }
+            return RedirectToAction("Details", "Zakaznici", new { id = Zakaznik });
         }
 
     }

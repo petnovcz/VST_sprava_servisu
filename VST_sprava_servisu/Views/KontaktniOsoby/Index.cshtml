@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Index";
 }
-@Html.Action("Header", "Zakaznici", new { Zakaznik = ViewBag.Zakaznik })
 
 <h2>Index</h2>
 
@@ -25,7 +24,13 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.SAPId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Zakaznik.NazevZakaznika)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
         </th>
         <th></th>
     </tr>
@@ -45,7 +50,13 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.SAPId)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Zakaznik.NazevZakaznika)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

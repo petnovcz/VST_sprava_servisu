@@ -50,7 +50,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu")] Provoz provoz)
+        public ActionResult Create([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu,SAPAddress")] Provoz provoz)
         {
             int Zakaznik = provoz.ZakaznikId;
             if (ModelState.IsValid)
@@ -69,7 +69,22 @@ namespace VST_sprava_servisu
         }
 
 
+        public bool Generate(string Address, string CardCode, string Street, string ZipCode, string City, string Country, int Zakaznik)
+        {
+            Provoz provoz  = new Provoz();
+            provoz.ZakaznikId = Zakaznik;
+            provoz.NazevProvozu = Address;
+            provoz.SAPAddress = Address;
+            provoz.AdresaProvozu = Street + ", " + ZipCode + ", " + City + ", " + Country;
+            if (ModelState.IsValid)
+            {
+                db.Provoz.Add(provoz);
+                db.SaveChanges();
 
+            }
+
+            return true;
+        }
 
 
         // GET: Provozy/Edit/5
@@ -94,7 +109,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu")] Provoz provoz)
+        public ActionResult Edit([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu,SAPAddress")] Provoz provoz)
         {
             int zakaznik = provoz.ZakaznikId;
             if (ModelState.IsValid)

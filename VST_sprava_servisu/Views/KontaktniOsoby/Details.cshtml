@@ -1,0 +1,74 @@
+﻿@model VST_sprava_servisu.KontakniOsoba
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>KontakniOsoba</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JmenoPrijmeni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JmenoPrijmeni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pozice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pozice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SAPId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SAPId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zakaznik.NazevZakaznika)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zakaznik.NazevZakaznika)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provoz.NazevProvozu)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

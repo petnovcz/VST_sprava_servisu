@@ -31,6 +31,7 @@
         <AssociationConnector Association="Model1.FK_StatusSCProvozu" />
         <EntityTypeShape EntityType="Model1.KontakniOsoba" Width="1.5" PointX="5.375" PointY="17.375" />
         <AssociationConnector Association="Model1.FK_ZakaznikKontakniOsoba" />
+        <AssociationConnector Association="Model1.ProvozKontakniOsoba" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

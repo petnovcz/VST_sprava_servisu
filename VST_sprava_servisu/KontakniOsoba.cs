@@ -21,7 +21,9 @@ namespace VST_sprava_servisu
         public string Telefon { get; set; }
         public string Email { get; set; }
         public Nullable<int> SAPId { get; set; }
+        public int ProvozId { get; set; }
     
         public virtual Zakaznik Zakaznik { get; set; }
+        public virtual Provoz Provoz { get; set; }
     }
 }

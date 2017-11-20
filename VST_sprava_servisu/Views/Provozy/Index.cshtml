@@ -22,6 +22,9 @@
                     @Html.DisplayNameFor(model => model.OdlehceniVybuchu)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.SAPAddress)
+                </th>
+                <th>
                     
                 </th>           
                 
@@ -43,7 +46,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.OdlehceniVybuchu)
                     </td>
-                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SAPAddress)
+                    </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-block btn-xs" }) 
                         
