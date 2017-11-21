@@ -6,84 +6,78 @@
     ViewBag.Title = "Details";
 }
 
+<div style="background-color:rgba(0, 0, 0, 0.5)">
+    <div class="row" style="background-color:rgba(0, 0, 0, 0.3);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
-<div class="row" style="background-color:#f2f2f2">
+        <div class="col-lg-5">
+            <h2 class="vstcolor">@Html.DisplayFor(model => model.NazevZakaznika)</h2>
+            <h4 class="vstcolor">@Html.DisplayFor(model => model.KodSAP)</h4>
+            <h6 class="vstcolorwhite">@Html.DisplayFor(model => model.Adresa)</h6>
+        </div>
+        <div class="col-lg-5">
+            <br>
+            <div class="row">
+                <div class="col-lg-2 vstcolorwhite">DIČ</div><div class="col-lg-4 vstcolorwhite">@Html.DisplayFor(model => model.DIC)</div>
+                <div class="col-lg-2 vstcolorwhite">IČO</div><div class="col-lg-4 vstcolorwhite">@Html.DisplayFor(model => model.IC)</div>
+                <div class="col-lg-2 vstcolorwhite">Telefon</div><div class="col-lg-4 vstcolorwhite">@Html.DisplayFor(model => model.Telefon)</div>
+                <div class="col-lg-2 vstcolorwhite">Email</div><div class="col-lg-4 vstcolorwhite">@Html.DisplayFor(model => model.Email)</div>
+                <div class="col-lg-2 vstcolorwhite">Region</div><div class="col-lg-4 vstcolorwhite">@Html.DisplayFor(model => model.Region.NazevRegionu)</div>
+                <div class="col-lg-2 vstcolorwhite">Jazyk</div><div class="col-lg-4 vstcolorwhite">@Html.DisplayFor(model => model.Jazyk.NazevJazyku)</div>
 
-    <div class="col-lg-5" style="background-color:#f2f2f2">
-        <h2>@Html.DisplayFor(model => model.NazevZakaznika)</h2>
-        <h4>@Html.DisplayFor(model => model.KodSAP)</h4>
-        <h6>@Html.DisplayFor(model => model.Adresa)</h6>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-2">
+            <div class="row">
+                <br>
+                @Html.ActionLink("Edituj", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-block btn-xs" })
+                @Html.ActionLink("Zpět na seznam", "Index", null, new { @class = "btn btn-primary btn-block btn-xs" })
+            </div>
+        </div>
+
+
+
+
+
     </div>
-    <div class="col-lg-5" style="background-color:#f2f2f2">
-        <br>
-        <div class="row" style="background-color:#f2f2f2">
-            <div class="col-lg-2">DIČ</div><div class="col-lg-4">@Html.DisplayFor(model => model.DIC)</div>
-            <div class="col-lg-2">IČO</div><div class="col-lg-4">@Html.DisplayFor(model => model.IC)</div>
-            <div class="col-lg-2">Telefon</div><div class="col-lg-4">@Html.DisplayFor(model => model.Telefon)</div>
-            <div class="col-lg-2">Email</div><div class="col-lg-4">@Html.DisplayFor(model => model.Email)</div>
-            <div class="col-lg-2">Region</div><div class="col-lg-4">@Html.DisplayFor(model => model.Region.NazevRegionu)</div>
-            <div class="col-lg-2">Jazyk</div><div class="col-lg-4">@Html.DisplayFor(model => model.Jazyk.NazevJazyku)</div>
 
+
+
+    <div class="row" style="border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px; padding-top:10px;padding-bottom:10px;">
+        <div class="col-lg-12">
+            <div class="col-lg-2">
+                <div class="vstcolor">
+                    Provozy
+                </div>
+                <div>
+                    @Html.ActionLink(" ", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-home" })
+                    @Html.ActionLink(" ", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-plus" })
+                    @Html.ActionLink(" ", "ImportSAPAddress", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-import" })
+
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="vstcolor">
+                    Kontakty
+                </div>
+                <div class="">
+                    @Html.ActionLink(" ", "Index", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-home" })
+                    @Html.ActionLink(" ", "Create", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-plus" })
+                    @Html.ActionLink(" ", "ImportSAPCP", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-import" })
+
+                </div>
+            </div>
 
         </div>
 
     </div>
-
-
-    <div class="col-lg-2">
-       <div class="row">
-           <br>
-            @Html.ActionLink("Edituj", "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-block btn-xs" }) 
-            @Html.ActionLink("Zpět na seznam", "Index", null, new { @class = "btn btn-default btn-block btn-xs" })
-        </div>
-    </div>
-
-
-
-
 
 </div>
 
-<div class="col-lg-12">
-    <div class="col-lg-4">
-        <div class="col-lg-2">Provozy
-        </div>
-        <div class="col-lg-10">
-            @Html.ActionLink(" ", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-home" })
-            @Html.ActionLink(" ", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
-            @Html.ActionLink(" ", "ImportSAPAddress", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-import" })
+<div class="row" style="padding:5px;margin:5px;">
 
-        </div>
     </div>
-    <div class="col-lg-4">
-        <div class="col-lg-2">
-            Kontakty
-        </div>
-        <div class="col-lg-10">
-            @Html.ActionLink(" ", "Index", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-home" })
-            @Html.ActionLink(" ", "Create", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
-            @Html.ActionLink(" ", "ImportSAPAddress", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-import" })
-
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="col-lg-2">
-            XXX
-        </div>
-        <div class="col-lg-10">
-            @Html.ActionLink(" ", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-home" })
-            @Html.ActionLink(" ", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
-            @Html.ActionLink(" ", "ImportSAPAddress", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-import" })
-
-        </div>
-    </div>
-</div>
-
-
-
-
-<div class="row" style="background-color:#f2f2f2">
-   
     
-
-</div>

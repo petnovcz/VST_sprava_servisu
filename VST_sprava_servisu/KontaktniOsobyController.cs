@@ -60,10 +60,37 @@ namespace VST_sprava_servisu
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", kontakniOsoba.ProvozId);
+            ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.ZakaznikId == kontakniOsoba.ZakaznikId), "Id", "NazevProvozu", kontakniOsoba.ProvozId);
             ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", kontakniOsoba.ZakaznikId);
             return View(kontakniOsoba);
         }
+
+
+        public bool Generate(int ZakaznikId, string JmenoPrijmeni, string Pozice, string Telefon, string Email, int SAPId)
+        {
+            KontakniOsoba ko = new KontakniOsoba();
+            ko.ZakaznikId = ZakaznikId;
+            ko.JmenoPrijmeni = JmenoPrijmeni;
+            if (Pozice == null) { Pozice = ""; }
+            ko.Pozice = Pozice;
+            if (Telefon == null) { Telefon = ""; }
+            ko.Telefon = Telefon ;
+            if (Email == null) { Email = ""; }
+            ko.Email = Email;
+            ko.SAPId = SAPId;
+            //ko.ProvozId = ProvozId;
+           
+            if (ModelState.IsValid)
+            {
+                db.KontakniOsoba.Add(ko);
+                db.SaveChanges();
+
+            }
+
+            return true;
+        }
+
+
 
         // GET: KontaktniOsoby/Edit/5
         public ActionResult Edit(int? id)
@@ -73,12 +100,14 @@ namespace VST_sprava_servisu
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             KontakniOsoba kontakniOsoba = db.KontakniOsoba.Find(id);
+            int Zakaznik = kontakniOsoba.ZakaznikId;
             if (kontakniOsoba == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", kontakniOsoba.ProvozId);
+            ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.ZakaznikId == kontakniOsoba.ZakaznikId), "Id", "NazevProvozu", kontakniOsoba.ProvozId);
             ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", kontakniOsoba.ZakaznikId);
+            ViewBag.Zakaznik = Zakaznik;
             return View(kontakniOsoba);
         }
 
@@ -93,9 +122,9 @@ namespace VST_sprava_servisu
             {
                 db.Entry(kontakniOsoba).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = kontakniOsoba.ZakaznikId });
             }
-            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", kontakniOsoba.ProvozId);
+            ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.ZakaznikId == kontakniOsoba.ZakaznikId), "Id", "NazevProvozu", kontakniOsoba.ProvozId);
             ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", kontakniOsoba.ZakaznikId);
             return View(kontakniOsoba);
         }
@@ -108,10 +137,12 @@ namespace VST_sprava_servisu
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             KontakniOsoba kontakniOsoba = db.KontakniOsoba.Find(id);
+            int Zakaznik = kontakniOsoba.ZakaznikId;
             if (kontakniOsoba == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.Zakaznik = Zakaznik;
             return View(kontakniOsoba);
         }
 
@@ -120,10 +151,12 @@ namespace VST_sprava_servisu
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            
             KontakniOsoba kontakniOsoba = db.KontakniOsoba.Find(id);
+            int Zakaznik = kontakniOsoba.ZakaznikId;
             db.KontakniOsoba.Remove(kontakniOsoba);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = Zakaznik });
         }
 
         protected override void Dispose(bool disposing)

@@ -5,61 +5,63 @@
 }
 @Html.Action("Header", "Zakaznici", new { id = ViewBag.Zakaznik })
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.JmenoPrijmeni)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pozice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefon)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SAPId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Zakaznik.NazevZakaznika)
-        </th>
-        <th></th>
-    </tr>
+<div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>Seznam kontaktních osob zákazníka</h4></center>
+</div>
+<div class="row" style="background-color:rgba(0, 0, 0, 0.5);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.JmenoPrijmeni)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pozice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefon)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SAPId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zakaznik.NazevZakaznika)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    <div class="col-lg-12">
+        <table class="table">
+            <tr class="vstcolor">
+                <th>
+                    @Html.DisplayNameFor(model => model.JmenoPrijmeni)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pozice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefon)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
 
-</table>
+                <th>
+                    @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="vstcolorwhite">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JmenoPrijmeni)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pozice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefon)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary  btn-md glyphicon glyphicon-edit" })
+                        @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-primary  btn-md glyphicon glyphicon-trash" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+</div>

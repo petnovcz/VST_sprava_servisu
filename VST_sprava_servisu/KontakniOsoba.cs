@@ -11,14 +11,18 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class KontakniOsoba
     {
         public int Id { get; set; }
         public int ZakaznikId { get; set; }
         public string JmenoPrijmeni { get; set; }
+        [Required(AllowEmptyStrings = true)]
         public string Pozice { get; set; }
+        [Required(AllowEmptyStrings = true)]
         public string Telefon { get; set; }
+        [Required(AllowEmptyStrings = true)]
         public string Email { get; set; }
         public Nullable<int> SAPId { get; set; }
         public Nullable<int> ProvozId { get; set; }

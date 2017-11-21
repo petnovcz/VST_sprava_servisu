@@ -4,13 +4,7 @@
 
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Test připojení k SAP</h2>
-        <p>
-            @ViewBag.ErrMsg
-        </p>
-        
-    </div>
+    
     <div class="col-md-4">
         <h2>Administrace</h2>
         <p>@Html.ActionLink("Regiony", "Index", "Regiony", null, new { @class = "btn btn-default btn-block" })</p>
@@ -27,3 +21,12 @@
         <p>@Html.ActionLink("Seznam zakazníků", "Index", "Zakaznici", null, new { @class = "btn btn-default btn-block" })</p>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Test připojení k SAP</h2>
+        <p>
+            @ViewBag.ErrMsg
+        </p>
+
+    </div>
+    </div>

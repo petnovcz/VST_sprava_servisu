@@ -253,8 +253,11 @@ namespace VST_sprava_servisu
         {
             List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
             string sql = @" Select CntctCode, CardCode, Name, Position, Tel1, Cellolar, E_MailL from OCPR";
-            sql = sql + @" Where CardCode = '" + SAPOP + "'";
+            sql = sql + @" Where CardCode = '" + SAPOP + "' and";
+            sql = sql + @" (select count(*) from [Servis].[dbo].[KontakniOsoba] where SapId = CntctCode ) = 0";
 
+
+            //(select COUNT(*) from[Servis].[dbo].[Zakaznik] Z where Z.KodSAP COLLATE DATABASE_DEFAULT = CardCode COLLATE DATABASE_DEFAULT) = 0)";
             SqlConnection cnn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
@@ -312,6 +315,23 @@ namespace VST_sprava_servisu
 
             return SAPCP;
         }
+
+        public ActionResult ImportSAPCP(string CardCode, int Zakaznik)
+
+        {
+            List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
+            SAPCP = SAPContactPerson(CardCode);
+
+            var Zcontroller = DependencyResolver.Current.GetService<KontaktniOsobyController>();
+            Zcontroller.ControllerContext = new ControllerContext(this.Request.RequestContext, Zcontroller);
+
+            foreach (var item in SAPCP)
+            {
+                bool result = Zcontroller.Generate(Zakaznik,item.Name,item.Position, item.Tel1, item.E_MaiL, item.CntctCode);
+            }
+            return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = Zakaznik });
+        }
+
         public ActionResult CPListByOP(string CardCode)
         {
             List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
