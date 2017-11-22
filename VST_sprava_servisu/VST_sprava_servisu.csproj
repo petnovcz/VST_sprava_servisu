@@ -441,6 +441,8 @@
     <Content Include="Views\Artikly\Edit.cshtml" />
     <Content Include="Views\Artikly\Index.cshtml" />
     <Content Include="Views\SAPImport\SAPItems.cshtml" />
+    <Content Include="Views\SAPImport\SAPSCList.cshtml" />
+    <Content Include="Views\SAPImport\SCImport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

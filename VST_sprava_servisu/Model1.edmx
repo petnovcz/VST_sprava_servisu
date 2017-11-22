@@ -30,9 +30,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ZakaznikId" Type="int" Nullable="false" />
           <Property Name="JmenoPrijmeni" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Pozice" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Telefon" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pozice" Type="nvarchar(max)" />
+          <Property Name="Telefon" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
           <Property Name="SAPId" Type="int" />
           <Property Name="ProvozId" Type="int" />
         </EntityType>
@@ -100,8 +100,9 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ArtiklId" Type="int" Nullable="false" />
-          <Property Name="DatumVyroby" Type="datetime" Nullable="false" />
-          <Property Name="DatumPosledniTlakoveZkousky" Type="datetime" Nullable="false" />
+          <Property Name="DatumVyroby" Type="datetime" />
+          <Property Name="DatumPosledniTlakoveZkousky" Type="datetime" />
+          <Property Name="SerioveCislo" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -636,10 +637,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ArtiklId" Type="Int32" Nullable="false" />
-          <Property Name="DatumVyroby" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DatumPosledniTlakoveZkousky" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatumVyroby" Type="DateTime" Precision="3" />
+          <Property Name="DatumPosledniTlakoveZkousky" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Artikl" Relationship="Model1.FK_SerioveCisloArtikl" FromRole="SerioveCislo" ToRole="Artikl" />
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_SerioveCisloSCProvozu" FromRole="SerioveCislo" ToRole="SCProvozu" />
+          <Property Name="SerioveCislo1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -765,9 +767,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ZakaznikId" Type="Int32" Nullable="false" />
           <Property Name="JmenoPrijmeni" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Pozice" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pozice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SAPId" Type="Int32" />
           <Property Name="ProvozId" Type="Int32" />
           <NavigationProperty Name="Provoz" Relationship="Model1.FK_ProvozKontakniOsoba" FromRole="KontakniOsoba" ToRole="Provoz" />
@@ -915,7 +917,8 @@
     <EntitySetMapping Name="SerioveCislo">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.SerioveCislo)">
         <MappingFragment StoreEntitySet="SerioveCislo">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SerioveCislo1" ColumnName="SerioveCislo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ArtiklId" ColumnName="ArtiklId" />
           <ScalarProperty Name="DatumVyroby" ColumnName="DatumVyroby" />
           <ScalarProperty Name="DatumPosledniTlakoveZkousky" ColumnName="DatumPosledniTlakoveZkousky" />

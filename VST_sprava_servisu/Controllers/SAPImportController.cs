@@ -11,18 +11,18 @@ namespace VST_sprava_servisu
     public class SAPImportController : Controller
     {
         private string connectionString = @"Data Source=sql;Initial Catalog=SBO_TEST;User ID=sa;Password=*2012Versino";
+        private Model1Container db = new Model1Container();
 
-        
 
         // POST: Zakaznici/Create
         // Chcete-li zajistit ochranu před útoky typu OVERPOST, povolte konkrétní vlastnosti, k nimž chcete vytvořit vazbu. 
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598
-        
-            /// <summary>
-            /// Seznam všech ještě nenaimportovaných obchodních partnerů z IS SAP 
-            /// </summary>
-            /// <param name="Search"></param>
-            /// <returns></returns>
+
+        /// <summary>
+        /// Seznam všech ještě nenaimportovaných obchodních partnerů z IS SAP 
+        /// </summary>
+        /// <param name="Search"></param>
+        /// <returns></returns>
         public ActionResult List(string Search)
         {
             SAPOPImportParametr SAPOPlist = new SAPOPImportParametr();
@@ -538,6 +538,92 @@ namespace VST_sprava_servisu
             }
             
             return RedirectToAction("SAPItems", "SAPImport");
+        }
+
+
+        // SAP Sériová čísla - import sériových čísel a jejich pohybů z SAP do Servisu
+        public ActionResult SAPSCList(string OPSAPkod, int Zakaznik)
+        {
+            List<SAPSerioveCislo> SAPSCList = new List<SAPSerioveCislo>();
+            string sql = @" SELECT t2.id as 'ArticlId', t2.KodSAP, t2.Nazev, T0.[IntrSerial] as 'SerioveCislo' ,MIN(t0.InDate) as 'Vyrobeno', MAX(t1.docdate) as 'Dodano' FROM OSRI  T0 INNER JOIN SRI1 T1 ON T0.ItemCode = T1.ItemCode and T0.SysSerial = T1.SysSerial";
+            sql = sql + @" left join[Servis].[dbo].[Artikl] t2 on t1.ItemCode COLLATE DATABASE_DEFAULT = t2.KodSAP COLLATE DATABASE_DEFAULT";
+            sql = sql + @" where t1.Direction = 1 and";
+            sql = sql + @" ((select count (*) from [Servis].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = t1.ItemCode) > 0)";
+            sql = sql + @" and((select count (*) from [Servis].[dbo].[Zakaznik] where KodSAP COLLATE DATABASE_DEFAULT = t1.CardCode) > 0)";
+            sql = sql + @" and T1.CardCode = '" + OPSAPkod + "'";
+            sql = sql + @" group by T0.[IntrSerial], t2.id, t2.kodSAp, t2.nazev";
+            SqlConnection cnn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql;
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+                    SAPSerioveCislo sapitem = new SAPSerioveCislo();
+                    try
+                    {
+                        sapitem.SerioveCislo = dr.GetString(dr.GetOrdinal("SerioveCislo"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.ArticlId = dr.GetInt32(dr.GetOrdinal("ArticlId"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.NazevArtiklu = dr.GetString(dr.GetOrdinal("Nazev"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.DatumDodani = dr.GetDateTime(dr.GetOrdinal("Dodano"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.DatumVyroby = dr.GetDateTime(dr.GetOrdinal("Vyrobeno"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.KodSAP = dr.GetString(dr.GetOrdinal("KodSAP"));
+                    }
+                    catch { }
+                    sapitem.Zakaznik = Zakaznik;
+                    sapitem.ZakaznikSAPKod = OPSAPkod;
+                    sapitem.Provoz = new SelectList(db.Provoz.Where(m => m.ZakaznikId == Zakaznik), "Id", "NazevProvozu");
+                    SAPSCList.Add(sapitem);
+                }
+            }
+            cnn.Close();
+            ViewBag.Zakaznik = OPSAPkod;
+            ViewBag.ZakaznikId = Zakaznik;
+            return View(SAPSCList);
+        }
+
+        [HttpGet]
+        public ActionResult SCImport(SAPSerioveCislo SAPSC)
+        {
+
+
+            this.ViewData["Provoz"] = new SelectList(db.Provoz.Where(m => m.ZakaznikId == SAPSC.Zakaznik), "Id", "NazevProvozu");
+            return View(SAPSC);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SCImport([Bind(Include = "ArtiklId,SAPKod,SC,DatumVyroby,DatumDodani,ZakaznikSAP,ZakaznikId,Provoz")] SCImport scimport)
+        {
+
+            //return RedirectToAction("SAPSCList", new { OPSAPkod = scimport.ZakaznikSAPKod, Zakaznik = scimport.Zakaznik });
+            return View();
         }
     }
 }

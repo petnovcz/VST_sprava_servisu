@@ -1,0 +1,63 @@
+﻿@model List<SAPSerioveCislo>
+
+
+@{
+    ViewBag.Title = "SAPSCList";
+}
+
+@Html.Action("Header", "Zakaznici", new { Id = ViewBag.ZakaznikId })
+
+<table class="table" id="List">
+    <tr>
+        
+        <th>
+            Kód SAP
+        </th>
+        <th>
+            Název artiklu
+        </th>
+        <th>
+            Sériové číslo
+        </th>
+        <th>
+            Datum dodání zákazníkovi
+        </th>
+
+        <th>
+            Datum výroby / příjmu od dodavatele
+        </th>
+        
+        <th></th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.KodSAP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NazevArtiklu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerioveCislo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumDodani)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumVyroby)
+            </td>
+            
+            <td>
+                @*@Html.ActionLink("Přiřazení k provozu","SCImport",new { SAPSC = item}, new { @class = "btn"})*@
+                @Html.Partial("SCImport",item)
+            </td>
+        </tr>
+    }
+
+</table>

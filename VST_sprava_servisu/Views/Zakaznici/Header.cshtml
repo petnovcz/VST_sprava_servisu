@@ -70,6 +70,17 @@
 
                 </div>
             </div>
+            <div class="col-lg-2">
+                <div class="vstcolor">
+                    Import Sériových čísel
+                </div>
+                <div class="">
+                    @Html.ActionLink(" ", "Index", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-home" })
+                    @Html.ActionLink(" ", "Create", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-plus" })
+                    @Html.ActionLink(" ", "SAPSCList", "SAPImport", new { OPSAPkod = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-import" })
+
+                </div>
+            </div>
 
         </div>
 

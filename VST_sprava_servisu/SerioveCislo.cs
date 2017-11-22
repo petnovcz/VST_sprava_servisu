@@ -22,8 +22,9 @@ namespace VST_sprava_servisu
     
         public int Id { get; set; }
         public int ArtiklId { get; set; }
-        public System.DateTime DatumVyroby { get; set; }
-        public System.DateTime DatumPosledniTlakoveZkousky { get; set; }
+        public Nullable<System.DateTime> DatumVyroby { get; set; }
+        public Nullable<System.DateTime> DatumPosledniTlakoveZkousky { get; set; }
+        public string SerioveCislo1 { get; set; }
     
         public virtual Artikl Artikl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

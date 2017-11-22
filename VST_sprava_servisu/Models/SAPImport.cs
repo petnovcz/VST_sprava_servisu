@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace VST_sprava_servisu
 {
@@ -83,4 +84,36 @@ namespace VST_sprava_servisu
 
     }
 
+    public class SAPSerioveCislo
+    {
+        [Key]
+        public string SerioveCislo { get; set; }
+        public int ArticlId { get; set; }
+        public string NazevArtiklu { get; set; }
+        public string KodSAP { get; set; }
+        public DateTime DatumVyroby { get; set; }
+        public DateTime DatumDodani { get; set; }
+        public string ZakaznikSAPKod { get; set; }
+        public int Zakaznik { get; set; }
+        public int ProvozId { get; set; }
+        public IEnumerable<SelectListItem> Provoz { get; set; }
+        
+
+    }
+
+    public class SCImport
+    {
+        public int ArtiklId { get; set; }
+        public string ArtiklSAPKod { get; set; }
+        [Key]
+        public string SerioveCislo { get; set; }
+        public DateTime DatumVyroby { get; set; }
+        public DateTime DatumDodani { get; set; }
+        public string ZakaznikSAPKod { get; set; }
+        public int Zakaznik { get; set; }
+        public int Provozy { get; set; } 
+
+
+
+    }
 }
