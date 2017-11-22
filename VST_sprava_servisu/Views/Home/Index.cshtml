@@ -9,11 +9,14 @@
         <h2>Administrace</h2>
         <p>@Html.ActionLink("Regiony", "Index", "Regiony", null, new { @class = "btn btn-default btn-block" })</p>
         <p>@Html.ActionLink("Jazyky", "Index", "Jazyky", null, new { @class = "btn btn-default btn-block" })</p>
+        <p>@Html.ActionLink("Artikly", "Index", "Artikly", null, new { @class = "btn btn-default btn-block" })</p>
     </div>
     <div class="col-md-4">
-        <h2>Import OP z SAP</h2>
-        <p>Zobrazení seznamu obchodních partnerů v SAP, které mají či měli projekt na revizi, servisní zásah či pohotovost a nebyl ještě importován do Servisu. Obchodní partner je naimportován do databáze servisu.</p>
+        <h2>Import z SAP</h2>
+        <p>Zobrazení seznamu <b class="vstcolor">obchodních partnerů</b> v SAP, které mají či měli projekt na revizi, servisní zásah či pohotovost a nebyl ještě importován do Servisu. Obchodní partner je naimportován do databáze servisu.</p>
         <p>@Html.ActionLink("Import OP", "List", "SAPImport", null, new { @class = "btn btn-default btn-block" })</p>
+        <p>Zobrazení seznamu <b class="vstcolor">artiklů</b> v SAP, které mají zapnutou správu sériových čísel a nejsou ještě importovány do servisu</p>
+        <p>@Html.ActionLink("Import Artiklů", "SAPItems", "SAPImport", null, new { @class = "btn btn-default btn-block" })</p>
     </div>
     <div class="col-md-4">
         <h2>Správa zákazníku Servisu</h2>

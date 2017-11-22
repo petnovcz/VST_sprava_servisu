@@ -18,6 +18,17 @@ namespace VST_sprava_servisu
         {
             var kontakniOsoba = db.KontakniOsoba.Include(k => k.Provoz).Include(k => k.Zakaznik).Where(k=>k.ZakaznikId == Zakaznik);
             ViewBag.Zakaznik = Zakaznik;
+
+            if (Zakaznik == 1)
+            {
+                var Zcontroller = DependencyResolver.Current.GetService<SAPDIAPIController>();
+                Zcontroller.ControllerContext = new ControllerContext(this.Request.RequestContext, Zcontroller);
+
+                bool x = false;
+                //x = Zcontroller.UpdateContactName("Z000137", "Jerzy Opieka", "Opieka Jerzy");
+
+
+            }
             return View(kontakniOsoba.ToList());
         }
 

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<VST_sprava_servisu.Artikl>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nazev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Oznaceni)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Typ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RozsahProvoznichTeplot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KodSAP)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nazev)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Oznaceni)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Typ)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RozsahProvoznichTeplot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KodSAP)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

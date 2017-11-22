@@ -71,4 +71,16 @@ namespace VST_sprava_servisu
 
     }
 
+    public class SAPItem
+    {
+        [Key]
+        public string ItemCode { get; set; }
+        public string ItemName { get; set; }
+        public string ItmsGrpNam { get; set; }
+
+    
+
+
+    }
+
 }

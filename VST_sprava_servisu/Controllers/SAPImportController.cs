@@ -18,6 +18,11 @@ namespace VST_sprava_servisu
         // Chcete-li zajistit ochranu před útoky typu OVERPOST, povolte konkrétní vlastnosti, k nimž chcete vytvořit vazbu. 
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598
         
+            /// <summary>
+            /// Seznam všech ještě nenaimportovaných obchodních partnerů z IS SAP 
+            /// </summary>
+            /// <param name="Search"></param>
+            /// <returns></returns>
         public ActionResult List(string Search)
         {
             SAPOPImportParametr SAPOPlist = new SAPOPImportParametr();
@@ -31,11 +36,18 @@ namespace VST_sprava_servisu
             SAPOPlist.ListSAPOP = SAPOP(Search);
             return View(SAPOPlist);
         }
-        public PartialViewResult SAPOPList(List<SAPOP> SAPOP)
+
+        /*public PartialViewResult SAPOPList(List<SAPOP> SAPOP)
         {
 
             return PartialView(SAPOP);
-        }
+        }*/
+
+        /// <summary>
+        /// Vytvoření seznamu obchodních partnerů z IS SAP, které ještě nebyly importovány v SAP
+        /// </summary>
+        /// <param name="Search"></param>
+        /// <returns></returns>
         public List<SAPOP> SAPOP(string Search)
         {
             List<SAPOP> listocrd = new List<SAPOP>();
@@ -315,7 +327,6 @@ namespace VST_sprava_servisu
 
             return SAPCP;
         }
-
         public ActionResult ImportSAPCP(string CardCode, int Zakaznik)
 
         {
@@ -331,7 +342,6 @@ namespace VST_sprava_servisu
             }
             return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = Zakaznik });
         }
-
         public ActionResult CPListByOP(string CardCode)
         {
             List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
@@ -404,9 +414,7 @@ namespace VST_sprava_servisu
             cnn.Close();
 
             return SAPDAList;
-        }
-
-         
+        }         
         public ActionResult ImportSAPAddress(string CardCode, int Zakaznik)
 
         {
@@ -423,5 +431,113 @@ namespace VST_sprava_servisu
             return RedirectToAction("Details", "Zakaznici", new { id = Zakaznik });
         }
 
+
+        // SAP Artikly - import artiklů z SAP do Servisu
+        /// <summary>
+        /// Seznam artiklů nenaimportovaných v Servise z IS SAP , která mají správu sériových čísel
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SAPItems ()
+        {
+            List<SAPItem> SAPItemsList = new List<SAPItem>();
+            string sql = @"select ItemCode, ItemName, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ManSerNum = 'Y'";
+            sql = sql + @"and ((select count(*) from [Servis].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = ItemCode COLLATE DATABASE_DEFAULT) = 0)";
+
+            SqlConnection cnn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql;
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+                    SAPItem sapitem = new SAPItem();
+                    try
+                    {
+                        sapitem.ItemCode = dr.GetString(dr.GetOrdinal("ItemCode"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.ItemName = dr.GetString(dr.GetOrdinal("ItemName"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.ItmsGrpNam = dr.GetString(dr.GetOrdinal("ItmsGrpNam"));
+                    }
+                    catch { }
+
+
+                    SAPItemsList.Add(sapitem);
+                }
+            }
+            cnn.Close();
+
+            return View(SAPItemsList);
+        }
+        public SAPItem GetSAPItemByCode(string ItemCode)
+        {
+            SAPItem sapItem = new SAPItem();
+            string sql = @" select ItemCode, ItemName, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ManSerNum = 'Y'";
+            sql = sql + @" and ItemCode = '" + ItemCode + "' ";
+
+            SqlConnection cnn = new SqlConnection(connectionString);
+            //SqlConnection con = new SqlConnection(cnn);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql;
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+
+                    if (dr.GetString(dr.GetOrdinal("ItemCode")) != null)
+                    {
+                        sapItem.ItemCode = dr.GetString(dr.GetOrdinal("ItemCode"));
+                    }
+                    try
+                    {
+                        sapItem.ItemName = dr.GetString(dr.GetOrdinal("ItemName"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapItem.ItmsGrpNam = dr.GetString(dr.GetOrdinal("ItmsGrpNam"));
+                    }
+                    catch { }
+                    
+
+                }
+            }
+            cnn.Close();
+            return sapItem;
+        }
+        public ActionResult GenerateItemfromSAP(string ItemCode)
+        {
+            SAPItem sapItem = new SAPItem();
+            sapItem = GetSAPItemByCode(ItemCode);
+
+            var Zcontroller = DependencyResolver.Current.GetService<ArtiklyController>();
+            Zcontroller.ControllerContext = new ControllerContext(this.Request.RequestContext, Zcontroller);
+
+            bool success = Zcontroller.CreateFromSAPdata(sapItem);
+            if (success == true)
+            {
+                ViewBag.Result = "Import proběhl OK";
+            }
+            
+            return RedirectToAction("SAPItems", "SAPImport");
+        }
     }
 }

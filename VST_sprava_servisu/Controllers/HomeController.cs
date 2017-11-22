@@ -44,9 +44,10 @@ namespace VST_sprava_servisu.Controllers
                 {
                     ViewBag.ErrMsg = "Connected succesfully to SAP Business One";
                 }
+                if (oCompany.Connected == true) { oCompany.Disconnect(); }
             }
             catch (Exception Errmsg) { throw Errmsg; }
-
+            
 
 
 

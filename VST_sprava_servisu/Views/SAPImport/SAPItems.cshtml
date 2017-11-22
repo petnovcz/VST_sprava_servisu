@@ -1,0 +1,46 @@
+﻿@model List<SAPItem>
+
+@{
+    ViewBag.Title = "SAPItems";
+}
+
+<h2>SAPItems</h2>
+
+<table class="table" id="List">
+    <tr>
+        <th>
+            Kód Artiklu
+        </th>
+        <th>
+            Název artiklu
+        </th>
+        <th>
+            Skupina artiklu
+        </th>
+        
+        <th></th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItmsGrpNam)
+            </td>
+            <td>
+                @Html.ActionLink("Importuj do Servisu", "GenerateItemfromSAP", new { ItemCode = item.ItemCode })
+
+            </td>
+        </tr>
+    }
+
+</table>
