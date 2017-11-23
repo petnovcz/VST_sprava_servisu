@@ -36,6 +36,20 @@ namespace VST_sprava_servisu
             return View(provoz);
         }
 
+        public ActionResult Header(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Provoz provoz = db.Provoz.Find(id);
+            if (provoz == null)
+            {
+                return HttpNotFound();
+            }
+            return View(provoz);
+        }
+
         // GET: Provozy/Create
         [HttpGet]
         public ActionResult Create(int Zakaznik)

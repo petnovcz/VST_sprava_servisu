@@ -1,0 +1,47 @@
+﻿@model IEnumerable<VST_sprava_servisu.Umisteni>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create", "Umistenis", new { Provoz = ViewData["Provoz"] , Zakaznik = ViewData["Zakaznik"] }, new { @class = "btn btn-primary btn-sm" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NazevUmisteni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NazevUmisteni)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

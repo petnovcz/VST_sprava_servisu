@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -273,6 +274,7 @@
     </Compile>
     <Compile Include="Controllers\oldZakazniciController.cs" />
     <Compile Include="Controllers\ZakazniciController.cs" />
+    <Compile Include="UmistenisController.cs" />
     <Compile Include="Zakaznik.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -351,6 +353,7 @@
     <Content Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -367,7 +370,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -443,6 +448,12 @@
     <Content Include="Views\SAPImport\SAPItems.cshtml" />
     <Content Include="Views\SAPImport\SAPSCList.cshtml" />
     <Content Include="Views\SAPImport\SCImport.cshtml" />
+    <Content Include="Views\Umistenis\Create.cshtml" />
+    <Content Include="Views\Umistenis\Delete.cshtml" />
+    <Content Include="Views\Umistenis\Details.cshtml" />
+    <Content Include="Views\Umistenis\Edit.cshtml" />
+    <Content Include="Views\Umistenis\Index.cshtml" />
+    <Content Include="Views\Provozy\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

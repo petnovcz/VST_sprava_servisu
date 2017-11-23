@@ -3,30 +3,32 @@
 @{
     ViewBag.Title = "Details";
 }
-@Html.Action("Header", "Zakaznici", new { Id = Model.ZakaznikId })
+@{
+    Layout = null;
+}
 
 
 <div style="background-color:rgba(0, 0, 0, 0.5)">
     <div class="row" style="background-color:rgba(0, 0, 0, 0.3);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
         <h3 class="vstcolor">@Html.DisplayFor(model => model.NazevProvozu)</h3>
         <div class="col-lg-4">
-        
-        <h6 class="vstcolorwhite">@Html.DisplayFor(model => model.AdresaProvozu)</h6>
-            </div>
+
+            <h6 class="vstcolorwhite">@Html.DisplayFor(model => model.AdresaProvozu)</h6>
+        </div>
         <div class="col-lg-8">
             <div class="vstcolorwhite col-lg-4">
                 @Html.DisplayNameFor(model => model.OddeleniVybuchu)
-            
 
-            
+
+
                 @Html.DisplayFor(model => model.OddeleniVybuchu)
             </div>
 
             <div class="vstcolorwhite col-lg-4">
                 @Html.DisplayNameFor(model => model.PotlaceniVybuchu)
-            
 
-            
+
+
                 @Html.DisplayFor(model => model.PotlaceniVybuchu)
             </div>
 
@@ -34,17 +36,12 @@
                 @Html.DisplayNameFor(model => model.OdlehceniVybuchu)
 
 
-                
-                    @Html.DisplayFor(model => model.OdlehceniVybuchu)
-               
+
+                @Html.DisplayFor(model => model.OdlehceniVybuchu)
+
             </div>
         </div>
-       </div>
-    <div class="row" style="border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px; padding-top:10px;padding-bottom:10px;">
-        <p>
-            @Html.Partial("~/Views/Umistenis/Index.cshtml",Model.Umisteni, new ViewDataDictionary { { "Provoz", Model.Id }, { "Zakaznik", Model.ZakaznikId } })
-        </p>
     </div>
-</div>
+    </div>
         
-        
+    
