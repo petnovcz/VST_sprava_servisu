@@ -14,10 +14,18 @@ namespace VST_sprava_servisu
     
     public partial class Umisteni
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Umisteni()
+        {
+            this.SCProvozu = new HashSet<SCProvozu>();
+        }
+    
         public int Id { get; set; }
         public int ProvozId { get; set; }
         public string NazevUmisteni { get; set; }
     
         public virtual Provoz Provoz { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SCProvozu> SCProvozu { get; set; }
     }
 }

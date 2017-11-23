@@ -93,6 +93,7 @@
           <Property Name="DatumPrirazeni" Type="datetime" Nullable="false" />
           <Property Name="DatumPosledniZmeny" Type="datetime" Nullable="false" />
           <Property Name="DatumVymeny" Type="datetime" Nullable="false" />
+          <Property Name="Umisteni" Type="int" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -243,6 +244,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SCProvozu_Umisteni">
+          <End Role="Umisteni" Type="Self.Umisteni" Multiplicity="0..1" />
+          <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Umisteni">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SCProvozu">
+              <PropertyRef Name="Umisteni" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SerioveCisloArtikl">
           <End Role="Artikl" Type="Self.Artikl" Multiplicity="1" />
           <End Role="SerioveCislo" Type="Self.SerioveCislo" Multiplicity="*" />
@@ -361,6 +374,10 @@
             <End Role="SCProvozu" EntitySet="SCProvozu" />
             <End Role="RevizeSC" EntitySet="RevizeSC" />
           </AssociationSet>
+          <AssociationSet Name="FK_SCProvozu_Umisteni" Association="Self.FK_SCProvozu_Umisteni">
+            <End Role="Umisteni" EntitySet="Umisteni" />
+            <End Role="SCProvozu" EntitySet="SCProvozu" />
+          </AssociationSet>
           <AssociationSet Name="FK_SerioveCisloArtikl" Association="Self.FK_SerioveCisloArtikl">
             <End Role="Artikl" EntitySet="Artikl" />
             <End Role="SerioveCislo" EntitySet="SerioveCislo" />
@@ -459,6 +476,10 @@
           <AssociationSet Name="FK_ZakaznikKontakniOsoba" Association="Model1.FK_ZakaznikKontakniOsoba">
             <End Role="Zakaznik" EntitySet="Zakaznik" />
             <End Role="KontakniOsoba" EntitySet="KontakniOsoba" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCProvozu_Umisteni" Association="Model1.FK_SCProvozu_Umisteni">
+            <End Role="Umisteni" EntitySet="Umisteni" />
+            <End Role="SCProvozu" EntitySet="SCProvozu" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
@@ -559,6 +580,7 @@
           <NavigationProperty Name="Provoz" Relationship="Model1.UmisteniProvoz" FromRole="Umisteni" ToRole="Provoz" />
           <Property Name="ProvozId" Type="Int32" Nullable="false" />
           <Property Name="NazevUmisteni" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_SCProvozu_Umisteni" FromRole="Umisteni" ToRole="SCProvozu" />
         </EntityType>
         <Association Name="UmisteniProvoz">
           <End Type="Model1.Umisteni" Role="Umisteni" Multiplicity="*" />
@@ -630,6 +652,8 @@
           <NavigationProperty Name="RevizeSC" Relationship="Model1.FK_RevizeSCSCProvozu" FromRole="SCProvozu" ToRole="RevizeSC" />
           <NavigationProperty Name="SerioveCislo" Relationship="Model1.FK_SerioveCisloSCProvozu" FromRole="SCProvozu" ToRole="SerioveCislo" />
           <NavigationProperty Name="Status" Relationship="Model1.FK_StatusSCProvozu" FromRole="SCProvozu" ToRole="Status" />
+          <Property Name="Umisteni" Type="Int32" />
+          <NavigationProperty Name="Umisteni1" Relationship="Model1.FK_SCProvozu_Umisteni" FromRole="SCProvozu" ToRole="Umisteni" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -799,6 +823,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SCProvozu_Umisteni">
+          <End Type="Model1.Umisteni" Role="Umisteni" Multiplicity="0..1" />
+          <End Type="Model1.SCProvozu" Role="SCProvozu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Umisteni">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SCProvozu">
+              <PropertyRef Name="Umisteni" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -904,7 +940,8 @@
     <EntitySetMapping Name="SCProvozu">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.SCProvozu)">
         <MappingFragment StoreEntitySet="SCProvozu">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Umisteni" ColumnName="Umisteni" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ProvozId" ColumnName="ProvozId" />
           <ScalarProperty Name="SerioveCisloId" ColumnName="SerioveCisloId" />
           <ScalarProperty Name="StatusId" ColumnName="StatusId" />

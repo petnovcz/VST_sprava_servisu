@@ -27,11 +27,13 @@ namespace VST_sprava_servisu
         public System.DateTime DatumPrirazeni { get; set; }
         public System.DateTime DatumPosledniZmeny { get; set; }
         public System.DateTime DatumVymeny { get; set; }
+        public Nullable<int> Umisteni { get; set; }
     
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RevizeSC> RevizeSC { get; set; }
         public virtual SerioveCislo SerioveCislo { get; set; }
         public virtual Status Status { get; set; }
+        public virtual Umisteni Umisteni1 { get; set; }
     }
 }
