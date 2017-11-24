@@ -3,55 +3,239 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
+@{
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+}
+<h2>Indexdd</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nazev)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Oznaceni)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Typ)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RozsahProvoznichTeplot)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KodSAP)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nazev)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Oznaceni)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Typ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RozsahProvoznichTeplot)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KodSAP)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
 
-</table>
+        <table id="artikly" class="table" >
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.KodSAP)
+                </th>
+                <th>                   
+                    @Html.DisplayNameFor(model => model.Nazev)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Typ)
+                </th>
+                
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Revize)
+                </th>    
+                <th>
+                    @Html.DisplayNameFor(model => model.PeriodaRevize)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TlakovaZk)
+                </th>
+                <th>               
+                    @Html.DisplayNameFor(model => model.PeriodaTlakovaZk)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VymenaBaterie)
+                </th>
+                <th>
+
+                    @Html.DisplayNameFor(model => model.PeriodaBaterie)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArtiklBaterieSAP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VymenaPyro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PeriodaPyro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArtoklPyro)
+                </th>
+
+                <th></th>
+            </tr>
+                </thead>
+            <tfoot>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.KodSAP)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nazev)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Typ)
+                    </th>
+                    
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Revize)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PeriodaRevize)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TlakovaZk)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PeriodaTlakovaZk)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VymenaBaterie)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PeriodaBaterie)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ArtiklBaterieSAP)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VymenaPyro)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PeriodaPyro)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ArtoklPyro)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </tfoot>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KodSAP)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nazev)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Typ)
+                    </td>
+                    
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Revize)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PeriodaRevize)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TlakovaZk)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PeriodaTlakovaZk)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VymenaBaterie)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PeriodaBaterie)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArtiklBaterieSAP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VymenaPyro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PeriodaPyro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArtoklPyro)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+                </tbody>
+        </table>
+
+@section scripts {
+    <!-- DataTables CSS -->
+<link href="~/Content/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+
+<!-- jQuery -->
+
+
+<!-- DataTables -->
+<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+
+
+<script type="text/javascript" charset="utf8">
+    $(document).ready(function () {
+        $('#artikly').DataTable({
+            scrollY: '60vh',
+            scrollCollapse: true,
+            paging: false,
+            initComplete: function () {
+                this.api().columns([0, 1, 2,9,12]).every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+            ,
+            "language": {
+                
+                "sEmptyTable": "Tabulka neobsahuje žádná data",
+                "sInfo": "Zobrazuji _START_ až _END_ z celkem _TOTAL_ záznamů",
+                "sInfoEmpty": "Zobrazuji 0 až 0 z 0 záznamů",
+                "sInfoFiltered": "(filtrováno z celkem _MAX_ záznamů)",
+                "sInfoPostFix": "",
+                "sInfoThousands": " ",
+                "sLengthMenu": "Zobraz záznamů _MENU_",
+                "sLoadingRecords": "Načítám...",
+                "sProcessing": "Provádím...",
+                "sSearch": "Hledat:",
+                "sZeroRecords": "Žádné záznamy nebyly nalezeny",
+                "oPaginate": {
+                    "sFirst": "První",
+                    "sLast": "Poslední",
+                    "sNext": "Další",
+                    "sPrevious": "Předchozí"
+                },
+                "oAria": {
+                    "sSortAscending": ": aktivujte pro řazení sloupce vzestupně",
+                    "sSortDescending": ": aktivujte pro řazení sloupce sestupně"
+                }
+            
+            },
+            
+        });
+        
+    });
+</script>
+    }     

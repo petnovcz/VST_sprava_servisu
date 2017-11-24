@@ -43,3 +43,21 @@ textarea {
 .vstcolorwhite {
     color: #ffffff;
 }
+.full-width {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+    .full-width .row {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .full-width .col-md-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+.dataTables_wrapper {
+    font-size: 11px
+}

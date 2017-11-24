@@ -45,7 +45,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP")] Artikl artikl)
+        public ActionResult Create([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize ,PeriodaRevize,TlakovaZk ,PeriodaTlakovaZk,VymenaBaterie , PeriodaBaterie , ArtiklBaterieSAP , VymenaPyro , PeriodaPyro, ArtoklPyro")] Artikl artikl)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP")] Artikl artikl)
+        public ActionResult Edit([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize ,PeriodaRevize,TlakovaZk ,PeriodaTlakovaZk,VymenaBaterie , PeriodaBaterie , ArtiklBaterieSAP , VymenaPyro , PeriodaPyro, ArtoklPyro")] Artikl artikl)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace VST_sprava_servisu
                 artikl.Typ = sapItem.ItmsGrpNam;
                 artikl.Oznaceni = sapItem.ItemName;
                 artikl.RozsahProvoznichTeplot = " ";
-                
+
                 db.Artikl.Add(artikl);
                 db.SaveChanges();
             }

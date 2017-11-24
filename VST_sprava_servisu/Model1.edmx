@@ -15,6 +15,16 @@
           <Property Name="Typ" Type="nvarchar(max)" Nullable="false" />
           <Property Name="RozsahProvoznichTeplot" Type="nvarchar(max)" Nullable="false" />
           <Property Name="KodSAP" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Revize" Type="bit" Nullable="false" />
+          <Property Name="PeriodaRevize" Type="nchar" MaxLength="10" />
+          <Property Name="TlakovaZk" Type="bit" Nullable="false" />
+          <Property Name="PeriodaTlakovaZk" Type="nchar" MaxLength="10" />
+          <Property Name="VymenaBaterie" Type="bit" Nullable="false" />
+          <Property Name="PeriodaBaterie" Type="nchar" MaxLength="10" />
+          <Property Name="ArtiklBaterieSAP" Type="nchar" MaxLength="10" />
+          <Property Name="VymenaPyro" Type="bit" Nullable="false" />
+          <Property Name="PeriodaPyro" Type="nchar" MaxLength="10" />
+          <Property Name="ArtoklPyro" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Jazyk">
           <Key>
@@ -131,6 +141,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProvozId" Type="int" Nullable="false" />
           <Property Name="NazevUmisteni" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SamostatnaRevize" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Zakaznik">
           <Key>
@@ -581,6 +592,7 @@
           <Property Name="ProvozId" Type="Int32" Nullable="false" />
           <Property Name="NazevUmisteni" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_SCProvozu_Umisteni" FromRole="Umisteni" ToRole="SCProvozu" />
+          <Property Name="SamostatnaRevize" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="UmisteniProvoz">
           <End Type="Model1.Umisteni" Role="Umisteni" Multiplicity="*" />
@@ -605,6 +617,16 @@
           <Property Name="RozsahProvoznichTeplot" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="KodSAP" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SerioveCislo" Relationship="Model1.FK_SerioveCisloArtikl" FromRole="Artikl" ToRole="SerioveCislo" />
+          <Property Name="Revize" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodaRevize" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TlakovaZk" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodaTlakovaZk" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="VymenaBaterie" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodaBaterie" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ArtiklBaterieSAP" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="VymenaPyro" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodaPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ArtoklPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Revize">
           <Key>
@@ -891,7 +913,8 @@
     <EntitySetMapping Name="Umisteni">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Umisteni)">
         <MappingFragment StoreEntitySet="Umisteni">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SamostatnaRevize" ColumnName="SamostatnaRevize" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ProvozId" ColumnName="ProvozId" />
           <ScalarProperty Name="NazevUmisteni" ColumnName="NazevUmisteni" />
         </MappingFragment>
@@ -900,7 +923,17 @@
     <EntitySetMapping Name="Artikl">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Artikl)">
         <MappingFragment StoreEntitySet="Artikl">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ArtoklPyro" ColumnName="ArtoklPyro" />
+                <ScalarProperty Name="PeriodaPyro" ColumnName="PeriodaPyro" />
+                <ScalarProperty Name="VymenaPyro" ColumnName="VymenaPyro" />
+                <ScalarProperty Name="ArtiklBaterieSAP" ColumnName="ArtiklBaterieSAP" />
+                <ScalarProperty Name="PeriodaBaterie" ColumnName="PeriodaBaterie" />
+                <ScalarProperty Name="VymenaBaterie" ColumnName="VymenaBaterie" />
+                <ScalarProperty Name="PeriodaTlakovaZk" ColumnName="PeriodaTlakovaZk" />
+                <ScalarProperty Name="TlakovaZk" ColumnName="TlakovaZk" />
+                <ScalarProperty Name="PeriodaRevize" ColumnName="PeriodaRevize" />
+                <ScalarProperty Name="Revize" ColumnName="Revize" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nazev" ColumnName="Nazev" />
           <ScalarProperty Name="Oznaceni" ColumnName="Oznaceni" />
           <ScalarProperty Name="Typ" ColumnName="Typ" />

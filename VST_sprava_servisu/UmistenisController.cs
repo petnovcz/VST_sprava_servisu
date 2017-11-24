@@ -21,7 +21,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Umistenis/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int Provoz, int Zakaznik)
         {
             if (id == null)
             {
@@ -32,6 +32,8 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+            ViewBag.Provoz = Provoz;
+            ViewBag.Zakaznik = Zakaznik;
             return View(umisteni);
         }
 
@@ -49,7 +51,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProvozId,NazevUmisteni")] Umisteni umisteni)
+        public ActionResult Create([Bind(Include = "Id,ProvozId,NazevUmisteni,SamostatnaRevize")] Umisteni umisteni)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +66,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Umistenis/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int Provoz, int Zakaznik)
         {
             if (id == null)
             {
@@ -76,6 +78,8 @@ namespace VST_sprava_servisu
                 return HttpNotFound();
             }
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.Id == umisteni.ProvozId), "Id", "NazevProvozu", umisteni.ProvozId);
+            ViewBag.Provoz = Provoz;
+            ViewBag.Zakaznik = Zakaznik;
             return View(umisteni);
         }
 
@@ -84,7 +88,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProvozId,NazevUmisteni")] Umisteni umisteni)
+        public ActionResult Edit([Bind(Include = "Id,ProvozId,NazevUmisteni, SamostatnaRevize")] Umisteni umisteni)
         {
             if (ModelState.IsValid)
             {

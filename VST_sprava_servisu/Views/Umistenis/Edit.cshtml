@@ -1,27 +1,27 @@
 ﻿@model VST_sprava_servisu.Umisteni
 
-@{
-    Layout = null;
+ @{
+
 }
+@{
+    int index = Convert.ToInt32(ViewData["Zakaznik"]);
+    int index2 = Convert.ToInt32(ViewData["Provoz"]);
+}
+@Html.Action("Header", "Zakaznici", new { Id = index })
+@Html.Action("Header", "Provozy", new { Id = index2 })
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
+<div class="row" style="background-color:rgba(0, 0, 0, 0.5);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px; padding-top:10px;padding-bottom:10px;">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-horizontal">
             <h4>Umisteni</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.ProvozId, "ProvozId", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -29,7 +29,7 @@
                     @Html.ValidationMessageFor(model => model.ProvozId, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.NazevUmisteni, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -37,17 +37,26 @@
                     @Html.ValidationMessageFor(model => model.NazevUmisteni, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+            <div class="form-group">
+                @Html.LabelFor(model => model.SamostatnaRevize, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.SamostatnaRevize)
+                        @Html.ValidationMessageFor(model => model.SamostatnaRevize, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />
+                    
+                       @Html.ActionLink("Umístění", "Details", "Provozy", new { Id = index2 }, new { @class = "btn btn-primary" })
+                    
                 </div>
             </div>
         </div>
     }
+
     
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</body>
-</html>
+    
+</div>

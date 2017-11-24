@@ -26,6 +26,16 @@ namespace VST_sprava_servisu
         public string Typ { get; set; }
         public string RozsahProvoznichTeplot { get; set; }
         public string KodSAP { get; set; }
+        public bool Revize { get; set; }
+        public string PeriodaRevize { get; set; }
+        public bool TlakovaZk { get; set; }
+        public string PeriodaTlakovaZk { get; set; }
+        public bool VymenaBaterie { get; set; }
+        public string PeriodaBaterie { get; set; }
+        public string ArtiklBaterieSAP { get; set; }
+        public bool VymenaPyro { get; set; }
+        public string PeriodaPyro { get; set; }
+        public string ArtoklPyro { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SerioveCislo> SerioveCislo { get; set; }
