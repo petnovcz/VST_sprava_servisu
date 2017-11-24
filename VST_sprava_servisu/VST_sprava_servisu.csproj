@@ -259,13 +259,16 @@
     <Compile Include="SCProvozu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="SCProvozuController.cs" />
     <Compile Include="SerioveCislo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="SerioveCisloesController.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Status.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="StatusController.cs" />
     <Compile Include="StatusRevize.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -454,6 +457,21 @@
     <Content Include="Views\Umistenis\Edit.cshtml" />
     <Content Include="Views\Umistenis\Index.cshtml" />
     <Content Include="Views\Provozy\Header.cshtml" />
+    <Content Include="Views\SerioveCisloes\Create.cshtml" />
+    <Content Include="Views\SerioveCisloes\Delete.cshtml" />
+    <Content Include="Views\SerioveCisloes\Details.cshtml" />
+    <Content Include="Views\SerioveCisloes\Edit.cshtml" />
+    <Content Include="Views\SerioveCisloes\Index.cshtml" />
+    <Content Include="Views\SCProvozu\Create.cshtml" />
+    <Content Include="Views\SCProvozu\Delete.cshtml" />
+    <Content Include="Views\SCProvozu\Details.cshtml" />
+    <Content Include="Views\SCProvozu\Edit.cshtml" />
+    <Content Include="Views\SCProvozu\Index.cshtml" />
+    <Content Include="Views\Status\Create.cshtml" />
+    <Content Include="Views\Status\Delete.cshtml" />
+    <Content Include="Views\Status\Details.cshtml" />
+    <Content Include="Views\Status\Edit.cshtml" />
+    <Content Include="Views\Status\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

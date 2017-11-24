@@ -1,0 +1,42 @@
+﻿@model VST_sprava_servisu.Status
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Status</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NazevStatusu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NazevStatusu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aktivni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aktivni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Neaktivni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Neaktivni)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

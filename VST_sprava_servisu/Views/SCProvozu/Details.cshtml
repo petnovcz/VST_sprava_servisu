@@ -1,0 +1,74 @@
+﻿@model VST_sprava_servisu.SCProvozu
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SCProvozu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumPrirazeni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumPrirazeni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumPosledniZmeny)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumPosledniZmeny)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumVymeny)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumVymeny)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provoz.NazevProvozu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SerioveCislo.SerioveCislo1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SerioveCislo.SerioveCislo1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status.NazevStatusu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.NazevStatusu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Umisteni1.NazevUmisteni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Umisteni1.NazevUmisteni)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

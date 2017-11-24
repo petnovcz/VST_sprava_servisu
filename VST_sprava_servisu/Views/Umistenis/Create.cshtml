@@ -38,14 +38,15 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Vytvoř" class="btn btn-success" />
+                    
+                        @Html.ActionLink("Umístění", "Details","Provozy",new {Id=index2 }, new { @class="btn btn-primary"})
+                    
                 </div>
             </div>
         </div>
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+    
 </div>
 
