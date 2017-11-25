@@ -16,7 +16,7 @@ namespace VST_sprava_servisu
         // GET: SkupinaArtiklu
         public ActionResult Index()
         {
-            return View(db.SkupinaArtiklu.ToList());
+            return View(db.SkupinaArtiklu.Include(a=>a.Artikl).ToList());
         }
 
         // GET: SkupinaArtiklu/Details/5

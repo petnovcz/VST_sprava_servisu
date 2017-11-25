@@ -4,103 +4,65 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>SkupinaArtiklu</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Skupina)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Skupina)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Revize)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Revize)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PeriodaRevize)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PeriodaRevize)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TlakovaZk)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TlakovaZk)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PeriodaTlakovaZk)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PeriodaTlakovaZk)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VymenaBaterie)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VymenaBaterie)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PeriodaBaterie)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PeriodaBaterie)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ArtiklBaterieSAP)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ArtiklBaterieSAP)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VymenaPyro)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VymenaPyro)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PeriodaPyro)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PeriodaPyro)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ArtoklPyro)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ArtoklPyro)
-        </dd>
-
-    </dl>
+<div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>@Html.DisplayFor(model => model.Skupina)</h4></center>
+    <p style="text-align:right">
+        @Html.ActionLink(" ", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary glyphicon glyphicon-edit" })
+        @Html.ActionLink(" ", "Index",null , new { @class = "btn btn-primary glyphicon glyphicon-th-list" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+
+
+
+    <div class="container">
+        <div class="row vstcolor">
+            <div class="col-lg-3">
+                @Html.DisplayNameFor(model => model.Revize)<br>
+                @Html.DisplayNameFor(model => model.PeriodaRevize)
+            </div>
+            <div class="col-lg-3">
+                @Html.DisplayNameFor(model => model.TlakovaZk)<br>
+                @Html.DisplayNameFor(model => model.PeriodaTlakovaZk)
+                
+            </div>
+            <div class="col-lg-3">
+                @Html.DisplayNameFor(model => model.VymenaBaterie)<br>
+                @Html.DisplayNameFor(model => model.PeriodaBaterie)<br>
+                @Html.DisplayNameFor(model => model.ArtiklBaterieSAP)
+            </div>
+            <div class="col-lg-3">
+                @Html.DisplayNameFor(model => model.VymenaPyro)<br>
+                @Html.DisplayNameFor(model => model.PeriodaPyro)<br>
+                @Html.DisplayNameFor(model => model.ArtoklPyro)
+            </div>
+        </div>
+        <div class="row vstcolorwhite">
+            <div class="col-lg-3">
+                @Html.DisplayFor(model => model.Revize)<br>
+                @Html.DisplayFor(model => model.PeriodaRevize)
+            </div>
+            <div class="col-lg-3">
+                
+                @Html.DisplayFor(model => model.TlakovaZk)<br>
+                @Html.DisplayFor(model => model.PeriodaTlakovaZk)
+            </div>
+            <div class="col-lg-3">
+                @Html.DisplayFor(model => model.VymenaBaterie)<br>
+                @Html.DisplayFor(model => model.PeriodaBaterie)<br>
+                @Html.DisplayFor(model => model.ArtiklBaterieSAP)
+            </div>
+            <div class="col-lg-3">
+                @Html.DisplayFor(model => model.VymenaPyro)<br>
+                @Html.DisplayFor(model => model.PeriodaPyro)<br>
+                @Html.DisplayFor(model => model.ArtoklPyro)
+            </div>
+        
+        </div>
+   
+    </div>
+    
+</div>
+<br>
+@Html.Partial("~/Views/Artikly/Index.cshtml", Model.Artikl)

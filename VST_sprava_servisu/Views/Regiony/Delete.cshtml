@@ -4,29 +4,35 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>Administrace regionů</h4></center>
+</div>
+<div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Region</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NazevRegionu)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NazevRegionu)
-        </dd>
+    
+    <div>
+        <h4 class="vstcolor">Opravdu chcete smazat tento region?</h4>
+        <hr />
+        <dl class="dl-horizontal vstcolorwhite">
+            <dt>
+                @Html.DisplayNameFor(model => model.NazevRegionu)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.NazevRegionu)
+            </dd>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        </dl>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color col-lg-offset-2">
+                <input type="submit" value="Ano smaž region" class="btn btn-success" /> 
+                @Html.ActionLink(" ", "Index", null, new { @class = "btn btn-primary glyphicon glyphicon-th-list" })
+            </div>
+        }
+    </div>
 </div>

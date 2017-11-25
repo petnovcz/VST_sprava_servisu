@@ -4,90 +4,92 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>Administrace skupin artiklů</h4></center>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Skupina)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Revize)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PeriodaRevize)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TlakovaZk)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PeriodaTlakovaZk)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VymenaBaterie)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PeriodaBaterie)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArtiklBaterieSAP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VymenaPyro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PeriodaPyro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArtoklPyro)
-        </th>
-        <th></th>
-    </tr>
+<div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Skupina)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Revize)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PeriodaRevize)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TlakovaZk)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PeriodaTlakovaZk)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VymenaBaterie)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PeriodaBaterie)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArtiklBaterieSAP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VymenaPyro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PeriodaPyro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArtoklPyro)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    <p>
+        @Html.ActionLink(" ", "Create", null, new { @class = "btn btn-success glyphicon glyphicon-plus" })
+    </p>
+    <table class="table">
+        <tr class="vstcolor">
+            <th>
+                @Html.DisplayNameFor(model => model.Skupina)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Revize)
+                <br>
+                @Html.DisplayNameFor(model => model.PeriodaRevize) [m]
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.TlakovaZk)
+                <br>
+                @Html.DisplayNameFor(model => model.PeriodaTlakovaZk) [m]
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.VymenaBaterie)
+                <br>
+                @Html.DisplayNameFor(model => model.PeriodaBaterie) [m]
+                <br>
+                @Html.DisplayNameFor(model => model.ArtiklBaterieSAP)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.VymenaPyro)
+                <br>
+                @Html.DisplayNameFor(model => model.PeriodaPyro) [m]
+                <br>
+                @Html.DisplayNameFor(model => model.ArtoklPyro)
+            </th>
+            
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr class="vstcolorwhite">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skupina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Revize)
+                    <br>
+                    @Html.DisplayFor(modelItem => item.PeriodaRevize) 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TlakovaZk)
+                    <br>
+                    @Html.DisplayFor(modelItem => item.PeriodaTlakovaZk)
+                    
+                </td>
+              
+                <td>
+                    @Html.DisplayFor(modelItem => item.VymenaBaterie)
+                    <br>
+                    @Html.DisplayFor(modelItem => item.PeriodaBaterie)
+                    <br>
+                    @Html.DisplayFor(modelItem => item.ArtiklBaterieSAP)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.VymenaPyro)
+                    <br>
+                    @Html.DisplayFor(modelItem => item.PeriodaPyro)
+                    <br>
+                    @Html.DisplayFor(modelItem => item.ArtoklPyro)
+                </td>
+               
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary glyphicon glyphicon-edit" }) 
+                    @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-primary glyphicon glyphicon-cog" }) 
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

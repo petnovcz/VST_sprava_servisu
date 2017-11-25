@@ -2,131 +2,75 @@
 
 
 
-<!DOCTYPE html>
+ <div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>Artikly</h4></center>
+</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-        
-    </p>
+<div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+
     <table class="table">
-        <tr>
+        <tr class="vstcolor">
             <th>
-                @Html.DisplayNameFor(model => model.Nazev)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Oznaceni)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Typ)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RozsahProvoznichTeplot)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KodSAP)
-            </th>
-            <th>
+                @Html.DisplayNameFor(model => model.KodSAP)<br>
+                @Html.DisplayNameFor(model => model.Nazev)<br>
                 @Html.DisplayNameFor(model => model.SkupinaArtiklu1.Skupina)
             </th>
+           
             <th>
-                @Html.DisplayNameFor(model => model.Revize)
-            </th>
-            <th>
+                @Html.DisplayNameFor(model => model.Revize)<br>
                 @Html.DisplayNameFor(model => model.PeriodaRevize)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TlakovaZk)
-            </th>
-            <th>
+                @Html.DisplayNameFor(model => model.TlakovaZk)<br>
                 @Html.DisplayNameFor(model => model.PeriodaTlakovaZk)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VymenaBaterie)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PeriodaBaterie)
-            </th>
-            <th>
+                @Html.DisplayNameFor(model => model.VymenaBaterie)<br>
+                @Html.DisplayNameFor(model => model.PeriodaBaterie)<br>
                 @Html.DisplayNameFor(model => model.ArtiklBaterieSAP)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VymenaPyro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PeriodaPyro)
-            </th>
-            <th>
+                @Html.DisplayNameFor(model => model.VymenaPyro)<br>
+                @Html.DisplayNameFor(model => model.PeriodaPyro)<br>
                 @Html.DisplayNameFor(model => model.ArtoklPyro)
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nazev)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Oznaceni)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Typ)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RozsahProvoznichTeplot)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KodSAP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SkupinaArtiklu1.Skupina)
-            </td>
 
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Revize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PeriodaRevize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TlakovaZk)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PeriodaTlakovaZk)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VymenaBaterie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PeriodaBaterie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArtiklBaterieSAP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VymenaPyro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PeriodaPyro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArtoklPyro)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-    }
-    
+        @foreach (var item in Model)
+        {
+            <tr class="vstcolorwhite">
+                <td>
+                    @Html.DisplayFor(modelItem => item.KodSAP)<br>
+                    @Html.DisplayFor(modelItem => item.Nazev)<br>
+                    @Html.DisplayFor(modelItem => item.SkupinaArtiklu1.Skupina)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Revize)<br>
+                    @Html.DisplayFor(modelItem => item.PeriodaRevize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TlakovaZk)<br>
+                    @Html.DisplayFor(modelItem => item.PeriodaTlakovaZk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VymenaBaterie)<br>
+                    @Html.DisplayFor(modelItem => item.PeriodaBaterie)<br>
+                    @Html.DisplayFor(modelItem => item.ArtiklBaterieSAP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VymenaPyro)<br>
+                    @Html.DisplayFor(modelItem => item.PeriodaPyro)<br>
+                    @Html.DisplayFor(modelItem => item.ArtoklPyro)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) 
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
     </table>
-</body>
-</html>
+    </div>
