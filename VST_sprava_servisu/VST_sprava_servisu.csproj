@@ -268,6 +268,10 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="SerioveCisloesController.cs" />
+    <Compile Include="SkupinaArtiklu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SkupinaArtikluController.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Status.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -718,6 +722,11 @@
     <Content Include="Views\Status\Edit.cshtml" />
     <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_FullW.cshtml" />
+    <Content Include="Views\SkupinaArtiklu\Create.cshtml" />
+    <Content Include="Views\SkupinaArtiklu\Delete.cshtml" />
+    <Content Include="Views\SkupinaArtiklu\Details.cshtml" />
+    <Content Include="Views\SkupinaArtiklu\Edit.cshtml" />
+    <Content Include="Views\SkupinaArtiklu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

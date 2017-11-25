@@ -1,0 +1,106 @@
+﻿@model VST_sprava_servisu.SkupinaArtiklu
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SkupinaArtiklu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Skupina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skupina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Revize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Revize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeriodaRevize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeriodaRevize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TlakovaZk)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TlakovaZk)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeriodaTlakovaZk)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeriodaTlakovaZk)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VymenaBaterie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VymenaBaterie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeriodaBaterie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeriodaBaterie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtiklBaterieSAP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtiklBaterieSAP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VymenaPyro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VymenaPyro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeriodaPyro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeriodaPyro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtoklPyro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtoklPyro)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

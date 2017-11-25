@@ -20,7 +20,7 @@
         <EntityTypeShape EntityType="Model1.SCProvozu" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="Model1.SerioveCislo" Width="1.5" PointX="7.125" PointY="11.25" />
         <EntityTypeShape EntityType="Model1.Status" Width="1.5" PointX="7.125" PointY="8.625" />
-        <EntityTypeShape EntityType="Model1.StatusRevize" Width="1.5" PointX="5.125" PointY="14.125" />
+        <EntityTypeShape EntityType="Model1.StatusRevize" Width="1.5" PointX="9" PointY="14.75" />
         <AssociationConnector Association="Model1.FK_SerioveCisloArtikl" />
         <AssociationConnector Association="Model1.FK_ProvozRevize" />
         <AssociationConnector Association="Model1.FK_ProvozSCProvozu" />
@@ -33,6 +33,8 @@
         <AssociationConnector Association="Model1.FK_ProvozKontakniOsoba" />
         <AssociationConnector Association="Model1.FK_ZakaznikKontakniOsoba" />
         <AssociationConnector Association="Model1.FK_SCProvozu_Umisteni" />
+        <EntityTypeShape EntityType="Model1.SkupinaArtiklu" Width="1.5" PointX="2.625" PointY="12.5" />
+        <AssociationConnector Association="Model1.FK_Artikl_SkupinaA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

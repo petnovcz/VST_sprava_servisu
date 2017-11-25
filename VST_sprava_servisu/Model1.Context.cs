@@ -38,5 +38,6 @@ namespace VST_sprava_servisu
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<StatusRevize> StatusRevize { get; set; }
         public virtual DbSet<KontakniOsoba> KontakniOsoba { get; set; }
+        public virtual DbSet<SkupinaArtiklu> SkupinaArtiklu { get; set; }
     }
 }

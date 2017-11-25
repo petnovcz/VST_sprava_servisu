@@ -12,20 +12,16 @@ namespace VST_sprava_servisu
     using System;
     using System.Collections.Generic;
     
-    public partial class Artikl
+    public partial class SkupinaArtiklu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Artikl()
+        public SkupinaArtiklu()
         {
-            this.SerioveCislo = new HashSet<SerioveCislo>();
+            this.Artikl = new HashSet<Artikl>();
         }
     
         public int Id { get; set; }
-        public string Nazev { get; set; }
-        public string Oznaceni { get; set; }
-        public string Typ { get; set; }
-        public string RozsahProvoznichTeplot { get; set; }
-        public string KodSAP { get; set; }
+        public string Skupina { get; set; }
         public bool Revize { get; set; }
         public string PeriodaRevize { get; set; }
         public bool TlakovaZk { get; set; }
@@ -36,10 +32,8 @@ namespace VST_sprava_servisu
         public bool VymenaPyro { get; set; }
         public string PeriodaPyro { get; set; }
         public string ArtoklPyro { get; set; }
-        public Nullable<int> SkupinaArtiklu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SerioveCislo> SerioveCislo { get; set; }
-        public virtual SkupinaArtiklu SkupinaArtiklu1 { get; set; }
+        public virtual ICollection<Artikl> Artikl { get; set; }
     }
 }

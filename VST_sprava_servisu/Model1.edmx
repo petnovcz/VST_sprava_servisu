@@ -25,6 +25,7 @@
           <Property Name="VymenaPyro" Type="bit" Nullable="false" />
           <Property Name="PeriodaPyro" Type="nchar" MaxLength="10" />
           <Property Name="ArtoklPyro" Type="nchar" MaxLength="10" />
+          <Property Name="SkupinaArtiklu" Type="int" />
         </EntityType>
         <EntityType Name="Jazyk">
           <Key>
@@ -115,6 +116,23 @@
           <Property Name="DatumPosledniTlakoveZkousky" Type="datetime" />
           <Property Name="SerioveCislo" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="SkupinaArtiklu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Skupina" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Revize" Type="bit" Nullable="false" />
+          <Property Name="PeriodaRevize" Type="nchar" MaxLength="10" />
+          <Property Name="TlakovaZk" Type="bit" Nullable="false" />
+          <Property Name="PeriodaTlakovaZk" Type="nchar" MaxLength="10" />
+          <Property Name="VymenaBaterie" Type="bit" Nullable="false" />
+          <Property Name="PeriodaBaterie" Type="nchar" MaxLength="10" />
+          <Property Name="ArtiklBaterieSAP" Type="nchar" MaxLength="10" />
+          <Property Name="VymenaPyro" Type="bit" Nullable="false" />
+          <Property Name="PeriodaPyro" Type="nchar" MaxLength="10" />
+          <Property Name="ArtoklPyro" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="Status">
           <Key>
             <PropertyRef Name="Id" />
@@ -159,6 +177,18 @@
           <Property Name="JazykId" Type="int" Nullable="false" />
           <Property Name="Adresa" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_Artikl_SkupinaA">
+          <End Role="SkupinaArtiklu" Type="Self.SkupinaArtiklu" Multiplicity="0..1" />
+          <End Role="Artikl" Type="Self.Artikl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkupinaArtiklu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artikl">
+              <PropertyRef Name="SkupinaArtiklu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_JazykZakaznik">
           <End Role="Jazyk" Type="Self.Jazyk" Multiplicity="1" />
           <End Role="Zakaznik" Type="Self.Zakaznik" Multiplicity="*" />
@@ -349,10 +379,15 @@
           <EntitySet Name="RevizeSC" EntityType="Self.RevizeSC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SCProvozu" EntityType="Self.SCProvozu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SerioveCislo" EntityType="Self.SerioveCislo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SkupinaArtiklu" EntityType="Self.SkupinaArtiklu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusRevize" EntityType="Self.StatusRevize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Umisteni" EntityType="Self.Umisteni" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zakaznik" EntityType="Self.Zakaznik" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Artikl_SkupinaA" Association="Self.FK_Artikl_SkupinaA">
+            <End Role="SkupinaArtiklu" EntitySet="SkupinaArtiklu" />
+            <End Role="Artikl" EntitySet="Artikl" />
+          </AssociationSet>
           <AssociationSet Name="FK_JazykZakaznik" Association="Self.FK_JazykZakaznik">
             <End Role="Jazyk" EntitySet="Jazyk" />
             <End Role="Zakaznik" EntitySet="Zakaznik" />
@@ -492,6 +527,11 @@
             <End Role="Umisteni" EntitySet="Umisteni" />
             <End Role="SCProvozu" EntitySet="SCProvozu" />
           </AssociationSet>
+          <EntitySet Name="SkupinaArtiklu" EntityType="Model1.SkupinaArtiklu" />
+          <AssociationSet Name="FK_Artikl_SkupinaA" Association="Model1.FK_Artikl_SkupinaA">
+            <End Role="SkupinaArtiklu" EntitySet="SkupinaArtiklu" />
+            <End Role="Artikl" EntitySet="Artikl" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
           <Key>
@@ -627,6 +667,8 @@
           <Property Name="VymenaPyro" Type="Boolean" Nullable="false" />
           <Property Name="PeriodaPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ArtoklPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SkupinaArtiklu" Type="Int32" />
+          <NavigationProperty Name="SkupinaArtiklu1" Relationship="Model1.FK_Artikl_SkupinaA" FromRole="Artikl" ToRole="SkupinaArtiklu" />
         </EntityType>
         <EntityType Name="Revize">
           <Key>
@@ -857,6 +899,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SkupinaArtiklu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Skupina" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Artikl" Relationship="Model1.FK_Artikl_SkupinaA" FromRole="SkupinaArtiklu" ToRole="Artikl" />
+          <Property Name="Revize" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodaRevize" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TlakovaZk" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodaTlakovaZk" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="VymenaBaterie" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodaBaterie" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ArtiklBaterieSAP" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="VymenaPyro" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodaPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ArtoklPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Artikl_SkupinaA">
+          <End Type="Model1.SkupinaArtiklu" Role="SkupinaArtiklu" Multiplicity="0..1" />
+          <End Type="Model1.Artikl" Role="Artikl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkupinaArtiklu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artikl">
+              <PropertyRef Name="SkupinaArtiklu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -923,7 +995,8 @@
     <EntitySetMapping Name="Artikl">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Artikl)">
         <MappingFragment StoreEntitySet="Artikl">
-          <ScalarProperty Name="ArtoklPyro" ColumnName="ArtoklPyro" />
+          <ScalarProperty Name="SkupinaArtiklu" ColumnName="SkupinaArtiklu" />
+                <ScalarProperty Name="ArtoklPyro" ColumnName="ArtoklPyro" />
                 <ScalarProperty Name="PeriodaPyro" ColumnName="PeriodaPyro" />
                 <ScalarProperty Name="VymenaPyro" ColumnName="VymenaPyro" />
                 <ScalarProperty Name="ArtiklBaterieSAP" ColumnName="ArtiklBaterieSAP" />
@@ -1026,6 +1099,24 @@
                 <ScalarProperty Name="Pozice" ColumnName="Pozice" />
                 <ScalarProperty Name="JmenoPrijmeni" ColumnName="JmenoPrijmeni" />
                 <ScalarProperty Name="ZakaznikId" ColumnName="ZakaznikId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SkupinaArtiklu">
+            <EntityTypeMapping TypeName="Model1.SkupinaArtiklu">
+              <MappingFragment StoreEntitySet="SkupinaArtiklu">
+                <ScalarProperty Name="ArtoklPyro" ColumnName="ArtoklPyro" />
+                <ScalarProperty Name="PeriodaPyro" ColumnName="PeriodaPyro" />
+                <ScalarProperty Name="VymenaPyro" ColumnName="VymenaPyro" />
+                <ScalarProperty Name="ArtiklBaterieSAP" ColumnName="ArtiklBaterieSAP" />
+                <ScalarProperty Name="PeriodaBaterie" ColumnName="PeriodaBaterie" />
+                <ScalarProperty Name="VymenaBaterie" ColumnName="VymenaBaterie" />
+                <ScalarProperty Name="PeriodaTlakovaZk" ColumnName="PeriodaTlakovaZk" />
+                <ScalarProperty Name="TlakovaZk" ColumnName="TlakovaZk" />
+                <ScalarProperty Name="PeriodaRevize" ColumnName="PeriodaRevize" />
+                <ScalarProperty Name="Revize" ColumnName="Revize" />
+                <ScalarProperty Name="Skupina" ColumnName="Skupina" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

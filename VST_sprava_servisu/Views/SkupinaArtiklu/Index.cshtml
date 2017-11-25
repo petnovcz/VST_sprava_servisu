@@ -1,0 +1,93 @@
+﻿@model IEnumerable<VST_sprava_servisu.SkupinaArtiklu>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Skupina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Revize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeriodaRevize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TlakovaZk)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeriodaTlakovaZk)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VymenaBaterie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeriodaBaterie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtiklBaterieSAP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VymenaPyro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PeriodaPyro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtoklPyro)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Skupina)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Revize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeriodaRevize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TlakovaZk)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeriodaTlakovaZk)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VymenaBaterie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeriodaBaterie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArtiklBaterieSAP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VymenaPyro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeriodaPyro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArtoklPyro)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
