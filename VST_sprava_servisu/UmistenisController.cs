@@ -32,6 +32,7 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+            //umisteni.SCProvozu
             ViewBag.Provoz = Provoz;
             ViewBag.Zakaznik = Zakaznik;
             return View(umisteni);

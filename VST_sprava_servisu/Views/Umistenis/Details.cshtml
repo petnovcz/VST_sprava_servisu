@@ -8,29 +8,12 @@
 @Html.Action("Header", "Provozy", new { Id = index2 })
 
     <div class="row" style="background-color:rgba(0, 0, 0, 0.5);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px; padding-top:10px;padding-bottom:10px;">
-    <h4>Umisteni</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NazevUmisteni)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NazevUmisteni)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Provoz.NazevProvozu)
-        </dd>
-
-    </dl>
+    <h4 class="vstcolor">@Html.DisplayFor(model => model.NazevUmisteni)</h4>
+    
+        <hr />
+   @Html.Partial("~/Views/SCProvozu/Index.cshtml", Model.SCProvozu)
 </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <br>
+@Html.Action("TestSC", "SAPImport", new { Provoz = Model.ProvozId, Zakaznik = index, Umisteni = Model.Id })
+
 

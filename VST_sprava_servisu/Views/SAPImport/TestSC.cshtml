@@ -1,0 +1,51 @@
+﻿@model VST_sprava_servisu.SCTest
+@{
+    Layout = null;
+}
+
+
+<div class="row" style="background-color:rgba(0, 0, 0, 0.5);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px; padding-top:10px;padding-bottom:10px;">
+
+    @using (Html.BeginForm("TestSC2","SAPImport"))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+           
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.Hidden("Zakaznik", (object)ViewBag.Zakaznik)
+            @Html.Hidden("Provoz", (object)ViewBag.Provoz)
+            @Html.Hidden("Umisteni", (object)ViewBag.Umisteni)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SC, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SC, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SC, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artikl, "Artikl", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Artikl", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Artikl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            
+            
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Hledej" class="btn btn-success" />
+
+                   
+
+                </div>
+            </div>
+        </div>
+    }
+    
+    
+</div>

@@ -65,9 +65,9 @@
                     @Html.DisplayFor(modelItem => item.ArtoklPyro)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) 
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink(" ", "Edit", "Arikly",new { id = item.Id }, new { @class = "btn btn-primary glyphicon glyphicon-edit" }) 
+                   
+                    @Html.ActionLink(" ", "Delete", "Arikly", new { id = item.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
                 </td>
             </tr>
         }

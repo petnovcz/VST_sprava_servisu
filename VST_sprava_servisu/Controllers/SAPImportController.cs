@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.Entity;
 
 namespace VST_sprava_servisu
 {
@@ -29,10 +30,10 @@ namespace VST_sprava_servisu
 
             if (Search == null)
             { Search = ""; }
-            
+
 
             SAPOPlist.Search = Search;
-                     
+
             SAPOPlist.ListSAPOP = SAPOP(Search);
             return View(SAPOPlist);
         }
@@ -338,7 +339,7 @@ namespace VST_sprava_servisu
 
             foreach (var item in SAPCP)
             {
-                bool result = Zcontroller.Generate(Zakaznik,item.Name,item.Position, item.Tel1, item.E_MaiL, item.CntctCode);
+                bool result = Zcontroller.Generate(Zakaznik, item.Name, item.Position, item.Tel1, item.E_MaiL, item.CntctCode);
             }
             return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = Zakaznik });
         }
@@ -414,7 +415,7 @@ namespace VST_sprava_servisu
             cnn.Close();
 
             return SAPDAList;
-        }         
+        }
         public ActionResult ImportSAPAddress(string CardCode, int Zakaznik)
 
         {
@@ -437,7 +438,7 @@ namespace VST_sprava_servisu
         /// Seznam artiklů nenaimportovaných v Servise z IS SAP , která mají správu sériových čísel
         /// </summary>
         /// <returns></returns>
-        public ActionResult SAPItems ()
+        public ActionResult SAPItems()
         {
             List<SAPItem> SAPItemsList = new List<SAPItem>();
             string sql = @"select ItemCode, ItemName, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ManSerNum = 'Y'";
@@ -516,7 +517,7 @@ namespace VST_sprava_servisu
                         sapItem.ItmsGrpNam = dr.GetString(dr.GetOrdinal("ItmsGrpNam"));
                     }
                     catch { }
-                    
+
 
                 }
             }
@@ -536,7 +537,7 @@ namespace VST_sprava_servisu
             {
                 ViewBag.Result = "Import proběhl OK";
             }
-            
+
             return RedirectToAction("SAPItems", "SAPImport");
         }
 
@@ -596,6 +597,7 @@ namespace VST_sprava_servisu
                         sapitem.KodSAP = dr.GetString(dr.GetOrdinal("KodSAP"));
                     }
                     catch { }
+                    
                     sapitem.Zakaznik = Zakaznik;
                     sapitem.ZakaznikSAPKod = OPSAPkod;
                     sapitem.Provoz = new SelectList(db.Provoz.Where(m => m.ZakaznikId == Zakaznik), "Id", "NazevProvozu");
@@ -624,6 +626,149 @@ namespace VST_sprava_servisu
 
             //return RedirectToAction("SAPSCList", new { OPSAPkod = scimport.ZakaznikSAPKod, Zakaznik = scimport.Zakaznik });
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult TestSC(int Zakaznik, int Provoz, int Umisteni)
+        {
+
+            ViewBag.Artikl = new SelectList(db.Artikl.OrderBy(a => a.Nazev), "Id", "Nazev");
+            ViewBag.Zakaznik = Zakaznik;
+            ViewBag.Provoz = Provoz;
+            ViewBag.Umisteni = Umisteni;
+            return View(new SCTest());
+        }
+
+        [HttpPost]
+        public ActionResult TestSC2([Bind(Include = "Zakaznik, Provoz, Umisteni, SC, Artikl")] SCTest sctest)
+        {
+            // Vyhledat v SAP sériové číslo a zobrazit přehled sériových čísel
+            // Vyhledat mezi sériovými čísly zadanými v Servise
+            // Vyhleda mezi SC provozy zadanými v Servise
+
+            ViewBag.Artikl = new SelectList(db.Artikl.OrderBy(a => a.Nazev), "Id", "Nazev", sctest.Artikl);
+            ViewBag.Zakaznik = sctest.Zakaznik;
+            ViewBag.Provoz = sctest.Provoz;
+            ViewBag.Umisteni = sctest.Umisteni;
+            ViewBag.NazevUmisteni = db.Umisteni.Where(u => u.Id == sctest.Umisteni);
+            sctest.SAPSerioveCIslo = LoadSCFromSAP(sctest.SC, sctest.Artikl);
+            sctest.SerioveCisloList = db.SerioveCislo.Where(s => s.SerioveCislo1 == sctest.SC).Include(a => a.Artikl);
+            sctest.SCProvozuList = db.SCProvozu.Where(s => s.SerioveCislo.SerioveCislo1 == sctest.SC && s.Status.Aktivni == true )
+                .Include(a => a.Provoz).Include(a=>a.Umisteni1).Include(p=>p.Provoz.Zakaznik);
+            return View(sctest);
+        }
+
+        private IEnumerable<SAPSerioveCislo> LoadSCFromSAP (string SC, int Artikl)
+        {
+            //var artikl = db.Artikl.Where(a => a.Id == Artikl).FirstOrDefault();
+            List<SAPSerioveCislo> SAPSCList = new List<SAPSerioveCislo>();
+            string sql = @" SELECT t2.id as 'ArticlId', t2.KodSAP, t2.Nazev, ";
+            sql = sql + @" T0.[IntrSerial] as 'SerioveCislo' , t0.InDate as 'Vyrobeno', ";
+            sql = sql + @" t1.docdate as 'Dodano' ";
+            sql = sql + @"  ,t3.CardCode, t3.CardName, t1.BaseType, t1.BaseNum, t6.PrjCode, t6.PrjName ";
+            sql = sql + @" FROM OSRI  T0 ";
+            sql =sql +  @" INNER JOIN SRI1 T1 ON T0.ItemCode = T1.ItemCode and T0.SysSerial = T1.SysSerial";
+            sql = sql + @" left join [Servis].[dbo].[Artikl] t2 on t1.ItemCode COLLATE DATABASE_DEFAULT = t2.KodSAP COLLATE DATABASE_DEFAULT";
+            sql = sql + @" inner join ocrd t3 on t3.CardCode = t1.CardCode";
+            sql = sql + @" left join ODLN t4 on t4.ObjType = t1.BaseType and t4.DocEntry = t1.BaseEntry ";
+            sql = sql + @" left join OINV t5 on t5.ObjType = t1.BaseType and t5.DocEntry = t1.BaseEntry ";
+            sql = sql + @" left join OPRJ t6 on (t4.Project = t6.PrjCode) or (t5.Project = t6.PrjCode)";
+            
+            sql = sql + @" where t1.Direction = 1 and t1.CardCode is not null and ";
+            sql = sql + @" ((select count (*) from [Servis].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = t1.ItemCode) > 0)";
+            //sql = sql + @" and((select count (*) from [Servis].[dbo].[Zakaznik] where KodSAP COLLATE DATABASE_DEFAULT = t1.CardCode) > 0)";
+            sql = sql + @" and T0.[IntrSerial] = '" + SC + "'";
+            //sql = sql + @" group by T0.[IntrSerial], t2.id, t2.kodSAp, t2.nazev";
+            SqlConnection cnn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql;
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+                    SAPSerioveCislo sapitem = new SAPSerioveCislo();
+                    try
+                    {
+                        sapitem.SerioveCislo = dr.GetString(dr.GetOrdinal("SerioveCislo"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.ArticlId = dr.GetInt32(dr.GetOrdinal("ArticlId"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.NazevArtiklu = dr.GetString(dr.GetOrdinal("Nazev"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.DatumDodani = dr.GetDateTime(dr.GetOrdinal("Dodano"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.DatumVyroby = dr.GetDateTime(dr.GetOrdinal("Vyrobeno"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.KodSAP = dr.GetString(dr.GetOrdinal("KodSAP"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.CardName = dr.GetString(dr.GetOrdinal("CardName"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.BaseType = dr.GetInt32(dr.GetOrdinal("BaseType"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.BaseNum = dr.GetInt32(dr.GetOrdinal("BaseNum"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.PrjCode = dr.GetString(dr.GetOrdinal("PrjCode"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapitem.PrjName = dr.GetString(dr.GetOrdinal("PrjName"));
+                    }
+                    catch { }
+                    sapitem.ArticlId = db.Artikl.Where(a => a.KodSAP == sapitem.KodSAP).Select(a => a.Id).FirstOrDefault();
+                    SAPSCList.Add(sapitem);
+                }
+            }
+            cnn.Close();
+
+            return SAPSCList;
+        }
+
+        public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumDodani")] SCImport scimport)
+        {
+            ViewBag.Zakaznik = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", scimport.Zakaznik);
+            ViewBag.Provozy = new SelectList(db.Provoz.Where(p=>p.ZakaznikId == scimport.Zakaznik), "Id", "NazevProvozu", scimport.Provozy);
+            ViewBag.Umisteni = new SelectList(db.Umisteni.Where(u => u.ProvozId == scimport.Provozy), "Id", "NazevUmisteni", scimport.Umisteni);
+            ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", scimport.ArtiklId);
+            return View(scimport);
         }
     }
 }

@@ -727,6 +727,9 @@
     <Content Include="Views\SkupinaArtiklu\Details.cshtml" />
     <Content Include="Views\SkupinaArtiklu\Edit.cshtml" />
     <Content Include="Views\SkupinaArtiklu\Index.cshtml" />
+    <Content Include="Views\SAPImport\TestSC.cshtml" />
+    <Content Include="Views\SAPImport\TestSC2.cshtml" />
+    <Content Include="Views\SAPImport\ImportSCtoServis.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

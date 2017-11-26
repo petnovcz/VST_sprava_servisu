@@ -1,0 +1,86 @@
+﻿@model VST_sprava_servisu.SCTest
+
+@Html.Action("Header", "Zakaznici", new { Id = Model.Zakaznik })
+@Html.Action("Header", "Provozy", new { Id = Model.Provoz })
+
+<div class="row" style="background-color:rgba(0, 0, 0, 0.5);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px; padding-top:10px;padding-bottom:10px;">
+
+    <div class="row vstcolor">
+        <div class="col-lg-3"><b>Vyhledáváné sériové číslo</b></div>
+        <div class="col-lg-3"><b>@Model.SC</b></div>
+    </div>
+    <br>
+    <div class="col-lg-12 vstcolor"><center><b>Sériové číslo dohledané v SAP</b></center><hr></div>
+    <div class="row vstcolor">
+        <div class="col-lg-3">Artikl</div>
+        <div class="col-lg-3">Zákazník</div>
+        <div class="col-lg-1">Doklad</div>
+        <div class="col-lg-3">Projekt</div>
+        <div class="col-lg-2">Dodani / Vyroba</div>
+    </div>
+    <div class="row vstcolorwhite"><br>
+        @{ 
+            var index = Model.SerioveCisloList.Count();
+            var index2 = Model.SCProvozuList.Count();
+
+        }
+        @foreach (var item in Model.SAPSerioveCIslo)
+        {
+            <div class="col-lg-3">@item.KodSAP<br>@item.NazevArtiklu</div>           
+            <div class="col-lg-3">@item.CardCode <br>@item.CardName</div>           
+            <div class="col-lg-1">@if (@item.BaseType == 15) {@("Dodací list"); } @if (@item.BaseType == 13) { @("Faktura"); }<br>@item.BaseNum  </div>          
+            <div class="col-lg-3">@item.PrjCode <br> @item.PrjName</div>          
+            <div class="col-lg-2">@item.DatumDodani<br>@item.DatumVyroby</div>
+            <div class="col-lg-12"><center>
+                @if ((index == 0) && (index2 == 0)) 
+                {
+                    using (Html.BeginForm("ImportSCtoServis", "SAPImport"))
+                    {
+                        @Html.Hidden("Zakaznik", Model.Zakaznik )
+                        @Html.Hidden("Provozy", Model.Provoz)
+                        @Html.Hidden("Umisteni", Model.Umisteni)
+                        @Html.Hidden("SerioveCislo", Model.SC)
+                        @Html.Hidden("ArtiklId", item.ArticlId)
+                        @Html.Hidden("DatumVyroby", item.DatumVyroby)
+                        @Html.Hidden("DatumDodani", item.DatumVyroby)
+                        <input type="submit" value="Next" />
+                    }
+                }</center>
+            </div>
+            
+
+        }
+    </div>
+    
+    <br>
+    @if (Model.SerioveCisloList.Count() > 0)
+    {
+    <div class="row">
+        <div class="col-lg-12 vstcolor"><center><b>Sériové číslo nastavené v Servise</b></center><hr></div>
+        @foreach (var item in Model.SerioveCisloList)
+        {
+            <div class="col-lg-3">@item.Artikl.Nazev</div>
+            <div class="col-lg-3">@item.SerioveCislo1</div>
+            <div class="col-lg-3">@item.DatumVyroby</div>
+            <div class="col-lg-3">@item.DatumPosledniTlakoveZkousky</div>
+
+
+
+        }
+    </div>
+    }
+    <br>
+    @if(Model.SCProvozuList.Count() > 0)
+    { 
+    <div class="row">
+        <div class="col-lg-12 vstcolor"><center><b>Sériové číslo přiřazené k Provozu</b></center><hr></div>
+        @foreach (var item in Model.SCProvozuList)
+        {
+            <div class="col-lg-4">@item.Provoz.Zakaznik.NazevZakaznika <br> @item.Provoz.NazevProvozu <br> @item.Umisteni1.NazevUmisteni</div>
+            <div class="col-lg-4">@item.DatumPosledniZmeny</div>
+            <div class="col-lg-4">@item.DatumPrirazeni</div>
+            <div class="col-lg-4">@item.DatumVymeny</div>
+        }
+    </div>
+    }
+</div>

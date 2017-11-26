@@ -93,6 +93,13 @@ namespace VST_sprava_servisu
         public string KodSAP { get; set; }
         public DateTime DatumVyroby { get; set; }
         public DateTime DatumDodani { get; set; }
+        public string CardCode { get; set; }
+        public string CardName { get; set; }
+        public int BaseType { get; set; }
+        public int BaseNum { get; set; }
+        public string PrjCode { get; set; }
+        public string PrjName { get; set; }
+        
         public string ZakaznikSAPKod { get; set; }
         public int Zakaznik { get; set; }
         public int ProvozId { get; set; }
@@ -111,9 +118,28 @@ namespace VST_sprava_servisu
         public DateTime DatumDodani { get; set; }
         public string ZakaznikSAPKod { get; set; }
         public int Zakaznik { get; set; }
-        public int Provozy { get; set; } 
+        public int Provozy { get; set; }
+        public int Umisteni { get; set; }
+        public DateTime DatumPrirazeni { get; set; }
+        public DateTime DatumPosledniZmeny { get; set; }
+        public DateTime DatumVymeny { get; set; }
+        public DateTime DatumBaterie { get; set; }
+        public DateTime DatumPyro { get; set; }
+        public DateTime DatumTlkZk { get; set; }
+
+    }
 
 
-
+    public class SCTest
+    {
+        [Key]
+        public string SC { get; set; }
+        public int Artikl { get; set; }
+        public int Zakaznik { get; set; }
+        public int Provoz { get; set; }
+        public int Umisteni { get; set; }
+        public IEnumerable<SAPSerioveCislo> SAPSerioveCIslo { get; set; }
+        public IEnumerable<SerioveCislo> SerioveCisloList { get; set; }
+        public IEnumerable<SCProvozu> SCProvozuList { get; set; }
     }
 }
