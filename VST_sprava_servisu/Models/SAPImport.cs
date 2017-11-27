@@ -123,6 +123,7 @@ namespace VST_sprava_servisu
         public DateTime DatumPrirazeni { get; set; }
         public DateTime DatumPosledniZmeny { get; set; }
         public DateTime DatumVymeny { get; set; }
+        public DateTime DatumRevize { get; set; }
         public DateTime DatumBaterie { get; set; }
         public DateTime DatumPyro { get; set; }
         public DateTime DatumTlkZk { get; set; }

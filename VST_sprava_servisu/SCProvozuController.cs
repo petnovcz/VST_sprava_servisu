@@ -16,7 +16,12 @@ namespace VST_sprava_servisu
         // GET: SCProvozu
         public ActionResult Index()
         {
-            var sCProvozu = db.SCProvozu.Include(s => s.Provoz).Include(s => s.SerioveCislo).Include(s => s.Status).Include(s => s.Umisteni1);
+            var sCProvozu = db.SCProvozu
+                                .Include(s => s.Provoz)
+                                .Include(s => s.SerioveCislo)
+                                .Include(s => s.Status)
+                                .Include(s => s.Umisteni1)
+                                ; //.Include(s=> s.SerioveCislo.Artikl)
             return View(sCProvozu.ToList());
         }
 

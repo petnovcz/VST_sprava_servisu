@@ -762,6 +762,7 @@ namespace VST_sprava_servisu
             return SAPSCList;
         }
 
+        [HttpPost]
         public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumDodani")] SCImport scimport)
         {
             ViewBag.Zakaznik = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", scimport.Zakaznik);
