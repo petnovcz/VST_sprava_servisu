@@ -55,7 +55,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni")] SCProvozu sCProvozu)
+        public ActionResult Create([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk")] SCProvozu sCProvozu)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +87,8 @@ namespace VST_sprava_servisu
             ViewBag.SerioveCisloId = new SelectList(db.SerioveCislo, "Id", "SerioveCislo1", sCProvozu.SerioveCisloId);
             ViewBag.StatusId = new SelectList(db.Status, "Id", "NazevStatusu", sCProvozu.StatusId);
             ViewBag.Umisteni = new SelectList(db.Umisteni, "Id", "NazevUmisteni", sCProvozu.Umisteni);
+            ViewBag.Zakaznik = db.Provoz.Where(p => p.Id == sCProvozu.ProvozId).Select(p => p.ZakaznikId).FirstOrDefault();
+            ViewBag.Provoz = sCProvozu.ProvozId;
             return View(sCProvozu);
         }
 
@@ -95,18 +97,23 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni")] SCProvozu sCProvozu)
+        public ActionResult Edit([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk")] SCProvozu sCProvozu)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(sCProvozu).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                int Provoz = sCProvozu.ProvozId;
+                int Umisteni = sCProvozu.Umisteni.Value;
+                int Zakaznik = db.Provoz.Where(p => p.Id == Provoz).Select(p => p.ZakaznikId).FirstOrDefault();
+                return RedirectToAction("Details","Umistenis", new { id = Umisteni, Provoz = Provoz, Zakaznik = Zakaznik} );
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", sCProvozu.ProvozId);
             ViewBag.SerioveCisloId = new SelectList(db.SerioveCislo, "Id", "SerioveCislo1", sCProvozu.SerioveCisloId);
             ViewBag.StatusId = new SelectList(db.Status, "Id", "NazevStatusu", sCProvozu.StatusId);
             ViewBag.Umisteni = new SelectList(db.Umisteni, "Id", "NazevUmisteni", sCProvozu.Umisteni);
+            ViewBag.Zakaznik = db.Provoz.Where(p => p.Id == sCProvozu.ProvozId).Select(p => p.ZakaznikId).FirstOrDefault();
+            ViewBag.Provoz = sCProvozu.ProvozId;
             return View(sCProvozu);
         }
 

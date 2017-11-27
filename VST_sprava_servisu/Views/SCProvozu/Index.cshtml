@@ -22,6 +22,12 @@
                 @Html.DisplayNameFor(model => model.DatumPosledniZmeny)<br>
                 @Html.DisplayNameFor(model => model.DatumVymeny)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumRevize)<br>
+                @Html.DisplayNameFor(model => model.DatumBaterie)<br>
+                @Html.DisplayNameFor(model => model.DatumPyro)<br>
+                @Html.DisplayNameFor(model => model.DatumTlkZk)
+            </th>
 
             <th></th>
         </tr>
@@ -44,11 +50,16 @@
                     @Html.DisplayFor(modelItem => item.DatumPosledniZmeny)<br>
                     @Html.DisplayFor(modelItem => item.DatumVymeny)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumRevize)<br>
+                    @Html.DisplayFor(modelItem => item.DatumBaterie)<br>
+                    @Html.DisplayFor(modelItem => item.DatumPyro)<br>
+                    @Html.DisplayFor(modelItem => item.DatumTlkZk)
+                </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Edit", "Edit","SCProvozu", new { id = item.Id }, new { @class = "btn btn-primary"})
+                    
                 </td>
             </tr>
         }

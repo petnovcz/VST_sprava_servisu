@@ -25,9 +25,13 @@ namespace VST_sprava_servisu
         public int SerioveCisloId { get; set; }
         public int StatusId { get; set; }
         public System.DateTime DatumPrirazeni { get; set; }
-        public System.DateTime DatumPosledniZmeny { get; set; }
-        public System.DateTime DatumVymeny { get; set; }
+        public Nullable<System.DateTime> DatumPosledniZmeny { get; set; }
+        public Nullable<System.DateTime> DatumVymeny { get; set; }
         public Nullable<int> Umisteni { get; set; }
+        public Nullable<System.DateTime> DatumRevize { get; set; }
+        public Nullable<System.DateTime> DatumBaterie { get; set; }
+        public Nullable<System.DateTime> DatumPyro { get; set; }
+        public Nullable<System.DateTime> DatumTlkZk { get; set; }
     
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

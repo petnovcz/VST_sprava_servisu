@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Edit";
 }
+@Html.Action("Header", "Zakaznici", new { Id = ViewBag.Zakaznik })
+@Html.Action("Header", "Provozy", new { Id = ViewBag.Provoz })
 
-<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
@@ -23,7 +24,13 @@
                 @Html.ValidationMessageFor(model => model.ProvozId, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.Umisteni, "Umisteni", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Umisteni", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Umisteni, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.SerioveCisloId, "SerioveCisloId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -63,14 +70,36 @@
                 @Html.ValidationMessageFor(model => model.DatumVymeny, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.Umisteni, "Umisteni", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Umisteni", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Umisteni, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.DatumRevize, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DatumRevize, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumBaterie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumBaterie, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DatumBaterie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumPyro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumPyro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DatumPyro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumTlkZk, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumTlkZk, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DatumTlkZk, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

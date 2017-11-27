@@ -102,9 +102,13 @@
           <Property Name="SerioveCisloId" Type="int" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="DatumPrirazeni" Type="datetime" Nullable="false" />
-          <Property Name="DatumPosledniZmeny" Type="datetime" Nullable="false" />
-          <Property Name="DatumVymeny" Type="datetime" Nullable="false" />
+          <Property Name="DatumPosledniZmeny" Type="datetime" />
+          <Property Name="DatumVymeny" Type="datetime" />
           <Property Name="Umisteni" Type="int" />
+          <Property Name="DatumRevize" Type="datetime" />
+          <Property Name="DatumBaterie" Type="datetime" />
+          <Property Name="DatumPyro" Type="datetime" />
+          <Property Name="DatumTlkZk" Type="datetime" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -710,14 +714,18 @@
           <Property Name="SerioveCisloId" Type="Int32" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="DatumPrirazeni" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DatumPosledniZmeny" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DatumVymeny" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatumPosledniZmeny" Type="DateTime" Precision="3" />
+          <Property Name="DatumVymeny" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Provoz" Relationship="Model1.FK_ProvozSCProvozu" FromRole="SCProvozu" ToRole="Provoz" />
           <NavigationProperty Name="RevizeSC" Relationship="Model1.FK_RevizeSCSCProvozu" FromRole="SCProvozu" ToRole="RevizeSC" />
           <NavigationProperty Name="SerioveCislo" Relationship="Model1.FK_SerioveCisloSCProvozu" FromRole="SCProvozu" ToRole="SerioveCislo" />
           <NavigationProperty Name="Status" Relationship="Model1.FK_StatusSCProvozu" FromRole="SCProvozu" ToRole="Status" />
           <Property Name="Umisteni" Type="Int32" />
           <NavigationProperty Name="Umisteni1" Relationship="Model1.FK_SCProvozu_Umisteni" FromRole="SCProvozu" ToRole="Umisteni" />
+          <Property Name="DatumRevize" Type="DateTime" Precision="3" />
+          <Property Name="DatumBaterie" Type="DateTime" Precision="3" />
+          <Property Name="DatumPyro" Type="DateTime" Precision="3" />
+          <Property Name="DatumTlkZk" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -1046,7 +1054,11 @@
     <EntitySetMapping Name="SCProvozu">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.SCProvozu)">
         <MappingFragment StoreEntitySet="SCProvozu">
-          <ScalarProperty Name="Umisteni" ColumnName="Umisteni" />
+          <ScalarProperty Name="DatumTlkZk" ColumnName="DatumTlkZk" />
+                <ScalarProperty Name="DatumPyro" ColumnName="DatumPyro" />
+                <ScalarProperty Name="DatumBaterie" ColumnName="DatumBaterie" />
+                <ScalarProperty Name="DatumRevize" ColumnName="DatumRevize" />
+                <ScalarProperty Name="Umisteni" ColumnName="Umisteni" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ProvozId" ColumnName="ProvozId" />
           <ScalarProperty Name="SerioveCisloId" ColumnName="SerioveCisloId" />
