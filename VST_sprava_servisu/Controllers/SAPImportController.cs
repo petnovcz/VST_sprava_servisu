@@ -763,12 +763,49 @@ namespace VST_sprava_servisu
         }
 
         [HttpPost]
-        public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumDodani")] SCImport scimport)
+        public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumVymeny, DatumDodani, Submitted, DatumRevize, DatumBaterie, DatumPyro, DatumTlkZk, DatumPrirazeni")] SCImport scimport)
         {
-            ViewBag.Zakaznik = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", scimport.Zakaznik);
-            ViewBag.Provozy = new SelectList(db.Provoz.Where(p=>p.ZakaznikId == scimport.Zakaznik), "Id", "NazevProvozu", scimport.Provozy);
-            ViewBag.Umisteni = new SelectList(db.Umisteni.Where(u => u.ProvozId == scimport.Provozy), "Id", "NazevUmisteni", scimport.Umisteni);
-            ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", scimport.ArtiklId);
+            int id = 0;
+            int idscprovozu = 0;
+            if (scimport.Submitted == true)
+            {
+                SerioveCislo seriovecislo = new SerioveCislo();
+                seriovecislo.ArtiklId = scimport.ArtiklId;
+                seriovecislo.DatumPosledniTlakoveZkousky = scimport.DatumTlkZk;
+                seriovecislo.DatumVyroby = scimport.DatumVyroby;
+                seriovecislo.SerioveCislo1 = scimport.SerioveCislo;
+                db.SerioveCislo.Add(seriovecislo);
+                db.SaveChanges();
+                id = seriovecislo.Id;
+
+                SCProvozu scprovozu = new SCProvozu();
+                scprovozu.SerioveCisloId = id;
+                scprovozu.ProvozId = scimport.Provozy;
+                scprovozu.StatusId = db.Status.Where(s => s.Aktivni == true).Select(s=>s.Id).FirstOrDefault();
+                scprovozu.DatumPrirazeni = scimport.DatumPrirazeni;
+                scprovozu.DatumPosledniZmeny = scimport.DatumPosledniZmeny;
+                scprovozu.DatumVymeny = null;
+                scprovozu.Umisteni = scimport.Umisteni;
+                scprovozu.DatumRevize = scimport.DatumRevize;
+                scprovozu.DatumBaterie = scimport.DatumBaterie;
+                scprovozu.DatumPyro = scimport.DatumPyro;
+                scprovozu.DatumTlkZk = scimport.DatumTlkZk;
+                db.SCProvozu.Add(scprovozu);
+                db.SaveChanges();
+                idscprovozu = scprovozu.Id;
+
+                if ((id > 0) || (idscprovozu > 0))
+                {
+                    return RedirectToAction("Details", "Umistenis", new { id = scimport.Umisteni, Provoz = scimport.Provozy, Zakaznik = scimport.Zakaznik });
+                }
+            }
+            if ((scimport.Submitted == false) || ((id == 0) || (idscprovozu == 0)))
+            {
+                ViewBag.Zakaznik = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", scimport.Zakaznik);
+                ViewBag.Provozy = new SelectList(db.Provoz.Where(p => p.ZakaznikId == scimport.Zakaznik), "Id", "NazevProvozu", scimport.Provozy);
+                ViewBag.Umisteni = new SelectList(db.Umisteni.Where(u => u.ProvozId == scimport.Provozy), "Id", "NazevUmisteni", scimport.Umisteni);
+                ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", scimport.ArtiklId);
+            }
             return View(scimport);
         }
     }

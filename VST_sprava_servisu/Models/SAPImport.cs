@@ -121,13 +121,13 @@ namespace VST_sprava_servisu
         public int Provozy { get; set; }
         public int Umisteni { get; set; }
         public DateTime DatumPrirazeni { get; set; }
-        public DateTime DatumPosledniZmeny { get; set; }
-        public DateTime DatumVymeny { get; set; }
-        public DateTime DatumRevize { get; set; }
-        public DateTime DatumBaterie { get; set; }
-        public DateTime DatumPyro { get; set; }
-        public DateTime DatumTlkZk { get; set; }
-
+        public Nullable<DateTime> DatumPosledniZmeny { get; set; }
+        public DateTime? DatumVymeny { get; set; }
+        public Nullable<DateTime> DatumRevize { get; set; }
+        public Nullable<DateTime> DatumBaterie { get; set; }
+        public Nullable<DateTime> DatumPyro { get; set; }
+        public Nullable<DateTime> DatumTlkZk { get; set; }
+        public bool? Submitted { get; set; }
     }
 
 
