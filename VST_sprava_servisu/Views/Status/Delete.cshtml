@@ -4,45 +4,51 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>Administrace statusů sériových čísel provozu</h4></center>
+</div>
+<div class="form-horizontal vstcolorwhite" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Status</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NazevStatusu)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NazevStatusu)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Aktivni)
-        </dt>
+    <div>
+        <h4 class="vstcolor">Opravdu chcete smazat tento status?</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NazevStatusu)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Aktivni)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.NazevStatusu)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Neaktivni)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Aktivni)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Neaktivni)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Aktivni)
+            </dd>
 
-    </dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Neaktivni)
+            </dt>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+            <dd>
+                @Html.DisplayFor(model => model.Neaktivni)
+            </dd>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color col-lg-offset-2">
+                <input type="submit" value="Smaž" class="btn btn-danger" /> 
+                @Html.ActionLink(" ", "Index", null, new { @class = "btn btn-primary glyphicon glyphicon-th-list" })
+            </div>
+        }
+    </div>
 </div>

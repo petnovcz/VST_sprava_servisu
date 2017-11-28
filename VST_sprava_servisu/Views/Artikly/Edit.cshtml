@@ -1,18 +1,22 @@
 ﻿@model VST_sprava_servisu.Artikl
 
+<div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>Editace artiklu</h4></center>
+</div>
+
+<div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
 
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-horizontal">
-            <h4>Artikl</h4>
-            <hr />
+            
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Nazev, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -20,7 +24,7 @@
                     @Html.ValidationMessageFor(model => model.Nazev, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Oznaceni, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -28,7 +32,7 @@
                     @Html.ValidationMessageFor(model => model.Oznaceni, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Typ, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -36,7 +40,7 @@
                     @Html.ValidationMessageFor(model => model.Typ, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.RozsahProvoznichTeplot, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -44,7 +48,7 @@
                     @Html.ValidationMessageFor(model => model.RozsahProvoznichTeplot, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.KodSAP, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -68,7 +72,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.PeriodaRevize, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -76,7 +80,7 @@
                     @Html.ValidationMessageFor(model => model.PeriodaRevize, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.TlakovaZk, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -86,7 +90,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.PeriodaTlakovaZk, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -94,7 +98,7 @@
                     @Html.ValidationMessageFor(model => model.PeriodaTlakovaZk, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.VymenaBaterie, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -104,7 +108,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.PeriodaBaterie, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -112,7 +116,7 @@
                     @Html.ValidationMessageFor(model => model.PeriodaBaterie, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.ArtiklBaterieSAP, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -120,7 +124,7 @@
                     @Html.ValidationMessageFor(model => model.ArtiklBaterieSAP, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.VymenaPyro, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -130,7 +134,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.PeriodaPyro, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -138,7 +142,7 @@
                     @Html.ValidationMessageFor(model => model.PeriodaPyro, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.ArtoklPyro, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -146,15 +150,15 @@
                     @Html.ValidationMessageFor(model => model.ArtoklPyro, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Ulož" class="btn btn-success" />
+                    @Html.ActionLink(" ", "Index", null, new { @class = "btn btn-primary glyphicon glyphicon-th-list" })
                 </div>
             </div>
         </div>
     }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+
+   
+</div>

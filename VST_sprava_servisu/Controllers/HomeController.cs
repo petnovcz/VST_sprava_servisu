@@ -21,7 +21,7 @@ namespace VST_sprava_servisu.Controllers
             //Main(args);
             //Main2(args);
 
-            try
+            /*try
             {
                 SAPbobsCOM.Company oCompany = new SAPbobsCOM.Company();
                 oCompany.CompanyDB = "SBO_SKOLENI";
@@ -47,7 +47,7 @@ namespace VST_sprava_servisu.Controllers
                 if (oCompany.Connected == true) { oCompany.Disconnect(); }
             }
             catch (Exception Errmsg) { throw Errmsg; }
-            
+            */
 
 
 

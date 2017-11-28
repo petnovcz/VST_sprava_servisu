@@ -78,6 +78,7 @@ namespace VST_sprava_servisu
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
         public string ItmsGrpNam { get; set; }
+        public int ItmsGrpCod { get; set; }
 
     
 

@@ -52,7 +52,7 @@ namespace VST_sprava_servisu
             {
                 db.Artikl.Add(artikl);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","SkupinaArtiklu",new { id = artikl.SkupinaArtiklu});
             }
             ViewBag.SkupinaArtiklu = new SelectList(db.SkupinaArtiklu, "Id", "Skupina",artikl.SkupinaArtiklu);
             return View(artikl);
@@ -85,7 +85,7 @@ namespace VST_sprava_servisu
             {
                 db.Entry(artikl).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "SkupinaArtiklu", new { id = artikl.SkupinaArtiklu });
             }
             ViewBag.SkupinaArtiklu = new SelectList(db.SkupinaArtiklu, "Id", "Skupina", artikl.SkupinaArtiklu);
             return View(artikl);
@@ -112,9 +112,10 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             Artikl artikl = db.Artikl.Find(id);
+            int idsa = artikl.SkupinaArtiklu.Value;
             db.Artikl.Remove(artikl);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "SkupinaArtiklu", new { id = idsa });
         }
 
         public bool CreateFromSAPdata(SAPItem sapItem)
@@ -129,7 +130,7 @@ namespace VST_sprava_servisu
                 artikl.Typ = sapItem.ItmsGrpNam;
                 artikl.Oznaceni = sapItem.ItemName;
                 artikl.RozsahProvoznichTeplot = " ";
-
+                artikl.SkupinaArtiklu = sapItem.ItmsGrpCod;
                 db.Artikl.Add(artikl);
                 db.SaveChanges();
             }

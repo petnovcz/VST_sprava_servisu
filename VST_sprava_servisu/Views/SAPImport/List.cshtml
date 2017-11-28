@@ -3,34 +3,42 @@
 @{
     ViewBag.Title = "List";
 }
-<div class="jumbotron">
-<h2>Seznam obchodních partnerů v SAP</h2>
-<h4>kteří ještě nebyly naimportovány do servisu</h4>
-<h4>Hledání probíhá dle polí Kód OP, Název OP a fakturační adresy OP</h4>
+
+<div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>Seznam obchodních partnerů v SAP</h4></center>
+    <p class="vstcolorwhite">kteří ještě nebyly naimportovány do servisu, Hledání probíhá dle polí Kód OP, Název OP a fakturační adresy OP</p>
 </div>
-@using (Ajax.BeginForm("List", "SAPImport", new AjaxOptions
-{
+<div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
-    InsertionMode = InsertionMode.Replace, 
-    UpdateTargetId = "List",
 
-}, new { htmlAttributes = new { @class = "form-inline" } }))
-{
-    string Search = "";
-    <div>
-        <div class="col-lg-3">@Html.EditorFor(x => Search, new { htmlAttributes = new { @class = "form-control " } }) </div>
-        <div class="col-lg-1"><input type="submit" value="Search" class="form-control " /></div>
+
+
+
+
+    
+    @using (Ajax.BeginForm("SAPOPList", "SAPImport", new AjaxOptions
+    {
+
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "List",
+
+    }, new { htmlAttributes = new { @class = "form-inline" } }))
+    {
+        string Search = "";
+        <div>
+            <div class="col-lg-3">@Html.EditorFor(x => Search, new { htmlAttributes = new { @class = "form-control " } }) </div>
+            <div class="col-lg-1"><input type="submit" value="Search" class="form-control " /></div>
+        </div>
+
+    }
+
+    @ViewBag.Result
+
+
+    <div id="List">
+        @Html.Partial("SAPOPList", Model.ListSAPOP)
     </div>
-
-}
-
-@ViewBag.Result
-
-
-
-@Html.Partial("SAPOPList", Model.ListSAPOP)
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

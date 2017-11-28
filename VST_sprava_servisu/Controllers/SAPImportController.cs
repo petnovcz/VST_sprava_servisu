@@ -38,11 +38,12 @@ namespace VST_sprava_servisu
             return View(SAPOPlist);
         }
 
-        /*public PartialViewResult SAPOPList(List<SAPOP> SAPOP)
+        public PartialViewResult SAPOPList(string Search)
         {
-
-            return PartialView(SAPOP);
-        }*/
+            List<SAPOP> sapop = new List<SAPOP>();
+            sapop = SAPOP(Search);
+            return PartialView(sapop);
+        }
 
         /// <summary>
         /// Vytvoření seznamu obchodních partnerů z IS SAP, které ještě nebyly importovány v SAP
@@ -441,7 +442,7 @@ namespace VST_sprava_servisu
         public ActionResult SAPItems()
         {
             List<SAPItem> SAPItemsList = new List<SAPItem>();
-            string sql = @"select ItemCode, ItemName, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ManSerNum = 'Y'";
+            string sql = @"select ItemCode, ItemName, t1.ItmsGrpCod, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ManSerNum = 'Y'";
             sql = sql + @"and ((select count(*) from [Servis].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = ItemCode COLLATE DATABASE_DEFAULT) = 0)";
 
             SqlConnection cnn = new SqlConnection(connectionString);
@@ -473,7 +474,11 @@ namespace VST_sprava_servisu
                         sapitem.ItmsGrpNam = dr.GetString(dr.GetOrdinal("ItmsGrpNam"));
                     }
                     catch { }
-
+                    try
+                    {
+                        sapitem.ItmsGrpCod = dr.GetInt32(dr.GetOrdinal("ItmsGrpCod"));
+                    }
+                    catch { }
 
                     SAPItemsList.Add(sapitem);
                 }
@@ -485,7 +490,7 @@ namespace VST_sprava_servisu
         public SAPItem GetSAPItemByCode(string ItemCode)
         {
             SAPItem sapItem = new SAPItem();
-            string sql = @" select ItemCode, ItemName, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ManSerNum = 'Y'";
+            string sql = @" select ItemCode, ItemName, t0.ItmsGrpCod, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ManSerNum = 'Y'";
             sql = sql + @" and ItemCode = '" + ItemCode + "' ";
 
             SqlConnection cnn = new SqlConnection(connectionString);
@@ -515,6 +520,11 @@ namespace VST_sprava_servisu
                     try
                     {
                         sapItem.ItmsGrpNam = dr.GetString(dr.GetOrdinal("ItmsGrpNam"));
+                    }
+                    catch { }
+                    try
+                    {
+                        sapItem.ItmsGrpCod = dr.GetInt32(dr.GetOrdinal("ItmsGrpCod"));
                     }
                     catch { }
 

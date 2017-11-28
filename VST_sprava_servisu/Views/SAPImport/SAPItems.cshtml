@@ -4,43 +4,50 @@
     ViewBag.Title = "SAPItems";
 }
 
-<h2>SAPItems</h2>
-
-<table class="table" id="List">
-    <tr>
-        <th>
-            Kód Artiklu
-        </th>
-        <th>
-            Název artiklu
-        </th>
-        <th>
-            Skupina artiklu
-        </th>
-        
-        <th></th>
-    </tr>
+<div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>Import artiklů z SAP do servisu</h4></center>
+</div>
+<div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
 
 
-    @foreach (var item in Model)
-    {
+    <table class="table" id="List">
+        <thead class="vstcolor">
+            <tr>
+                <th>
+                    Kód Artiklu
+                </th>
+                <th>
+                    Název artiklu
+                </th>
+                <th>
+                    Skupina artiklu
+                </th>
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItmsGrpNam)
-            </td>
-            <td>
-                @Html.ActionLink("Importuj do Servisu", "GenerateItemfromSAP", new { ItemCode = item.ItemCode })
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="vstcolorwhite">
 
-            </td>
-        </tr>
-    }
+            @foreach (var item in Model)
+            {
 
-</table>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItmsGrpNam)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Importuj do Servisu", "GenerateItemfromSAP", new { ItemCode = item.ItemCode }, new { @class="btn btn-primary"})
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

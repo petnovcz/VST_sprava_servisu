@@ -4,10 +4,11 @@
 @{
     ViewBag.Title = "SAPOPList";
 }
+@{ Layout = null;}
 
 
-
-<table class="table" id="List">
+<table class="table vstcolorwhite" >
+    <thead class="vstcolor">
     <tr>
         <th>
             Kód OP
@@ -19,22 +20,18 @@
             Address, City,  ZipCode, Country
         </th>
         <th>
-            DIC
-        </th>
-        <th>
-            ICO
+            DIC<br>ICO
         </th>
         
+        
         <th>
-            Open
+            Total / Open
         </th>
-        <th>
-            Total
-        </th>
+        
         <th></th>
     </tr>
-
-
+</thead>
+    <tbody>
 
     @foreach (var item in Model)
     {
@@ -50,22 +47,19 @@
                 @Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.ZipCode),  @Html.DisplayFor(modelItem => item.Country)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LicTradNum)
-            </td>
-            <td>
+                @Html.DisplayFor(modelItem => item.LicTradNum)<br>
                 @Html.DisplayFor(modelItem => item.VatIdUnCmp)
             </td>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.Open)
+                @Html.DisplayFor(modelItem => item.Total) / @Html.DisplayFor(modelItem => item.Open)
             </td>
+           
             <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            <td>
-                @Html.ActionLink("Importuj do Servisu", "GenerateOPfromSAP", new { kodOP = item.CardCode }) 
+                @Html.ActionLink("Importuj do Servisu", "GenerateOPfromSAP", new { kodOP = item.CardCode }, new { @class="btn btn-primary"}) 
                 
             </td>
         </tr>
     }
-
+</tbody>
 </table>
