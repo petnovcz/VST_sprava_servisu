@@ -1,0 +1,93 @@
+﻿@model IEnumerable<VST_sprava_servisu.Revize>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumRevize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumVystaveni)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ZjistenyStav)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProvedeneZasahy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpatreniKOdstraneni)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KontrolaProvedenaDne)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PristiKontrola)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rok)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pololeti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusRevize.NazevStatusuRevize)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumRevize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumVystaveni)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZjistenyStav)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProvedeneZasahy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpatreniKOdstraneni)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KontrolaProvedenaDne)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PristiKontrola)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rok)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pololeti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusRevize.NazevStatusuRevize)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

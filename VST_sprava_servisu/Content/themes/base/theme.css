@@ -163,9 +163,9 @@ a.ui-button:active,
 .ui-widget-header .ui-state-error-text {
 	color: #5f3f3f;
 }
-.ui-priority-primary,
-.ui-widget-content .ui-priority-primary,
-.ui-widget-header .ui-priority-primary {
+.ui-priority-success,
+.ui-widget-content .ui-priority-success,
+.ui-widget-header .ui-priority-success {
 	font-weight: bold;
 }
 .ui-priority-secondary,

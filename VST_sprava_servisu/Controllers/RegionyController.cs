@@ -12,7 +12,7 @@ namespace VST_sprava_servisu
     public class RegionyController : Controller
     {
         private Model1Container db = new Model1Container();
-
+        
         // GET: Regiony
         public ActionResult Index()
         {
@@ -27,6 +27,7 @@ namespace VST_sprava_servisu
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Region region = db.Region.Find(id);
+            
             if (region == null)
             {
                 return HttpNotFound();

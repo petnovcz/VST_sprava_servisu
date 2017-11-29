@@ -54,7 +54,7 @@ button.ui-button-icons-only {
 	padding: .4em;
 	text-indent: -9999999px;
 }
-.ui-button-text-icon-primary .ui-button-text,
+.ui-button-text-icon-success .ui-button-text,
 .ui-button-text-icons .ui-button-text {
 	padding: .4em 1em .4em 2.1em;
 }
@@ -73,7 +73,7 @@ input.ui-button {
 
 /* button icon element(s) */
 .ui-button-icon-only .ui-icon,
-.ui-button-text-icon-primary .ui-icon,
+.ui-button-text-icon-success .ui-icon,
 .ui-button-text-icon-secondary .ui-icon,
 .ui-button-text-icons .ui-icon,
 .ui-button-icons-only .ui-icon {
@@ -85,9 +85,9 @@ input.ui-button {
 	left: 50%;
 	margin-left: -8px;
 }
-.ui-button-text-icon-primary .ui-button-icon-primary,
-.ui-button-text-icons .ui-button-icon-primary,
-.ui-button-icons-only .ui-button-icon-primary {
+.ui-button-text-icon-success .ui-button-icon-success,
+.ui-button-text-icons .ui-button-icon-success,
+.ui-button-icons-only .ui-button-icon-success {
 	left: .5em;
 }
 .ui-button-text-icon-secondary .ui-button-icon-secondary,

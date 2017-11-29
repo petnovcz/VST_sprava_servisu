@@ -9847,9 +9847,9 @@
 	/*
 	 * Developer note: The properties of the object below are given in Hungarian
 	 * notation, that was used as the interface for DataTables prior to v1.10, however
-	 * from v1.10 onwards the primary interface is camel case. In order to avoid
+	 * from v1.10 onwards the success interface is camel case. In order to avoid
 	 * breaking backwards compatibility utterly with this change, the Hungarian
-	 * version is still, internally the primary interface, but is is not documented
+	 * version is still, internally the success interface, but is is not documented
 	 * - hence the @name tags in each doc comment. This allows a Javascript function
 	 * to create a map from Hungarian notation to camel case (going the other direction
 	 * would require each property to be listed, which would at around 3K to the size
@@ -12939,7 +12939,7 @@
 	 */
 	DataTable.models.oSettings = {
 		/**
-		 * Primary features of DataTables and their enablement state.
+		 * success features of DataTables and their enablement state.
 		 *  @namespace
 		 */
 		"oFeatures": {

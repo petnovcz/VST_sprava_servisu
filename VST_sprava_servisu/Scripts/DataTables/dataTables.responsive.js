@@ -529,7 +529,7 @@ $.extend( Responsive.prototype, {
 							column( i, breakpoint.name, match[1], match[2]+match[3] );
 						}
 						else if ( match[2] === brokenPoint[0] && ! match[3] ) {
-							// Class name matched primary breakpoint name with no qualifier
+							// Class name matched success breakpoint name with no qualifier
 							column( i, breakpoint.name, match[1], match[2] );
 						}
 					}

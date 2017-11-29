@@ -7067,7 +7067,7 @@ if ( $.uiBackCompat !== false ) {
 		options: {
 			text: true,
 			icons: {
-				primary: null,
+				success: null,
 				secondary: null
 			}
 		},
@@ -7079,16 +7079,16 @@ if ( $.uiBackCompat !== false ) {
 			if ( !this.options.showLabel && this.options.text ) {
 				this.options.text = this.options.showLabel;
 			}
-			if ( !this.options.icon && ( this.options.icons.primary ||
+			if ( !this.options.icon && ( this.options.icons.success ||
 					this.options.icons.secondary ) ) {
-				if ( this.options.icons.primary ) {
-					this.options.icon = this.options.icons.primary;
+				if ( this.options.icons.success ) {
+					this.options.icon = this.options.icons.success;
 				} else {
 					this.options.icon = this.options.icons.secondary;
 					this.options.iconPosition = "end";
 				}
 			} else if ( this.options.icon ) {
-				this.options.icons.primary = this.options.icon;
+				this.options.icons.success = this.options.icon;
 			}
 			this._super();
 		},
@@ -7102,11 +7102,11 @@ if ( $.uiBackCompat !== false ) {
 				this.options.text = value;
 			}
 			if ( key === "icon" ) {
-				this.options.icons.primary = value;
+				this.options.icons.success = value;
 			}
 			if ( key === "icons" ) {
-				if ( value.primary ) {
-					this._super( "icon", value.primary );
+				if ( value.success ) {
+					this._super( "icon", value.success );
 					this._super( "iconPosition", "beginning" );
 				} else if ( value.secondary ) {
 					this._super( "icon", value.secondary );
@@ -8872,7 +8872,7 @@ $.extend( Datepicker.prototype, {
 		currentText = ( !navigationAsDateFormat ? currentText :
 			this.formatDate( currentText, gotoDate, this._getFormatConfig( inst ) ) );
 
-		controls = ( !inst.inline ? "<button type='button' class='ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all' data-handler='hide' data-event='click'>" +
+		controls = ( !inst.inline ? "<button type='button' class='ui-datepicker-close ui-state-default ui-priority-success ui-corner-all' data-handler='hide' data-event='click'>" +
 			this._get( inst, "closeText" ) + "</button>" : "" );
 
 		buttonPanel = ( showButtonPanel ) ? "<div class='ui-datepicker-buttonpane ui-widget-content'>" + ( isRTL ? controls : "" ) +

@@ -75,12 +75,15 @@
           <Property Name="ProvozId" Type="int" Nullable="false" />
           <Property Name="DatumRevize" Type="datetime" Nullable="false" />
           <Property Name="StatusRevizeId" Type="int" Nullable="false" />
-          <Property Name="DatumVystaveni" Type="datetime" Nullable="false" />
-          <Property Name="ZjistenyStav" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ProvedeneZasahy" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="OpatreniKOdstraneni" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="KontrolaProvedenaDne" Type="datetime" Nullable="false" />
-          <Property Name="PristiKontrola" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DatumVystaveni" Type="datetime" />
+          <Property Name="ZjistenyStav" Type="nvarchar(max)" />
+          <Property Name="ProvedeneZasahy" Type="nvarchar(max)" />
+          <Property Name="OpatreniKOdstraneni" Type="nvarchar(max)" />
+          <Property Name="KontrolaProvedenaDne" Type="datetime" />
+          <Property Name="PristiKontrola" Type="nvarchar(max)" />
+          <Property Name="Rok" Type="int" />
+          <Property Name="Pololeti" Type="int" />
+          <Property Name="UmisteniId" Type="int" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -89,9 +92,10 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RevizeId" Type="int" Nullable="false" />
           <Property Name="SCProvozuId" Type="int" Nullable="false" />
-          <Property Name="StavKoroze" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="StavZnecisteni" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="JineZavady" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StavKoroze" Type="nvarchar(max)" />
+          <Property Name="StavZnecisteni" Type="nvarchar(max)" />
+          <Property Name="JineZavady" Type="nvarchar(max)" />
+          <Property Name="UmisteniId" Type="int" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -290,6 +294,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RevizeSCUmisteni">
+          <End Role="Umisteni" Type="Self.Umisteni" Multiplicity="0..1" />
+          <End Role="RevizeSC" Type="Self.RevizeSC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Umisteni">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RevizeSC">
+              <PropertyRef Name="UmisteniId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevizeUmisteni">
+          <End Role="Umisteni" Type="Self.Umisteni" Multiplicity="0..1" />
+          <End Role="Revize" Type="Self.Revize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Umisteni">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Revize">
+              <PropertyRef Name="UmisteniId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SCProvozu_Umisteni">
           <End Role="Umisteni" Type="Self.Umisteni" Multiplicity="0..1" />
           <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="*" />
@@ -425,6 +453,14 @@
             <End Role="SCProvozu" EntitySet="SCProvozu" />
             <End Role="RevizeSC" EntitySet="RevizeSC" />
           </AssociationSet>
+          <AssociationSet Name="FK_RevizeSCUmisteni" Association="Self.FK_RevizeSCUmisteni">
+            <End Role="Umisteni" EntitySet="Umisteni" />
+            <End Role="RevizeSC" EntitySet="RevizeSC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevizeUmisteni" Association="Self.FK_RevizeUmisteni">
+            <End Role="Umisteni" EntitySet="Umisteni" />
+            <End Role="Revize" EntitySet="Revize" />
+          </AssociationSet>
           <AssociationSet Name="FK_SCProvozu_Umisteni" Association="Self.FK_SCProvozu_Umisteni">
             <End Role="Umisteni" EntitySet="Umisteni" />
             <End Role="SCProvozu" EntitySet="SCProvozu" />
@@ -537,6 +573,14 @@
             <End Role="SkupinaArtiklu" EntitySet="SkupinaArtiklu" />
             <End Role="Artikl" EntitySet="Artikl" />
           </AssociationSet>
+          <AssociationSet Name="FK_RevizeSCUmisteni" Association="Model1.FK_RevizeSCUmisteni">
+            <End Role="Umisteni" EntitySet="Umisteni" />
+            <End Role="RevizeSC" EntitySet="RevizeSC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RevizeUmisteni" Association="Model1.FK_RevizeUmisteni">
+            <End Role="Umisteni" EntitySet="Umisteni" />
+            <End Role="Revize" EntitySet="Revize" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
           <Key>
@@ -638,6 +682,8 @@
           <Property Name="NazevUmisteni" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_SCProvozu_Umisteni" FromRole="Umisteni" ToRole="SCProvozu" />
           <Property Name="SamostatnaRevize" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RevizeSC" Relationship="Model1.FK_RevizeSCUmisteni" FromRole="Umisteni" ToRole="RevizeSC" />
+          <NavigationProperty Name="Revize" Relationship="Model1.FK_RevizeUmisteni" FromRole="Umisteni" ToRole="Revize" />
         </EntityType>
         <Association Name="UmisteniProvoz">
           <End Type="Model1.Umisteni" Role="Umisteni" Multiplicity="*" />
@@ -683,15 +729,19 @@
           <Property Name="ProvozId" Type="Int32" Nullable="false" />
           <Property Name="DatumRevize" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusRevizeId" Type="Int32" Nullable="false" />
-          <Property Name="DatumVystaveni" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ZjistenyStav" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProvedeneZasahy" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="OpatreniKOdstraneni" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="KontrolaProvedenaDne" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PristiKontrola" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DatumVystaveni" Type="DateTime" Precision="3" />
+          <Property Name="ZjistenyStav" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProvedeneZasahy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OpatreniKOdstraneni" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KontrolaProvedenaDne" Type="DateTime" Precision="3" />
+          <Property Name="PristiKontrola" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Provoz" Relationship="Model1.FK_ProvozRevize" FromRole="Revize" ToRole="Provoz" />
           <NavigationProperty Name="RevizeSC" Relationship="Model1.FK_RevizeSCRevize" FromRole="Revize" ToRole="RevizeSC" />
           <NavigationProperty Name="StatusRevize" Relationship="Model1.FK_StatusRevizeRevize" FromRole="Revize" ToRole="StatusRevize" />
+          <Property Name="Rok" Type="Int32" />
+          <Property Name="Pololeti" Type="Int32" />
+          <Property Name="UmisteniId" Type="Int32" />
+          <NavigationProperty Name="Umisteni" Relationship="Model1.FK_RevizeUmisteni" FromRole="Revize" ToRole="Umisteni" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -700,11 +750,13 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RevizeId" Type="Int32" Nullable="false" />
           <Property Name="SCProvozuId" Type="Int32" Nullable="false" />
-          <Property Name="StavKoroze" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StavZnecisteni" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="JineZavady" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StavKoroze" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StavZnecisteni" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JineZavady" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Revize" Relationship="Model1.FK_RevizeSCRevize" FromRole="RevizeSC" ToRole="Revize" />
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_RevizeSCSCProvozu" FromRole="RevizeSC" ToRole="SCProvozu" />
+          <Property Name="UmisteniId" Type="Int32" />
+          <NavigationProperty Name="Umisteni" Relationship="Model1.FK_RevizeSCUmisteni" FromRole="RevizeSC" ToRole="Umisteni" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -939,6 +991,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RevizeSCUmisteni">
+          <End Type="Model1.Umisteni" Role="Umisteni" Multiplicity="0..1" />
+          <End Type="Model1.RevizeSC" Role="RevizeSC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Umisteni">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RevizeSC">
+              <PropertyRef Name="UmisteniId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RevizeUmisteni">
+          <End Type="Model1.Umisteni" Role="Umisteni" Multiplicity="0..1" />
+          <End Type="Model1.Revize" Role="Revize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Umisteni">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Revize">
+              <PropertyRef Name="UmisteniId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1028,7 +1104,10 @@
     <EntitySetMapping Name="Revize">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Revize)">
         <MappingFragment StoreEntitySet="Revize">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UmisteniId" ColumnName="UmisteniId" />
+                <ScalarProperty Name="Pololeti" ColumnName="Pololeti" />
+                <ScalarProperty Name="Rok" ColumnName="Rok" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ProvozId" ColumnName="ProvozId" />
           <ScalarProperty Name="DatumRevize" ColumnName="DatumRevize" />
           <ScalarProperty Name="StatusRevizeId" ColumnName="StatusRevizeId" />
@@ -1044,7 +1123,8 @@
     <EntitySetMapping Name="RevizeSC">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.RevizeSC)">
         <MappingFragment StoreEntitySet="RevizeSC">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UmisteniId" ColumnName="UmisteniId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RevizeId" ColumnName="RevizeId" />
           <ScalarProperty Name="SCProvozuId" ColumnName="SCProvozuId" />
           <ScalarProperty Name="StavKoroze" ColumnName="StavKoroze" />

@@ -2305,7 +2305,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 					results :
 				matcherIn;
 
-		// Find primary matches
+		// Find success matches
 		if ( matcher ) {
 			matcher( matcherIn, matcherOut, context, xml );
 		}

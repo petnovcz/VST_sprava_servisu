@@ -24,16 +24,20 @@ namespace VST_sprava_servisu
         public int ProvozId { get; set; }
         public System.DateTime DatumRevize { get; set; }
         public int StatusRevizeId { get; set; }
-        public System.DateTime DatumVystaveni { get; set; }
+        public Nullable<System.DateTime> DatumVystaveni { get; set; }
         public string ZjistenyStav { get; set; }
         public string ProvedeneZasahy { get; set; }
         public string OpatreniKOdstraneni { get; set; }
-        public System.DateTime KontrolaProvedenaDne { get; set; }
+        public Nullable<System.DateTime> KontrolaProvedenaDne { get; set; }
         public string PristiKontrola { get; set; }
+        public Nullable<int> Rok { get; set; }
+        public Nullable<int> Pololeti { get; set; }
+        public Nullable<int> UmisteniId { get; set; }
     
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RevizeSC> RevizeSC { get; set; }
         public virtual StatusRevize StatusRevize { get; set; }
+        public virtual Umisteni Umisteni { get; set; }
     }
 }

@@ -242,85 +242,85 @@ CREATE TABLE [dbo].[KontakniOsoba] (
 GO
 
 -- --------------------------------------------------
--- Creating all PRIMARY KEY constraints
+-- Creating all success KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [Id] in table 'Region'
+-- Creating success key on [Id] in table 'Region'
 ALTER TABLE [dbo].[Region]
 ADD CONSTRAINT [PK_Region]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Zakaznik'
+-- Creating success key on [Id] in table 'Zakaznik'
 ALTER TABLE [dbo].[Zakaznik]
 ADD CONSTRAINT [PK_Zakaznik]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Jazyk'
+-- Creating success key on [Id] in table 'Jazyk'
 ALTER TABLE [dbo].[Jazyk]
 ADD CONSTRAINT [PK_Jazyk]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Provoz'
+-- Creating success key on [Id] in table 'Provoz'
 ALTER TABLE [dbo].[Provoz]
 ADD CONSTRAINT [PK_Provoz]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Umisteni'
+-- Creating success key on [Id] in table 'Umisteni'
 ALTER TABLE [dbo].[Umisteni]
 ADD CONSTRAINT [PK_Umisteni]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Artikl'
+-- Creating success key on [Id] in table 'Artikl'
 ALTER TABLE [dbo].[Artikl]
 ADD CONSTRAINT [PK_Artikl]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Revize'
+-- Creating success key on [Id] in table 'Revize'
 ALTER TABLE [dbo].[Revize]
 ADD CONSTRAINT [PK_Revize]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'RevizeSC'
+-- Creating success key on [Id] in table 'RevizeSC'
 ALTER TABLE [dbo].[RevizeSC]
 ADD CONSTRAINT [PK_RevizeSC]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'SCProvozu'
+-- Creating success key on [Id] in table 'SCProvozu'
 ALTER TABLE [dbo].[SCProvozu]
 ADD CONSTRAINT [PK_SCProvozu]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'SerioveCislo'
+-- Creating success key on [Id] in table 'SerioveCislo'
 ALTER TABLE [dbo].[SerioveCislo]
 ADD CONSTRAINT [PK_SerioveCislo]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Status'
+-- Creating success key on [Id] in table 'Status'
 ALTER TABLE [dbo].[Status]
 ADD CONSTRAINT [PK_Status]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'StatusRevize'
+-- Creating success key on [Id] in table 'StatusRevize'
 ALTER TABLE [dbo].[StatusRevize]
 ADD CONSTRAINT [PK_StatusRevize]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'KontakniOsoba'
+-- Creating success key on [Id] in table 'KontakniOsoba'
 ALTER TABLE [dbo].[KontakniOsoba]
 ADD CONSTRAINT [PK_KontakniOsoba]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    success KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------

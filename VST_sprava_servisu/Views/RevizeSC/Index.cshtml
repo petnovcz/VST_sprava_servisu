@@ -1,0 +1,63 @@
+﻿@model IEnumerable<VST_sprava_servisu.RevizeSC>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StavKoroze)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StavZnecisteni)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JineZavady)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Revize.ZjistenyStav)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SCProvozu.Lokace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StavKoroze)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StavZnecisteni)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JineZavady)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Revize.ZjistenyStav)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SCProvozu.Lokace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

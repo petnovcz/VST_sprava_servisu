@@ -18,6 +18,8 @@ namespace VST_sprava_servisu
         public Umisteni()
         {
             this.SCProvozu = new HashSet<SCProvozu>();
+            this.RevizeSC = new HashSet<RevizeSC>();
+            this.Revize = new HashSet<Revize>();
         }
     
         public int Id { get; set; }
@@ -28,5 +30,9 @@ namespace VST_sprava_servisu
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SCProvozu> SCProvozu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RevizeSC> RevizeSC { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Revize> Revize { get; set; }
     }
 }

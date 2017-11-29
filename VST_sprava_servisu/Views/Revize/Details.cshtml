@@ -1,0 +1,106 @@
+﻿@model VST_sprava_servisu.Revize
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Revize</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumRevize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumRevize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumVystaveni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumVystaveni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZjistenyStav)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZjistenyStav)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProvedeneZasahy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProvedeneZasahy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpatreniKOdstraneni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpatreniKOdstraneni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KontrolaProvedenaDne)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KontrolaProvedenaDne)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PristiKontrola)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PristiKontrola)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rok)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rok)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pololeti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pololeti)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provoz.NazevProvozu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusRevize.NazevStatusuRevize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusRevize.NazevStatusuRevize)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

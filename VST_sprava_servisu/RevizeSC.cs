@@ -20,8 +20,10 @@ namespace VST_sprava_servisu
         public string StavKoroze { get; set; }
         public string StavZnecisteni { get; set; }
         public string JineZavady { get; set; }
+        public Nullable<int> UmisteniId { get; set; }
     
         public virtual Revize Revize { get; set; }
         public virtual SCProvozu SCProvozu { get; set; }
+        public virtual Umisteni Umisteni { get; set; }
     }
 }

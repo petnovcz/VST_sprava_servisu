@@ -1,0 +1,66 @@
+﻿@model VST_sprava_servisu.RevizeSC
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RevizeSC</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StavKoroze)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StavKoroze)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StavZnecisteni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StavZnecisteni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JineZavady)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JineZavady)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Revize.ZjistenyStav)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Revize.ZjistenyStav)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCProvozu.Lokace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCProvozu.Lokace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Umisteni.NazevUmisteni)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -35,6 +35,8 @@
         <AssociationConnector Association="Model1.FK_SCProvozu_Umisteni" />
         <EntityTypeShape EntityType="Model1.SkupinaArtiklu" Width="1.5" PointX="2.625" PointY="12.5" />
         <AssociationConnector Association="Model1.FK_Artikl_SkupinaA" />
+        <AssociationConnector Association="Model1.FK_RevizeSCUmisteni" />
+        <AssociationConnector Association="Model1.FK_RevizeUmisteni" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

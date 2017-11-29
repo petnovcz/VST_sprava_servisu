@@ -10558,7 +10558,7 @@
 	 */
 	DataTable.models.oSettings = {
 		/**
-		 * Primary features of DataTables and their enablement state.
+		 * success features of DataTables and their enablement state.
 		 *  @namespace
 		 */
 		"oFeatures": {
