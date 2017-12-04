@@ -15,20 +15,22 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProvozId, "ProvozId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ProvozId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProvozId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.ProvozId)
+        @Html.HiddenFor(model => model.DatumVystaveni)
+        @Html.HiddenFor(model => model.ZjistenyStav)
+        @Html.HiddenFor(model => model.ProvedeneZasahy)
+        @Html.HiddenFor(model => model.OpatreniKOdstraneni)
+        @Html.HiddenFor(model => model.KontrolaProvedenaDne)
+        @Html.HiddenFor(model => model.PristiKontrola)
+        @Html.HiddenFor(model => model.Rok)
+        @Html.HiddenFor(model => model.Pololeti)
 
         <div class="form-group">
             @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DatumRevize, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DatumRevize, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
                 @Html.ValidationMessageFor(model => model.DatumRevize, "", new { @class = "text-danger" })
+                
             </div>
         </div>
 
@@ -39,71 +41,8 @@
                 @Html.ValidationMessageFor(model => model.StatusRevizeId, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DatumVystaveni, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DatumVystaveni, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DatumVystaveni, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ZjistenyStav, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ZjistenyStav, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ZjistenyStav, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProvedeneZasahy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProvedeneZasahy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProvedeneZasahy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OpatreniKOdstraneni, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OpatreniKOdstraneni, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OpatreniKOdstraneni, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.KontrolaProvedenaDne, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KontrolaProvedenaDne, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KontrolaProvedenaDne, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PristiKontrola, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PristiKontrola, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PristiKontrola, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rok, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rok, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rok, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pololeti, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pololeti, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pololeti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+        
+       
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -115,3 +54,14 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@section Scripts {
+    <script type="text/javascript"> $('.datetimepicker').datetimepicker(
+     {
+         format: 'DD.MM.YYYY'
+         //daysOfWeekDisabled: [0, 6]
+         ,locale: 'cs'
+         
+         
+         
+     }); </script>
+    }

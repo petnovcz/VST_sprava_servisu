@@ -1,7 +1,9 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -13,6 +15,7 @@ namespace VST_sprava_servisu
     public class RevizeController : Controller
     {
         private Model1Container db = new Model1Container();
+        private string connectionString = @"Data Source=sql;Initial Catalog=SBO_TEST;User ID=sa;Password=*2012Versino";
 
         // GET: Revize
         public ActionResult Index()
@@ -91,7 +94,7 @@ namespace VST_sprava_servisu
             {
                 db.Entry(revize).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Revize",new { Id = revize.Id});
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
@@ -172,6 +175,30 @@ namespace VST_sprava_servisu
 
             return View(list);
         }
+
+        public ActionResult TiskZaznamuOKontrole(int Id)
+        {
+            List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString);
+            ReportDocument rd = new ReportDocument();
+            // Your .rpt file path will be below
+            rd.Load(Path.Combine(Server.MapPath("~/Servis.rpt")));
+            //set dataset to the report viewer.
+            rd.SetParameterValue("Id@", Id);
+            //rd.ParameterFields.
+            rd.SetDatabaseLogon("sa", "*2012Versino",
+                               "SQL", "SBO", false);
+            ;
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream str = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            str.Seek(0, SeekOrigin.Begin);
+            string savedFilename = string.Format("Revize_{0}.pdf", Id);
+
+            return File(str, "application/pdf", savedFilename);
+        }
+
+
 
     }
 }

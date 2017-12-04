@@ -9,12 +9,17 @@
         <div class="col-lg-8">
             <h3 class="vstcolor">@Html.DisplayFor(model => model.Provoz.Zakaznik.NazevZakaznika)</h3><br>
             <h4 class="vstcolor">@Html.DisplayFor(model => model.Provoz.NazevProvozu)</h4>
-        </div>
+            <h4 class="vstcolor">@Html.DisplayFor(model => model.StatusRevize.NazevStatusuRevize)</h4>
+            <h4 class="vstcolor">@Html.DisplayFor(model => model.DatumRevize)</h4>
+</div>
         <div class="col-lg-4 vstcolorwhite">
             <p>
-                @Html.DisplayFor(model => model.StatusRevize.NazevStatusuRevize)<br>
-                @Html.DisplayFor(model => model.DatumRevize)
-                @Html.ActionLink("Editace","Edit","Revize",new { Id= Model.Id},new {@class = "btn"})
+                @Html.ActionLink("Zpět na plán", "Nahled", "Revize", new { Rok = Model.DatumRevize.Year, Mesic = Model.DatumRevize.Month }, new { @class = "btn btn-info btn-xs btn-block" })
+                @Html.ActionLink("Přeplánování","Edit","Revize",new { Id= Model.Id},new {@class = "btn btn-vstprimary btn-xs btn-block"})
+                @Html.ActionLink("Tisk záznamu o kontrole", "TiskZaznamuOKontrole", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                @Html.ActionLink("Vyplnění záznamu o kontrole", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                @Html.ActionLink("Tisk potvrzení", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                @Html.ActionLink("Uzavření revize", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
             </p>
 
         </div>

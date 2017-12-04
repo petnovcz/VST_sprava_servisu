@@ -16,27 +16,34 @@ namespace VST_sprava_servisu
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-            "~/Scripts/jquery-ui-1.12.1.js"));
+            "~/Scripts/jquery-ui-1.12.1.js"
+            ));
 
 
             // Použijte k vývoji a k získání informací vývojovou verzi produktu Modernizr. Až budete
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                        "~/Scripts/modernizr-*" ,
+                        "~/Scripts/moment-with-locales.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap-select.js",
+                      "~/Scripts/bootstrap-datetimepicker.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-        "~/Content/themes/base/jquery.ui.core.css",
-        "~/Content/themes/base/jquery.ui.autocomplete.css",
-        "~/Content/themes/base/jquery.ui.theme.css"));
+                        "~/Content/themes/base/jquery.ui.core.css",
+                        "~/Content/themes/base/jquery.ui.autocomplete.css",
+                        "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.css",                      
                       "~/Content/bootstrap-select.css",
+                      "~/Content/bootstrap-theme.css",
+                      "~/Content/bootstrap-datetimepicker-build.less",
+                      "~/Content/bootstrap-datetimepicker.css",
                       "~/Content/site.css"));
         }
     }

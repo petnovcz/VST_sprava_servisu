@@ -25,18 +25,45 @@ textarea {
 }
 
 
-.btn-primary,
-.btn-primary:visited,
-.btn-primary:focus {
-    color: #fdc800;
-    border-color: #fdc800;
-    background-color: rgba(0, 0, 0, 0);
+.btn-vstprimary,
+.btn-vstprimary:visited,
+.btn-vstprimary:focus {
+    color: #fdc800 !important;
+    border-color: #fdc800 !important;
+    background-color: rgba(0, 0, 0, 0) !important;
 }
-    .btn-primary:hover {
-        color: black;
-        background-color: #fdc800;
+    .btn-vstprimary:hover {
+        color: black !important;
+        background-color: #fdc800 !important;
     }
 
+.vstdark7div {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px !important;
+    border-style: solid !important;
+    border-color: #fdc800 !important;
+    margin: 0px;
+    padding: 10px
+}
+
+.vstdark5div {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px !important;
+    border-style: solid !important;
+    border-color: #fdc800 !important;
+    margin: 0px;
+    padding: 10px
+}
+
+.vstdark3div {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px !important;
+    border-style: solid !important;
+    border-color: #fdc800 !important;
+    margin: 0px;
+    padding: 10px
+}
+    
 .vstcolor {
     color: #fdc800;
 }
