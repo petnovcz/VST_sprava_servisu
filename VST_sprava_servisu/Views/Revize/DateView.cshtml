@@ -1,0 +1,28 @@
+﻿@model IEnumerable<VST_sprava_servisu.Revize>
+
+@{
+    Layout = null;
+}
+
+
+    
+    @foreach (var item in Model) {
+        
+        <table width="100%" style="background-color:rgba(0, 0, 0, 0.7);">
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Provoz.Zakaznik.NazevZakaznika)<br>
+                    @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
+                </td>
+             </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink(" ","Details","Revize",new { Id = item.Id }, new { @class = "btn btn-block btn-primary glyphicon glyphicon-play" })
+                </td>
+            </tr>
+         </table>
+
+
+
+     }
+

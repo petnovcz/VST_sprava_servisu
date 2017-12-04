@@ -168,7 +168,7 @@ namespace VST_sprava_servisu
                 if (r2exist == false)
                 {
                     item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned());
-                    bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, null), item.Revize1.Id);
+                    bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, null), item.Revize2.Id);
                 }
                 else
                 {

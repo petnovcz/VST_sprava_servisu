@@ -1,29 +1,58 @@
-﻿@model IEnumerable<VST_sprava_servisu.Revize>
+﻿
 
 @{
     ViewBag.Title = "Nahled";
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 
-
+@{ 
+    int loop = 0;
+    }
 
 @Html.Action("MonthViewHeader",new {Rok = ViewBag.Rok, Mesic = ViewBag.Mesic })
 
-<table class="table">
+<br>
+
+<table class="table vstcolorwhite" style="border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
     <thead>
-        <tr style="text-align:center">
-            <th style="text-align:center">Po</th>
-            <th style="text-align:center">Út</th>
-            <th style="text-align:center">St</th>
-            <th style="text-align:center">Čt</th>
-            <th style="text-align:center">Pá</th>
-            <th style="text-align:center">So</th>
-            <th style="text-align:center">Ne</th>
+        <tr class="vstcolor" style="text-align:center;background-color:rgba(0, 0, 0, 0.7);">
+            <th style="text-align:center; width:14% ">Po</th>
+            <th style="text-align:center; width:14%">Út</th>
+            <th style="text-align:center; width:14%">St</th>
+            <th style="text-align:center; width:14%">Čt</th>
+            <th style="text-align:center; width:14%">Pá</th>
+            <th style="text-align:center; width:14%">So</th>
+            <th style="text-align:center; width:14%">Ne</th>
 
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td></td>
+            @for (var i = 0; i < ViewBag.X; i++)
+            {
+                @Html.Raw("<td></td>");
+                loop = (int)ViewBag.X;
+            }
+
+            @for (var i = 0; i < ViewBag.DaysInMonth; i++)
+            {
+                @Html.Raw("<td>");
+                <table style="text-align:center;background-color:rgba(0, 0, 0, 0.4);" width="100%">
+                    <tr>
+                        <td>
+                            @Html.Raw(i+1)
+                        </td>
+                    </tr>
+                </table>
+                @Html.Action("DateView","Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Den = i+1 })
+                @Html.Raw("</td>");
+
+                loop = loop + 1;
+                if (loop == 7)
+                { @Html.Raw("</tr><tr>"); 
+                    loop = 0;
+                }
+            }
         
         
         </tr>
@@ -34,86 +63,4 @@
 
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumRevize)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumVystaveni)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ZjistenyStav)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProvedeneZasahy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OpatreniKOdstraneni)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KontrolaProvedenaDne)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PristiKontrola)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rok)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pololeti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StatusRevize.NazevStatusuRevize)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumRevize)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumVystaveni)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZjistenyStav)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProvedeneZasahy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OpatreniKOdstraneni)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KontrolaProvedenaDne)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PristiKontrola)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rok)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pololeti)
-        </td>
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>

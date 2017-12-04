@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace VST_sprava_servisu
 {
     public class RevizeController : Controller
@@ -144,13 +145,31 @@ namespace VST_sprava_servisu
         {
             if (Rok == null) { Rok = System.DateTime.Now.Year; }
             if (Mesic == null) { Mesic = System.DateTime.Now.Month; }
-            List<Revize> list = new List<Revize>();
-            list = Revize.GetByDate(Mesic.Value, Rok.Value);
+            
             DateTime date1 = new DateTime(Rok.Value, Mesic.Value, 1);
-            var x = date1.DayOfWeek - 1;
+            var x = (int)date1.DayOfWeek - 1;
+
+            var startOfMonth = new DateTime(date1.Year, date1.Month, 1);
+            var DaysInMonth = DateTime.DaysInMonth(date1.Year, date1.Month);
+
             ViewBag.Rok = Rok;
             ViewBag.Mesic = Mesic;
             ViewBag.X = x;
+            ViewBag.DaysInMonth = DaysInMonth;
+            return View();
+        }
+
+        public ActionResult DateView(int? Rok, int? Mesic, int? Den)
+        {
+            
+            if (Rok == null) { Rok = System.DateTime.Now.Year; }
+            if (Mesic == null) { Mesic = System.DateTime.Now.Month; }
+            if (Den == null) { Mesic = System.DateTime.Now.Day; }
+
+            List<Revize> list = new List<Revize>();
+            list = Revize.GetByDate(Mesic.Value, Rok.Value, Den.Value);
+
+
             return View(list);
         }
 

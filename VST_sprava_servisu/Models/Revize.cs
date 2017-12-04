@@ -4,11 +4,15 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VST_sprava_servisu
 {
     public partial class Revize
     {
+        [NotMapped]
+        private Zakaznik Zakaznik { get; set; }
+
         /// <summary>
         /// Vrací prostý seznam všech revizí
         /// </summary>
@@ -117,12 +121,19 @@ namespace VST_sprava_servisu
 
         }
 
-        internal protected static List<Revize> GetByDate (int Mesic, int Rok)
+        internal protected static List<Revize> GetByDate (int Mesic, int Rok, int Den)
         {
             List<Revize> list = new List<Revize>();
             using (var dbCtx = new Model1Container())
             {
-                list = dbCtx.Revize.Where(r=>r.DatumRevize.Month == Mesic && r.DatumRevize.Year == Rok).ToList();
+                var listx = dbCtx.Revize.Include(r=>r.Umisteni).Include(r => r.Provoz).Where(r=>r.DatumRevize.Month == Mesic && r.DatumRevize.Year == Rok && r.DatumRevize.Day == Den);
+                list = listx.ToList();
+                foreach (var item in list)
+                {
+                    var ZakId = dbCtx.Provoz.Where(p => p.Id == item.ProvozId).Select(p=>p.ZakaznikId).FirstOrDefault();
+                    item.Zakaznik = dbCtx.Zakaznik.Where(p => p.Id == ZakId).FirstOrDefault();
+                }
+
             }
             return list;
 
