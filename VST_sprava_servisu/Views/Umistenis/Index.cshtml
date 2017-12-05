@@ -41,8 +41,8 @@
                 @Html.DisplayFor(modelItem => item.SamostatnaRevize)
             </td>
             <td class="col-lg-2">
-                @Html.ActionLink(" ", "Edit", "Umistenis", new { id = item.Id, Provoz = ViewData["Provoz"], Zakaznik = ViewData["Zakaznik"] }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-edit" })
-                @Html.ActionLink(" ", "Details","Umistenis" ,new { id=item.Id, Provoz = ViewData["Provoz"], Zakaznik = ViewData["Zakaznik"] }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-cog" }) 
+                @Html.ActionLink(" ", "Edit", "Umistenis", new { id = item.Id, Provoz = ViewData["Provoz"], Zakaznik = ViewData["Zakaznik"] }, new { @class = "btn btn-warning btn-sm glyphicon glyphicon-edit" })
+                @Html.ActionLink(" ", "Details","Umistenis" ,new { id=item.Id, Provoz = ViewData["Provoz"], Zakaznik = ViewData["Zakaznik"] }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-cog" }) 
                 @Html.ActionLink(" ", "Delete", "Umistenis", new { id=item.Id, Provoz = ViewData["Provoz"], Zakaznik = ViewData["Zakaznik"] }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash" })
             </td>
         </tr>

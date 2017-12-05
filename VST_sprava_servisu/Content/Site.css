@@ -51,8 +51,32 @@ textarea {
     border: 2px !important;
     border-style: solid !important;
     border-color: #fdc800 !important;
-    margin: 0px;
-    padding: 10px
+    margin: 0px !important;
+    padding: 0px !important
+}
+
+.vstcal {
+    color: black;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px !important;
+    border-style: solid !important;
+    border-color: #ffffff !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-left: 0px !important;
+}
+.vstcalr {
+    /*background-color: rgba(0, 0, 0, 0.4);*/
+    border: 0px !important;
+    border-style: solid !important;
+    border-color: #ffffff !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    padding-left: 5px !important;
+    padding-right: 0px !important;
+    margin-left: 0px !important;
 }
 
 .vstdark3div {
@@ -60,8 +84,8 @@ textarea {
     border: 2px !important;
     border-style: solid !important;
     border-color: #fdc800 !important;
-    margin: 0px;
-    padding: 10px
+    margin: 0px !important;
+    padding: 10px !important
 }
     
 .vstcolor {

@@ -1037,6 +1037,7 @@
     <Content Include="Views\Revize\Nahled.cshtml" />
     <Content Include="Views\Revize\MonthViewHeader.cshtml" />
     <Content Include="Views\Revize\DateView.cshtml" />
+    <Content Include="Views\Revize\Replan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

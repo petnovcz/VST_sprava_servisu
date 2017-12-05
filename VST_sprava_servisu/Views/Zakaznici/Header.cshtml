@@ -33,8 +33,8 @@
         <div class="col-lg-2">
             <div class="row">
                 <br>
-                @Html.ActionLink("Edituj", "Edit", new { id = Model.Id }, new { @class = "btn btn-success btn-block btn-xs" })
-                @Html.ActionLink("Zpět na seznam", "Index", null, new { @class = "btn btn-success btn-block btn-xs" })
+                @Html.ActionLink("Edituj", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-block btn-xs" })
+                @Html.ActionLink("Zpět na seznam", "Index", null, new { @class = "btn btn-info btn-block btn-xs" })
             </div>
         </div>
 
@@ -53,9 +53,9 @@
                     Provozy
                 </div>
                 <div>
-                    @Html.ActionLink(" ", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-home" })
+                    @Html.ActionLink(" ", "Details", "Zakaznici", new { id = Model.Id }, new { @class = "btn btn-info btn-sm glyphicon glyphicon-home" })
                     @Html.ActionLink(" ", "Create", "Provozy", new { Zakaznik = Model.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-plus" })
-                    @Html.ActionLink(" ", "ImportSAPAddress", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-import" })
+                    @Html.ActionLink(" ", "ImportSAPAddress", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-warning btn-sm glyphicon glyphicon-import" })
 
                 </div>
             </div>
@@ -64,23 +64,13 @@
                     Kontakty
                 </div>
                 <div class="">
-                    @Html.ActionLink(" ", "Index", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-home" })
+                    @Html.ActionLink(" ", "Index", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-info btn-sm glyphicon glyphicon-home" })
                     @Html.ActionLink(" ", "Create", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-plus" })
-                    @Html.ActionLink(" ", "ImportSAPCP", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-import" })
+                    @Html.ActionLink(" ", "ImportSAPCP", "SAPImport", new { CardCode = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-warning btn-sm glyphicon glyphicon-import" })
 
                 </div>
             </div>
-            <div class="col-lg-2">
-                <div class="vstcolor">
-                    Import Sériových čísel
-                </div>
-                <div class="">
-                    @Html.ActionLink(" ", "Index", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-home" })
-                    @Html.ActionLink(" ", "Create", "KontaktniOsoby", new { Zakaznik = Model.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-plus" })
-                    @Html.ActionLink(" ", "SAPSCList", "SAPImport", new { OPSAPkod = Model.KodSAP, Zakaznik = Model.Id }, new { @class = "btn btn-success btn-sm glyphicon glyphicon-import" })
-
-                </div>
-            </div>
+            
 
         </div>
 

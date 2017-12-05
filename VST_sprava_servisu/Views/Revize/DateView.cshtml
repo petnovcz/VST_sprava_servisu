@@ -5,24 +5,48 @@
 }
 
 
+<div id="dialog-alert" style="display: none">
+    <p>
+        @TempData["msg"]!
+    </p>
+</div>
+
+<div id="dialog-confirm" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        Are you sure to delete?
+    </p>
+</div>
+
+<div id="dialog-edit" style="display: none">
+</div>
+<div id="dialog-detail" style="display: none">
+</div>
     
-    @foreach (var item in Model) {
-        
-        <table width="100%" style="background-color:rgba(0, 0, 0, 0.7);">
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Provoz.Zakaznik.NazevZakaznika)<br>
-                    @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
-                </td>
-             </tr>
-            <tr>
-                <td>
-                    @Html.ActionLink(" ","Details","Revize",new { Id = item.Id }, new { @class = "btn btn-block btn-vstprimary glyphicon glyphicon-play" })
-                </td>
-            </tr>
-         </table>
+    @foreach (var item in Model)
+
+    {
+
+        <div class="vstcal parent  " style="overflow: hidden; position: relative;" >
+            <div class="vstcalr col-lg-9">
+                @Html.DisplayFor(modelItem => item.Provoz.Zakaznik.NazevZakaznika)
+            </div>
+            <div class="vstcalr col-lg-3">
+                @Html.ActionLink(" ", "Details", "Revize", new { Id = item.Id }, new { @class = "btn btn-block   btn-xs btn-primary glyphicon glyphicon-play" })
+            </div>
+            <div class="vstcalr col-lg-9">
+                @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
+            </div>
+            <div class="vstcalr col-lg-3">
+                @Html.ActionLink(" ", "Replan", "Revize", new { Id = item.Id }, new { @class = "modal-link btn btn-block   btn-xs btn-info glyphicon glyphicon-cog"})
+            </div>
+            
+
+            </div>
 
 
+    }
 
-     }
-
+@section Scripts{
+   
+    }

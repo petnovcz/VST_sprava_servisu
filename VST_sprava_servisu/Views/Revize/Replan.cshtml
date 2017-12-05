@@ -1,0 +1,71 @@
+﻿@model VST_sprava_servisu.Revize
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="">
+    <div class="modal-title">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Revize</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.ProvozId)
+                @Html.HiddenFor(model => model.DatumVystaveni)
+                @Html.HiddenFor(model => model.ZjistenyStav)
+                @Html.HiddenFor(model => model.ProvedeneZasahy)
+                @Html.HiddenFor(model => model.OpatreniKOdstraneni)
+                @Html.HiddenFor(model => model.KontrolaProvedenaDne)
+                @Html.HiddenFor(model => model.PristiKontrola)
+                @Html.HiddenFor(model => model.Rok)
+                @Html.HiddenFor(model => model.Pololeti)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DatumRevize, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
+                        @Html.ValidationMessageFor(model => model.DatumRevize, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StatusRevizeId, "StatusRevizeId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("StatusRevizeId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StatusRevizeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#btn-save').click(function () { $('modal-container').modal('hide'); });
+        });
+
+        $('.datetimepicker').datetimepicker(
+            {
+                format: 'DD.MM.YYYY'
+                //daysOfWeekDisabled: [0, 6]
+                , locale: 'cs'
+
+
+
+            }); </script>
+}

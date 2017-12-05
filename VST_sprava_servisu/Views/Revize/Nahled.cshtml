@@ -37,11 +37,12 @@
             @for (var i = 0; i < ViewBag.DaysInMonth; i++)
             {
                 @Html.Raw("<td>");
-                <table style="text-align:center;background-color:rgba(0, 0, 0, 0.4);" width="100%">
+                <table style="text-align:center;background-color:rgba(0, 0, 0, 0.4); border: 1px !important;    border-style: solid !important; border-color: #ffffff !important;" width="100%">
                     <tr>
                         <td>
                             @Html.Raw(i+1)
                         </td>
+                        
                     </tr>
                 </table>
                 @Html.Action("DateView","Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Den = i+1 })
@@ -58,8 +59,36 @@
         </tr>
     </tbody>
 </table>
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+
+</div>   
+@section Scripts {
+    <script type="text/javascript">
 
 
+        $('.datetimepicker').datetimepicker(
+            {
+                format: 'DD.MM.YYYY',
+                daysOfWeekDisabled: [0, 6],
+                locale: 'cs',
+
+
+
+
+            });
+
+
+
+        
+    </script>
+
+
+}
 
 
 

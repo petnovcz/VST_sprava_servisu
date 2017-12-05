@@ -176,6 +176,38 @@ namespace VST_sprava_servisu
             return View(list);
         }
 
+        // GET: Revize/Edit/5
+        public ActionResult Replan(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Revize revize = db.Revize.Find(id);
+            if (revize == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            return View(revize);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Replan([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti")] Revize revize)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(revize).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Nahled", "Revize", new { Rok = revize.DatumRevize.Year, Mesic = revize.DatumRevize.Month });
+            }
+            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            return View(revize);
+        }
+
         public ActionResult TiskZaznamuOKontrole(int Id)
         {
             List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString);
@@ -196,6 +228,24 @@ namespace VST_sprava_servisu
             string savedFilename = string.Format("Revize_{0}.pdf", Id);
 
             return File(str, "application/pdf", savedFilename);
+        }
+
+        public void OpenPDF(int Id)
+        {
+            ReportDocument Rel = new ReportDocument();
+            Rel.Load(Server.MapPath("~/Servis.rpt"));
+            Rel.SetParameterValue("Id@", Id);
+            //rd.ParameterFields.
+            Rel.SetDatabaseLogon("sa", "*2012Versino",
+                               "SQL", "SBO", false);
+            
+            BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "application/pdf";
+            Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+            Response.Flush();
+            Response.Close();
         }
 
 

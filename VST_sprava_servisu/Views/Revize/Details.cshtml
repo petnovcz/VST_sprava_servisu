@@ -16,7 +16,7 @@
             <p>
                 @Html.ActionLink("Zpět na plán", "Nahled", "Revize", new { Rok = Model.DatumRevize.Year, Mesic = Model.DatumRevize.Month }, new { @class = "btn btn-info btn-xs btn-block" })
                 @Html.ActionLink("Přeplánování","Edit","Revize",new { Id= Model.Id},new {@class = "btn btn-vstprimary btn-xs btn-block"})
-                @Html.ActionLink("Tisk záznamu o kontrole", "TiskZaznamuOKontrole", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                @Html.ActionLink("Tisk záznamu o kontrole", "OpenPDF", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
                 @Html.ActionLink("Vyplnění záznamu o kontrole", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
                 @Html.ActionLink("Tisk potvrzení", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
                 @Html.ActionLink("Uzavření revize", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
