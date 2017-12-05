@@ -121,6 +121,8 @@ namespace VST_sprava_servisu
         public int Zakaznik { get; set; }
         public int Provozy { get; set; }
         public int Umisteni { get; set; }
+        public string Lokace { get; set; }
+        public string Znaceni { get; set; }
         public DateTime DatumPrirazeni { get; set; }
         public Nullable<DateTime> DatumPosledniZmeny { get; set; }
         public DateTime? DatumVymeny { get; set; }

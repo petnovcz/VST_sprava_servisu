@@ -33,6 +33,7 @@ namespace VST_sprava_servisu
         public Nullable<System.DateTime> DatumPyro { get; set; }
         public Nullable<System.DateTime> DatumTlkZk { get; set; }
         public string Lokace { get; set; }
+        public string Znaceni { get; set; }
     
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -47,17 +47,31 @@ namespace VST_sprava_servisu
         /// </summary>
         /// <param name="Search"></param>
         /// <returns></returns>
-        internal protected static bool ExistRevision(int Zakaznik, int Provoz, int Rok, int Pololeti)
+        internal protected static bool ExistRevision(int Zakaznik, int Provoz, int Rok, int Pololeti, int? Umisteni)
         {
             bool exist = false;
             int? x = 0;
             using (var dbCtx = new Model1Container())
             {
-                x = dbCtx.Revize
+                if (Umisteni == null) {
+                    x = dbCtx.Revize
                     .Where(r => r.ProvozId == Provoz)
                     .Where(r => r.Rok == Rok)
                     .Where(r => r.Pololeti == Pololeti)
                     .Select(r => r.Id).FirstOrDefault();
+                }
+                else {
+
+                    x = dbCtx.Revize
+                    .Where(r => r.ProvozId == Provoz)
+                    .Where(r => r.Rok == Rok)
+                    .Where(r => r.Pololeti == Pololeti)
+                    .Where(r => r.UmisteniId == Umisteni)
+                    .Select(r => r.Id).FirstOrDefault();
+                }
+
+
+                
             }
             if (x > 0) { exist = true; } 
             return exist;
@@ -69,16 +83,31 @@ namespace VST_sprava_servisu
         /// </summary>
         /// <param name="Search"></param>
         /// <returns></returns>
-        internal protected static Revize ReturnRevision(int Zakaznik, int Provoz, int Rok, int Pololeti)
+        internal protected static Revize ReturnRevision(int Zakaznik, int Provoz, int Rok, int Pololeti, int? Umisteni)
         {
             
-            Revize revize = new Revize(); 
+            Revize revize = new Revize();
+            int? x = 0;
             using (var dbCtx = new Model1Container())
             {
-                revize = dbCtx.Revize
+                if (Umisteni == null)
+                {
+                    x = dbCtx.Revize
                     .Where(r => r.ProvozId == Provoz)
                     .Where(r => r.Rok == Rok)
-                    .Where(r => r.Pololeti == Pololeti).FirstOrDefault();
+                    .Where(r => r.Pololeti == Pololeti)
+                    .Select(r => r.Id).FirstOrDefault();
+                }
+                else
+                {
+
+                    x = dbCtx.Revize
+                    .Where(r => r.ProvozId == Provoz)
+                    .Where(r => r.Rok == Rok)
+                    .Where(r => r.Pololeti == Pololeti)
+                    .Where(r => r.UmisteniId == Umisteni)
+                    .Select(r => r.Id).FirstOrDefault();
+                }
             }            
             return revize;
         }
@@ -92,7 +121,7 @@ namespace VST_sprava_servisu
         /// <param name="DatumRevize"></param>
         /// <param name="StatusRevize"></param>
         /// <returns></returns>
-        internal protected static Revize GenerateRevision(int Provoz, int Rok, int Pololeti, DateTime DatumRevize, int StatusRevize)
+        internal protected static Revize GenerateRevision(int Provoz, int Rok, int Pololeti, DateTime DatumRevize, int StatusRevize, int? Umisteni)
         {
 
             Revize revize = new Revize();
@@ -101,6 +130,7 @@ namespace VST_sprava_servisu
             revize.ProvozId = Provoz;
             revize.Rok = Rok;
             revize.StatusRevizeId = StatusRevize;
+            if (Umisteni != null) { revize.UmisteniId = Umisteni; }
             using (var dbCtx = new Model1Container())
             {
                 dbCtx.Revize.Add(revize);
