@@ -12,30 +12,49 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
+        <div >
            
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.Hidden("Zakaznik", (object)ViewBag.Zakaznik)
             @Html.Hidden("Provoz", (object)ViewBag.Provoz)
             @Html.Hidden("Umisteni", (object)ViewBag.Umisteni)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.SC, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            
                     @Html.EditorFor(model => model.SC, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.SC, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Hledej" class="btn btn-success" />
+                
+            
+            
+                    <input type="submit" value="SAP" class="btn btn-success btn-block" />
 
                    
 
-                </div>
-            </div>
+                
+           
         </div>
     }
     
-    
+        <div>
+           @using (Html.BeginForm("ImportSCtoServis", "SAPImport"))
+           {
+            @Html.AntiForgeryToken()
+
+            <div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.Hidden("Zakaznik", (object)ViewBag.Zakaznik)
+                @Html.Hidden("Provozy", (object)ViewBag.Provoz)
+                @Html.Hidden("Umisteni", (object)ViewBag.Umisteni)
+
+
+                
+                <input type="submit" value="Manuálně" class="btn btn-warning btn-block" />
+
+
+
+
+
+            </div>
+           } 
+            </div>
 </div>

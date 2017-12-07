@@ -38,6 +38,21 @@ namespace VST_sprava_servisu
             return View(umisteni);
         }
 
+        public ActionResult Header(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Umisteni umisteni = db.Umisteni.Find(id);
+            if (umisteni == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(umisteni);
+        }
+
         // GET: Umistenis/Create
         public ActionResult Create(int Provoz, int Zakaznik)
         {

@@ -49,24 +49,25 @@ namespace VST_sprava_servisu
         public ActionResult Provoz()
         {
             List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString);
-            ReportDocument rd = new ReportDocument();
+            //ReportDocument rd = new ReportDocument();
             // Your .rpt file path will be below
-            rd.Load(Path.Combine(Server.MapPath("~/CrystalReport2.rpt")));
+            //rd.Load(Path.Combine(Server.MapPath("~/CrystalReport2.rpt")));
             //set dataset to the report viewer.
-            rd.SetParameterValue("DocKey@", "1");
-            rd.SetParameterValue("ObjectId@", "15");
+            //rd.SetParameterValue("DocKey@", "1");
+            //rd.SetParameterValue("ObjectId@", "15");
             //rd.ParameterFields.
-            rd.SetDatabaseLogon("sa", "*2012Versino",
-                               "SQL", "SBO", false);
-            ;
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
-            Stream str = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-            str.Seek(0, SeekOrigin.Begin);
-            string savedFilename = string.Format("OrderListing_{0}", DateTime.Now);
+            //rd.SetDatabaseLogon("sa", "*2012Versino",
+            //                   "SQL", "SBO", false);
+            //;
+            //Response.Buffer = false;
+            //Response.ClearContent();
+            //Response.ClearHeaders();
+            //Stream str = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            //str.Seek(0, SeekOrigin.Begin);
+            //string savedFilename = string.Format("OrderListing_{0}", DateTime.Now);
 
-            return File(str, "application/pdf", savedFilename);
+            //return File(str, "application/pdf", savedFilename);
+            return RedirectToAction("Nahled", "Revize", null);
         }
 
         

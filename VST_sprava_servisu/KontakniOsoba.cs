@@ -11,16 +11,22 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class KontakniOsoba
     {
         public int Id { get; set; }
+        [Display(Name = "Zákazník")]
         public int ZakaznikId { get; set; }
+        [Display(Name = "Pøíjmení a jméno")]
         public string JmenoPrijmeni { get; set; }
+        [Display(Name = "Pozice")]
         public string Pozice { get; set; }
         public string Telefon { get; set; }
         public string Email { get; set; }
+        
         public Nullable<int> SAPId { get; set; }
+        [Display(Name = "Provoz")]
         public Nullable<int> ProvozId { get; set; }
     
         public virtual Provoz Provoz { get; set; }

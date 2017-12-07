@@ -777,8 +777,15 @@ namespace VST_sprava_servisu
         {
             int id = 0;
             int idscprovozu = 0;
+            if (scimport.DatumVyroby == DateTime.MinValue) { scimport.DatumVyroby = DateTime.Now; }
+            if (scimport.DatumDodani == DateTime.MinValue) { scimport.DatumDodani = DateTime.Now; }
+            if (scimport.DatumPosledniZmeny == DateTime.MinValue) { scimport.DatumPosledniZmeny = DateTime.Now; }
+            
+
             if (scimport.Submitted == true)
             {
+                if (scimport.DatumPrirazeni == null) { scimport.DatumPrirazeni = scimport.DatumDodani; }
+                if (scimport.DatumTlkZk == null) { scimport.DatumTlkZk = scimport.DatumVyroby; }
                 SerioveCislo seriovecislo = new SerioveCislo();
                 seriovecislo.ArtiklId = scimport.ArtiklId;
                 seriovecislo.DatumPosledniTlakoveZkousky = scimport.DatumTlkZk;

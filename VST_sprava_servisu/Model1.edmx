@@ -84,6 +84,9 @@
           <Property Name="Rok" Type="int" />
           <Property Name="Pololeti" Type="int" />
           <Property Name="UmisteniId" Type="int" />
+          <Property Name="Baterie" Type="int" />
+          <Property Name="Pyro" Type="int" />
+          <Property Name="TlkZk" Type="int" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -743,6 +746,9 @@
           <Property Name="Pololeti" Type="Int32" />
           <Property Name="UmisteniId" Type="Int32" />
           <NavigationProperty Name="Umisteni" Relationship="Model1.FK_RevizeUmisteni" FromRole="Revize" ToRole="Umisteni" />
+          <Property Name="Baterie" Type="Int32" />
+          <Property Name="Pyro" Type="Int32" />
+          <Property Name="TlkZk" Type="Int32" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -1106,7 +1112,10 @@
     <EntitySetMapping Name="Revize">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Revize)">
         <MappingFragment StoreEntitySet="Revize">
-          <ScalarProperty Name="UmisteniId" ColumnName="UmisteniId" />
+          <ScalarProperty Name="TlkZk" ColumnName="TlkZk" />
+                <ScalarProperty Name="Pyro" ColumnName="Pyro" />
+                <ScalarProperty Name="Baterie" ColumnName="Baterie" />
+                <ScalarProperty Name="UmisteniId" ColumnName="UmisteniId" />
                 <ScalarProperty Name="Pololeti" ColumnName="Pololeti" />
                 <ScalarProperty Name="Rok" ColumnName="Rok" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

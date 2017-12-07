@@ -11,7 +11,9 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class SCProvozu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,20 +21,33 @@ namespace VST_sprava_servisu
         {
             this.RevizeSC = new HashSet<RevizeSC>();
         }
-    
+
         public int Id { get; set; }
+        [Display(Name = "Provoz")]
         public int ProvozId { get; set; }
+        [Display(Name = "Sériové èíslo")]
         public int SerioveCisloId { get; set; }
+        [Display(Name = "Status")]
         public int StatusId { get; set; }
+        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum pøiøazení")]
         public System.DateTime DatumPrirazeni { get; set; }
+        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum poslední zmìny")]
         public Nullable<System.DateTime> DatumPosledniZmeny { get; set; }
+        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum výmìny")]
         public Nullable<System.DateTime> DatumVymeny { get; set; }
+        [Display(Name = "Umístìní")]
         public Nullable<int> Umisteni { get; set; }
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Poslední revize")]
         public Nullable<System.DateTime> DatumRevize { get; set; }
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Poslední výmìna baterie")]
         public Nullable<System.DateTime> DatumBaterie { get; set; }
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Poslení výmìna pyroiniciátorù")]
         public Nullable<System.DateTime> DatumPyro { get; set; }
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Tlaková zkouška")]
         public Nullable<System.DateTime> DatumTlkZk { get; set; }
+        [Display(Name = "Lokace prvku")]
         public string Lokace { get; set; }
+        [Display(Name = "Znaèení prvku")]
         public string Znaceni { get; set; }
     
         public virtual Provoz Provoz { get; set; }

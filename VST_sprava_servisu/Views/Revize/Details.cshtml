@@ -8,7 +8,7 @@
     <div class="row" style="background-color:rgba(0, 0, 0, 0.3);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
         <div class="col-lg-8">
             <h3 class="vstcolor">@Html.DisplayFor(model => model.Provoz.Zakaznik.NazevZakaznika)</h3><br>
-            <h4 class="vstcolor">@Html.DisplayFor(model => model.Provoz.NazevProvozu)</h4>
+            <h4 class="vstcolor">@Html.DisplayFor(model => model.Provoz.NazevProvozu) / @Html.DisplayFor(model => model.Umisteni.NazevUmisteni)</h4>
             <h4 class="vstcolor">@Html.DisplayFor(model => model.StatusRevize.NazevStatusuRevize)</h4>
             <h4 class="vstcolor">@Html.DisplayFor(model => model.DatumRevize)</h4>
 </div>
@@ -21,13 +21,6 @@
                 @Html.ActionLink("Tisk potvrzení", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
                 @Html.ActionLink("Uzavření revize", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
             </p>
-
-        </div>
-        
-        
-        
-        
-        
-    </div>
-      
+        </div>      
+    </div>    
 </div>

@@ -51,7 +51,7 @@ namespace VST_sprava_servisu.Controllers
 
 
 
-            return View();
+            return RedirectToAction("Nahled","Revize",null);
         }
 
         public ActionResult About()

@@ -40,7 +40,9 @@
             <div class="vstcalr col-lg-3">
                 @Html.ActionLink(" ", "Replan", "Revize", new { Id = item.Id }, new { @class = "modal-link btn btn-block   btn-xs btn-info glyphicon glyphicon-cog"})
             </div>
-            
+            <div class="vstcalr col-lg-9">
+                @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
+            </div>
 
             </div>
 

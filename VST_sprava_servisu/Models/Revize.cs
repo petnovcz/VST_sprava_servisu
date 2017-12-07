@@ -12,6 +12,10 @@ namespace VST_sprava_servisu
     {
         [NotMapped]
         private Zakaznik Zakaznik { get; set; }
+        
+
+
+
 
         /// <summary>
         /// Vrací prostý seznam všech revizí
@@ -130,7 +134,7 @@ namespace VST_sprava_servisu
             revize.ProvozId = Provoz;
             revize.Rok = Rok;
             revize.StatusRevizeId = StatusRevize;
-            if (Umisteni != null) { revize.UmisteniId = Umisteni; }
+            if (Umisteni != 0) { revize.UmisteniId = Umisteni; }
             using (var dbCtx = new Model1Container())
             {
                 dbCtx.Revize.Add(revize);

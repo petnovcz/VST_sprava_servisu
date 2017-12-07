@@ -11,7 +11,8 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Artikl
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,23 +20,40 @@ namespace VST_sprava_servisu
         {
             this.SerioveCislo = new HashSet<SerioveCislo>();
         }
-    
+
+        [Display(Name = "Artikl")]
         public int Id { get; set; }
+        [Display(Name = "Artikl")]
         public string Nazev { get; set; }
+        [Display(Name = "Oznaèení")]
         public string Oznaceni { get; set; }
+        [Display(Name = "Typ")]
         public string Typ { get; set; }
+        [Display(Name = "Rozsah provozních teplot")]
         public string RozsahProvoznichTeplot { get; set; }
+        [Display(Name = "SAP kód")]
         public string KodSAP { get; set; }
+        [Display(Name = "Revize")]
         public bool Revize { get; set; }
+        [Display(Name = "Perioda revize")]
         public string PeriodaRevize { get; set; }
+        [Display(Name = "Tlaková zkouška")]
         public bool TlakovaZk { get; set; }
+        [Display(Name = "Perioda tlakové zkoušky")]
         public string PeriodaTlakovaZk { get; set; }
+        [Display(Name = "Výmìna baterie")]
         public bool VymenaBaterie { get; set; }
+        [Display(Name = "Perioda výmìny baterie")]
         public string PeriodaBaterie { get; set; }
+        [Display(Name = "SAP kód baterie")]
         public string ArtiklBaterieSAP { get; set; }
+        [Display(Name = "Výmìna pyroiniciátoru")]
         public bool VymenaPyro { get; set; }
+        [Display(Name = "Perioda výmìny pyroiniciátoru")]
         public string PeriodaPyro { get; set; }
+        [Display(Name = "SAP kód pyroiniciátoru")]
         public string ArtoklPyro { get; set; }
+        [Display(Name = "Skupina artiklu")]
         public Nullable<int> SkupinaArtiklu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

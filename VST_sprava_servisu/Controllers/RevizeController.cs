@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -36,6 +37,7 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+            
             return View(revize);
         }
 
@@ -233,11 +235,11 @@ namespace VST_sprava_servisu
         public void OpenPDF(int Id)
         {
             ReportDocument Rel = new ReportDocument();
-            Rel.Load(Server.MapPath("~/Servis.rpt"));
+            Rel.Load(Path.Combine(Server.MapPath("~/Servis.rpt")));
             Rel.SetParameterValue("Id@", Id);
             //rd.ParameterFields.
             Rel.SetDatabaseLogon("sa", "*2012Versino",
-                               "SQL", "SBO", false);
+                               "SQL", "Servis", false);
             
             BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
             Response.ClearContent();

@@ -38,7 +38,7 @@ namespace VST_sprava_servisu
 
             List<VypocetPlanuRevizi> listplanrev2 = new List<VypocetPlanuRevizi>();
             listplanrev2 = VypocetPlanuRevizi.Calculate2(conn);
-            listplanrev2 = VypocetPlanuRevizi.LoopAndCreate(conn, listplanrev);
+            listplanrev2 = VypocetPlanuRevizi.LoopAndCreate(conn, listplanrev2);
             return listplanrev;
         }
 
@@ -151,7 +151,7 @@ namespace VST_sprava_servisu
         {
             List<VypocetPlanuRevizi> listplanrev = new List<VypocetPlanuRevizi>();
             string sql = @"";
-            sql = sql + @" select x.ZakaznikId , x.Zakaznik,x.ProvozId ,x.Provoz,x. x.NazevUmisteni, x.UmisteniId ";
+            sql = sql + @" select x.ZakaznikId , x.Zakaznik,x.ProvozId ,x.Provoz, x.NazevUmisteni, x.UmisteniId, ";
             sql = sql + @" min(x.NextRevize) 'R1', Year(min(x.NextRevize)) as 'Rok_R1', case when Month(min(x.NextRevize)) <= 6 then 1 else 2 end as 'R1POL',";
             sql = sql + @" min(x.Next2Revize) 'R2', Year(min(x.Next2Revize)) as 'Rok_R2', case when Month(min(x.Next2Revize)) <= 6 then 1 else 2 end as 'R2POL'";
             sql = sql + @" from";
@@ -267,28 +267,59 @@ namespace VST_sprava_servisu
         {
             foreach (var item in listplanrev)
             {
-                
-                var r1exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R1, item.R1POL,null);
-                if (r1exist == false)
+                if (item.UmisteniId == 0)
                 {
-                    item.Revize1 = Revize.GenerateRevision(item.ProvozId,item.Rok_R1,item.R1POL, item.R1.Value, StatusRevize.Planned(), item.UmisteniId);
-                    RevizeSC revizesc = new RevizeSC();
-                    bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, item.UmisteniId), item.Revize1.Id);
+                    var r1exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R1, item.R1POL, null);
+                    if (r1exist == false)
+                    {
+                        item.Revize1 = Revize.GenerateRevision(item.ProvozId, item.Rok_R1, item.R1POL, item.R1.Value, StatusRevize.Planned(), null);
+                        RevizeSC revizesc = new RevizeSC();
+                        bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, null), item.Revize1.Id);
+                    }
+                    else
+                    {
+                        item.Revize1 = Revize.ReturnRevision(item.ZakaznikId, item.ProvozId, item.Rok_R1, item.R1POL, null);
+                    }
+                    var r2exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R2, item.R2POL, null);
+                    if (r2exist == false)
+                    {
+                        item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned(), null);
+                        bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, null), item.Revize2.Id);
+                    }
+                    else
+                    {
+                        item.Revize2 = Revize.ReturnRevision(item.ZakaznikId, item.ProvozId, item.Rok_R2, item.R2POL, null);
+                    }
+                    // update hlavicky - počet baterií, palníků atd
+
+
+
                 }
-                else
-                {
-                    item.Revize1 = Revize.ReturnRevision(item.ZakaznikId, item.ProvozId, item.Rok_R1, item.R1POL, item.UmisteniId);
+                else {
+                    var r1exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R1, item.R1POL, item.UmisteniId);
+                    if (r1exist == false)
+                    {
+                        item.Revize1 = Revize.GenerateRevision(item.ProvozId, item.Rok_R1, item.R1POL, item.R1.Value, StatusRevize.Planned(), item.UmisteniId);
+                        RevizeSC revizesc = new RevizeSC();
+                        bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, item.UmisteniId), item.Revize1.Id);
+                    }
+                    else
+                    {
+                        item.Revize1 = Revize.ReturnRevision(item.ZakaznikId, item.ProvozId, item.Rok_R1, item.R1POL, item.UmisteniId);
+                    }
+                    var r2exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R2, item.R2POL, item.UmisteniId);
+                    if (r2exist == false)
+                    {
+                        item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned(), item.UmisteniId);
+                        bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, item.UmisteniId), item.Revize2.Id);
+                    }
+                    else
+                    {
+                        item.Revize2 = Revize.ReturnRevision(item.ZakaznikId, item.ProvozId, item.Rok_R2, item.R2POL, item.UmisteniId);
+                    }
+                    // update hlavicky - počet baterií, palníků atd
+
                 }
-                var r2exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R2, item.R2POL, item.UmisteniId);
-                if (r2exist == false)
-                {
-                    item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned(), item.UmisteniId);
-                    bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, item.UmisteniId), item.Revize2.Id);
-                }
-                else
-                {
-                    item.Revize2 = Revize.ReturnRevision(item.ZakaznikId, item.ProvozId, item.Rok_R2, item.R2POL, item.UmisteniId);
-                }             
             }
             return listplanrev;
         }
