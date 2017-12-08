@@ -147,6 +147,8 @@ namespace VST_sprava_servisu
             return listplanrev;
         }
 
+        
+
         private static List<VypocetPlanuRevizi> Calculate2(string conn)
         {
             List<VypocetPlanuRevizi> listplanrev = new List<VypocetPlanuRevizi>();
@@ -257,6 +259,9 @@ namespace VST_sprava_servisu
             return listplanrev;
         }
 
+        
+
+
         /// <summary>
         /// Prohledani seznamu a dohledani zda již neexistuji revize v danem obdobi
         /// </summary>
@@ -273,8 +278,12 @@ namespace VST_sprava_servisu
                     if (r1exist == false)
                     {
                         item.Revize1 = Revize.GenerateRevision(item.ProvozId, item.Rok_R1, item.R1POL, item.R1.Value, StatusRevize.Planned(), null);
+                        List<SCList> sclist = new List<SCList>();
+                        sclist = SCList.FindScForRevision(conn, item.ProvozId, null, item.Rok_R1, item.R1POL);
+                        var t = SCList.AddItemsFromList(sclist, item.Revize1.Id);
                         RevizeSC revizesc = new RevizeSC();
-                        bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, null), item.Revize1.Id);
+                        item.Revize1.UpdateRevizeHeader(item.Revize1.Id);
+                        //bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, null), item.Revize1.Id);
                     }
                     else
                     {
@@ -284,7 +293,11 @@ namespace VST_sprava_servisu
                     if (r2exist == false)
                     {
                         item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned(), null);
-                        bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, null), item.Revize2.Id);
+                        List<SCList> sclist = new List<SCList>();
+                        sclist = SCList.FindScForRevision(conn, item.ProvozId, null, item.Rok_R2, item.R2POL);
+                        var t = SCList.AddItemsFromList(sclist, item.Revize2.Id);
+                        RevizeSC revizesc = new RevizeSC();
+                        item.Revize2.UpdateRevizeHeader(item.Revize2.Id);
                     }
                     else
                     {
@@ -300,8 +313,14 @@ namespace VST_sprava_servisu
                     if (r1exist == false)
                     {
                         item.Revize1 = Revize.GenerateRevision(item.ProvozId, item.Rok_R1, item.R1POL, item.R1.Value, StatusRevize.Planned(), item.UmisteniId);
+                        
+                        List<SCList> sclist = new List<SCList>();
+                        sclist = SCList.FindScForRevision(conn, item.ProvozId, item.UmisteniId, item.Rok_R1, item.R1POL);
+                        var t = SCList.AddItemsFromList(sclist, item.Revize1.Id);
                         RevizeSC revizesc = new RevizeSC();
-                        bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, item.UmisteniId), item.Revize1.Id);
+                        item.Revize1.UpdateRevizeHeader(item.Revize1.Id);
+
+
                     }
                     else
                     {
@@ -311,7 +330,11 @@ namespace VST_sprava_servisu
                     if (r2exist == false)
                     {
                         item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned(), item.UmisteniId);
-                        bool done = RevizeSC.CreateUpdateSC(SCProvozu.GetList(item.ProvozId, null, 1, item.UmisteniId), item.Revize2.Id);
+                        List<SCList> sclist = new List<SCList>();
+                        sclist = SCList.FindScForRevision(conn, item.ProvozId, item.UmisteniId, item.Rok_R2, item.R2POL);
+                        var t = SCList.AddItemsFromList(sclist, item.Revize2.Id);
+                        RevizeSC revizesc = new RevizeSC();
+                        item.Revize1.UpdateRevizeHeader(item.Revize2.Id);
                     }
                     else
                     {
@@ -326,7 +349,147 @@ namespace VST_sprava_servisu
     }
 
 
-    
+    public partial class SCList
+    {
+        public int Id { get; set; }
+        public int Revize { get; set; }
+        public int Baterie { get; set; }
+        public int Pyro { get; set; }
+        public int TlkZk { get; set; }
+
+        public  static List<SCList> FindScForRevision(string conn, int Provoz,  int? Umisteni, int Rok, int Polol)
+        {
+            List<SCList> listplanrev = new List<SCList>();
+            string sql = @"";
+
+
+            sql = sql + @" select t4.id, ";
+            sql = sql + @" case when(Year(DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) = '" + Rok + "'";
+            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) <= 6  and  '" + Polol + "' = '1')";
+            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) > 6  and  '" + Polol + "' = '2')))";
+            sql = sql + @" or(Year(DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)))) = '" + Rok + "'";
+            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)))) <= 6 and  '" + Polol + "' = '1')";
+            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)))) > 6 and  '" + Polol + "' = '2')))";
+            sql = sql + @" then 1 else 0 end as 'Revize',";
+            sql = sql + @" case when(Year(DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni))) = '" + Rok + "'";
+            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni))) <= 6  and  '" + Polol + "' = '1')";
+            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni))) > 6  and  '" + Polol + "' = '2')";
+            sql = sql + @" )) then 1 else 0 end as 'Pyro',";
+            sql = sql + @" case when(Year(DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni))) = '" + Rok + "'";
+            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni))) <= 6  and  '" + Polol + "' = '1')";
+            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni))) > 6  and  '" + Polol + "' = '2')";
+            sql = sql + @" )) then 1 else 0 end as 'Baterie',";
+            sql = sql + @" case when(Year(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) = '" + Rok + "'";
+            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) <= 6  and  '" + Polol + "' = '1')";
+            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) > 6  and  '" + Polol + "' = '2')";
+            sql = sql + @" )) then 1 else 0 end as 'TlKZK'";
+            sql = sql + @" from[Servis].[dbo].[Region] t0";
+            sql = sql + @" left join[Servis].[dbo].[Zakaznik] t1 on t0.id = t1.regionid";
+            sql = sql + @" left join[Servis].[dbo].[provoz] t2 on t2.zakaznikid = t1.id";
+            if (Umisteni == null)
+            {
+                sql = sql + @" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'false' ";
+            }
+            else
+            {
+                sql = sql + @" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'true'";
+            }
+            sql = sql + @" left join[Servis].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id";
+            sql = sql + @" left join[Servis].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId";
+            sql = sql + @" left join[Servis].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id";
+            sql = sql + @" where  t3.id is not null and t4.id is not null";
+            
+            sql = sql + @" and T2.Id = " + Provoz + "";
+            if (Umisteni != null)
+            {
+                sql = sql + @" and T3.Id = " + Umisteni + "";
+            }
+
+            SqlConnection cnn = new SqlConnection(conn);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql;
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+                    SCList item = new SCList();
+                    try
+                    {
+                        item.Id = dr.GetInt32(dr.GetOrdinal("id"));
+                    }
+                    catch { }
+                    try
+                    {
+                        item.Revize = dr.GetInt32(dr.GetOrdinal("Revize"));
+                    }
+                    catch { }
+                    try
+                    {
+                        item.Pyro = dr.GetInt32(dr.GetOrdinal("Pyro"));
+                    }
+                    catch { }
+                    try
+                    {
+                        item.Baterie = dr.GetInt32(dr.GetOrdinal("Baterie"));
+                    }
+                    catch { }
+                    try
+                    {
+                        item.TlkZk = dr.GetInt32(dr.GetOrdinal("TlkZk"));
+                    }
+                    catch { }
+
+                    listplanrev.Add(item);
+                }
+            }
+            cnn.Close();
+
+            return listplanrev;
+        }
+
+
+        public static List<SCProvozu> AddItemsFromList (List<SCList> sclist, int revize)
+        {
+            List<SCProvozu> list = new List<SCProvozu>();
+            SCProvozu sc = new SCProvozu();
+            foreach (var item in sclist)
+            {
+                using (var dbCtx = new Model1Container())
+                {
+                    if(item.Revize == 1) { 
+                        sc = dbCtx.SCProvozu.Where(r => r.Id == item.Id).FirstOrDefault();
+                        var exist = dbCtx.RevizeSC.Where(r => r.RevizeId == revize && r.SCProvozuId == sc.Id).Count();
+                        if (exist == 0)
+                        {
+                            RevizeSC revizesc = new RevizeSC();
+                            revizesc.UmisteniId = sc.Umisteni;
+                            revizesc.RevizeId = revize;
+                            revizesc.SCProvozuId = sc.Id;
+                            if (item.Baterie == 1) { revizesc.Baterie = true; }
+                            if (item.Pyro == 1) { revizesc.Pyro = true; }
+                            if (item.TlkZk == 1) { revizesc.TlakovaZkouska = true; }
+                            dbCtx.RevizeSC.Add(revizesc);
+                            dbCtx.SaveChanges();
+                        }
+                    }
+
+                    list.Add(sc);
+                }
+
+
+            }
+
+
+            return list;
+        }
+
+    }
 
     
 

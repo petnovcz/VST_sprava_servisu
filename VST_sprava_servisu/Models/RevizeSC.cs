@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,10 @@ namespace VST_sprava_servisu
 {
     public partial class RevizeSC
     {
+
+        
+
+
         internal protected static List<RevizeSC> GetListByRevizeId(int RevizeId, int? SCprovozuId)
         {
             var list = new List<RevizeSC>();
@@ -71,5 +76,7 @@ namespace VST_sprava_servisu
                 dbCtx.SaveChanges();
             }
         }
+
+        
     }
 }

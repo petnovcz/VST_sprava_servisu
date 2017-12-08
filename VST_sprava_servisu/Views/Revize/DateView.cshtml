@@ -40,10 +40,20 @@
             <div class="vstcalr col-lg-3">
                 @Html.ActionLink(" ", "Replan", "Revize", new { Id = item.Id }, new { @class = "modal-link btn btn-block   btn-xs btn-info glyphicon glyphicon-cog"})
             </div>
-            <div class="vstcalr col-lg-9">
+            <div class="vstcalr col-lg-12">
                 @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
             </div>
+            <div class="vstcalr col-lg-4">
+                @Html.DisplayFor(modelItem => item.Baterie) B
+            </div>
+            <div class="vstcalr col-lg-4">
+                @Html.DisplayFor(modelItem => item.Pyro) P
+            </div>
+            <div class="vstcalr col-lg-4">
+                @Html.DisplayFor(modelItem => item.TlkZk) TlkZk
 
+                @Html.DisplayFor(modelItem => item.AP) TlkZk
+            </div>
             </div>
 
 

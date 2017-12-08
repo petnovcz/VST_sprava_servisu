@@ -99,6 +99,9 @@
           <Property Name="StavZnecisteni" Type="nvarchar(max)" />
           <Property Name="JineZavady" Type="nvarchar(max)" />
           <Property Name="UmisteniId" Type="int" />
+          <Property Name="Baterie" Type="bit" Nullable="false" />
+          <Property Name="Pyro" Type="bit" Nullable="false" />
+          <Property Name="TlakovaZkouska" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -764,6 +767,9 @@
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_RevizeSCSCProvozu" FromRole="RevizeSC" ToRole="SCProvozu" />
           <Property Name="UmisteniId" Type="Int32" />
           <NavigationProperty Name="Umisteni" Relationship="Model1.FK_RevizeSCUmisteni" FromRole="RevizeSC" ToRole="Umisteni" />
+          <Property Name="Baterie" Type="Boolean" Nullable="false" />
+          <Property Name="Pyro" Type="Boolean" Nullable="false" />
+          <Property Name="TlakovaZkouska" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -1134,7 +1140,10 @@
     <EntitySetMapping Name="RevizeSC">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.RevizeSC)">
         <MappingFragment StoreEntitySet="RevizeSC">
-          <ScalarProperty Name="UmisteniId" ColumnName="UmisteniId" />
+          <ScalarProperty Name="TlakovaZkouska" ColumnName="TlakovaZkouska" />
+                <ScalarProperty Name="Pyro" ColumnName="Pyro" />
+                <ScalarProperty Name="Baterie" ColumnName="Baterie" />
+                <ScalarProperty Name="UmisteniId" ColumnName="UmisteniId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RevizeId" ColumnName="RevizeId" />
           <ScalarProperty Name="SCProvozuId" ColumnName="SCProvozuId" />

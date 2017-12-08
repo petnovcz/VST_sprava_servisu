@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace VST_sprava_servisu
 {
@@ -14,6 +15,30 @@ namespace VST_sprava_servisu
         private Zakaznik Zakaznik { get; set; }
         
 
+        
+        internal protected void UpdateRevizeHeader (int id)
+        {
+            using (var dbCtx = new Model1Container())
+            {
+                Revize revize = new Revize();
+                revize = dbCtx.Revize.Find(id);
+                revize.Baterie = dbCtx.RevizeSC.Where(r=>r.RevizeId == id && r.Baterie == true).Count();
+                revize.Pyro = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.Pyro == true).Count();
+                revize.TlkZk = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.TlakovaZkouska == true).Count();
+                try
+                {
+                    dbCtx.Entry(revize).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+                catch
+                {
+
+                }
+
+                
+            }
+            
+        }
 
 
 

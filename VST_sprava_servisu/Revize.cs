@@ -29,7 +29,7 @@ namespace VST_sprava_servisu
         public System.DateTime DatumRevize { get; set; }
         [Display(Name = "Status revize")]
         public int StatusRevizeId { get; set; }
-        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum vystavení")]
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum vystavení")]
         public Nullable<System.DateTime> DatumVystaveni { get; set; }
         [Display(Name = "Zjištìný stav")]
         public string ZjistenyStav { get; set; }
@@ -37,7 +37,7 @@ namespace VST_sprava_servisu
         public string ProvedeneZasahy { get; set; }
         [Display(Name = "Opatøení k odstranìní")]
         public string OpatreniKOdstraneni { get; set; }
-        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Kontrola provedena dne")]
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Kontrola provedena dne")]
         public Nullable<System.DateTime> KontrolaProvedenaDne { get; set; }
         [Display(Name = "Pøíští kontrola")]
         public string PristiKontrola { get; set; }

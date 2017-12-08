@@ -33,7 +33,7 @@ namespace VST_sprava_servisu
         public System.DateTime DatumPrirazeni { get; set; }
         [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum poslední zmìny")]
         public Nullable<System.DateTime> DatumPosledniZmeny { get; set; }
-        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum výmìny")]
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum výmìny")]
         public Nullable<System.DateTime> DatumVymeny { get; set; }
         [Display(Name = "Umístìní")]
         public Nullable<int> Umisteni { get; set; }

@@ -14,9 +14,9 @@ namespace VST_sprava_servisu
         private Model1Container db = new Model1Container();
 
         // GET: RevizeSC
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            var revizeSC = db.RevizeSC.Include(r => r.Revize).Include(r => r.SCProvozu).Include(r => r.Umisteni);
+            var revizeSC = db.RevizeSC.Include(r => r.Revize).Include(r => r.SCProvozu).Include(r => r.Umisteni).Where(r=>r.RevizeId ==id);
             return View(revizeSC.ToList());
         }
 
@@ -49,7 +49,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId")] RevizeSC revizeSC)
+        public ActionResult Create([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska")] RevizeSC revizeSC)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId")] RevizeSC revizeSC)
+        public ActionResult Edit([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska")] RevizeSC revizeSC)
         {
             if (ModelState.IsValid)
             {
