@@ -50,7 +50,19 @@ namespace VST_sprava_servisu
         public Nullable<int> Pyro { get; set; }
         [Display(Name = "Poèet tlakových zkoušek")]
         public Nullable<int> TlkZk { get; set; }
-    
+
+        [Display(Name = "Akèních prvkù")]
+        public Nullable<int> AP { get; set; }
+        [Display(Name = "Snímaèù")]
+        public Nullable<int> S { get; set; }
+        [Display(Name = "ØJ")]
+        public Nullable<int> RJ { get; set; }
+        [Display(Name = "Membrán a košù")]
+        public Nullable<int> M { get; set; }
+        [Display(Name = "Ventilù")]
+        public Nullable<int> V { get; set; }
+
+
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RevizeSC> RevizeSC { get; set; }

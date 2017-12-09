@@ -87,6 +87,11 @@
           <Property Name="Baterie" Type="int" />
           <Property Name="Pyro" Type="int" />
           <Property Name="TlkZk" Type="int" />
+          <Property Name="AP" Type="int" />
+          <Property Name="S" Type="int" />
+          <Property Name="RJ" Type="int" />
+          <Property Name="M" Type="int" />
+          <Property Name="V" Type="int" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -752,6 +757,11 @@
           <Property Name="Baterie" Type="Int32" />
           <Property Name="Pyro" Type="Int32" />
           <Property Name="TlkZk" Type="Int32" />
+          <Property Name="AP" Type="Int32" />
+          <Property Name="S" Type="Int32" />
+          <Property Name="RJ" Type="Int32" />
+          <Property Name="M" Type="Int32" />
+          <Property Name="V" Type="Int32" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -1118,7 +1128,12 @@
     <EntitySetMapping Name="Revize">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Revize)">
         <MappingFragment StoreEntitySet="Revize">
-          <ScalarProperty Name="TlkZk" ColumnName="TlkZk" />
+          <ScalarProperty Name="V" ColumnName="V" />
+                <ScalarProperty Name="M" ColumnName="M" />
+                <ScalarProperty Name="RJ" ColumnName="RJ" />
+                <ScalarProperty Name="S" ColumnName="S" />
+                <ScalarProperty Name="AP" ColumnName="AP" />
+                <ScalarProperty Name="TlkZk" ColumnName="TlkZk" />
                 <ScalarProperty Name="Pyro" ColumnName="Pyro" />
                 <ScalarProperty Name="Baterie" ColumnName="Baterie" />
                 <ScalarProperty Name="UmisteniId" ColumnName="UmisteniId" />

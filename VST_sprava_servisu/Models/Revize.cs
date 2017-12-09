@@ -25,6 +25,11 @@ namespace VST_sprava_servisu
                 revize.Baterie = dbCtx.RevizeSC.Where(r=>r.RevizeId == id && r.Baterie == true).Count();
                 revize.Pyro = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.Pyro == true).Count();
                 revize.TlkZk = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.TlakovaZkouska == true).Count();
+                revize.AP = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 131).Count();
+                revize.S = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 1).Count();
+                revize.RJ = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 130).Count();
+                revize.V = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id >= 132 && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id <= 135).Count();
+                revize.M = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 136 ).Count();
                 try
                 {
                     dbCtx.Entry(revize).State = EntityState.Modified;

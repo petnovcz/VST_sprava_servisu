@@ -5,23 +5,7 @@
 }
 
 
-<div id="dialog-alert" style="display: none">
-    <p>
-        @TempData["msg"]!
-    </p>
-</div>
 
-<div id="dialog-confirm" style="display: none">
-    <p>
-        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        Are you sure to delete?
-    </p>
-</div>
-
-<div id="dialog-edit" style="display: none">
-</div>
-<div id="dialog-detail" style="display: none">
-</div>
     
     @foreach (var item in Model)
 
@@ -52,7 +36,23 @@
             <div class="vstcalr col-lg-4">
                 @Html.DisplayFor(modelItem => item.TlkZk) TlkZk
 
-                @Html.DisplayFor(modelItem => item.AP) TlkZk
+                
+            </div>
+            <div class="vstcalr col-lg-4">
+                @Html.DisplayFor(modelItem => item.AP) AP
+            </div>
+            <div class="vstcalr col-lg-4">
+                @Html.DisplayFor(modelItem => item.S) TS
+            </div>
+            <div class="vstcalr col-lg-4">
+                @Html.DisplayFor(modelItem => item.RJ) ŘJ
+            </div>
+
+            <div class="vstcalr col-lg-4">
+                @Html.DisplayFor(modelItem => item.V) V
+            </div>
+            <div class="vstcalr col-lg-4">
+                @Html.DisplayFor(modelItem => item.M) M
             </div>
             </div>
 
