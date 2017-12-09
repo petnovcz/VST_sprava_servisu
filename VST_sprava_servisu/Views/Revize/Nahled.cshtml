@@ -54,8 +54,12 @@
                     loop = 0;
                 }
             }
-        
-        
+            @for (var i = loop; i < 7; i++)
+            {
+                @Html.Raw("<td></td>");
+            }
+
+
         </tr>
     </tbody>
 </table>

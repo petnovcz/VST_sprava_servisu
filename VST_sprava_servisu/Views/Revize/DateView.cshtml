@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+    var @color = "";
 }
 
 
@@ -10,50 +11,57 @@
     @foreach (var item in Model)
 
     {
+        if (item.StatusRevize.Planovana == true)
+        { color = "background-color:rgba(255, 0, 0, 0.2)";
+        }
+        if (item.StatusRevize.Potvrzena == true)
+        { color = "background-color:rgba(63, 191, 191, 0.2)";
+        }
+        if (item.StatusRevize.Realizovana == true)
+        { color = "background-color:rgba(63, 191, 63, 0.2)";
+        }
 
-        <div class="vstcal parent  " style="overflow: hidden; position: relative;" >
-            <div class="vstcalr col-lg-9">
+        <div class="vstcal parent" style="@color; overflow: hidden; position: relative; border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px" >
+            
+            <div class="vstcalr col-lg-9" style="font-size:16px; font-weight:700;">
                 @Html.DisplayFor(modelItem => item.Provoz.Zakaznik.NazevZakaznika)
             </div>
             <div class="vstcalr col-lg-3">
                 @Html.ActionLink(" ", "Details", "Revize", new { Id = item.Id }, new { @class = "btn btn-block   btn-xs btn-primary glyphicon glyphicon-play" })
             </div>
-            <div class="vstcalr col-lg-9">
+            <div class="vstcalr col-lg-9" style="font-size:14px; font-weight:700;">
                 @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
             </div>
             <div class="vstcalr col-lg-3">
                 @Html.ActionLink(" ", "Replan", "Revize", new { Id = item.Id }, new { @class = "modal-link btn btn-block   btn-xs btn-info glyphicon glyphicon-cog"})
             </div>
-            <div class="vstcalr col-lg-12">
+            <div class="vstcalr col-lg-12" style="font-size:14px; font-weight:700;">
                 @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
             </div>
-            <div class="vstcalr col-lg-4">
-                @Html.DisplayFor(modelItem => item.Baterie) B
-            </div>
-            <div class="vstcalr col-lg-4">
-                @Html.DisplayFor(modelItem => item.Pyro) P
-            </div>
-            <div class="vstcalr col-lg-4">
-                @Html.DisplayFor(modelItem => item.TlkZk) TlkZk
-
-                
-            </div>
-            <div class="vstcalr col-lg-4">
-                @Html.DisplayFor(modelItem => item.AP) AP
-            </div>
-            <div class="vstcalr col-lg-4">
-                @Html.DisplayFor(modelItem => item.S) TS
-            </div>
-            <div class="vstcalr col-lg-4">
-                @Html.DisplayFor(modelItem => item.RJ) ŘJ
-            </div>
-
-            <div class="vstcalr col-lg-4">
-                @Html.DisplayFor(modelItem => item.V) V
-            </div>
-            <div class="vstcalr col-lg-4">
-                @Html.DisplayFor(modelItem => item.M) M
-            </div>
+            <table style="width:100%; background-color:rgba(0, 0, 0, 0.5);color:#fdc800 !important;margin:0px;padding:0px">
+                <tr>
+                    <td style="text-align:right; font-size:18px; font-weight:700;">
+                        @if(item.Baterie > 0) { <text>@item.Baterie</text><text>B</text>  }
+                        @if (item.Pyro > 0) { <text>@item.Pyro</text><text>P</text>  }
+                        @if (item.TlkZk > 0) { <text>@item.TlkZk</text><text>TZ</text>  }
+                    </td>
+                    <td style="text-align:right; font-size:18px; font-weight:700;">
+                        @if (item.AP > 0)
+                        { <text>@item.AP</text><text>AP</text>  }
+                        @if (item.S > 0)
+                        { <text>@item.S</text><text>S</text>  }
+                        @if (item.RJ > 0)
+                        { <text>@item.RJ</text><text>RJ</text>  }
+                        @if (item.V > 0)
+                        { <text>@item.V</text><text>V</text>  }
+                        @if (item.M > 0)
+                        { <text>@item.M</text><text>M</text>  }
+                    </td>
+                </tr>
+            </table>
+            
+            
+            
             </div>
 
 

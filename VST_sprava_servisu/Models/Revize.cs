@@ -190,7 +190,11 @@ namespace VST_sprava_servisu
             List<Revize> list = new List<Revize>();
             using (var dbCtx = new Model1Container())
             {
-                var listx = dbCtx.Revize.Include(r=>r.Umisteni).Include(r => r.Provoz).Where(r=>r.DatumRevize.Month == Mesic && r.DatumRevize.Year == Rok && r.DatumRevize.Day == Den);
+                var listx = dbCtx.Revize
+                            .Include(r => r.Umisteni)
+                            .Include(r => r.Provoz)
+                            .Include(r => r.StatusRevize)
+                            .Where(r=>r.DatumRevize.Month == Mesic && r.DatumRevize.Year == Rok && r.DatumRevize.Day == Den);
                 list = listx.ToList();
                 foreach (var item in list)
                 {
