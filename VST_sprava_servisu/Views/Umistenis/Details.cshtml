@@ -11,7 +11,7 @@
     @Html.Action("Header", "Umistenis", new { Id = Model.Id })
     
         
-   @Html.Partial("~/Views/SCProvozu/Index.cshtml", Model.SCProvozu)
+   @Html.Partial("~/Views/SCProvozu/Index.cshtml", Model.SCProvozu.OrderBy(p=>p.SerioveCislo.Artikl.SkupinaArtiklu1.PoradiZobrazeni))
 </div>
     <br>
 @Html.Action("TestSC", "SAPImport", new { Provoz = Model.ProvozId, Zakaznik = index, Umisteni = Model.Id })

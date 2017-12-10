@@ -357,6 +357,12 @@
       <DependentUpon>Servis.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Servis2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Servis2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SkupinaArtiklu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1015,6 +1021,7 @@
     <Content Include="Views\Revize\DateView.cshtml" />
     <Content Include="Views\Revize\Replan.cshtml" />
     <Content Include="Views\Umistenis\Header.cshtml" />
+    <Content Include="Views\Revize\Fill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1053,6 +1060,10 @@
     <EmbeddedResource Include="Servis.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Servis.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Servis2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Servis2.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

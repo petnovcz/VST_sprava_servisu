@@ -45,7 +45,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Skupina,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro")] SkupinaArtiklu skupinaArtiklu)
+        public ActionResult Create([Bind(Include = "Id,Skupina,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,PoradiZobrazeni")] SkupinaArtiklu skupinaArtiklu)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Skupina,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro")] SkupinaArtiklu skupinaArtiklu)
+        public ActionResult Edit([Bind(Include = "Id,Skupina,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,PoradiZobrazeni")] SkupinaArtiklu skupinaArtiklu)
         {
             if (ModelState.IsValid)
             {

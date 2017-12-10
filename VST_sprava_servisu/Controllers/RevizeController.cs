@@ -251,7 +251,57 @@ namespace VST_sprava_servisu
             Response.Close();
         }
 
+        public void OpenPDFPotvrzeni(int Id)
+        {
+            ReportDocument Rel = new ReportDocument();
+            Rel.Load(Path.Combine(Server.MapPath("~/Servis2.rpt")));
+            Rel.SetParameterValue("Id@", Id);
+            //rd.ParameterFields.
+            Rel.SetDatabaseLogon("sa", "*2012Versino",
+                               "SQL", "Servis", false);
 
+            BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "application/pdf";
+            Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+            Response.Flush();
+            Response.Close();
+        }
+
+        public ActionResult Fill(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Revize revize = db.Revize.Find(id);
+            if (revize == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            return View(revize);
+        }
+
+        // POST: Revize/Edit/5
+        // Chcete-li zajistit ochranu před útoky typu OVERPOST, povolte konkrétní vlastnosti, k nimž chcete vytvořit vazbu. 
+        // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Fill([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(revize).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details", "Revize", new { Id = revize.Id });
+            }
+            ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            return View(revize);
+        }
 
     }
 }

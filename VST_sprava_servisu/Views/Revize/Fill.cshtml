@@ -1,0 +1,129 @@
+﻿@model VST_sprava_servisu.Revize
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Revize</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.ProvozId)
+        @Html.HiddenFor(model => model.DatumVystaveni)
+       
+        
+        
+        
+        @Html.HiddenFor(model => model.Rok)
+        @Html.HiddenFor(model => model.Pololeti)
+        @Html.HiddenFor(model => model.UmisteniId)
+        @Html.HiddenFor(model => model.Baterie)
+        @Html.HiddenFor(model => model.Pyro)
+        @Html.HiddenFor(model => model.TlkZk)
+        @Html.HiddenFor(model => model.AP)
+        @Html.HiddenFor(model => model.S)
+        @Html.HiddenFor(model => model.RJ)
+        @Html.HiddenFor(model => model.M)
+        @Html.HiddenFor(model => model.V)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumRevize, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DatumRevize, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ZjistenyStav, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ZjistenyStav, new { htmlAttributes = new { @class = "form-control " } })
+                @Html.ValidationMessageFor(model => model.ZjistenyStav, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProvedeneZasahy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProvedeneZasahy, new { htmlAttributes = new { @class = "form-control " } })
+                @Html.ValidationMessageFor(model => model.ProvedeneZasahy, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OpatreniKOdstraneni, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OpatreniKOdstraneni, new { htmlAttributes = new { @class = "form-control " } })
+                @Html.ValidationMessageFor(model => model.OpatreniKOdstraneni, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.KontrolaProvedenaDne, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KontrolaProvedenaDne, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.KontrolaProvedenaDne, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PristiKontrola, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PristiKontrola, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.PristiKontrola, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StatusRevizeId, "StatusRevizeId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StatusRevizeId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StatusRevizeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KontrolaProvedenaDne, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KontrolaProvedenaDne, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.KontrolaProvedenaDne, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    <script type="text/javascript">
+
+
+     $('.datetimepicker').datetimepicker(
+     {
+         format: 'DD.MM.YYYY'
+         //daysOfWeekDisabled: [0, 6]
+         ,locale: 'cs'
+
+
+
+     }); </script>
+}

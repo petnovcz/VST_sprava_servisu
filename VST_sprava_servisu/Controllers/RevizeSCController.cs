@@ -16,7 +16,9 @@ namespace VST_sprava_servisu
         // GET: RevizeSC
         public ActionResult Index(int id)
         {
-            var revizeSC = db.RevizeSC.Include(r => r.Revize).Include(r => r.SCProvozu).Include(r => r.Umisteni).Where(r=>r.RevizeId ==id);
+            var revizeSC = db.RevizeSC.Include(r => r.Revize).Include(r => r.SCProvozu).Include(r => r.Umisteni).Where(r=>r.RevizeId ==id)
+                .OrderBy(r=>r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.PoradiZobrazeni)
+                .ThenBy(r=>r.SCProvozu.Znaceni);
             return View(revizeSC.ToList());
         }
 

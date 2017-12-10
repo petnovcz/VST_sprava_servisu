@@ -16,7 +16,8 @@ namespace VST_sprava_servisu
         // GET: Umistenis
         public ActionResult Index()
         {
-            var umisteni = db.Umisteni.Include(u => u.Provoz);
+            var umisteni = db.Umisteni
+                .Include(u => u.Provoz);
             return View(umisteni.ToList());
         }
 

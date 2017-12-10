@@ -153,6 +153,7 @@
           <Property Name="VymenaPyro" Type="bit" Nullable="false" />
           <Property Name="PeriodaPyro" Type="nchar" MaxLength="10" />
           <Property Name="ArtoklPyro" Type="nchar" MaxLength="10" />
+          <Property Name="PoradiZobrazeni" Type="int" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -1002,6 +1003,7 @@
           <Property Name="VymenaPyro" Type="Boolean" Nullable="false" />
           <Property Name="PeriodaPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ArtoklPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PoradiZobrazeni" Type="Int32" />
         </EntityType>
         <Association Name="FK_Artikl_SkupinaA">
           <End Type="Model1.SkupinaArtiklu" Role="SkupinaArtiklu" Multiplicity="0..1" />
@@ -1237,6 +1239,7 @@
           <EntitySetMapping Name="SkupinaArtiklu">
             <EntityTypeMapping TypeName="Model1.SkupinaArtiklu">
               <MappingFragment StoreEntitySet="SkupinaArtiklu">
+                <ScalarProperty Name="PoradiZobrazeni" ColumnName="PoradiZobrazeni" />
                 <ScalarProperty Name="ArtoklPyro" ColumnName="ArtoklPyro" />
                 <ScalarProperty Name="PeriodaPyro" ColumnName="PeriodaPyro" />
                 <ScalarProperty Name="VymenaPyro" ColumnName="VymenaPyro" />
