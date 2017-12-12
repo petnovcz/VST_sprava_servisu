@@ -3,50 +3,67 @@
     ViewBag.Title = "Header";
 }
 @{
-    Layout = "";
+    Layout = ""; var @color = ""; var @color2 = "";
+}
+@{
+    if (Model.StatusRevize.Planovana == true)
+    {
+        color = "danger";
+        color2 = "#d9534f";
+    }
+    if (Model.StatusRevize.Potvrzena == true)
+    {
+        color = "warning";
+        color2 = "#FF8800";
+    }
+    if (Model.StatusRevize.Realizovana == true)
+    {
+        color = "success";
+        color2 = "#5cb85c";
+    }
 }
 
-<div class="row" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
-    <div class="col-lg-8">
-        <h3 class="vstcolor">@Html.DisplayFor(model => model.Provoz.Zakaznik.NazevZakaznika)</h3>
-        <h4 class="vstcolor">@Html.DisplayFor(model => model.Provoz.NazevProvozu) / @Html.DisplayFor(model => model.Umisteni.NazevUmisteni)</h4>
-        <h4 class="vstcolor">@Html.DisplayFor(model => model.StatusRevize.NazevStatusuRevize)</h4>
-        <h4 class="vstcolor">@Html.DisplayFor(model => model.DatumRevize)</h4>
+    <div class="row" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+        <div class="col-lg-8">
+            <h3 class="vstcolor">@Html.DisplayFor(model => model.Provoz.Zakaznik.NazevZakaznika)</h3>
+            <h4 class="vstcolor">@Html.DisplayFor(model => model.Provoz.NazevProvozu) / @Html.DisplayFor(model => model.Umisteni.NazevUmisteni)</h4>
+            <h4 class="" style="color:@color2">@Html.DisplayFor(model => model.StatusRevize.NazevStatusuRevize)</h4>
+            <h4 class="vstcolor">@Html.DisplayFor(model => model.DatumRevize)</h4>
 
-        <table style="width:100%; color:#fdc800 !important;margin:0px;padding:0px">
-            <tr>
-                <td style="text-align:left; font-size:18px; font-weight:700;">
-                    @if (Model.Baterie > 0)
-                    {<text>@Model.Baterie</text><text>B</text>}
-                    @if (Model.Pyro > 0)
-                    {<text>@Model.Pyro</text><text>P</text>}
-                    @if (Model.TlkZk > 0)
-                    {<text>@Model.TlkZk</text><text>TZ</text>}
-                </td>
-                <td style="text-align:left; font-size:18px; font-weight:700;">
-                    @if (Model.AP > 0)
-                    {<text>@Model.AP</text><text>AP</text>}
-                    @if (Model.S > 0)
-                    {<text>@Model.S</text><text>S</text>}
-                    @if (Model.RJ > 0)
-                    {<text>@Model.RJ</text><text>RJ</text>}
-                    @if (Model.V > 0)
-                    {<text>@Model.V</text><text>V</text>}
-                    @if (Model.M > 0)
-                    {<text>@Model.M</text><text>M</text>}
-                </td>
-            </tr>
-        </table>
+            <table style="width:100%; color:#fdc800 !important;margin:0px;padding:0px">
+                <tr>
+                    <td style="text-align:left; font-size:18px; font-weight:700;">
+                        @if (Model.Baterie > 0)
+                        {<text>@Model.Baterie</text><text>B</text>}
+                        @if (Model.Pyro > 0)
+                        {<text>@Model.Pyro</text><text>P</text>}
+                        @if (Model.TlkZk > 0)
+                        {<text>@Model.TlkZk</text><text>TZ</text>}
+                    </td>
+                    <td style="text-align:left; font-size:18px; font-weight:700;">
+                        @if (Model.AP > 0)
+                        {<text>@Model.AP</text><text>AP</text>}
+                        @if (Model.S > 0)
+                        {<text>@Model.S</text><text>S</text>}
+                        @if (Model.RJ > 0)
+                        {<text>@Model.RJ</text><text>RJ</text>}
+                        @if (Model.V > 0)
+                        {<text>@Model.V</text><text>V</text>}
+                        @if (Model.M > 0)
+                        {<text>@Model.M</text><text>M</text>}
+                    </td>
+                </tr>
+            </table>
 
+        </div>
+        <div class="col-lg-4 vstcolorwhite">
+            <p>
+                @Html.ActionLink("Zpět na plán", "Nahled", "Revize", new { Rok = Model.DatumRevize.Year, Mesic = Model.DatumRevize.Month }, new { @class = "btn btn-info btn-xs btn-block" })
+                @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-"+ color +" btn-xs btn-block" })
+                @Html.ActionLink("Tisk záznamu o kontrole", "OpenPDF", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                @Html.ActionLink("Tisk potvrzení", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                @Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+            </p>
+        </div>
     </div>
-    <div class="col-lg-4 vstcolorwhite">
-        <p>
-            @Html.ActionLink("Zpět na plán", "Nahled", "Revize", new { Rok = Model.DatumRevize.Year, Mesic = Model.DatumRevize.Month }, new { @class = "btn btn-info btn-xs btn-block" })
-            @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-            @Html.ActionLink("Tisk záznamu o kontrole", "OpenPDF", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-            @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-            @Html.ActionLink("Tisk potvrzení", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-            @Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-        </p>
-    </div>
-</div>

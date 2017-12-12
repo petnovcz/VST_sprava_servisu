@@ -186,7 +186,7 @@ namespace VST_sprava_servisu
 
         }
 
-        internal protected static List<Revize> GetByDate (int Mesic, int Rok, int Den)
+        internal protected static List<Revize> GetByDate (int Mesic, int Rok, int Den, int Region)
         {
             List<Revize> list = new List<Revize>();
             using (var dbCtx = new Model1Container())
@@ -195,14 +195,19 @@ namespace VST_sprava_servisu
                             .Include(r => r.Umisteni)
                             .Include(r => r.Provoz)
                             .Include(r => r.StatusRevize)
-                            .Where(r=>r.DatumRevize.Month == Mesic && r.DatumRevize.Year == Rok && r.DatumRevize.Day == Den);
+                            
+                            .Where(r=>r.DatumRevize.Month == Mesic && r.DatumRevize.Year == Rok && r.DatumRevize.Day == Den)
+                            ;
                 list = listx.ToList();
                 foreach (var item in list)
                 {
                     var ZakId = dbCtx.Provoz.Where(p => p.Id == item.ProvozId).Select(p=>p.ZakaznikId).FirstOrDefault();
                     item.Zakaznik = dbCtx.Zakaznik.Where(p => p.Id == ZakId).FirstOrDefault();
                 }
-
+                if (Region != 0)
+                {
+                    list.Where(r => r.Zakaznik.RegionId == Region).ToList();
+                }
             }
             return list;
 

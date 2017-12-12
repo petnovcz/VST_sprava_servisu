@@ -162,7 +162,7 @@ namespace VST_sprava_servisu
             ViewBag.Mesic = Mesic;
             return View();
         }
-        public ActionResult Nahled (int? Rok, int? Mesic)
+        public ActionResult Nahled (int? Rok, int? Mesic, int? Region)
         {
             if (Rok == null) { Rok = System.DateTime.Now.Year; }
             if (Mesic == null) { Mesic = System.DateTime.Now.Month; }
@@ -177,10 +177,12 @@ namespace VST_sprava_servisu
             ViewBag.Mesic = Mesic;
             ViewBag.X = x;
             ViewBag.DaysInMonth = DaysInMonth;
+            if (Region == null) { Region = 0; }
+            ViewBag.Region = Region;
             return View();
         }
 
-        public ActionResult DateView(int? Rok, int? Mesic, int? Den)
+        public ActionResult DateView(int? Rok, int? Mesic, int? Den, int? Region)
         {
             
             if (Rok == null) { Rok = System.DateTime.Now.Year; }
@@ -188,7 +190,7 @@ namespace VST_sprava_servisu
             if (Den == null) { Mesic = System.DateTime.Now.Day; }
 
             List<Revize> list = new List<Revize>();
-            list = Revize.GetByDate(Mesic.Value, Rok.Value, Den.Value);
+            list = Revize.GetByDate(Mesic.Value, Rok.Value, Den.Value, Region.Value);
 
 
             return View(list);

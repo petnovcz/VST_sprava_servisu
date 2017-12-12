@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color: rgba(0, 0, 0, 0.2)
+    background-color: #EBEBEB;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -57,10 +57,12 @@ textarea {
 
 .vstcal {
     color: black;
-    background-color: rgba(0, 0, 0, 0.1);
-    border: 1px !important;
+    background-color: #f5f5f5;
+    /*color: #fdc800 !important;*/
+    border: 2px !important;
     border-style: solid !important;
-    border-color: #ffffff !important;
+    border-color: #c3c3c3 !important;
+    border-collapse: collapse;
     margin: 0px !important;
     padding: 0px !important;
     padding-left: 0px !important;
@@ -69,13 +71,13 @@ textarea {
 }
 .vstcalr {
     /*background-color: rgba(0, 0, 0, 0.4);*/
-    border: 0px !important;
-    border-style: solid !important;
-    border-color: #ffffff !important;
+    
+    
     margin: 0px !important;
     padding: 0px !important;
+    padding-top: 5px !important;
     padding-left: 5px !important;
-    padding-right: 0px !important;
+    padding-right: 5px !important;
     margin-left: 0px !important;
 }
 
@@ -111,4 +113,17 @@ textarea {
 
 .dataTables_wrapper {
     font-size: 11px
+}
+
+.vstcalendar table tr td {
+    border-top: 1px solid #ffffff !important;
+    border-left: 1px solid #ffffff !important;
+}
+
+.vstcalendar table tr td:first-child {
+        border-left: 0 !important;
+    }
+
+.vstcalendar table tr:first-child td {
+    border-top: 0 !important;
 }
