@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
             </div>
             <div class="vstcalr col-lg-3">
-                @Html.ActionLink(" ", "Replan", "Revize", new { Id = item.Id }, new { @class = "modal-link btn btn-block   btn-xs btn-info glyphicon glyphicon-cog"})
+                @Html.ActionLink(" ", "Edit", "Revize", new { Id = item.Id }, new { @class = "modal-link btn btn-block   btn-xs btn-info glyphicon glyphicon-cog"})
             </div>
             <div class="vstcalr col-lg-12" style="font-size:14px; font-weight:700;">
                 @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)

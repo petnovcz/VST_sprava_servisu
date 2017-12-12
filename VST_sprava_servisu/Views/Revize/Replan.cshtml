@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = "Edit";
 }
-
-<div class="">
-    <div class="modal-title">
+@Html.Action("Header", "Revize", new { Id = Model.Id })
+<div class="col-lg-12 " style="background-color:rgba(0, 0, 0, 0.5)">
+   
 
         @using (Html.BeginForm())
         {
@@ -34,8 +34,8 @@
                 @Html.HiddenFor(model => model.RJ)
                 @Html.HiddenFor(model => model.M)
                 @Html.HiddenFor(model => model.V)
-                
-                
+
+
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -63,7 +63,7 @@
             </div>
         }
     </div>
-</div>
+
 @section Scripts {
     <script type="text/javascript">
         $(function () {
@@ -78,5 +78,5 @@
 
 
 
-            }); </script>
+            });</script>
 }

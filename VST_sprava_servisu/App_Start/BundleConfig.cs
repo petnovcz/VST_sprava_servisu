@@ -44,6 +44,7 @@ namespace VST_sprava_servisu
                       "~/Content/bootstrap-theme.css",
                       "~/Content/bootstrap-datetimepicker-build.less",
                       "~/Content/bootstrap-datetimepicker.css",
+                      "~/Scripts/summernote/summernote.css",
                       "~/Content/site.css"));
         }
     }

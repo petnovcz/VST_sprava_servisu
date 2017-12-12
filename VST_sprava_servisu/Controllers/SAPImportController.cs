@@ -800,7 +800,8 @@ namespace VST_sprava_servisu
                 scprovozu.ProvozId = scimport.Provozy;
                 scprovozu.StatusId = db.Status.Where(s => s.Aktivni == true).Select(s=>s.Id).FirstOrDefault();
                 scprovozu.DatumPrirazeni = scimport.DatumPrirazeni;
-                scprovozu.DatumPosledniZmeny = scimport.DatumPosledniZmeny;
+                if (scimport.DatumPosledniZmeny == null) { scprovozu.DatumPosledniZmeny = scimport.DatumRevize; }
+                else { scprovozu.DatumPosledniZmeny = scimport.DatumPosledniZmeny; }
                 scprovozu.DatumVymeny = null;
                 scprovozu.Umisteni = scimport.Umisteni;
                 scprovozu.DatumRevize = scimport.DatumRevize;

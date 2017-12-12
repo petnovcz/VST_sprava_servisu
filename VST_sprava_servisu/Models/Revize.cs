@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
+
 namespace VST_sprava_servisu
 {
     public partial class Revize
@@ -204,6 +205,39 @@ namespace VST_sprava_servisu
 
             }
             return list;
+
+
+        }
+
+        internal protected static Revize CloseRevize(int Id)
+        {
+            Revize revize = new Revize();
+            RevizeSC revizesc = new RevizeSC();            
+            List<RevizeSC> revizesclist = new List<RevizeSC>();
+            
+            using (var dbCtx = new Model1Container())
+            {
+                revize = dbCtx.Revize.Find(Id);
+                revize.StatusRevizeId = dbCtx.StatusRevize.Where(s => s.Realizovana == true).Select(s=>s.Id).FirstOrDefault();
+                try
+                {
+                    dbCtx.Entry(revize).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+                catch{ }
+                revizesclist = VST_sprava_servisu.RevizeSC.GetListByRevizeId(Id,null);
+                CallSCProvozupdate(revizesclist, revize.KontrolaProvedenaDne.Value);
+            }
+
+                return revize;
+        }
+
+        internal protected static void CallSCProvozupdate(List<RevizeSC> revizesclist,DateTime datumkontroly)
+        {
+            foreach (var item in revizesclist)
+            {
+                VST_sprava_servisu.SCProvozu.UpdateSC(item.SCProvozuId, datumkontroly, item.Baterie, item.Pyro, item.TlakovaZkouska);
+            }
 
 
         }

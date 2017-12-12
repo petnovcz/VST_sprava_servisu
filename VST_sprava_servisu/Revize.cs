@@ -13,6 +13,7 @@ namespace VST_sprava_servisu
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web.Mvc;
 
     public partial class Revize
     {
@@ -21,7 +22,7 @@ namespace VST_sprava_servisu
         {
             this.RevizeSC = new HashSet<RevizeSC>();
         }
-    
+
         public int Id { get; set; }
         [Display(Name = "Provoz")]
         public int ProvozId { get; set; }
@@ -32,10 +33,13 @@ namespace VST_sprava_servisu
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum vystavení")]
         public Nullable<System.DateTime> DatumVystaveni { get; set; }
         [Display(Name = "Zjištìný stav")]
+        [AllowHtml]
         public string ZjistenyStav { get; set; }
         [Display(Name = "Provedené zásahy")]
+        [AllowHtml]
         public string ProvedeneZasahy { get; set; }
         [Display(Name = "Opatøení k odstranìní")]
+        [AllowHtml]
         public string OpatreniKOdstraneni { get; set; }
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Kontrola provedena dne")]
         public Nullable<System.DateTime> KontrolaProvedenaDne { get; set; }

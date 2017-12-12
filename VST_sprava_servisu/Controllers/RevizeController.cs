@@ -41,11 +41,26 @@ namespace VST_sprava_servisu
             return View(revize);
         }
 
+        public ActionResult Header(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Revize revize = db.Revize.Find(id);
+            if (revize == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(revize);
+        }
+
         // GET: Revize/Create
         public ActionResult Create()
         {
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu");
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize");
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s=>s.Realizovana != true), "Id", "NazevStatusuRevize");
             return View();
         }
 
@@ -65,7 +80,7 @@ namespace VST_sprava_servisu
             }
 
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
             return View(revize);
         }
 
@@ -82,7 +97,7 @@ namespace VST_sprava_servisu
                 return HttpNotFound();
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
             return View(revize);
         }
 
@@ -100,7 +115,7 @@ namespace VST_sprava_servisu
                 return RedirectToAction("Details","Revize",new { Id = revize.Id});
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
             return View(revize);
         }
 
@@ -192,7 +207,7 @@ namespace VST_sprava_servisu
                 return HttpNotFound();
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
             return View(revize);
         }
 
@@ -207,7 +222,7 @@ namespace VST_sprava_servisu
                 return RedirectToAction("Nahled", "Revize", new { Rok = revize.DatumRevize.Year, Mesic = revize.DatumRevize.Month });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
             return View(revize);
         }
 
@@ -290,6 +305,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Fill([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize)
         {
             if (ModelState.IsValid)
@@ -303,5 +319,16 @@ namespace VST_sprava_servisu
             return View(revize);
         }
 
+        public ActionResult Close(int Id)
+        {
+            Revize revize = new Revize();
+            Revize.CloseRevize(Id);
+            //dohledat revizi
+            //změnit status revize 
+            //vyhledat všechny RevizeSC
+            //pro každou ReviziSC dohledat SC provozu a update datumu revize 
+
+            return RedirectToAction("Details", "Revize", new { Id = Id });
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace VST_sprava_servisu
         
 
 
-        internal protected static List<RevizeSC> GetListByRevizeId(int RevizeId, int? SCprovozuId)
+        public static List<RevizeSC> GetListByRevizeId(int RevizeId, int? SCprovozuId)
         {
             var list = new List<RevizeSC>();
 
@@ -76,6 +76,8 @@ namespace VST_sprava_servisu
                 dbCtx.SaveChanges();
             }
         }
+
+         
 
         
     }
