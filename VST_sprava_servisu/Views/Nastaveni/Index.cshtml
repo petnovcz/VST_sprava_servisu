@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    <div class="col-md-12 vstdark3div">
+        <div class="col-md-4 ">
+            <h4>Administrace</h4>
+            <p>@Html.ActionLink("Regiony", "Index", "Regiony", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>@Html.ActionLink("Jazyky", "Index", "Jazyky", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+
+            <p>@Html.ActionLink("Status", "Index", "Status", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+        </div>
+        <div class="col-md-4 ">
+            <h4>Import z SAP</h4>
+            <p>Zobrazení seznamu <b class="vstcolor">obchodních partnerů</b> v SAP, které mají či měli projekt na revizi, servisní zásah či pohotovost a nebyl ještě importován do Servisu. Obchodní partner je naimportován do databáze servisu.</p>
+            <p>@Html.ActionLink("Import OP", "List", "SAPImport", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>Zobrazení seznamu <b class="vstcolor">artiklů</b> v SAP, které mají zapnutou správu sériových čísel a nejsou ještě importovány do servisu</p>
+            <p>@Html.ActionLink("Import Artiklů", "SAPItems", "SAPImport", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+        </div>
+        <div class="col-md-4 ">
+            <h4>Nastavení</h4>
+            <p>@Html.ActionLink("Nastavení artiklů", "Index", "SkupinaArtiklu", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>@Html.ActionLink("Sériová čísla", "Index", "SerioveCisloes", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>@Html.ActionLink("Sériová čísla provozu", "Index", "SCProvozu", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+        </div>
+    </div>
+
+
+</div>
+

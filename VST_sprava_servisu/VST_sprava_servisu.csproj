@@ -283,6 +283,7 @@
     <Compile Include="Controllers\GenerovaniReviziController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NastaveniController.cs" />
     <Compile Include="Controllers\pdfController.cs" />
     <Compile Include="Controllers\SAPDIAPIController.cs" />
     <Compile Include="Global.asax.cs">
@@ -884,6 +885,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.dataTables.yadcf.js" />
     <Content Include="Scripts\jquery.ext.dataTables.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -1036,6 +1038,9 @@
     <Content Include="Views\Umistenis\Header.cshtml" />
     <Content Include="Views\Revize\Fill.cshtml" />
     <Content Include="Views\Revize\Header.cshtml" />
+    <Content Include="Views\Nastaveni\Index.cshtml" />
+    <Content Include="Views\Revize\ListLines.cshtml" />
+    <Content Include="Views\Revize\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

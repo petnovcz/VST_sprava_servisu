@@ -14,11 +14,23 @@ namespace VST_sprava_servisu
         private Model1Container db = new Model1Container();
 
         // GET: Zakaznici
-        public ActionResult Index()
+        public ActionResult Index(int? Region, string Search)
         {
             var zakaznik = db.Zakaznik.Include(z => z.Region).Include(z => z.Jazyk);
+            if (Region != null)
+            {
+                zakaznik = zakaznik.Where(r => r.Region.Skupina == Region);
+            }
+            if (Search != null)
+            {
+                zakaznik = zakaznik.Where(r => r.NazevZakaznika.Contains(Search));
+            }
+            zakaznik = zakaznik.OrderBy(r => r.NazevZakaznika);
+
             return View(zakaznik.ToList());
         }
+
+
 
         // GET: Zakaznici/Details/5
         public ActionResult Details(int? id)

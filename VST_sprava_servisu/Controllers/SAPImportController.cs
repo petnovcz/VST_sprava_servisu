@@ -11,7 +11,7 @@ namespace VST_sprava_servisu
 {
     public class SAPImportController : Controller
     {
-        private string connectionString = @"Data Source=sql;Initial Catalog=SBO_TEST;User ID=sa;Password=*2012Versino";
+        private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
         private Model1Container db = new Model1Container();
 
 
@@ -73,7 +73,7 @@ namespace VST_sprava_servisu
             sql = sql + @" CardType = 'C' and";
             sql = sql + @" ((Select count(*) from OINV Z where Z.CardCode = CardCode ) > 0) and";
             sql = sql + @" ((select COUNT(*) from[Servis].[dbo].[Zakaznik] Z where Z.KodSAP COLLATE DATABASE_DEFAULT = CardCode COLLATE DATABASE_DEFAULT) = 0)";
-            sql = sql + @"and ((select COUNT(*) from[@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'R') + (select COUNT(*) from[@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'S' ) + (select COUNT(*) from[@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'P' )) > 0";
+            //sql = sql + @" and ((select COUNT(*) from[@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'R') + (select COUNT(*) from[@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'S' ) + (select COUNT(*) from[@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'P' )) > 0";
             sql = sql + @" order by";
             sql = sql + @" ((select COUNT(*) from [@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'R' and X.U_Status not in ('7','8')) ";
             sql = sql + @"  + (select COUNT(*) from[@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'S' and X.U_Status not in ('7', '8')) ";
@@ -799,7 +799,7 @@ namespace VST_sprava_servisu
                 scprovozu.SerioveCisloId = id;
                 scprovozu.ProvozId = scimport.Provozy;
                 scprovozu.StatusId = db.Status.Where(s => s.Aktivni == true).Select(s=>s.Id).FirstOrDefault();
-                scprovozu.DatumPrirazeni = scimport.DatumPrirazeni;
+                scprovozu.DatumPrirazeni = scimport.DatumDodani;
                 if (scimport.DatumPosledniZmeny == null) { scprovozu.DatumPosledniZmeny = scimport.DatumRevize; }
                 else { scprovozu.DatumPosledniZmeny = scimport.DatumPosledniZmeny; }
                 scprovozu.DatumVymeny = null;

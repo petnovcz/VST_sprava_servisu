@@ -66,6 +66,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NazevRegionu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Skupina" Type="int" />
         </EntityType>
         <EntityType Name="Revize">
           <Key>
@@ -602,6 +603,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NazevRegionu" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Zakaznik" Relationship="Model1.RegionZakaznik" FromRole="Region" ToRole="Zakaznik" />
+          <Property Name="Skupina" Type="Int32" />
         </EntityType>
         <EntityType Name="Zakaznik">
           <Key>
@@ -1050,7 +1052,8 @@
     <EntitySetMapping Name="Region">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Region)">
         <MappingFragment StoreEntitySet="Region">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Skupina" ColumnName="Skupina" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="NazevRegionu" ColumnName="NazevRegionu" />
         </MappingFragment>
       </EntityTypeMapping>

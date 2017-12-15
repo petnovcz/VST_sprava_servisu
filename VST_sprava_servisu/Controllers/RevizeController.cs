@@ -16,7 +16,7 @@ namespace VST_sprava_servisu
     public class RevizeController : Controller
     {
         private Model1Container db = new Model1Container();
-        private string connectionString = @"Data Source=sql;Initial Catalog=SBO_TEST;User ID=sa;Password=*2012Versino";
+        private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
 
         // GET: Revize
         public ActionResult Index()
@@ -26,7 +26,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Revize/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? Region)
         {
             if (id == null)
             {
@@ -37,11 +37,36 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
-            
+
+
+
+            try
+            {
+                ViewBag.ListRegion = Session["List_Region"].ToString();
+            }
+            catch { }
+
+            try
+            {
+                ViewBag.ListDateFrom = Session["List_DateFrom"].ToString();
+            }
+            catch { }
+            try
+            {
+                ViewBag.ListDateTo = Session["List_DateTo"].ToString();
+            }
+            catch { }
+            try
+            {
+                ViewBag.ListStatusRevize = Session["List_StatusRevize"].ToString();
+            }
+            catch { }
+
+            ViewBag.Region = Region;
             return View(revize);
         }
 
-        public ActionResult Header(int? id)
+        public ActionResult Header(int? id, int? Region)
         {
             if (id == null)
             {
@@ -52,7 +77,33 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+            try
+            {
+                ViewBag.ListRegion = Session["List_Skupina"].ToString();
+            }
+            catch { }
 
+            try
+            {
+                var ListDateFrom = Session["List_DateFrom"].ToString();
+                DateTime xx = Convert.ToDateTime(ListDateFrom);
+                ViewBag.ListDateFrom = xx;
+            }
+            catch { }
+            try
+            {
+                var ListDateTo = Session["List_DateTo"].ToString();
+                DateTime xx = Convert.ToDateTime(ListDateTo);
+                ViewBag.ListDateTo = xx;
+            }
+            catch { }
+            try
+            {
+                ViewBag.ListStatus = Session["List_Status"].ToString();
+            }
+            catch { }
+            revize.Region = Region.Value;
+            ViewBag.Region = Region;
             return View(revize);
         }
 
@@ -85,7 +136,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Revize/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? Region)
         {
             if (id == null)
             {
@@ -98,6 +149,7 @@ namespace VST_sprava_servisu
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.Region = Region;
             return View(revize);
         }
 
@@ -106,13 +158,13 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize)
+        public ActionResult Edit([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize, int Region)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(revize).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details","Revize",new { Id = revize.Id});
+                return RedirectToAction("Details","Revize",new { Id = revize.Id, Region = Region});
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
@@ -154,12 +206,13 @@ namespace VST_sprava_servisu
             base.Dispose(disposing);
         }
 
-        public ActionResult MonthViewHeader(int Rok, int Mesic)
+        public ActionResult MonthViewHeader(int Rok, int Mesic, int? Region)
         {
             ViewBag.ThisYear = DateTime.Now.Year;
             ViewBag.NextYear = DateTime.Now.Year + 1;
             ViewBag.Rok = Rok;
             ViewBag.Mesic = Mesic;
+            ViewBag.Region = Region;
             return View();
         }
         public ActionResult Nahled (int? Rok, int? Mesic, int? Region)
@@ -182,6 +235,239 @@ namespace VST_sprava_servisu
             return View();
         }
 
+        public ActionResult ListLines(int? Rok, int? Mesic, int? Region)
+        {
+            string ListRegion = null;
+            DateTime? ListDateFrom = null;
+            DateTime? ListDateTo = null;
+            string ListStatus = null;
+
+            try
+            {
+                ListRegion = Session["List_Skupina"].ToString();
+            }
+            catch { }
+
+            try
+            {
+                var xListDateFrom = Session["List_DateFrom"].ToString();
+                DateTime xx = Convert.ToDateTime(xListDateFrom);
+                ListDateFrom = xx;
+            }
+            catch { }
+            try
+            {
+                var ListDateTox = Session["List_DateTo"].ToString();
+                DateTime xx = Convert.ToDateTime(ListDateTox);
+                ListDateTo = xx;
+            }
+            catch { }
+            try
+            {
+                ListStatus = Session["List_Status"].ToString();
+            }
+            catch { }
+
+            ViewBag.ListDateFrom = ListDateFrom;
+            ViewBag.ListDateTo = ListDateTo;
+            ViewBag.ListStatus = db.StatusRevize.Where(r => r.Id == Convert.ToInt32(ListStatus)).Select(r => r.NazevStatusuRevize).FirstOrDefault();
+            if (ListRegion == "0") { ViewBag.Region = "Vše"; }
+            if (ListRegion == "1") { ViewBag.Region = "Česká Republika"; }
+            if (ListRegion == "2") { ViewBag.Region = "Polsko"; }
+            if (ListRegion == "3") { ViewBag.Region = "Slovensko a Maďarsko"; }
+            if (ListRegion == "4") { ViewBag.Region = "Ostatní"; }
+
+            if (Region == null) { Region = 0; }
+
+            List<Revize> list = new List<Revize>();
+            list = Revize.GetByRegion(Region.Value);
+            return View(list);
+        }
+
+
+        [HttpGet]        
+        public ActionResult List(int? Skupina, DateTime? DateFrom, DateTime? DateTo, int? Zakaznik, int? Status)
+        {
+            string ListRegion = null;
+            DateTime? ListDateFrom = null;
+            DateTime? ListDateTo = null;
+            string ListStatus = null;
+
+            try
+            {
+                ListRegion = Session["List_Skupina"].ToString();
+            }
+            catch { }
+
+            try
+            {
+                var xListDateFrom = Session["List_DateFrom"].ToString();
+                DateTime xx = Convert.ToDateTime(xListDateFrom);
+                ListDateFrom = xx;
+            }
+            catch { }
+            try
+            {
+                var ListDateTox = Session["List_DateTo"].ToString();
+                DateTime xx = Convert.ToDateTime(ListDateTox);
+                ListDateTo = xx;
+            }
+            catch { }
+            try
+            {
+                ListStatus = Session["List_Status"].ToString();
+            }
+            catch { }
+
+
+
+
+
+
+            RevizeListInput rl = new RevizeListInput();
+            //Create a list of select list items - this will be returned as your select list
+            List<SelectListItem> newList = new List<SelectListItem>();
+            //Add select list item to list of selectlistitems
+            newList.Add(new SelectListItem() { Value = "0", Text = "Vše" });
+            newList.Add(new SelectListItem() { Value = "1", Text = "Česká Republika" });
+            newList.Add(new SelectListItem() { Value = "2", Text = "Polsko" });
+            newList.Add(new SelectListItem() { Value = "3", Text = "Slovensko a Maďarsko" });
+            newList.Add(new SelectListItem() { Value = "4", Text = "Ostatní" });
+
+            //Return the list of selectlistitems as a selectlist
+            if (ListRegion != null)
+            {
+                ViewBag.Skupina = new SelectList(newList, "Value", "Text", ListRegion);
+            }
+            else
+            {
+                ViewBag.Skupina = new SelectList(newList, "Value", "Text", null);
+            }
+            if (ListStatus != null)
+            {
+                ViewBag.Status = new SelectList(db.StatusRevize.ToList(), "Id", "NazevStatusuRevize", ListStatus);
+            }
+            else
+            {
+                ViewBag.Status = new SelectList(db.StatusRevize.ToList(), "Id", "NazevStatusuRevize", null);
+            }
+
+            var x = db.Revize
+                .Include(r => r.Provoz)
+                .Include(r => r.RevizeSC)
+                .Include(r => r.StatusRevize)
+                .Include(r => r.Umisteni);
+            //.Include(r => r.);
+            if (DateFrom != null) { x = x.Where(r => r.DatumRevize >= DateFrom); }
+            else {
+                    if (ListDateFrom != null)
+                    {
+                        x = x.Where(r => r.DatumRevize >= ListDateFrom);
+                    }
+
+                }
+            if (DateTo != null) { x = x.Where(r => r.DatumRevize <= DateTo); }
+            else
+            {
+                if (ListDateTo != null)
+                {
+                    x = x.Where(r => r.DatumRevize >= ListDateTo);
+                }
+
+            }
+            if (Zakaznik != null) { x = x.Where(r => r.Provoz.ZakaznikId == Zakaznik); }
+            if (Status != null) { x = x.Where(r => r.StatusRevizeId == Status); }
+            if (Skupina != null && Skupina != 0) { x = x.Where(r => r.Provoz.Zakaznik.Region.Skupina == Skupina); }
+            rl.Revize = x.ToList();
+            if (DateFrom != null)
+            {
+                ViewBag.ListDateFrom = DateFrom;
+                rl.DateFrom = DateFrom;
+            }
+            else {
+                if (ListDateFrom != null)
+                {
+                    ViewBag.ListDateFrom = ListDateFrom;
+                    rl.DateFrom = ListDateFrom;
+                }
+
+            }
+            if (DateTo != null)
+            {
+                ViewBag.ListDateTo = DateTo;
+                rl.DateTo = DateTo;
+            }
+            else
+            {
+                if (ListDateTo != null)
+                {
+                    ViewBag.ListDateTo = ListDateTo;
+                    rl.DateTo = ListDateTo;
+                }
+
+            }
+
+            ViewBag.ListStatus = db.StatusRevize.Where(r => r.Id == Status).Select(r=>r.NazevStatusuRevize).FirstOrDefault();
+            if (ListRegion == "0") { ViewBag.Region = "Vše"; }
+            if (ListRegion == "1") { ViewBag.Region = "Česká Republika"; }
+            if (ListRegion == "2") { ViewBag.Region = "Polsko"; }
+            if (ListRegion == "3") { ViewBag.Region = "Slovensko a Maďarsko"; }
+            if (ListRegion == "4") { ViewBag.Region = "Ostatní"; }
+
+            return View(rl);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult List(int? Skupina, DateTime? DateFrom, DateTime? DateTo, int? Zakaznik, int? Status, bool send)
+        {
+            Session["List_Skupina"] = Skupina;
+            Session["List_DateFrom"] = DateFrom.ToString();
+            Session["List_DateTo"] = DateTo.ToString();            
+            Session["List_Status"] = Status;
+          
+            //string abc = Session["Test"].ToString();
+
+            RevizeListInput rl = new RevizeListInput();
+            //Create a list of select list items - this will be returned as your select list
+            List<SelectListItem> newList = new List<SelectListItem>();
+            //Add select list item to list of selectlistitems
+            newList.Add(new SelectListItem() { Value = "0", Text = "Vše" });
+            newList.Add(new SelectListItem() { Value = "1", Text = "Česká Republika" });
+            newList.Add(new SelectListItem() { Value = "2", Text = "Polsko" });
+            newList.Add(new SelectListItem() { Value = "3", Text = "Slovensko a Maďarsko" });
+            newList.Add(new SelectListItem() { Value = "4", Text = "Ostatní" });
+            rl.DateFrom = DateFrom;
+            rl.DateTo = DateTo;
+            //Return the list of selectlistitems as a selectlist
+            ViewBag.Skupina = new SelectList(newList, "Value", "Text", Skupina);
+            ViewBag.Zakaznik = new SelectList(db.Zakaznik.ToList(), "Id", "NazevZakaznika", Zakaznik);
+            ViewBag.Status = new SelectList(db.StatusRevize.ToList(), "Id", "NazevStatusuRevize", Status);
+            var x = db.Revize
+                .Include(r => r.Provoz)
+                .Include(r => r.RevizeSC)
+                .Include(r => r.StatusRevize)
+                .Include(r => r.Umisteni);
+                //.Include(r => r.);
+            if (DateFrom != null) { x = x.Where(r => r.DatumRevize >= DateFrom);   }
+            if (DateTo != null) { x = x.Where(r => r.DatumRevize <= DateTo); }
+            if (Zakaznik != null) { x = x.Where(r => r.Provoz.ZakaznikId == Zakaznik); }
+            if (Status != null) { x = x.Where(r => r.StatusRevizeId == Status); }
+            if (Skupina != null && Skupina != 0) { x = x.Where(r => r.Provoz.Zakaznik.Region.Skupina == Skupina); }
+            rl.Revize = x.ToList();
+            ViewBag.ListDateFrom = DateFrom;
+            ViewBag.ListDateTo = DateTo;
+            ViewBag.ListStatus = db.StatusRevize.Where(r => r.Id == Status).Select(r => r.NazevStatusuRevize).FirstOrDefault();
+            if (Skupina == 0) { ViewBag.ListRegion = "Vše"; }
+            if (Skupina == 1) { ViewBag.ListRegion = "Česká Republika"; }
+            if (Skupina == 2) { ViewBag.ListRegion = "Polsko"; }
+            if (Skupina == 3) { ViewBag.ListRegion = "Slovensko a Maďarsko"; }
+            if (Skupina == 4) { ViewBag.ListRegion = "Ostatní"; }
+            return View(rl);
+        }
+
+
+
         public ActionResult DateView(int? Rok, int? Mesic, int? Den, int? Region)
         {
             
@@ -192,12 +478,12 @@ namespace VST_sprava_servisu
             List<Revize> list = new List<Revize>();
             list = Revize.GetByDate(Mesic.Value, Rok.Value, Den.Value, Region.Value);
 
-
+            ViewBag.Region = Region;
             return View(list);
         }
 
         // GET: Revize/Edit/5
-        public ActionResult Replan(int? id)
+        public ActionResult Replan(int? id, int? Region)
         {
             if (id == null)
             {
@@ -210,18 +496,20 @@ namespace VST_sprava_servisu
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.Region = Region;
             return View(revize);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Replan([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize)
+        public ActionResult Replan([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize, int Region)
         {
             if (ModelState.IsValid)
             {
+                var region = Region;
                 db.Entry(revize).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Nahled", "Revize", new { Rok = revize.DatumRevize.Year, Mesic = revize.DatumRevize.Month });
+                return RedirectToAction("Nahled", "Revize", new { Rok = revize.DatumRevize.Year, Mesic = revize.DatumRevize.Month, Region = region });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
@@ -286,7 +574,7 @@ namespace VST_sprava_servisu
             Response.Close();
         }
 
-        public ActionResult Fill(int? id)
+        public ActionResult Fill(int? id , int Region)
         {
             if (id == null)
             {
@@ -297,6 +585,8 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+            revize.Region = Region;
+            ViewBag.Region = Region;
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
             return View(revize);
@@ -308,16 +598,18 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Fill([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize)
+        public ActionResult Fill([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize, int Region)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(revize).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", "Revize", new { Id = revize.Id });
+                return RedirectToAction("Details", "Revize", new { Id = revize.Id, Region = Region });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            revize.Region = Region;
+            ViewBag.Region = Region;
             return View(revize);
         }
 

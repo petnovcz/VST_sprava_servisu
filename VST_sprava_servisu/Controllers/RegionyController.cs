@@ -46,7 +46,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NazevRegionu")] Region region)
+        public ActionResult Create([Bind(Include = "Id,NazevRegionu,Skupina")] Region region)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NazevRegionu")] Region region)
+        public ActionResult Edit([Bind(Include = "Id,NazevRegionu,Skupina")] Region region)
         {
             if (ModelState.IsValid)
             {

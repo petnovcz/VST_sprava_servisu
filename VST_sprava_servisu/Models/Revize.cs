@@ -14,9 +14,10 @@ namespace VST_sprava_servisu
     {
         [NotMapped]
         private Zakaznik Zakaznik { get; set; }
-        
+        [NotMapped]
+        public int Region { get; set; }
 
-        
+
         internal protected void UpdateRevizeHeader (int id)
         {
             using (var dbCtx = new Model1Container())
@@ -202,11 +203,40 @@ namespace VST_sprava_servisu
                 foreach (var item in list)
                 {
                     var ZakId = dbCtx.Provoz.Where(p => p.Id == item.ProvozId).Select(p=>p.ZakaznikId).FirstOrDefault();
-                    item.Zakaznik = dbCtx.Zakaznik.Where(p => p.Id == ZakId).FirstOrDefault();
+                    item.Zakaznik = dbCtx.Zakaznik
+                        .Include(z=>z.Region)
+                        .Where(p => p.Id == ZakId).FirstOrDefault();
                 }
                 if (Region != 0)
                 {
-                    list.Where(r => r.Zakaznik.RegionId == Region).ToList();
+                    list = list.Where(r => r.Zakaznik.Region.Skupina == Region).ToList();
+                }
+            }
+            return list;
+
+
+        }
+        internal protected static List<Revize> GetByRegion(int Region)
+        {
+            List<Revize> list = new List<Revize>();
+            using (var dbCtx = new Model1Container())
+            {
+                var listx = dbCtx.Revize
+                            .Include(r => r.Umisteni)
+                            .Include(r => r.Provoz)
+                            .Include(r => r.StatusRevize)                            
+                            ;
+                list = listx.ToList();
+                foreach (var item in list)
+                {
+                    var ZakId = dbCtx.Provoz.Where(p => p.Id == item.ProvozId).Select(p => p.ZakaznikId).FirstOrDefault();
+                    item.Zakaznik = dbCtx.Zakaznik
+                        .Include(z => z.Region)
+                        .Where(p => p.Id == ZakId).FirstOrDefault();
+                }
+                if (Region != 0)
+                {
+                    list = list.Where(r => r.Zakaznik.Region.Skupina == Region).ToList();
                 }
             }
             return list;
@@ -246,5 +276,24 @@ namespace VST_sprava_servisu
 
 
         }
+    }
+
+    public partial class RevizeListInput
+    {
+        
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Od")]
+        public DateTime? DateFrom { get; set; }
+
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Do")]
+        public DateTime? DateTo { get; set; }
+        [Display(Name = "Skupina")]
+        public int? Skupina { get; set; }
+        [Display(Name = "Zakaznik")]
+        public int? Zakaznik { get; set; }
+        [Display(Name = "Status")]
+        public int? Status { get; set; }
+
+        public virtual ICollection<Revize> Revize { get; set; }
+
     }
 }

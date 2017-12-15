@@ -12,80 +12,80 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
+    <div class="form-horizontal">
 
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Id)
-            @Html.HiddenFor(model => model.ProvozId)
-            @Html.HiddenFor(model => model.DatumVystaveni)
-
-
-
-
-            @Html.HiddenFor(model => model.Rok)
-            @Html.HiddenFor(model => model.Pololeti)
-            @Html.HiddenFor(model => model.UmisteniId)
-            @Html.HiddenFor(model => model.Baterie)
-            @Html.HiddenFor(model => model.Pyro)
-            @Html.HiddenFor(model => model.TlkZk)
-            @Html.HiddenFor(model => model.AP)
-            @Html.HiddenFor(model => model.S)
-            @Html.HiddenFor(model => model.RJ)
-            @Html.HiddenFor(model => model.M)
-            @Html.HiddenFor(model => model.V)
-            @Html.HiddenFor(model => model.PristiKontrola)
-            @Html.HiddenFor(model => model.DatumRevize)
-            @Html.HiddenFor(model => model.StatusRevizeId)
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ZjistenyStav, htmlAttributes: new { @class = "control-label col-md-3 " })
-                <div class="col-md-9">
-                    @Html.TextAreaFor(model => model.ZjistenyStav, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ZjistenyStav, "", new { @class = "text-danger" })
-
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.ProvedeneZasahy, htmlAttributes: new { @class = "control-label col-md-3 " })
-                <div class="col-md-9">
-                    @Html.TextAreaFor(model => model.ProvedeneZasahy, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ProvedeneZasahy, "", new { @class = "text-danger" })
-
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.OpatreniKOdstraneni, htmlAttributes: new { @class = "control-label col-md-3 " })
-                <div class="col-md-9">
-                    @Html.TextAreaFor(model => model.OpatreniKOdstraneni, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.OpatreniKOdstraneni, "", new { @class = "text-danger" })
-
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.KontrolaProvedenaDne, htmlAttributes: new { @class = "control-label col-md-3 " })
-                <div class="col-md-9">
-                    @Html.EditorFor(model => model.KontrolaProvedenaDne, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
-                    @Html.ValidationMessageFor(model => model.KontrolaProvedenaDne, "", new { @class = "text-danger" })
-
-                </div>
-            </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.ProvozId)
+        @Html.HiddenFor(model => model.DatumVystaveni)
 
 
 
 
+        @Html.HiddenFor(model => model.Rok)
+        @Html.HiddenFor(model => model.Pololeti)
+        @Html.HiddenFor(model => model.UmisteniId)
+        @Html.HiddenFor(model => model.Baterie)
+        @Html.HiddenFor(model => model.Pyro)
+        @Html.HiddenFor(model => model.TlkZk)
+        @Html.HiddenFor(model => model.AP)
+        @Html.HiddenFor(model => model.S)
+        @Html.HiddenFor(model => model.RJ)
+        @Html.HiddenFor(model => model.M)
+        @Html.HiddenFor(model => model.V)
+        @Html.HiddenFor(model => model.PristiKontrola)
+        @Html.HiddenFor(model => model.DatumRevize)
+        @Html.HiddenFor(model => model.StatusRevizeId)
+        @Html.Hidden("Region", (object)ViewBag.Region)
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.ZjistenyStav, htmlAttributes: new { @class = "control-label col-md-3 " })
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.ZjistenyStav, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ZjistenyStav, "", new { @class = "text-danger" })
 
-            <div class="form-group">
-                <div class="col-md-offset-3 col-md-9">
-                    <input type="submit" value="Ulož" class="btn btn-success" />
-                   
-                </div>
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProvedeneZasahy, htmlAttributes: new { @class = "control-label col-md-3 " })
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.ProvedeneZasahy, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProvedeneZasahy, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OpatreniKOdstraneni, htmlAttributes: new { @class = "control-label col-md-3 " })
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.OpatreniKOdstraneni, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OpatreniKOdstraneni, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KontrolaProvedenaDne, htmlAttributes: new { @class = "control-label col-md-3 " })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.KontrolaProvedenaDne, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.KontrolaProvedenaDne, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <input type="submit" value="Ulož" class="btn btn-success" />
+
+            </div>
+        </div>
+    </div>
     }
 
 

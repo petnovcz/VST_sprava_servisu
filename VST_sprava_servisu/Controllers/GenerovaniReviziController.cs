@@ -18,7 +18,7 @@ namespace VST_sprava_servisu
     public class GenerovaniReviziController : Controller
     {
         // GET: GenerovaniRevizi
-        private string connectionString = @"Data Source=sql;Initial Catalog=SBO_TEST;User ID=sa;Password=*2012Versino";
+        private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
         private Model1Container db = new Model1Container();
         public ActionResult Index()
         {

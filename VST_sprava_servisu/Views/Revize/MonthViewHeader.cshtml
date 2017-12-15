@@ -13,94 +13,122 @@
     <div class="carousel-inner" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
         <div class="item @if (ViewBag.ThisYear == ViewBag.Rok) { @X; }">
 
-            <div class="col-lg-offset-2 col-lg-8">
+            <div class="col-lg-offset-2 col-lg-6">
                 <div class="col-lg-12" style="text-align:center">
                     <h3 class="vstcolor">@ViewBag.ThisYear</h3>
                 </div>
 
 
                 <div class="col-lg-1">
-                    @Html.ActionLink("1", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 1 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic ==1) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") } )
+                    @Html.ActionLink("1", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 1, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 1) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("2", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 2 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 2) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("2", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 2, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 2) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("3", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 3 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 3) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("3", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 3, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 3) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("4", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 4 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 4) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("4", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 4, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 4) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("5", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 5 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 5) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("5", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 5, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 5) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("6", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 6 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 6) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("6", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 6, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 6) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("7", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 7 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 7) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("7", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 7, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 7) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("8", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 8 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 8) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("8", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 8, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 8) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("9", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 9 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 9) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("9", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 9, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 9) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("10", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 10 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 10) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("10", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 10, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 10) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("11", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 11 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 11) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("11", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 11, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 11) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("12", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 12 }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 12) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("12", "Nahled", "Revize", new { Rok = ViewBag.ThisYear, Mesic = 12, Region = ViewBag.Region }, new { @class = ((ViewBag.ThisYear == ViewBag.Rok && ViewBag.Mesic == 12) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+            </div>
+            <div class="col-lg-2 ">
+                <div class="col-lg-12">
+                    @Html.ActionLink("Česká republika", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 1 }, new { @class = ((ViewBag.Region == 1) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Polsko", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 2 }, new { @class = ((ViewBag.Region == 2) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Slovensko a Maďarsko", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 3 }, new { @class = ((ViewBag.Region == 3) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Ostatní", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 4 }, new { @class = ((ViewBag.Region == 4) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
                 </div>
             </div>
 
         </div>
 
         <div class="item @if (ViewBag.NextYear == ViewBag.Rok) { @X; }">
-            <div class="col-lg-offset-2 col-lg-8">
+            <div class="col-lg-offset-2 col-lg-6">
                 <div class="col-lg-12" style="text-align:center">
                     <h3 class="vstcolor">@ViewBag.NextYear</h3>
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("1", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 1 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 1) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("1", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 1, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 1) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("2", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 2 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 2) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("2", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 2, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 2) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("3", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 3 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 3) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("3", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 3, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 3) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("4", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 4 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 4) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("4", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 4, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 4) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("5", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 5 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 5) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("5", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 5, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 5) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("6", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 6 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 6) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("6", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 6, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 6) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("7", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 7 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 7) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("7", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 7, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 7) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("8", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 8 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 8) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("8", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 8, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 8) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("9", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 9 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 9) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("9", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 9, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 9) ? "btn btn-block btn-xs  btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("10", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 10 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 10) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("10", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 10, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 10) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("11", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 11 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 11) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("11", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 11, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 11) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
                 <div class="col-lg-1">
-                    @Html.ActionLink("12", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 12 }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 12) ? "btn btn-block btn-success" : "btn btn-block btn-vstprimary") })
+                    @Html.ActionLink("12", "Nahled", "Revize", new { Rok = ViewBag.NextYear, Mesic = 12, Region = ViewBag.Region }, new { @class = ((ViewBag.NextYear == ViewBag.Rok && ViewBag.Mesic == 12) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
                 </div>
 
+            </div>
+            <div class="col-lg-2 ">
+                <div class="col-lg-12">
+                    @Html.ActionLink("Česká republika", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 1 }, new { @class = ((ViewBag.Region == 1) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Polsko", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 2 }, new { @class = ((ViewBag.Region == 2) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Slovensko a Maďarsko", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 3 }, new { @class = ((ViewBag.Region == 3) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Ostatní", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 4 }, new { @class = ((ViewBag.Region == 4) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
             </div>
         </div>
 
@@ -116,12 +144,5 @@
         <span class="glyphicon glyphicon-chevron-right"></span>
         <span class="sr-only">Next</span>
     </a>
-</div>
-<div>
-
-
-
-
-
 </div>
 

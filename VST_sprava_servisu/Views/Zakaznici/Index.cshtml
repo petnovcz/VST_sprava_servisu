@@ -8,6 +8,14 @@
 <div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
     <center><h4>Seznam zákazníků</h4></center>
 </div>
+
+<div class="row" style="background-color:rgba(0, 0, 0, 0.7);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <div class="col-lg-3">@Html.ActionLink("Česká Republika", "Index", "Zakaznici", new { Region = 1 }, new { @class = "btn btn-vstprimary btn-block  " })</div>
+    <div class="col-lg-3">@Html.ActionLink("Polsko", "Index", "Zakaznici", new { Region = 2 }, new { @class = "btn btn-vstprimary  btn-block " })</div>
+    <div class="col-lg-3">@Html.ActionLink("Slovensko a Maďarsko", "Index", "Zakaznici", new { Region = 3 }, new { @class = "btn btn-vstprimary  btn-block " })</div>
+    <div class="col-lg-3">@Html.ActionLink("Ostatní", "Index", "Zakaznici", new { Region = 4 }, new { @class = "btn btn-vstprimary  btn-block " })</div>
+
+</div>
 <div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
     <table class="table">

@@ -24,7 +24,8 @@ namespace VST_sprava_servisu
         public int Id { get; set; }
         [Display(Name = "Region")]
         public string NazevRegionu { get; set; }
-    
+        [Display(Name = "Seskupení")]
+        public Nullable<int> Skupina { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zakaznik> Zakaznik { get; set; }
     }
