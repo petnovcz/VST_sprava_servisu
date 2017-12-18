@@ -1041,6 +1041,7 @@
     <Content Include="Views\Nastaveni\Index.cshtml" />
     <Content Include="Views\Revize\ListLines.cshtml" />
     <Content Include="Views\Revize\List.cshtml" />
+    <Content Include="Views\Zakaznici\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

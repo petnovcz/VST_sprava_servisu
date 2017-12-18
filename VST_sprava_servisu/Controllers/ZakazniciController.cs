@@ -16,8 +16,23 @@ namespace VST_sprava_servisu
         // GET: Zakaznici
         public ActionResult Index(int? Region, string Search)
         {
+            int? session_region = null;
+            try
+            {
+                session_region = Convert.ToInt32(Session["List_Skupina"].ToString());
+            }
+            catch { }
+            
+            
+            if (Region != null) { Session["List_Skupina"] = Region; }
+            else
+            {
+                if ((Region == null) && (session_region == null)) { Region = 0; }
+                if ((Region == null) && (session_region != null)) { Region = session_region; }
+            }
+
             var zakaznik = db.Zakaznik.Include(z => z.Region).Include(z => z.Jazyk);
-            if (Region != null)
+            if ((Region != null)&&(Region !=0))
             {
                 zakaznik = zakaznik.Where(r => r.Region.Skupina == Region);
             }
@@ -26,11 +41,10 @@ namespace VST_sprava_servisu
                 zakaznik = zakaznik.Where(r => r.NazevZakaznika.Contains(Search));
             }
             zakaznik = zakaznik.OrderBy(r => r.NazevZakaznika);
-
+            ViewBag.Region = Region;
             return View(zakaznik.ToList());
         }
-
-
+        
 
         // GET: Zakaznici/Details/5
         public ActionResult Details(int? id)

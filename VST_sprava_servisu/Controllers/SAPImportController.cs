@@ -61,7 +61,7 @@ namespace VST_sprava_servisu
             sql = sql + @" + (select COUNT(*) from[@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'S' )";
             sql = sql + @"  + (select COUNT(*) from[@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'P' )) as 'Total'";
 
-            if (Search == "")
+            if (Search == "*")
             { sql = sql + @" from OCRD where "; }
             else
             {

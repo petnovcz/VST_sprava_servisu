@@ -32,9 +32,8 @@
             <div class="col-lg-3">@item.PrjCode <br> @item.PrjName</div>          
             <div class="col-lg-2">@item.DatumDodani<br>@item.DatumVyroby</div>
             <div class="col-lg-12"><center>
-                @if ((index == 0) && (index2 == 0)) 
-                {
-                    using (Html.BeginForm("ImportSCtoServis", "SAPImport"))
+                
+                    @using (Html.BeginForm("ImportSCtoServis", "SAPImport"))
                     {
                         @Html.Hidden("Zakaznik", Model.Zakaznik )
                         @Html.Hidden("Provozy", Model.Provoz)
@@ -45,7 +44,7 @@
                         @Html.Hidden("DatumDodani", item.DatumVyroby)
                         <input type="submit" value="Přiřaď do Provozu / Technologie" class="btn btn-success" />
                     }
-                }</center>
+                </center>
             </div>
             
 

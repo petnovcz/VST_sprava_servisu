@@ -58,6 +58,9 @@
             </div>
             <div class="col-lg-2 ">
                 <div class="col-lg-12">
+                    @Html.ActionLink("Vše", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 0 }, new { @class = ((ViewBag.Region == 0) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
                     @Html.ActionLink("Česká republika", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 1 }, new { @class = ((ViewBag.Region == 1) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
                 </div>
                 <div class="col-lg-12">

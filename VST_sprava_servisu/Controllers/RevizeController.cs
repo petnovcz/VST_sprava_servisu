@@ -25,6 +25,8 @@ namespace VST_sprava_servisu
             return View(revize.ToList());
         }
 
+        
+
         // GET: Revize/Details/5
         public ActionResult Details(int? id, int? Region)
         {
@@ -37,15 +39,11 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
-
-
-
             try
             {
-                ViewBag.ListRegion = Session["List_Region"].ToString();
+                ViewBag.ListRegion = Session["List_Skupina"].ToString();
             }
             catch { }
-
             try
             {
                 ViewBag.ListDateFrom = Session["List_DateFrom"].ToString();
@@ -217,9 +215,34 @@ namespace VST_sprava_servisu
         }
         public ActionResult Nahled (int? Rok, int? Mesic, int? Region)
         {
-            if (Rok == null) { Rok = System.DateTime.Now.Year; }
-            if (Mesic == null) { Mesic = System.DateTime.Now.Month; }
-            
+            int? session_rok = null;
+            int? session_mesic = null;
+            int? session_region = null;
+            try
+            {
+                session_rok = Convert.ToInt32(Session["Rok"].ToString());
+            }
+            catch {}
+            try
+            {
+                session_mesic = Convert.ToInt32(Session["Mesic"].ToString());
+            }
+            catch { }
+            try
+            {
+                session_region = Convert.ToInt32(Session["List_Skupina"].ToString());
+            }
+            catch { }
+            if (Rok != null) { Session["Rok"] = Rok; }
+            if (Mesic != null) { Session["Mesic"] = Mesic; }
+            if (Region != null) { Session["List_Skupina"] = Region; }
+
+
+            if ((Rok == null) && (session_rok==null)) { Rok = System.DateTime.Now.Year; }
+            if ((Rok == null) && (session_rok != null)) { Rok = session_rok; }
+            if ((Mesic == null) && (session_mesic == null)) { Mesic = System.DateTime.Now.Month; }
+            if ((Mesic == null) && (session_mesic != null)) { Mesic = session_mesic; }
+
             DateTime date1 = new DateTime(Rok.Value, Mesic.Value, 1);
             var x = (int)date1.DayOfWeek - 1;
 
@@ -230,7 +253,8 @@ namespace VST_sprava_servisu
             ViewBag.Mesic = Mesic;
             ViewBag.X = x;
             ViewBag.DaysInMonth = DaysInMonth;
-            if (Region == null) { Region = 0; }
+            if ((Region == null) && (session_region == null)) { Region = 0; }
+            if ((Region == null) && (session_region != null)) { Region = session_region; }
             ViewBag.Region = Region;
             return View();
         }

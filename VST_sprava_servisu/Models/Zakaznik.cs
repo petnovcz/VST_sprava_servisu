@@ -35,4 +35,15 @@ namespace VST_sprava_servisu
                 return zakaznikl;
             }
     }
+
+    public partial class ZakaznikForm
+    {
+        public int? Region { get; set; }
+        public string Search { get; set; }
+        public IEnumerable<Zakaznik> ZakaznikList {get; set;}
+
+
+    }
+
+    
 }
