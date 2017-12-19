@@ -44,7 +44,58 @@ namespace VST_sprava_servisu
             ViewBag.Region = Region;
             return View(zakaznik.ToList());
         }
+
         
+        public ActionResult Search(int? Skupina, string Search)
+        {
+            int? List_Skupina = null;
+
+            try { List_Skupina = Convert.ToInt32(Session["List_Skupina"].ToString()); } catch { }
+
+            List<SelectListItem> newList = new List<SelectListItem>();
+            //Add select list item to list of selectlistitems
+            newList.Add(new SelectListItem() { Value = "0", Text = "Vše" });
+            newList.Add(new SelectListItem() { Value = "1", Text = "Česká Republika" });
+            newList.Add(new SelectListItem() { Value = "2", Text = "Polsko" });
+            newList.Add(new SelectListItem() { Value = "3", Text = "Slovensko a Maďarsko" });
+            newList.Add(new SelectListItem() { Value = "4", Text = "Ostatní" });
+
+
+            ZakaznikForm zf = new ZakaznikForm();
+            var x = db.Zakaznik.ToList();
+
+
+
+            if (Skupina != null)
+            {
+                Session["List_Skupina"] = Skupina;
+                x = x.Where(r => r.Region.Skupina == Skupina).ToList();
+                zf.Skupina = Skupina;
+                ViewBag.Skupina = new SelectList(newList, "Value", "Text", Skupina);
+            }
+            else 
+            {
+                if (List_Skupina != null)
+                {
+                    x = x.Where(r => r.Region.Skupina == List_Skupina).ToList();
+                    zf.Skupina = List_Skupina;
+                    ViewBag.Skupina = new SelectList(newList, "Value", "Text", List_Skupina);
+                }
+                else { ViewBag.Skupina = new SelectList(newList, "Value", "Text", null); }
+
+            }
+
+            if (Search != "" && Search!= null)
+            {
+                x = x.Where(r => r.NazevZakaznika.ToLower().Contains(Search.ToLower())).ToList();
+            }
+            zf.ZakaznikList = x;
+            zf.Search = Search;
+            
+
+
+            return View(zf);
+        }
 
         // GET: Zakaznici/Details/5
         public ActionResult Details(int? id)

@@ -57,20 +57,21 @@
 
         </div>
         <div class="col-lg-4 vstcolorwhite">
+
+            @using (Html.BeginForm("Nahled", "Revize"))
+            { @Html.Hidden("Rok", Model.DatumRevize.Year) @Html.Hidden("Mesic", Model.DatumRevize.Month) @Html.Hidden("Region", Model.Region)
+              @Html.AntiForgeryToken()
+                <input type="submit" value="Kalendář" class="btn btn-info btn-xs btn-block" />
+            }
+
+            @using (Html.BeginForm("List", "Revize"))
+            { @Html.Hidden("Send", true) @Html.Hidden("Skupina", (object)ViewBag.ListRegion) @Html.Hidden("Status", (object)ViewBag.ListStatus) 
+              @Html.Hidden("DateTo", (object)ViewBag.ListDateTo) @Html.Hidden("DateFrom", (object)ViewBag.ListDateFrom)
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Seznam revizi" class="btn btn-info btn-xs btn-block" />
+            }
             <p>
-                @Html.ActionLink("Kalendář", "Nahled", "Revize", new { Rok = Model.DatumRevize.Year, Mesic = Model.DatumRevize.Month, Region = Model.Region }, new { @class = "btn btn-info btn-xs btn-block" })
-                @using (Html.BeginForm("List", "Revize"))
-    {
-            @Html.Hidden("Send", true)
-            @Html.Hidden("Skupina", (object)ViewBag.ListRegion)
-            @Html.Hidden("Status", (object)ViewBag.ListStatus)
-            @Html.Hidden("DateTo", (object)ViewBag.ListDateTo)
-            @Html.Hidden("DateFrom", (object)ViewBag.ListDateFrom)
-            @Html.AntiForgeryToken()
-            <input type="submit" value="Seznam revizi" class="btn btn-info btn-xs btn-block" />
-}
-
-
+                <br>
                 @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = "btn btn-" + color + " btn-xs btn-block" })
                 @Html.ActionLink("Tisk záznamu o kontrole", "OpenPDF", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
                 @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = "btn btn-vstprimary btn-xs btn-block" })

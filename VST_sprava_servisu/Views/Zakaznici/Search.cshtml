@@ -1,37 +1,41 @@
-﻿@model VST_sprava_servisu.Zakaznik
+﻿@model VST_sprava_servisu.ZakaznikForm
 
 @{
-    Layout = null;
+    
 }
 
-<!DOCTYPE html>
+<div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <center><h4>Seznam zákazníků</h4></center>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Search</title>
-</head>
-<body>
-    @using (Html.BeginForm()) 
+
+
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form">
-            
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.Hidden("send", true)
             <div class="form-group">
-                @Html.LabelFor(model => model.NazevZakaznika, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Search, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.NazevZakaznika, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NazevZakaznika, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Search, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Search, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
-            
-    
-           
-    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Skupina, "Skupina", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Skupina", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Skupina, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Hledej" class="btn btn-default" />
@@ -39,7 +43,6 @@
             </div>
         </div>
     }
-    
-   
-</body>
-</html>
+
+</div>
+@Html.Partial("Index", Model.ZakaznikList)
