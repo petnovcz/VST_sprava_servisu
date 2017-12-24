@@ -14,6 +14,7 @@ namespace VST_sprava_servisu
         private Model1Container db = new Model1Container();
 
         // GET: SCProvozu
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index()
         {
             var sCProvozu = db.SCProvozu
@@ -26,6 +27,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: SCProvozu/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -41,6 +43,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: SCProvozu/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create()
         {
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu");
@@ -55,6 +58,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni")] SCProvozu sCProvozu)
         {
             if (ModelState.IsValid)
@@ -72,6 +76,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: SCProvozu/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -97,6 +102,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni,Proverit,Baterie")] SCProvozu sCProvozu)
         {
             if (ModelState.IsValid)
@@ -118,6 +124,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: SCProvozu/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -135,6 +142,7 @@ namespace VST_sprava_servisu
         // POST: SCProvozu/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             SCProvozu sCProvozu = db.SCProvozu.Find(id);

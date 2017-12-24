@@ -20,6 +20,8 @@ namespace VST_sprava_servisu
         // GET: GenerovaniRevizi
         private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
         private Model1Container db = new Model1Container();
+
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index()
         {
             GRFiltr gRFiltr = new GRFiltr();
@@ -31,6 +33,7 @@ namespace VST_sprava_servisu
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index([Bind(Include = "Rok,Region,Zakaznik")] GRFiltr grfiltr)
         {
             ViewBag.Rok = grfiltr.Rok;
@@ -43,6 +46,7 @@ namespace VST_sprava_servisu
         /// Spuštění výpočtu revizí
         /// </summary>
         /// <returns></returns>
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult RunGenerator()
         {
             List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString);

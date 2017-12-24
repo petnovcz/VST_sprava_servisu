@@ -14,6 +14,7 @@ namespace VST_sprava_servisu
         private Model1Container db = new Model1Container();
 
         // GET: Umistenis
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index()
         {
             var umisteni = db.Umisteni
@@ -22,6 +23,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Umistenis/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Details(int? id, int Provoz, int Zakaznik)
         {
             if (id == null)
@@ -39,6 +41,7 @@ namespace VST_sprava_servisu
             return View(umisteni);
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Header(int? id)
         {
             if (id == null)
@@ -55,6 +58,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Umistenis/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create(int Provoz, int Zakaznik)
         {
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m=>m.Id == Provoz), "Id", "NazevProvozu",Provoz);
@@ -68,6 +72,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create([Bind(Include = "Id,ProvozId,NazevUmisteni,SamostatnaRevize")] Umisteni umisteni)
         {
             if (ModelState.IsValid)
@@ -83,6 +88,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Umistenis/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit(int? id, int Provoz, int Zakaznik)
         {
             if (id == null)
@@ -105,6 +111,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit([Bind(Include = "Id,ProvozId,NazevUmisteni, SamostatnaRevize")] Umisteni umisteni)
         {
             if (ModelState.IsValid)
@@ -119,6 +126,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Umistenis/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -136,6 +144,7 @@ namespace VST_sprava_servisu
         // POST: Umistenis/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             Umisteni umisteni = db.Umisteni.Find(id);

@@ -14,6 +14,7 @@ namespace VST_sprava_servisu
         private Model1Container db = new Model1Container();
 
         // GET: Provozy
+        [Authorize(Roles = "Administrator,Manager")]
         public PartialViewResult Index(int Zakaznik)
         {
             var provoz = db.Provoz.Include(p => p.Zakaznik).Where(p=>p.ZakaznikId == Zakaznik);
@@ -22,6 +23,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Provozy/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,7 +37,7 @@ namespace VST_sprava_servisu
             }
             return View(provoz);
         }
-
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Header(int? id)
         {
             if (id == null)
@@ -52,6 +54,7 @@ namespace VST_sprava_servisu
 
         // GET: Provozy/Create
         [HttpGet]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create(int Zakaznik)
         {
             ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika");
@@ -64,6 +67,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu,SAPAddress")] Provoz provoz)
         {
             int Zakaznik = provoz.ZakaznikId;
@@ -82,7 +86,7 @@ namespace VST_sprava_servisu
             return View(provoz);
         }
 
-
+        [Authorize(Roles = "Administrator,Manager")]
         public bool Generate(string Address, string CardCode, string Street, string ZipCode, string City, string Country, int Zakaznik)
         {
             Provoz provoz  = new Provoz();
@@ -102,6 +106,7 @@ namespace VST_sprava_servisu
 
 
         // GET: Provozy/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -123,6 +128,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu,SAPAddress")] Provoz provoz)
         {
             int zakaznik = provoz.ZakaznikId;
@@ -139,6 +145,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Provozy/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -157,6 +164,7 @@ namespace VST_sprava_servisu
         // POST: Provozy/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             Provoz provoz = db.Provoz.Find(id);

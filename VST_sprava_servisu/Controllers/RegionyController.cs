@@ -12,14 +12,16 @@ namespace VST_sprava_servisu
     public class RegionyController : Controller
     {
         private Model1Container db = new Model1Container();
-        
+
         // GET: Regiony
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index()
         {
             return View(db.Region.ToList());
         }
 
         // GET: Regiony/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Regiony/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +49,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create([Bind(Include = "Id,NazevRegionu,Skupina")] Region region)
         {
             if (ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Regiony/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +83,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit([Bind(Include = "Id,NazevRegionu,Skupina")] Region region)
         {
             if (ModelState.IsValid)
@@ -90,6 +96,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Regiony/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +114,7 @@ namespace VST_sprava_servisu
         // POST: Regiony/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             Region region = db.Region.Find(id);

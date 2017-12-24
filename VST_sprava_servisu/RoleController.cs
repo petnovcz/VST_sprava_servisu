@@ -9,115 +9,115 @@ using System.Web.Mvc;
 
 namespace VST_sprava_servisu
 {
-    public class StatusController : Controller
+    public class RoleController : Controller
     {
         private Model1Container db = new Model1Container();
 
-        // GET: Status
-        [Authorize(Roles = "Administrator,Manager")]
+        // GET: Role
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
-            return View(db.Status.ToList());
+            return View(db.AspNetRoles.ToList());
         }
 
-        // GET: Status/Details/5
-        [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Details(int? id)
+        // GET: Role/Details/5
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Status status = db.Status.Find(id);
-            if (status == null)
+            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
+            if (aspNetRoles == null)
             {
                 return HttpNotFound();
             }
-            return View(status);
+            return View(aspNetRoles);
         }
 
-        // GET: Status/Create
-        [Authorize(Roles = "Administrator,Manager")]
+        // GET: Role/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Status/Create
+        // POST: Role/Create
         // Chcete-li zajistit ochranu před útoky typu OVERPOST, povolte konkrétní vlastnosti, k nimž chcete vytvořit vazbu. 
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Create([Bind(Include = "Id,NazevStatusu,Aktivni,Neaktivni")] Status status)
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Create([Bind(Include = "Id,Name")] AspNetRoles aspNetRoles)
         {
             if (ModelState.IsValid)
             {
-                db.Status.Add(status);
+                db.AspNetRoles.Add(aspNetRoles);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(status);
+            return View(aspNetRoles);
         }
 
-        // GET: Status/Edit/5
-        [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit(int? id)
+        // GET: Role/Edit/5
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Status status = db.Status.Find(id);
-            if (status == null)
+            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
+            if (aspNetRoles == null)
             {
                 return HttpNotFound();
             }
-            return View(status);
+            return View(aspNetRoles);
         }
 
-        // POST: Status/Edit/5
+        // POST: Role/Edit/5
         // Chcete-li zajistit ochranu před útoky typu OVERPOST, povolte konkrétní vlastnosti, k nimž chcete vytvořit vazbu. 
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,NazevStatusu,Aktivni,Neaktivni")] Status status)
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit([Bind(Include = "Id,Name")] AspNetRoles aspNetRoles)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(status).State = EntityState.Modified;
+                db.Entry(aspNetRoles).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(status);
+            return View(aspNetRoles);
         }
 
-        // GET: Status/Delete/5
-        [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Delete(int? id)
+        // GET: Role/Delete/5
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Status status = db.Status.Find(id);
-            if (status == null)
+            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
+            if (aspNetRoles == null)
             {
                 return HttpNotFound();
             }
-            return View(status);
+            return View(aspNetRoles);
         }
 
-        // POST: Status/Delete/5
+        // POST: Role/Delete/5
+        [Authorize(Roles = "Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Status status = db.Status.Find(id);
-            db.Status.Remove(status);
+            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
+            db.AspNetRoles.Remove(aspNetRoles);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

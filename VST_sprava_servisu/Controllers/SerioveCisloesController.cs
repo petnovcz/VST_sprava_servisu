@@ -14,6 +14,7 @@ namespace VST_sprava_servisu
         private Model1Container db = new Model1Container();
 
         // GET: SerioveCisloes
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index()
         {
             var serioveCislo = db.SerioveCislo.Include(s => s.Artikl);
@@ -21,6 +22,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: SerioveCisloes/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: SerioveCisloes/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create()
         {
             ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev");
@@ -47,6 +50,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create([Bind(Include = "Id,ArtiklId,DatumVyroby,DatumPosledniTlakoveZkousky,SerioveCislo1")] SerioveCislo serioveCislo)
         {
             if (ModelState.IsValid)
@@ -61,6 +65,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: SerioveCisloes/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,6 +86,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit([Bind(Include = "Id,ArtiklId,DatumVyroby,DatumPosledniTlakoveZkousky,SerioveCislo1")] SerioveCislo serioveCislo)
         {
             if (ModelState.IsValid)
@@ -94,6 +100,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: SerioveCisloes/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,6 +118,7 @@ namespace VST_sprava_servisu
         // POST: SerioveCisloes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             SerioveCislo serioveCislo = db.SerioveCislo.Find(id);

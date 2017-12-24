@@ -37,6 +37,11 @@
         <AssociationConnector Association="Model1.FK_Artikl_SkupinaA" />
         <AssociationConnector Association="Model1.FK_RevizeSCUmisteni" />
         <AssociationConnector Association="Model1.FK_RevizeUmisteni" />
+        <EntityTypeShape EntityType="Model1.AspNetUserRoles" Width="1.5" PointX="12.875" PointY="7.375" />
+        <EntityTypeShape EntityType="Model1.AspNetRoles" Width="1.5" PointX="10.625" PointY="7.375" />
+        <AssociationConnector Association="Model1.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" />
+        <EntityTypeShape EntityType="Model1.AspNetUsers" Width="1.5" PointX="15.375" PointY="7.375" />
+        <AssociationConnector Association="Model1.AspNetUsersAspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

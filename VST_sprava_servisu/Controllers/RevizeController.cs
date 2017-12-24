@@ -19,6 +19,7 @@ namespace VST_sprava_servisu
         private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
 
         // GET: Revize
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Index(int Zakaznik)
         {
             var revize = db.Revize.Include(r => r.Provoz).Include(r => r.StatusRevize)
@@ -28,9 +29,10 @@ namespace VST_sprava_servisu
             return View(revize.ToList());
         }
 
-        
+
 
         // GET: Revize/Details/5
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Details(int? id, int? Region)
         {
             if (id == null)
@@ -67,6 +69,7 @@ namespace VST_sprava_servisu
             return View(revize);
         }
 
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Header(int? id, int? Region)
         {
             if (id == null)
@@ -109,6 +112,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Revize/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create()
         {
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu");
@@ -121,6 +125,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create([
         Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize)
         {
@@ -137,6 +142,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Revize/Edit/5
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Edit(int? id, int? Region)
         {
             if (id == null)
@@ -159,6 +165,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Edit([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize, int Region)
         {
             if (ModelState.IsValid)
@@ -173,6 +180,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Revize/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -190,6 +198,7 @@ namespace VST_sprava_servisu
         // POST: Revize/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             Revize revize = db.Revize.Find(id);
@@ -206,7 +215,7 @@ namespace VST_sprava_servisu
             }
             base.Dispose(disposing);
         }
-
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult MonthViewHeader(int Rok, int Mesic, int? Region)
         {
             ViewBag.ThisYear = DateTime.Now.Year;
@@ -216,6 +225,7 @@ namespace VST_sprava_servisu
             ViewBag.Region = Region;
             return View();
         }
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Nahled (int? Rok, int? Mesic, int? Region)
         {
             int? session_rok = null;
@@ -262,6 +272,7 @@ namespace VST_sprava_servisu
             return View();
         }
 
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult ListLines(int? Rok, int? Mesic, int? Region)
         {
             string ListRegion = null;
@@ -312,7 +323,8 @@ namespace VST_sprava_servisu
         }
 
 
-        [HttpGet]        
+        [HttpGet]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult List(int? Skupina, DateTime? DateFrom, DateTime? DateTo, int? Zakaznik, int? Status)
         {
             string ListRegion = null;
@@ -446,6 +458,7 @@ namespace VST_sprava_servisu
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult List(int? Skupina, DateTime? DateFrom, DateTime? DateTo, int? Zakaznik, int? Status, bool send)
         {
             Session["List_Skupina"] = Skupina;
@@ -494,7 +507,7 @@ namespace VST_sprava_servisu
         }
 
 
-
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult DateView(int? Rok, int? Mesic, int? Den, int? Region)
         {
             
@@ -510,6 +523,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Revize/Edit/5
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Replan(int? id, int? Region)
         {
             if (id == null)
@@ -529,6 +543,7 @@ namespace VST_sprava_servisu
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Replan([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize, int Region)
         {
             if (ModelState.IsValid)
@@ -543,6 +558,7 @@ namespace VST_sprava_servisu
             return View(revize);
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult TiskZaznamuOKontrole(int Id)
         {
             List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString);
@@ -565,6 +581,7 @@ namespace VST_sprava_servisu
             return File(str, "application/pdf", savedFilename);
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
         public void OpenPDF(int Id)
         {
             ReportDocument Rel = new ReportDocument();
@@ -583,6 +600,7 @@ namespace VST_sprava_servisu
             Response.Close();
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
         public void OpenPDFPotvrzeni(int Id)
         {
             ReportDocument Rel = new ReportDocument();
@@ -601,6 +619,7 @@ namespace VST_sprava_servisu
             Response.Close();
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Fill(int? id , int Region)
         {
             if (id == null)
@@ -624,7 +643,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Fill([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V")] Revize revize, int Region)
         {
             if (ModelState.IsValid)
@@ -640,6 +659,7 @@ namespace VST_sprava_servisu
             return View(revize);
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Close(int Id)
         {
             Revize revize = new Revize();

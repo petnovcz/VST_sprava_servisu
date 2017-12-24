@@ -14,6 +14,7 @@ namespace VST_sprava_servisu
         private Model1Container db = new Model1Container();
 
         // GET: KontaktniOsoby
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index(int Zakaznik)
         {
             var kontakniOsoba = db.KontakniOsoba.Include(k => k.Provoz).Include(k => k.Zakaznik).Where(k=>k.ZakaznikId == Zakaznik);
@@ -33,6 +34,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: KontaktniOsoby/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -49,6 +51,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: KontaktniOsoby/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create(int Zakaznik)
         {
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m=>m.ZakaznikId == Zakaznik), "Id", "NazevProvozu");
@@ -62,6 +65,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create([Bind(Include = "Id,ZakaznikId,JmenoPrijmeni,Pozice,Telefon,Email,SAPId,ProvozId")] KontakniOsoba kontakniOsoba)
         {
             if (ModelState.IsValid)
@@ -76,7 +80,7 @@ namespace VST_sprava_servisu
             return View(kontakniOsoba);
         }
 
-
+        [Authorize(Roles = "Administrator,Manager")]
         public bool Generate(int ZakaznikId, string JmenoPrijmeni, string Pozice, string Telefon, string Email, int SAPId)
         {
             KontakniOsoba ko = new KontakniOsoba();
@@ -104,6 +108,7 @@ namespace VST_sprava_servisu
 
 
         // GET: KontaktniOsoby/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -127,6 +132,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit([Bind(Include = "Id,ZakaznikId,JmenoPrijmeni,Pozice,Telefon,Email,SAPId,ProvozId")] KontakniOsoba kontakniOsoba)
         {
             if (ModelState.IsValid)
@@ -141,6 +147,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: KontaktniOsoby/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -160,6 +167,7 @@ namespace VST_sprava_servisu
         // POST: KontaktniOsoby/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             

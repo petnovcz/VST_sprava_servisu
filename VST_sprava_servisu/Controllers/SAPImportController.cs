@@ -24,6 +24,7 @@ namespace VST_sprava_servisu
         /// </summary>
         /// <param name="Search"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult List(string Search)
         {
             SAPOPImportParametr SAPOPlist = new SAPOPImportParametr();
@@ -38,6 +39,7 @@ namespace VST_sprava_servisu
             return View(SAPOPlist);
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
         public PartialViewResult SAPOPList(string Search)
         {
             List<SAPOP> sapop = new List<SAPOP>();
@@ -45,6 +47,7 @@ namespace VST_sprava_servisu
             return PartialView(sapop);
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
         /// <summary>
         /// Vytvoření seznamu obchodních partnerů z IS SAP, které ještě nebyly importovány v SAP
         /// </summary>
@@ -148,6 +151,7 @@ namespace VST_sprava_servisu
             cnn.Close();
             return listocrd;
         }
+        [Authorize(Roles = "Administrator,Manager")]
         public SAPOP GetSAPOPByCode(string KodOP)
         {
             SAPOP sapOP = new SAPOP();
@@ -235,6 +239,7 @@ namespace VST_sprava_servisu
             cnn.Close();
             return sapOP;
         }
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult GenerateOPfromSAP(string kodOP)
         {
             SAPOP sapOP = new SAPOP();
@@ -262,6 +267,7 @@ namespace VST_sprava_servisu
 
 
         // KONTAKTNÍ OSOBY
+        [Authorize(Roles = "Administrator,Manager")]
         public List<SAPContactPerson> SAPContactPerson(string SAPOP)
 
         {
@@ -329,6 +335,7 @@ namespace VST_sprava_servisu
 
             return SAPCP;
         }
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult ImportSAPCP(string CardCode, int Zakaznik)
 
         {
@@ -344,6 +351,7 @@ namespace VST_sprava_servisu
             }
             return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = Zakaznik });
         }
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult CPListByOP(string CardCode)
         {
             List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
@@ -353,6 +361,7 @@ namespace VST_sprava_servisu
         }
 
         //SAP ADRESY - IMPORTOVÁNY JAKO PROVOZY
+        [Authorize(Roles = "Administrator,Manager")]
         private List<SAPDeliveryAddress> LoadSAPDeliveryAddresses(string CardCode, int Zakaznik)
         {
             List<SAPDeliveryAddress> SAPDAList = new List<SAPDeliveryAddress>();
@@ -417,6 +426,7 @@ namespace VST_sprava_servisu
 
             return SAPDAList;
         }
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult ImportSAPAddress(string CardCode, int Zakaznik)
 
         {
@@ -439,6 +449,7 @@ namespace VST_sprava_servisu
         /// Seznam artiklů nenaimportovaných v Servise z IS SAP , která mají správu sériových čísel
         /// </summary>
         /// <returns></returns>
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult SAPItems()
         {
             List<SAPItem> SAPItemsList = new List<SAPItem>();
@@ -487,6 +498,7 @@ namespace VST_sprava_servisu
 
             return View(SAPItemsList);
         }
+        [Authorize(Roles = "Administrator,Manager")]
         public SAPItem GetSAPItemByCode(string ItemCode)
         {
             SAPItem sapItem = new SAPItem();
@@ -534,6 +546,7 @@ namespace VST_sprava_servisu
             cnn.Close();
             return sapItem;
         }
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult GenerateItemfromSAP(string ItemCode)
         {
             SAPItem sapItem = new SAPItem();
@@ -553,6 +566,7 @@ namespace VST_sprava_servisu
 
 
         // SAP Sériová čísla - import sériových čísel a jejich pohybů z SAP do Servisu
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult SAPSCList(string OPSAPkod, int Zakaznik)
         {
             List<SAPSerioveCislo> SAPSCList = new List<SAPSerioveCislo>();
@@ -621,6 +635,7 @@ namespace VST_sprava_servisu
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult SCImport(SAPSerioveCislo SAPSC)
         {
 
@@ -631,6 +646,7 @@ namespace VST_sprava_servisu
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult SCImport([Bind(Include = "ArtiklId,SAPKod,SC,DatumVyroby,DatumDodani,ZakaznikSAP,ZakaznikId,Provoz")] SCImport scimport)
         {
 
@@ -639,6 +655,7 @@ namespace VST_sprava_servisu
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult TestSC(int Zakaznik, int Provoz, int Umisteni)
         {
 
@@ -650,6 +667,7 @@ namespace VST_sprava_servisu
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult TestSC2([Bind(Include = "Zakaznik, Provoz, Umisteni, SC, Artikl")] SCTest sctest)
         {
             // Vyhledat v SAP sériové číslo a zobrazit přehled sériových čísel
@@ -667,7 +685,7 @@ namespace VST_sprava_servisu
                 .Include(a => a.Provoz).Include(a=>a.Umisteni1).Include(p=>p.Provoz.Zakaznik);
             return View(sctest);
         }
-
+        [Authorize(Roles = "Administrator,Manager")]
         private IEnumerable<SAPSerioveCislo> LoadSCFromSAP (string SC, int Artikl)
         {
             //var artikl = db.Artikl.Where(a => a.Id == Artikl).FirstOrDefault();
@@ -773,6 +791,7 @@ namespace VST_sprava_servisu
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumVymeny, DatumDodani, Submitted, DatumRevize, DatumBaterie, DatumPyro, DatumTlkZk, DatumPrirazeni, Lokace, Znaceni,Baterie,Proverit")] SCImport scimport)
         {
             int id = 0;

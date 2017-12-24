@@ -15,6 +15,7 @@ namespace VST_sprava_servisu.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Index()
         {
             string[] args = { "fdsfdsfsd", "fdfs" };

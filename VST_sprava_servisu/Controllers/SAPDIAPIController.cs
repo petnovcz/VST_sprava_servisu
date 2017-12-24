@@ -9,6 +9,7 @@ namespace VST_sprava_servisu
     public class SAPDIAPIController : Controller
     {
         // GET: SAPDIAPI
+        [Authorize(Roles = "Administrator,Manager")]
         public SAPbobsCOM.Company Connect()
         {
             try
@@ -42,13 +43,14 @@ namespace VST_sprava_servisu
 
             
         }
+        [Authorize(Roles = "Administrator,Manager")]
         public bool Disconnect(SAPbobsCOM.Company oCompany)
         {
             if (oCompany.Connected == true) { oCompany.Disconnect(); }
             return true;
         }
 
-
+        [Authorize(Roles = "Administrator,Manager")]
         public bool UpdateContactName(string bpCardCode, string ctnPrevName, string CtnNewName)
 
         {

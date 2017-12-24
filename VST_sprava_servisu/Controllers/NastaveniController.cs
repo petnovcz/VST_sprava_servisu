@@ -9,6 +9,7 @@ namespace VST_sprava_servisu.Controllers
     public class NastaveniController : Controller
     {
         // GET: Nastaveni
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index()
         {
             return View();
