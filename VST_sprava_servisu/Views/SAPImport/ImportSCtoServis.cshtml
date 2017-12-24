@@ -69,7 +69,7 @@
                     @Html.ValidationMessageFor(model => model.DatumDodani, "", new { @class = "text-danger" })
                 </div>
             </div>
-            
+
 
             <div class="form-group">
                 @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-5" })
@@ -86,6 +86,15 @@
                 </div>
             </div>
             <div class="form-group">
+                @Html.LabelFor(model => model.Baterie, htmlAttributes: new { @class = "control-label col-md-5" })
+                <div class="col-md-7">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Baterie)
+                        @Html.ValidationMessageFor(model => model.Baterie, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(model => model.DatumPyro, htmlAttributes: new { @class = "control-label col-md-5" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.DatumPyro, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
@@ -99,7 +108,15 @@
                     @Html.ValidationMessageFor(model => model.DatumTlkZk, "", new { @class = "text-danger" })
                 </div>
             </div>
-
+            <div class="form-group">
+                @Html.LabelFor(model => model.Proverit, htmlAttributes: new { @class = "control-label col-md-5" })
+                <div class="col-md-7">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Proverit)
+                        @Html.ValidationMessageFor(model => model.Proverit, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="col-md-offset-5 col-md-7">

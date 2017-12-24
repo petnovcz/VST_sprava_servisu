@@ -24,7 +24,7 @@
         @Html.Action("Header", "Umistenis", new { Id = Model.Umisteni })
         <br>
         <div class="form-horizontal col-lg-8">
-            
+
             <div class="form-group">
                 @Html.LabelFor(model => model.StatusId, "StatusId", htmlAttributes: new { @class = "control-label col-md-5" })
                 <div class="col-md-7">
@@ -46,9 +46,9 @@
                     @Html.ValidationMessageFor(model => model.Znaceni, "", new { @class = "text-danger" })
                 </div>
             </div>
-            
 
-            
+
+
             <div class="form-group">
                 @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-5" })
                 <div class="col-md-7">
@@ -57,36 +57,54 @@
                 </div>
             </div>
             @if (Model.SerioveCislo.Artikl.VymenaBaterie == true)
-            {
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DatumBaterie, htmlAttributes: new { @class = "control-label col-md-5" })
-                    <div class="col-md-7">
-                        @Html.EditorFor(model => model.DatumBaterie, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                        @Html.ValidationMessageFor(model => model.DatumBaterie, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
-            @if (Model.SerioveCislo.Artikl.VymenaPyro == true)
-            {
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DatumPyro, htmlAttributes: new { @class = "control-label col-md-5" })
-                    <div class="col-md-7">
-                        @Html.EditorFor(model => model.DatumPyro, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                        @Html.ValidationMessageFor(model => model.DatumPyro, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
-            @if (Model.SerioveCislo.Artikl.TlakovaZk == true)
-            {
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DatumTlkZk, htmlAttributes: new { @class = "control-label col-md-5" })
-                    <div class="col-md-7">
-                        @Html.EditorFor(model => model.DatumTlkZk, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                        @Html.ValidationMessageFor(model => model.DatumTlkZk, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumBaterie, htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.DatumBaterie, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DatumBaterie, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Baterie, htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Baterie)
+                    @Html.ValidationMessageFor(model => model.Baterie, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+}
+            @if (Model.SerioveCislo.Artikl.VymenaPyro == true)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumPyro, htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.DatumPyro, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DatumPyro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+}
+            @if (Model.SerioveCislo.Artikl.TlakovaZk == true)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumTlkZk, htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.DatumTlkZk, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DatumTlkZk, "", new { @class = "text-danger" })
+            </div>
+        </div>
+}
+            <div class="form-group">
+                @Html.LabelFor(model => model.Proverit, htmlAttributes: new { @class = "control-label col-md-5" })
+                <div class="col-md-7">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Proverit)
+                        @Html.ValidationMessageFor(model => model.Proverit, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="col-md-offset-5 col-md-7">

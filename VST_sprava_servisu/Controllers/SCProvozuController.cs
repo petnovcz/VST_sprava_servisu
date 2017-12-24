@@ -97,7 +97,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni")] SCProvozu sCProvozu)
+        public ActionResult Edit([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni,Proverit,Baterie")] SCProvozu sCProvozu)
         {
             if (ModelState.IsValid)
             {

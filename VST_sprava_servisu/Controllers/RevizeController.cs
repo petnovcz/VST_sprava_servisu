@@ -19,9 +19,12 @@ namespace VST_sprava_servisu
         private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
 
         // GET: Revize
-        public ActionResult Index()
+        public ActionResult Index(int Zakaznik)
         {
-            var revize = db.Revize.Include(r => r.Provoz).Include(r => r.StatusRevize);
+            var revize = db.Revize.Include(r => r.Provoz).Include(r => r.StatusRevize)
+                .Where(r=>r.Provoz.ZakaznikId == Zakaznik)
+                .OrderByDescending(r=>r.Rok).ThenByDescending(r=>r.Pololeti) ;
+            ViewBag.Zakaznik = Zakaznik;
             return View(revize.ToList());
         }
 

@@ -773,7 +773,7 @@ namespace VST_sprava_servisu
         }
 
         [HttpPost]
-        public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumVymeny, DatumDodani, Submitted, DatumRevize, DatumBaterie, DatumPyro, DatumTlkZk, DatumPrirazeni, Lokace, Znaceni")] SCImport scimport)
+        public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumVymeny, DatumDodani, Submitted, DatumRevize, DatumBaterie, DatumPyro, DatumTlkZk, DatumPrirazeni, Lokace, Znaceni,Baterie,Proverit")] SCImport scimport)
         {
             int id = 0;
             int idscprovozu = 0;
@@ -810,6 +810,8 @@ namespace VST_sprava_servisu
                 scprovozu.DatumTlkZk = scimport.DatumTlkZk;
                 scprovozu.Lokace = scimport.Lokace;
                 scprovozu.Znaceni = scimport.Znaceni;
+                scprovozu.Baterie = scimport.Baterie;
+                scprovozu.Proverit = scimport.Proverit;
                 db.SCProvozu.Add(scprovozu);
                 db.SaveChanges();
                 idscprovozu = scprovozu.Id;

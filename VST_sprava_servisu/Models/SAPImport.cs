@@ -145,6 +145,10 @@ namespace VST_sprava_servisu
         [Display(Name = "Datum tlakové zkoušky")]
         public Nullable<DateTime> DatumTlkZk { get; set; }
         public bool? Submitted { get; set; }
+        [Display(Name = "Prověřit")]
+        public bool Proverit { get; set; }
+        [Display(Name = "Baterie [A -malá, N - velká]")]
+        public bool Baterie { get; set; }
     }
 
 

@@ -127,6 +127,8 @@
           <Property Name="DatumTlkZk" Type="datetime" />
           <Property Name="Lokace" Type="nvarchar" MaxLength="50" />
           <Property Name="Znaceni" Type="nchar" MaxLength="10" />
+          <Property Name="Proverit" Type="bit" />
+          <Property Name="Baterie" Type="bit" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -807,6 +809,8 @@
           <Property Name="DatumTlkZk" Type="DateTime" Precision="3" />
           <Property Name="Lokace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Znaceni" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Proverit" Type="Boolean" />
+          <Property Name="Baterie" Type="Boolean" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -1176,7 +1180,9 @@
     <EntitySetMapping Name="SCProvozu">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.SCProvozu)">
         <MappingFragment StoreEntitySet="SCProvozu">
-          <ScalarProperty Name="Znaceni" ColumnName="Znaceni" />
+          <ScalarProperty Name="Baterie" ColumnName="Baterie" />
+                <ScalarProperty Name="Proverit" ColumnName="Proverit" />
+                <ScalarProperty Name="Znaceni" ColumnName="Znaceni" />
                 <ScalarProperty Name="Lokace" ColumnName="Lokace" />
                 <ScalarProperty Name="DatumTlkZk" ColumnName="DatumTlkZk" />
                 <ScalarProperty Name="DatumPyro" ColumnName="DatumPyro" />

@@ -49,7 +49,13 @@ namespace VST_sprava_servisu
         public string Lokace { get; set; }
         [Display(Name = "Znaèení prvku")]
         public string Znaceni { get; set; }
-    
+
+        [Display(Name = "Provìøit")]
+        public bool Proverit { get; set; }
+        [Display(Name = "Baterie [A -malá, N - velká]")]
+        public bool Baterie { get; set; }
+
+
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RevizeSC> RevizeSC { get; set; }

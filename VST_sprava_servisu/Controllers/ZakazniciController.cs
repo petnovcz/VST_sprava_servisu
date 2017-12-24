@@ -69,7 +69,9 @@ namespace VST_sprava_servisu
             if (Skupina != null)
             {
                 Session["List_Skupina"] = Skupina;
+                if (Skupina != 0) { 
                 x = x.Where(r => r.Region.Skupina == Skupina).ToList();
+                }
                 zf.Skupina = Skupina;
                 ViewBag.Skupina = new SelectList(newList, "Value", "Text", Skupina);
             }
@@ -77,7 +79,9 @@ namespace VST_sprava_servisu
             {
                 if (List_Skupina != null)
                 {
+                    if(List_Skupina != 0) { 
                     x = x.Where(r => r.Region.Skupina == List_Skupina).ToList();
+                    }
                     zf.Skupina = List_Skupina;
                     ViewBag.Skupina = new SelectList(newList, "Value", "Text", List_Skupina);
                 }
