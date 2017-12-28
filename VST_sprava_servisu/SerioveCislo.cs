@@ -11,9 +11,7 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class SerioveCislo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,13 +21,9 @@ namespace VST_sprava_servisu
         }
     
         public int Id { get; set; }
-        [Display(Name = "Artikl")]
         public int ArtiklId { get; set; }
-        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum výroby")]
         public Nullable<System.DateTime> DatumVyroby { get; set; }
-        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Poslední tlaková zkouška")]
         public Nullable<System.DateTime> DatumPosledniTlakoveZkousky { get; set; }
-        [Display(Name = "Sériové èíslo")]
         public string SerioveCislo1 { get; set; }
     
         public virtual Artikl Artikl { get; set; }

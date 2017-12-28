@@ -19,8 +19,8 @@
         <EntityTypeShape EntityType="Model1.RevizeSC" Width="1.5" PointX="11.625" PointY="3.125" />
         <EntityTypeShape EntityType="Model1.SCProvozu" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="Model1.SerioveCislo" Width="1.5" PointX="7.125" PointY="11.25" />
-        <EntityTypeShape EntityType="Model1.Status" Width="1.5" PointX="7.125" PointY="8.625" />
-        <EntityTypeShape EntityType="Model1.StatusRevize" Width="1.5" PointX="9" PointY="14.75" />
+        <EntityTypeShape EntityType="Model1.Status" Width="1.5" PointX="5.625" PointY="9.125" />
+        <EntityTypeShape EntityType="Model1.StatusRevize" Width="1.5" PointX="10.625" PointY="10.75" />
         <AssociationConnector Association="Model1.FK_SerioveCisloArtikl" />
         <AssociationConnector Association="Model1.FK_ProvozRevize" />
         <AssociationConnector Association="Model1.FK_ProvozSCProvozu" />

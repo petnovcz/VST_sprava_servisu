@@ -11,8 +11,7 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Zakaznik
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,20 +23,14 @@ namespace VST_sprava_servisu
         }
     
         public int Id { get; set; }
-        [Display(Name = "Název zákazníka")]
         public string NazevZakaznika { get; set; }
-        [Display(Name = "SAP kód")]
         public string KodSAP { get; set; }
-        [Display(Name = "Region")]
         public int RegionId { get; set; }
-        [Display(Name = "IÈ")]
         public string IC { get; set; }
-        [Display(Name = "DIÈ")]
         public string DIC { get; set; }
         public string Telefon { get; set; }
         public string Kontakt { get; set; }
         public string Email { get; set; }
-        [Display(Name = "Jazyk")]
         public int JazykId { get; set; }
         public string Adresa { get; set; }
     

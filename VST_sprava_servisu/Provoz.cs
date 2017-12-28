@@ -11,8 +11,7 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Provoz
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,19 +24,12 @@ namespace VST_sprava_servisu
         }
     
         public int Id { get; set; }
-        [Display(Name = "Zákazník")]
         public int ZakaznikId { get; set; }
-        [Display(Name = "Název provozu")]
         public string NazevProvozu { get; set; }
-        [Display(Name = "Oddìlení výbuchu")]
         public bool OddeleniVybuchu { get; set; }
-        [Display(Name = "Potlaèení výbuchu")]
         public bool PotlaceniVybuchu { get; set; }
-        [Display(Name = "Odlehèení výbuchu")]
         public bool OdlehceniVybuchu { get; set; }
-        [Display(Name = "Adresa provozu")]
         public string AdresaProvozu { get; set; }
-        [Display(Name = "SAP kód adresy")]
         public string SAPAddress { get; set; }
     
         public virtual Zakaznik Zakaznik { get; set; }

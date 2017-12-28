@@ -11,8 +11,7 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Umisteni
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,11 +23,8 @@ namespace VST_sprava_servisu
         }
     
         public int Id { get; set; }
-        [Display(Name = "Provoz")]
         public int ProvozId { get; set; }
-        [Display(Name = "Název technologie")]
         public string NazevUmisteni { get; set; }
-        [Display(Name = "Samostatné revize technologie")]
         public bool SamostatnaRevize { get; set; }
     
         public virtual Provoz Provoz { get; set; }
