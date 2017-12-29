@@ -10,8 +10,9 @@
             <h4>Administrace</h4>
             <p>@Html.ActionLink("Regiony", "Index", "Regiony", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
             <p>@Html.ActionLink("Jazyky", "Index", "Jazyky", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
-
-            <p>@Html.ActionLink("Status", "Index", "Status", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>@Html.ActionLink("Statusy prvků", "Index", "StatusRevizes", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>@Html.ActionLink("Statusy revizí", "Index", "Status", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            
         </div>
         <div class="col-md-4 ">
             <h4>Import z SAP</h4>
@@ -30,7 +31,13 @@
             <h4>Uživatelé</h4>
             <p>@Html.ActionLink("Role", "Index", "Role", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
             <p>@Html.ActionLink("Role uživatelů", "Index", "RoleUzivatele", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+
+        </div>
+        <div class="col-md-4 ">
+            <h4>Generování revizí</h4>
+            <p>@Html.ActionLink("2018", "RunGenerator", "GenerovaniRevizi", new { Year = 2018}, new { @class = "btn btn-xs btn-default btn-block" })</p>
             
+
         </div>
     </div>
 

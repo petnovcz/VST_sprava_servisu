@@ -49,7 +49,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Create([Bind(Include = "Id,NazevStatusuRevize,Planovana,Potvrzena,Realizovana")] StatusRevize statusRevize)
+        public ActionResult Create([Bind(Include = "Id,NazevStatusuRevize,Planovana,Potvrzena,Realizovana,Stornovana")] StatusRevize statusRevize)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,NazevStatusuRevize,Planovana,Potvrzena,Realizovana")] StatusRevize statusRevize)
+        public ActionResult Edit([Bind(Include = "Id,NazevStatusuRevize,Planovana,Potvrzena,Realizovana,Stornovana")] StatusRevize statusRevize)
         {
             if (ModelState.IsValid)
             {

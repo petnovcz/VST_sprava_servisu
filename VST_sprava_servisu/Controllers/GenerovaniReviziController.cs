@@ -47,9 +47,9 @@ namespace VST_sprava_servisu
         /// </summary>
         /// <returns></returns>
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult RunGenerator()
+        public ActionResult RunGenerator(int Year)
         {
-            List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString);
+            List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString, Year);
             return RedirectToAction("Nahled", "Revize", null);
         }
     }

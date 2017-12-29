@@ -208,6 +208,7 @@
           <Property Name="Planovana" Type="bit" Nullable="false" />
           <Property Name="Potvrzena" Type="bit" Nullable="false" />
           <Property Name="Realizovana" Type="bit" Nullable="false" />
+          <Property Name="Stornovana" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Umisteni">
           <Key>
@@ -922,6 +923,7 @@
           <Property Name="Potvrzena" Type="Boolean" Nullable="false" />
           <Property Name="Realizovana" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Revize" Relationship="Model1.FK_StatusRevizeRevize" FromRole="StatusRevize" ToRole="Revize" />
+          <Property Name="Stornovana" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_SerioveCisloArtikl">
           <End Type="Model1.Artikl" Role="Artikl" Multiplicity="1" />
@@ -1361,7 +1363,8 @@
     <EntitySetMapping Name="StatusRevize">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.StatusRevize)">
         <MappingFragment StoreEntitySet="StatusRevize">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Stornovana" ColumnName="Stornovana" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="NazevStatusuRevize" ColumnName="NazevStatusuRevize" />
           <ScalarProperty Name="Planovana" ColumnName="Planovana" />
           <ScalarProperty Name="Potvrzena" ColumnName="Potvrzena" />

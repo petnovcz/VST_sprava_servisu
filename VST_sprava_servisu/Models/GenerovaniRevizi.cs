@@ -29,11 +29,11 @@ namespace VST_sprava_servisu
         //public DateTime DatumRevize2 { get; set; }
 
 
-        internal protected static List<VypocetPlanuRevizi> Run(string conn)
+        internal protected static List<VypocetPlanuRevizi> Run(string conn, int Year)
         {
             //bool done = true;
             List<VypocetPlanuRevizi> listplanrev = new List<VypocetPlanuRevizi>();
-            listplanrev = VypocetPlanuRevizi.Calculate(conn);
+            listplanrev = VypocetPlanuRevizi.Calculate(conn, Year);
             listplanrev = VypocetPlanuRevizi.LoopAndCreate(conn, listplanrev);
 
             List<VypocetPlanuRevizi> listplanrev2 = new List<VypocetPlanuRevizi>();
@@ -47,7 +47,7 @@ namespace VST_sprava_servisu
         /// </summary>
         /// <param name="conn"></param>
         /// <returns></returns>
-        private static List<VypocetPlanuRevizi> Calculate(string conn)
+        private static List<VypocetPlanuRevizi> Calculate(string conn, int year)
         {
             List<VypocetPlanuRevizi> listplanrev = new List<VypocetPlanuRevizi>();
             string sql = @"";

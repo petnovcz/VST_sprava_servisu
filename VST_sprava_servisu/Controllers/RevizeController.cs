@@ -561,7 +561,7 @@ namespace VST_sprava_servisu
         [Authorize(Roles = "Administrator,Manager")]
         public ActionResult TiskZaznamuOKontrole(int Id)
         {
-            List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString);
+            //List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString);
             ReportDocument rd = new ReportDocument();
             // Your .rpt file path will be below
             rd.Load(Path.Combine(Server.MapPath("~/Servis.rpt")));
