@@ -277,7 +277,7 @@ namespace VST_sprava_servisu
                     var r1exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R1, item.R1POL, null);
                     if (r1exist == false)
                     {
-                        item.Revize1 = Revize.GenerateRevision(item.ProvozId, item.Rok_R1, item.R1POL, item.R1.Value, StatusRevize.Planned(), null);
+                        item.Revize1 = Revize.GenerateRevision(item.ProvozId, item.Rok_R1, item.R1POL, item.R1.Value, StatusRevize.Planned(), null, "","");
                         List<SCList> sclist = new List<SCList>();
                         sclist = SCList.FindScForRevision(conn, item.ProvozId, null, item.Rok_R1, item.R1POL);
                         var t = SCList.AddItemsFromList(sclist, item.Revize1.Id);
@@ -292,7 +292,7 @@ namespace VST_sprava_servisu
                     var r2exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R2, item.R2POL, null);
                     if (r2exist == false)
                     {
-                        item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned(), null);
+                        item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned(), null, "", "");
                         List<SCList> sclist = new List<SCList>();
                         sclist = SCList.FindScForRevision(conn, item.ProvozId, null, item.Rok_R2, item.R2POL);
                         var t = SCList.AddItemsFromList(sclist, item.Revize2.Id);
@@ -312,7 +312,7 @@ namespace VST_sprava_servisu
                     var r1exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R1, item.R1POL, item.UmisteniId);
                     if (r1exist == false)
                     {
-                        item.Revize1 = Revize.GenerateRevision(item.ProvozId, item.Rok_R1, item.R1POL, item.R1.Value, StatusRevize.Planned(), item.UmisteniId);
+                        item.Revize1 = Revize.GenerateRevision(item.ProvozId, item.Rok_R1, item.R1POL, item.R1.Value, StatusRevize.Planned(), item.UmisteniId, "", "");
                         
                         List<SCList> sclist = new List<SCList>();
                         sclist = SCList.FindScForRevision(conn, item.ProvozId, item.UmisteniId, item.Rok_R1, item.R1POL);
@@ -329,7 +329,7 @@ namespace VST_sprava_servisu
                     var r2exist = Revize.ExistRevision(item.ZakaznikId, item.ProvozId, item.Rok_R2, item.R2POL, item.UmisteniId);
                     if (r2exist == false)
                     {
-                        item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned(), item.UmisteniId);
+                        item.Revize2 = Revize.GenerateRevision(item.ProvozId, item.Rok_R2, item.R2POL, item.R2.Value, StatusRevize.Planned(), item.UmisteniId, "", "");
                         List<SCList> sclist = new List<SCList>();
                         sclist = SCList.FindScForRevision(conn, item.ProvozId, item.UmisteniId, item.Rok_R2, item.R2POL);
                         var t = SCList.AddItemsFromList(sclist, item.Revize2.Id);

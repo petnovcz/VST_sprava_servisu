@@ -6,12 +6,14 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Entity;
+using System.Configuration;
 
 namespace VST_sprava_servisu
 {
     public class SAPImportController : Controller
     {
-        private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
+        
+        string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
         private Model1Container db = new Model1Container();
 
 
@@ -453,8 +455,8 @@ namespace VST_sprava_servisu
         public ActionResult SAPItems()
         {
             List<SAPItem> SAPItemsList = new List<SAPItem>();
-            string sql = @"select ItemCode, ItemName, t1.ItmsGrpCod, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ManSerNum = 'Y'";
-            sql = sql + @"and ((select count(*) from [Servis].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = ItemCode COLLATE DATABASE_DEFAULT) = 0)";
+            string sql = @"select ItemCode, ItemName, t1.ItmsGrpCod, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where /*ManSerNum = 'Y'*/";
+            sql = sql + @"/*and*/ ((select count(*) from [Servis].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = ItemCode COLLATE DATABASE_DEFAULT) = 0)";
 
             SqlConnection cnn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand();
@@ -502,8 +504,8 @@ namespace VST_sprava_servisu
         public SAPItem GetSAPItemByCode(string ItemCode)
         {
             SAPItem sapItem = new SAPItem();
-            string sql = @" select ItemCode, ItemName, t0.ItmsGrpCod, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ManSerNum = 'Y'";
-            sql = sql + @" and ItemCode = '" + ItemCode + "' ";
+            string sql = @" select ItemCode, ItemName, t0.ItmsGrpCod, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where /*ManSerNum = 'Y'*/";
+            sql = sql + @" /*and*/ ItemCode = '" + ItemCode + "' ";
 
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
@@ -536,7 +538,7 @@ namespace VST_sprava_servisu
                     catch { }
                     try
                     {
-                        sapItem.ItmsGrpCod = dr.GetInt32(dr.GetOrdinal("ItmsGrpCod"));
+                        sapItem.ItmsGrpCod = Int32.Parse(dr.GetString(dr.GetOrdinal("ItmsGrpCod")));
                     }
                     catch { }
 
@@ -792,7 +794,7 @@ namespace VST_sprava_servisu
 
         [HttpPost]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumVymeny, DatumDodani, Submitted, DatumRevize, DatumBaterie, DatumPyro, DatumTlkZk, DatumPrirazeni, Lokace, Znaceni,Baterie,Proverit")] SCImport scimport)
+        public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumVymeny, DatumDodani, Submitted, DatumRevize, DatumBaterie, DatumPyro, DatumTlkZk, DatumPrirazeni, Lokace, Znaceni,Baterie,Proverit, BaterieArtikl")] SCImport scimport)
         {
             int id = 0;
             int idscprovozu = 0;
@@ -831,6 +833,7 @@ namespace VST_sprava_servisu
                 scprovozu.Znaceni = scimport.Znaceni;
                 scprovozu.Baterie = scimport.Baterie;
                 scprovozu.Proverit = scimport.Proverit;
+                scprovozu.BaterieArtikl = scimport.BaterieArtikl;
                 db.SCProvozu.Add(scprovozu);
                 db.SaveChanges();
                 idscprovozu = scprovozu.Id;
@@ -846,6 +849,7 @@ namespace VST_sprava_servisu
                 ViewBag.Provozy = new SelectList(db.Provoz.Where(p => p.ZakaznikId == scimport.Zakaznik), "Id", "NazevProvozu", scimport.Provozy);
                 ViewBag.Umisteni = new SelectList(db.Umisteni.Where(u => u.ProvozId == scimport.Provozy), "Id", "NazevUmisteni", scimport.Umisteni);
                 ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", scimport.ArtiklId);
+                ViewBag.BaterieArtikl = new SelectList(db.Artikl.Where(r=>r.SkupinaArtiklu1.Id==2), "Id", "Nazev");
             }
             return View(scimport);
         }

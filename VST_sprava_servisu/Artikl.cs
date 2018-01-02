@@ -18,6 +18,7 @@ namespace VST_sprava_servisu
         public Artikl()
         {
             this.SerioveCislo = new HashSet<SerioveCislo>();
+            this.SCProvozu = new HashSet<SCProvozu>();
         }
     
         public int Id { get; set; }
@@ -41,5 +42,7 @@ namespace VST_sprava_servisu
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SerioveCislo> SerioveCislo { get; set; }
         public virtual SkupinaArtiklu SkupinaArtiklu1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SCProvozu> SCProvozu { get; set; }
     }
 }

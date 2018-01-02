@@ -59,7 +59,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Create([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni")] SCProvozu sCProvozu)
+        public ActionResult Create([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni,BaterieArtikl")] SCProvozu sCProvozu)
         {
             if (ModelState.IsValid)
             {
@@ -94,6 +94,7 @@ namespace VST_sprava_servisu
             ViewBag.Umisteni = new SelectList(db.Umisteni, "Id", "NazevUmisteni", sCProvozu.Umisteni);
             ViewBag.Zakaznik = db.Provoz.Where(p => p.Id == sCProvozu.ProvozId).Select(p => p.ZakaznikId).FirstOrDefault();
             ViewBag.Provoz = sCProvozu.ProvozId;
+            ViewBag.BaterieArtikl = new SelectList(db.Artikl.Where(r=>r.SkupinaArtiklu1.Id==2), "Id", "Nazev", sCProvozu.BaterieArtikl);
             return View(sCProvozu);
         }
 
@@ -103,7 +104,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni,Proverit,Baterie")] SCProvozu sCProvozu)
+        public ActionResult Edit([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni,Proverit,Baterie,BaterieArtikl")] SCProvozu sCProvozu)
         {
             if (ModelState.IsValid)
             {
@@ -120,6 +121,7 @@ namespace VST_sprava_servisu
             ViewBag.Umisteni = new SelectList(db.Umisteni, "Id", "NazevUmisteni", sCProvozu.Umisteni);
             ViewBag.Zakaznik = db.Provoz.Where(p => p.Id == sCProvozu.ProvozId).Select(p => p.ZakaznikId).FirstOrDefault();
             ViewBag.Provoz = sCProvozu.ProvozId;
+            ViewBag.BaterieArtikl = new SelectList(db.Artikl.Where(r => r.SkupinaArtiklu1.Id == 2), "Id", "Nazev", sCProvozu.BaterieArtikl);
             return View(sCProvozu);
         }
 

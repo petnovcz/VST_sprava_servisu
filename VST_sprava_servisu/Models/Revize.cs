@@ -6,17 +6,115 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
-
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace VST_sprava_servisu
 {
+    public partial class RevizeBaterie
+    {
+        [Key]
+        public int BaterieArtikl { get; set; }
+        public string BaterieSAPKod { get; set; }
+        public string BaterieName { get; set; }
+        public int Pocet { get; set; } 
+
+
+    }
+
     public partial class Revize
     {
         [NotMapped]
         private Zakaznik Zakaznik { get; set; }
         [NotMapped]
         public int Region { get; set; }
+        [NotMapped]
+        public virtual ICollection<RevizeBaterie> RevizeBaterie { get; set; }
 
+        //private string connectionString = @"Data Source=sql;Initial Catalog=Servis;User ID=sa;Password=*2012Versino";
+         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+
+        /// <summary>
+        /// Projde list revizí a aktualizuje ICollection s baterkama a počtem
+        /// </summary>
+        /// <param name="revizelist"></param>
+        /// <returns></returns>
+        internal protected static List<Revize> LoopRevizeAndUpdateBatery(List<Revize> revizelist)
+        {
+            
+            for (var x = 0; x < revizelist.Count; x++)
+            {
+                int revizeid = revizelist[x].Id;
+                Revize revize = revizelist[x];
+                revize.RevizeBaterie = revize.CalculateRevizeBaterie(revizeid);
+                revizelist[x] = revize;
+
+            }
+
+            return revizelist;
+        }
+
+
+
+        /// <summary>
+        /// Dle čísla revize vrací ICColection Baterií a počtu baterií
+        /// </summary>
+        /// <param name="revize"></param>
+        /// <returns></returns>
+        internal protected List<RevizeBaterie> CalculateRevizeBaterie(int revize)
+        {
+            List<RevizeBaterie> listplanrev = new List<RevizeBaterie>();
+            string sql = @"";
+            sql = sql + @" select t1.BaterieArtikl as 'BaterieArtikl', COUNT(t1.BaterieArtikl) as 'Pocet', t3.Nazev as 'BaterieName', t3.KodSAP as 'BaterieSAPKod'";
+            sql = sql + @" from RevizeSC t0 inner join SCProvozu t1 on t0.SCProvozuID = t1.Id inner join Artikl t3 on t1.BaterieArtikl = t3.Id";
+            sql = sql + @" where t1.BaterieArtikl is not Null and t0.RevizeId = '" + revize + "' and t0.Baterie = 1";
+            sql = sql + @" group by t1.BaterieArtikl, t3.Nazev, t3.KodSAP";
+            SqlConnection cnn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql;
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+            
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+                    RevizeBaterie item = new RevizeBaterie();
+                    try
+                    {
+                        item.BaterieArtikl = dr.GetInt32(dr.GetOrdinal("BaterieArtikl"));
+                    }
+                    catch { }
+                    try
+                    {
+                        item.BaterieSAPKod = dr.GetString(dr.GetOrdinal("BaterieSAPKod"));
+                    }
+                    catch { }
+                    try
+                    {
+                        item.BaterieName = dr.GetString(dr.GetOrdinal("BaterieName"));
+                    }
+                    catch { }
+                    try
+                    {
+                        item.Pocet = dr.GetInt32(dr.GetOrdinal("Pocet"));
+                    }
+                    catch { }
+                    
+
+                    listplanrev.Add(item);
+                }
+            }
+            cnn.Close();
+
+            return listplanrev;
+
+
+        }
 
         internal protected void UpdateRevizeHeader (int id)
         {
@@ -157,7 +255,7 @@ namespace VST_sprava_servisu
         /// <param name="DatumRevize"></param>
         /// <param name="StatusRevize"></param>
         /// <returns></returns>
-        internal protected static Revize GenerateRevision(int Provoz, int Rok, int Pololeti, DateTime DatumRevize, int StatusRevize, int? Umisteni)
+        internal protected static Revize GenerateRevision(int Provoz, int Rok, int Pololeti, DateTime DatumRevize, int StatusRevize, int? Umisteni, string Nabidka, string Projekt)
         {
 
             Revize revize = new Revize();
@@ -166,6 +264,8 @@ namespace VST_sprava_servisu
             revize.ProvozId = Provoz;
             revize.Rok = Rok;
             revize.StatusRevizeId = StatusRevize;
+            revize.Nabidka = Nabidka;
+            revize.Projekt = Projekt;
             if (Umisteni != 0) { revize.UmisteniId = Umisteni; }
             using (var dbCtx = new Model1Container())
             {

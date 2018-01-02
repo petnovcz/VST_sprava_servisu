@@ -149,6 +149,9 @@ namespace VST_sprava_servisu
         public bool Proverit { get; set; }
         [Display(Name = "Baterie [A -malá, N - velká]")]
         public bool Baterie { get; set; }
+
+        [Display(Name = "Artikl baterie")]
+        public Nullable<int> BaterieArtikl { get; set; }
     }
 
 

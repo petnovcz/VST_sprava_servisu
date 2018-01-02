@@ -47,9 +47,12 @@ border-bottom: 2px !important;
     ">
                 <tr>
                     <td style="text-align:center; font-size:14px; font-weight:600;">
-                        @if(item.Baterie > 0) { <text>@item.Baterie</text><text>B</text>  }
-                        @if (item.Pyro > 0) { <text>@item.Pyro</text><text>P</text>  }
-                        @if (item.TlkZk > 0) { <text>@item.TlkZk</text><text>TZ</text>  }
+                        @if (item.Baterie > 0)
+    {<text>@item.Baterie</text><text>B</text> }
+                        @if (item.Pyro > 0)
+    {<text>@item.Pyro</text><text>P</text>}
+                        @if (item.TlkZk > 0)
+    {<text>@item.TlkZk</text><text>TZ</text>}
                     </td>
                     <td style="text-align:center; font-size:14px; font-weight:700;">
                         @if (item.AP > 0)
@@ -64,6 +67,14 @@ border-bottom: 2px !important;
                         { <text>@item.M</text><text>M</text>  }
                     </td>
                 </tr>
+                <tr>
+                    <td style="text-align:center; font-size:14px; font-weight:600;">
+                        @if (item.Baterie > 0)
+    {foreach (var x in item.RevizeBaterie)
+{ @Html.Raw(@x.BaterieSAPKod + " - " + x.Pocet + "<br>")}
+}
+                                    </td><td></td>
+                    </tr>
             </table>
             
             

@@ -288,8 +288,10 @@
     </Compile>
     <Compile Include="Controllers\ArtiklyController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BezRevizeController.cs" />
     <Compile Include="Controllers\CrystalController.cs" />
     <Compile Include="Controllers\GenerovaniReviziController.cs" />
+    <Compile Include="Controllers\GenRevizeCustController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NastaveniController.cs" />
@@ -322,7 +324,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BezRevize.cs" />
     <Compile Include="Models\GenerovaniRevizi.cs" />
+    <Compile Include="Models\GenRevizeCust.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Provoz.cs" />
@@ -332,6 +336,7 @@
     <Compile Include="Models\SAPDIAPI.cs" />
     <Compile Include="Models\SAPImport.cs" />
     <Compile Include="Models\SCProvozu.cs" />
+    <Compile Include="Models\SessionReader.cs" />
     <Compile Include="Models\StatusRevize.cs" />
     <Compile Include="Models\Umisteni.cs" />
     <Compile Include="Models\Zakaznik.cs" />
@@ -1071,6 +1076,9 @@
     <Content Include="Views\RoleUzivatele\Details.cshtml" />
     <Content Include="Views\RoleUzivatele\Edit.cshtml" />
     <Content Include="Views\RoleUzivatele\Index.cshtml" />
+    <Content Include="Views\BezRevize\Index.cshtml" />
+    <Content Include="Views\BezRevize\Details.cshtml" />
+    <Content Include="Views\GenRevizeCust\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

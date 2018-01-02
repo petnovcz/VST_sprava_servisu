@@ -18,6 +18,7 @@ namespace VST_sprava_servisu
         public Revize()
         {
             this.RevizeSC = new HashSet<RevizeSC>();
+            this.RevizeBaterie = new HashSet<RevizeBaterie>();
         }
     
         public int Id { get; set; }
@@ -41,6 +42,8 @@ namespace VST_sprava_servisu
         public Nullable<int> RJ { get; set; }
         public Nullable<int> M { get; set; }
         public Nullable<int> V { get; set; }
+        public string Projekt { get; set; }
+        public string Nabidka { get; set; }
     
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

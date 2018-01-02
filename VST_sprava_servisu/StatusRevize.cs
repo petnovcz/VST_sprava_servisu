@@ -26,7 +26,7 @@ namespace VST_sprava_servisu
         public bool Potvrzena { get; set; }
         public bool Realizovana { get; set; }
         public bool Stornovana { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Revize> Revize { get; set; }
     }

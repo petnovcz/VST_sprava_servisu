@@ -36,6 +36,7 @@ namespace VST_sprava_servisu
         public string Znaceni { get; set; }
         public bool Proverit { get; set; }
         public bool Baterie { get; set; }
+        public Nullable<int> BaterieArtikl { get; set; }
     
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -43,5 +44,6 @@ namespace VST_sprava_servisu
         public virtual SerioveCislo SerioveCislo { get; set; }
         public virtual Status Status { get; set; }
         public virtual Umisteni Umisteni1 { get; set; }
+        public virtual Artikl Artikl { get; set; }
     }
 }

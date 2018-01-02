@@ -104,6 +104,12 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Baterie)
+                    @foreach (var x in item.RevizeBaterie)
+    {
+                       @Html.Raw( "<br>" + @x.BaterieSAPKod + " - " + x.Pocet + "<br>")
+                        
+
+}
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Pyro)

@@ -417,7 +417,12 @@ namespace VST_sprava_servisu
             if (Zakaznik != null) { x = x.Where(r => r.Provoz.ZakaznikId == Zakaznik); }
             if (Status != null) { x = x.Where(r => r.StatusRevizeId == Status); }
             if (Skupina != null && Skupina != 0) { x = x.Where(r => r.Provoz.Zakaznik.Region.Skupina == Skupina); }
-            rl.Revize = x.ToList();
+
+            var listrevizi = x.ToList();
+            listrevizi = Revize.LoopRevizeAndUpdateBatery(listrevizi);
+
+            rl.Revize = listrevizi;
+
             if (DateFrom != null)
             {
                 ViewBag.ListDateFrom = DateFrom;
@@ -488,13 +493,18 @@ namespace VST_sprava_servisu
                 .Include(r => r.RevizeSC)
                 .Include(r => r.StatusRevize)
                 .Include(r => r.Umisteni);
-                //.Include(r => r.);
+                
             if (DateFrom != null) { x = x.Where(r => r.DatumRevize >= DateFrom);   }
             if (DateTo != null) { x = x.Where(r => r.DatumRevize <= DateTo); }
             if (Zakaznik != null) { x = x.Where(r => r.Provoz.ZakaznikId == Zakaznik); }
             if (Status != null) { x = x.Where(r => r.StatusRevizeId == Status); }
             if (Skupina != null && Skupina != 0) { x = x.Where(r => r.Provoz.Zakaznik.Region.Skupina == Skupina); }
-            rl.Revize = x.ToList();
+
+            //
+            var listrevizi = x.ToList();
+            listrevizi = Revize.LoopRevizeAndUpdateBatery(listrevizi);
+
+            rl.Revize = listrevizi;
             ViewBag.ListDateFrom = DateFrom;
             ViewBag.ListDateTo = DateTo;
             ViewBag.ListStatus = db.StatusRevize.Where(r => r.Id == Status).Select(r => r.NazevStatusuRevize).FirstOrDefault();
@@ -517,7 +527,7 @@ namespace VST_sprava_servisu
 
             List<Revize> list = new List<Revize>();
             list = Revize.GetByDate(Mesic.Value, Rok.Value, Den.Value, Region.Value);
-
+            list = Revize.LoopRevizeAndUpdateBatery(list);
             ViewBag.Region = Region;
             return View(list);
         }

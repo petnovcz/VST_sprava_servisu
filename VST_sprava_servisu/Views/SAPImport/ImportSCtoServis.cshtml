@@ -86,12 +86,10 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Baterie, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.BaterieArtikl, "BaterieArtikl", htmlAttributes: new { @class = "control-label col-md-5" })
                 <div class="col-md-7">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.Baterie)
-                        @Html.ValidationMessageFor(model => model.Baterie, "", new { @class = "text-danger" })
-                    </div>
+                    @Html.DropDownList("BaterieArtikl", null," ", htmlAttributes: new { @class = "form-control selectpicker", data_live_search = true })
+                    @Html.ValidationMessageFor(model => model.BaterieArtikl, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">

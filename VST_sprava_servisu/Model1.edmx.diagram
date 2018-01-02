@@ -42,6 +42,7 @@
         <AssociationConnector Association="Model1.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" />
         <EntityTypeShape EntityType="Model1.AspNetUsers" Width="1.5" PointX="15.375" PointY="7.375" />
         <AssociationConnector Association="Model1.AspNetUsersAspNetUserRoles" />
+        <AssociationConnector Association="Model1.FK_SCProvozu_Artikl" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

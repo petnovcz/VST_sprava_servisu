@@ -125,6 +125,8 @@
           <Property Name="RJ" Type="int" />
           <Property Name="M" Type="int" />
           <Property Name="V" Type="int" />
+          <Property Name="Projekt" Type="nchar" MaxLength="25" />
+          <Property Name="Nabidka" Type="nchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -161,6 +163,7 @@
           <Property Name="Znaceni" Type="nchar" MaxLength="10" />
           <Property Name="Proverit" Type="bit" Nullable="false" />
           <Property Name="Baterie" Type="bit" Nullable="false" />
+          <Property Name="BaterieArtikl" Type="int" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -391,6 +394,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SCProvozu_Artikl">
+          <End Role="Artikl" Type="Self.Artikl" Multiplicity="0..1" />
+          <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SCProvozu">
+              <PropertyRef Name="BaterieArtikl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SCProvozu_Umisteni">
           <End Role="Umisteni" Type="Self.Umisteni" Multiplicity="0..1" />
           <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="*" />
@@ -545,6 +560,10 @@
             <End Role="Umisteni" EntitySet="Umisteni" />
             <End Role="Revize" EntitySet="Revize" />
           </AssociationSet>
+          <AssociationSet Name="FK_SCProvozu_Artikl" Association="Self.FK_SCProvozu_Artikl">
+            <End Role="Artikl" EntitySet="Artikl" />
+            <End Role="SCProvozu" EntitySet="SCProvozu" />
+          </AssociationSet>
           <AssociationSet Name="FK_SCProvozu_Umisteni" Association="Self.FK_SCProvozu_Umisteni">
             <End Role="Umisteni" EntitySet="Umisteni" />
             <End Role="SCProvozu" EntitySet="SCProvozu" />
@@ -675,6 +694,10 @@
           <AssociationSet Name="AspNetUsersAspNetUserRoles" Association="Model1.AspNetUsersAspNetUserRoles">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCProvozu_Artikl" Association="Model1.FK_SCProvozu_Artikl">
+            <End Role="Artikl" EntitySet="Artikl" />
+            <End Role="SCProvozu" EntitySet="SCProvozu" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
@@ -816,6 +839,7 @@
           <Property Name="ArtoklPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="SkupinaArtiklu" Type="Int32" />
           <NavigationProperty Name="SkupinaArtiklu1" Relationship="Model1.FK_Artikl_SkupinaA" FromRole="Artikl" ToRole="SkupinaArtiklu" />
+          <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_SCProvozu_Artikl" FromRole="Artikl" ToRole="SCProvozu" />
         </EntityType>
         <EntityType Name="Revize">
           <Key>
@@ -846,6 +870,8 @@
           <Property Name="RJ" Type="Int32" />
           <Property Name="M" Type="Int32" />
           <Property Name="V" Type="Int32" />
+          <Property Name="Projekt" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="Nabidka" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -890,6 +916,8 @@
           <Property Name="Znaceni" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Proverit" Type="Boolean" Nullable="false" />
           <Property Name="Baterie" Type="Boolean" Nullable="false" />
+          <Property Name="BaterieArtikl" Type="Int32" />
+          <NavigationProperty Name="Artikl" Relationship="Model1.FK_SCProvozu_Artikl" FromRole="SCProvozu" ToRole="Artikl" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -1187,6 +1215,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SCProvozu_Artikl">
+          <End Type="Model1.Artikl" Role="Artikl" Multiplicity="0..1" />
+          <End Type="Model1.SCProvozu" Role="SCProvozu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SCProvozu">
+              <PropertyRef Name="BaterieArtikl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1277,7 +1317,9 @@
     <EntitySetMapping Name="Revize">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Revize)">
         <MappingFragment StoreEntitySet="Revize">
-          <ScalarProperty Name="V" ColumnName="V" />
+          <ScalarProperty Name="Nabidka" ColumnName="Nabidka" />
+                <ScalarProperty Name="Projekt" ColumnName="Projekt" />
+                <ScalarProperty Name="V" ColumnName="V" />
                 <ScalarProperty Name="M" ColumnName="M" />
                 <ScalarProperty Name="RJ" ColumnName="RJ" />
                 <ScalarProperty Name="S" ColumnName="S" />
@@ -1320,7 +1362,8 @@
     <EntitySetMapping Name="SCProvozu">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.SCProvozu)">
         <MappingFragment StoreEntitySet="SCProvozu">
-          <ScalarProperty Name="Baterie" ColumnName="Baterie" />
+          <ScalarProperty Name="BaterieArtikl" ColumnName="BaterieArtikl" />
+                <ScalarProperty Name="Baterie" ColumnName="Baterie" />
                 <ScalarProperty Name="Proverit" ColumnName="Proverit" />
                 <ScalarProperty Name="Znaceni" ColumnName="Znaceni" />
                 <ScalarProperty Name="Lokace" ColumnName="Lokace" />
