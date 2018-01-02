@@ -324,6 +324,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Artikl.cs" />
     <Compile Include="Models\BezRevize.cs" />
     <Compile Include="Models\GenerovaniRevizi.cs" />
     <Compile Include="Models\GenRevizeCust.cs" />

@@ -11,7 +11,9 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Revize
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,27 +24,41 @@ namespace VST_sprava_servisu
         }
     
         public int Id { get; set; }
+        [Display(Name = "Provoz")]
         public int ProvozId { get; set; }
+        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum revize")]
         public System.DateTime DatumRevize { get; set; }
+        [Display(Name = "Status revize")]
         public int StatusRevizeId { get; set; }
+        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum vystavení")]
         public Nullable<System.DateTime> DatumVystaveni { get; set; }
+        [Display(Name = "Zjištìný stav")]
         public string ZjistenyStav { get; set; }
+        [Display(Name = "Provedené zásahy")]
         public string ProvedeneZasahy { get; set; }
+        [Display(Name = "Opatøení k odstranìní")]
         public string OpatreniKOdstraneni { get; set; }
+        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Kontrola provedena dne")]
         public Nullable<System.DateTime> KontrolaProvedenaDne { get; set; }
+        [Display(Name = "Pøíští kontrola")]
         public string PristiKontrola { get; set; }
         public Nullable<int> Rok { get; set; }
         public Nullable<int> Pololeti { get; set; }
         public Nullable<int> UmisteniId { get; set; }
+        [Display(Name = "Poèet baterií")]
         public Nullable<int> Baterie { get; set; }
+        [Display(Name = "Poèet pyro")]
         public Nullable<int> Pyro { get; set; }
+        [Display(Name = "Poèet tlakových zkoušek")]
         public Nullable<int> TlkZk { get; set; }
         public Nullable<int> AP { get; set; }
         public Nullable<int> S { get; set; }
         public Nullable<int> RJ { get; set; }
         public Nullable<int> M { get; set; }
         public Nullable<int> V { get; set; }
+        [Display(Name = "Projekt")]
         public string Projekt { get; set; }
+        [Display(Name = "Nabídka")]
         public string Nabidka { get; set; }
     
         public virtual Provoz Provoz { get; set; }
