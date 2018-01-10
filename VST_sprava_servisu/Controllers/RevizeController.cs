@@ -1,6 +1,7 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -16,8 +17,8 @@ namespace VST_sprava_servisu
     public class RevizeController : Controller
     {
         private Model1Container db = new Model1Container();
-        private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
-
+        //private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
+        private string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
         // GET: Revize
         [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Index(int Zakaznik)
