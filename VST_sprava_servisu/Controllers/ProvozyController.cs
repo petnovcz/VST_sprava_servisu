@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,6 +13,7 @@ namespace VST_sprava_servisu
     public class ProvozyController : Controller
     {
         private Model1Container db = new Model1Container();
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: Provozy
         [Authorize(Roles = "Administrator,Manager")]
@@ -73,10 +75,15 @@ namespace VST_sprava_servisu
             int Zakaznik = provoz.ZakaznikId;
             if (ModelState.IsValid)
             {
-                //int Zakaznik = provoz.ZakaznikId;
-                db.Provoz.Add(provoz);
-                db.SaveChanges();
-                //return RedirectToAction("Index");
+                try
+                {
+                    db.Provoz.Add(provoz);
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 var provozy = db.Provoz.Include(p => p.Zakaznik).Where(p => p.ZakaznikId == Zakaznik);
                 ViewBag.Zakaznik = Zakaznik;
                 return RedirectToAction("Details","Zakaznici",new {Id = Zakaznik });
@@ -96,8 +103,15 @@ namespace VST_sprava_servisu
             provoz.AdresaProvozu = Street + ", " + ZipCode + ", " + City + ", " + Country;
             if (ModelState.IsValid)
             {
-                db.Provoz.Add(provoz);
-                db.SaveChanges();
+                try
+                {
+                    db.Provoz.Add(provoz);
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
 
             }
 
@@ -134,9 +148,15 @@ namespace VST_sprava_servisu
             int zakaznik = provoz.ZakaznikId;
             if (ModelState.IsValid)
             {
-                
-                db.Entry(provoz).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(provoz).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 return RedirectToAction("Details", "Zakaznici", new { Id = zakaznik });
             }
             ViewBag.Zakaznik = zakaznik;
@@ -169,8 +189,15 @@ namespace VST_sprava_servisu
         {
             Provoz provoz = db.Provoz.Find(id);
             int zakaznik = provoz.ZakaznikId;
-            db.Provoz.Remove(provoz);
-            db.SaveChanges();
+            try
+            {
+                db.Provoz.Remove(provoz);
+                db.SaveChanges();
+            }
+            catch (SqlException e)
+            {
+                log.Error("Error number: " + e.Number + " - " + e.Message);
+            }
             return RedirectToAction("Details", "Zakaznici", new { Id = zakaznik });
         }
 

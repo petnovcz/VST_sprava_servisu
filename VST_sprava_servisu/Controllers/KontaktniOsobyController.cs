@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,6 +13,7 @@ namespace VST_sprava_servisu
     public class KontaktniOsobyController : Controller
     {
         private Model1Container db = new Model1Container();
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: KontaktniOsoby
         [Authorize(Roles = "Administrator,Manager")]
@@ -70,8 +72,15 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.KontakniOsoba.Add(kontakniOsoba);
-                db.SaveChanges();
+                try
+                {
+                    db.KontakniOsoba.Add(kontakniOsoba);
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 return RedirectToAction("Index");
             }
 
@@ -97,8 +106,15 @@ namespace VST_sprava_servisu
            
             if (ModelState.IsValid)
             {
-                db.KontakniOsoba.Add(ko);
-                db.SaveChanges();
+                try
+                {
+                    db.KontakniOsoba.Add(ko);
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
 
             }
 
@@ -137,8 +153,15 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(kontakniOsoba).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(kontakniOsoba).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = kontakniOsoba.ZakaznikId });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.ZakaznikId == kontakniOsoba.ZakaznikId), "Id", "NazevProvozu", kontakniOsoba.ProvozId);
@@ -173,8 +196,15 @@ namespace VST_sprava_servisu
             
             KontakniOsoba kontakniOsoba = db.KontakniOsoba.Find(id);
             int Zakaznik = kontakniOsoba.ZakaznikId;
-            db.KontakniOsoba.Remove(kontakniOsoba);
-            db.SaveChanges();
+            try
+            {
+                db.KontakniOsoba.Remove(kontakniOsoba);
+                db.SaveChanges();
+            }
+            catch (SqlException e)
+            {
+                log.Error("Error number: " + e.Number + " - " + e.Message);
+            }
             return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = Zakaznik });
         }
 

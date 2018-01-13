@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,6 +13,7 @@ namespace VST_sprava_servisu
     public class JazykyController : Controller
     {
         private Model1Container db = new Model1Container();
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: Jazyky
         [Authorize(Roles = "Administrator,Manager")]
@@ -53,8 +55,15 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Jazyk.Add(jazyk);
-                db.SaveChanges();
+                try
+                {
+                    db.Jazyk.Add(jazyk);
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 return RedirectToAction("Index");
             }
 
@@ -87,8 +96,15 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(jazyk).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(jazyk).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 return RedirectToAction("Index");
             }
             return View(jazyk);
@@ -117,8 +133,15 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             Jazyk jazyk = db.Jazyk.Find(id);
-            db.Jazyk.Remove(jazyk);
-            db.SaveChanges();
+            try
+            {
+                db.Jazyk.Remove(jazyk);
+                db.SaveChanges();
+            }
+            catch (SqlException e)
+            {
+                log.Error("Error number: " + e.Number + " - " + e.Message);
+            }
             return RedirectToAction("Index");
         }
 

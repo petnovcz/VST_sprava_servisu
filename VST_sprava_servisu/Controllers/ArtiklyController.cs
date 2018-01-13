@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,6 +13,7 @@ namespace VST_sprava_servisu
     public class ArtiklyController : Controller
     {
         private Model1Container db = new Model1Container();
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: Artikly
         [Authorize(Roles = "Administrator,Manager")]
@@ -54,8 +56,15 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Artikl.Add(artikl);
-                db.SaveChanges();
+                try
+                {
+                    db.Artikl.Add(artikl);
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 return RedirectToAction("Details","SkupinaArtiklu",new { id = artikl.SkupinaArtiklu});
             }
             ViewBag.SkupinaArtiklu = new SelectList(db.SkupinaArtiklu, "Id", "Skupina",artikl.SkupinaArtiklu);
@@ -89,8 +98,15 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(artikl).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(artikl).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 return RedirectToAction("Details", "SkupinaArtiklu", new { id = artikl.SkupinaArtiklu });
             }
             ViewBag.SkupinaArtiklu = new SelectList(db.SkupinaArtiklu, "Id", "Skupina", artikl.SkupinaArtiklu);
@@ -121,10 +137,18 @@ namespace VST_sprava_servisu
         {
             Artikl artikl = db.Artikl.Find(id);
             int idsa = artikl.SkupinaArtiklu.Value;
-            db.Artikl.Remove(artikl);
-            db.SaveChanges();
+            try
+            {
+                db.Artikl.Remove(artikl);
+                db.SaveChanges();
+            }
+            catch (SqlException e)
+            {
+                log.Error("Error number: " + e.Number + " - " + e.Message);
+            }
             return RedirectToAction("Details", "SkupinaArtiklu", new { id = idsa });
         }
+
         [Authorize(Roles = "Administrator,Manager")]
         public bool CreateFromSAPdata(SAPItem sapItem)
         {
@@ -139,8 +163,15 @@ namespace VST_sprava_servisu
                 artikl.Oznaceni = sapItem.ItemName;
                 artikl.RozsahProvoznichTeplot = " ";
                 artikl.SkupinaArtiklu = sapItem.ItmsGrpCod;
-                db.Artikl.Add(artikl);
-                db.SaveChanges();
+                try
+                {
+                    db.Artikl.Add(artikl);
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
             }
 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,6 +13,7 @@ namespace VST_sprava_servisu
     public class RegionyController : Controller
     {
         private Model1Container db = new Model1Container();
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: Regiony
         [Authorize(Roles = "Administrator,Manager")]
@@ -54,8 +56,15 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Region.Add(region);
-                db.SaveChanges();
+                try
+                {
+                    db.Region.Add(region);
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 return RedirectToAction("Index");
             }
 
@@ -88,8 +97,15 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(region).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(region).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (SqlException e)
+                {
+                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                }
                 return RedirectToAction("Index");
             }
             return View(region);
@@ -118,8 +134,15 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             Region region = db.Region.Find(id);
-            db.Region.Remove(region);
-            db.SaveChanges();
+            try
+            {
+                db.Region.Remove(region);
+                db.SaveChanges();
+            }
+            catch (SqlException e)
+            {
+                log.Error("Error number: " + e.Number + " - " + e.Message);
+            }
             return RedirectToAction("Index");
         }
 

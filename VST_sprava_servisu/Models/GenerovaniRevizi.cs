@@ -4,12 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace VST_sprava_servisu
 {
 
     public partial class VypocetPlanuRevizi
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("VypocetPlanuRevizi");
         [Key]
         public int ZakaznikId { get; set; }
         public string Zakaznik { get; set; }
@@ -50,34 +52,37 @@ namespace VST_sprava_servisu
         private static List<VypocetPlanuRevizi> Calculate(string conn, int year)
         {
             List<VypocetPlanuRevizi> listplanrev = new List<VypocetPlanuRevizi>();
-            string sql = @"";
-            sql = sql + @" select x.ZakaznikId , x.Zakaznik,x.ProvozId ,x.Provoz, ";
-            sql = sql + @" min(x.NextRevize) 'R1', Year(min(x.NextRevize)) as 'Rok_R1', case when Month(min(x.NextRevize)) <= 6 then 1 else 2 end as 'R1POL',";
-            sql = sql + @" min(x.Next2Revize) 'R2', Year(min(x.Next2Revize)) as 'Rok_R2', case when Month(min(x.Next2Revize)) <= 6 then 1 else 2 end as 'R2POL'";
-            sql = sql + @" from";
-            sql = sql + @" (";
-            sql = sql + @" select t1.Id as 'ZakaznikId', t1.NazevZakaznika as 'Zakaznik',";
-            sql = sql + @" t2.Id as 'ProvozId', t2.NazevProvozu as 'Provoz', t3.NazevUmisteni, t6.Nazev, t5.seriovecislo,";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)) as 'NextRevize',";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) as 'Next2Revize',";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni)) as 'NextBaterie',";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni)) as 'NextPyro',";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni)) as 'NextTlkZk'";
-            sql = sql + @" from[Servis].[dbo].[Region] t0";
-            sql = sql + @" left join[Servis].[dbo].[Zakaznik] t1 on t0.id = t1.regionid";
-            sql = sql + @" left join[Servis].[dbo].[provoz] t2 on t2.zakaznikid = t1.id";
-            sql = sql + @" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'false'";
-            sql = sql + @" left join[Servis].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id";
-            sql = sql + @" left join[Servis].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId";
-            sql = sql + @" left join[Servis].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id";
-            sql = sql + @" where  t3.id is not null and t4.id is not null";
-            sql = sql + @" ) x";
-            sql = sql + @" group by x.ZakaznikId, x.Zakaznik,x.ProvozId, x.Provoz";
+            StringBuilder sql = new StringBuilder();
+            sql.Append(" select x.ZakaznikId , x.Zakaznik,x.ProvozId ,x.Provoz, ");
+            sql.Append(" min(x.NextRevize) 'R1', Year(min(x.NextRevize)) as 'Rok_R1', case when Month(min(x.NextRevize)) <= 6 then 1 else 2 end as 'R1POL',");
+            sql.Append(" min(x.Next2Revize) 'R2', Year(min(x.Next2Revize)) as 'Rok_R2', case when Month(min(x.Next2Revize)) <= 6 then 1 else 2 end as 'R2POL'");
+            sql.Append(" from");
+            sql.Append(" (");
+            sql.Append(" select t1.Id as 'ZakaznikId', t1.NazevZakaznika as 'Zakaznik',");
+            sql.Append(" t2.Id as 'ProvozId', t2.NazevProvozu as 'Provoz', t3.NazevUmisteni, t6.Nazev, t5.seriovecislo,");
+            sql.Append(" DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)) as 'NextRevize',");
+            sql.Append(" DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) as 'Next2Revize',");
+            sql.Append(" DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni)) as 'NextBaterie',");
+            sql.Append(" DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni)) as 'NextPyro',");
+            sql.Append(" DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni)) as 'NextTlkZk'");
+            sql.Append(" from[Servis].[dbo].[Region] t0");
+            sql.Append(" left join[Servis].[dbo].[Zakaznik] t1 on t0.id = t1.regionid");
+            sql.Append(" left join[Servis].[dbo].[provoz] t2 on t2.zakaznikid = t1.id");
+            sql.Append(" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'false'");
+            sql.Append(" left join[Servis].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id");
+            sql.Append(" left join[Servis].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId");
+            sql.Append(" left join[Servis].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id");
+            sql.Append(" where  t3.id is not null and t4.id is not null");
+            sql.Append(" ) x");
+            sql.Append(" group by x.ZakaznikId, x.Zakaznik,x.ProvozId, x.Provoz");
+
+            log.Debug($"Calculate pro revizi pro rok: {year}");
+            log.Debug(sql.ToString());
 
             SqlConnection cnn = new SqlConnection(conn);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
-            cmd.CommandText = sql;
+            cmd.CommandText = sql.ToString();
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -92,52 +97,52 @@ namespace VST_sprava_servisu
                     {
                         item.ZakaznikId = dr.GetInt32(dr.GetOrdinal("ZakaznikId"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
                     try
                     {
                         item.Zakaznik = dr.GetString(dr.GetOrdinal("Zakaznik"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
                     try
                     {
                         item.ProvozId = dr.GetInt32(dr.GetOrdinal("ProvozId"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
                     try
                     {
                         item.Provoz = dr.GetString(dr.GetOrdinal("Provoz"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
                     try
                     {
                         item.R1 = dr.GetDateTime(dr.GetOrdinal("R1"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
                     try
                     {
                         item.R1POL = dr.GetInt32(dr.GetOrdinal("R1POL"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
                     try
                     {
                         item.Rok_R1 = dr.GetInt32(dr.GetOrdinal("Rok_R1"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
                     try
                     {
                         item.R2 = dr.GetDateTime(dr.GetOrdinal("R2"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
                     try
                     {
                         item.R2POL = dr.GetInt32(dr.GetOrdinal("R2POL"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
                     try
                     {
                         item.Rok_R2 = dr.GetInt32(dr.GetOrdinal("Rok_R2"));
                     }
-                    catch { }
+                    catch (Exception ex) { }
 
                     listplanrev.Add(item);
                 }
@@ -147,39 +152,42 @@ namespace VST_sprava_servisu
             return listplanrev;
         }
 
-        
+
 
         private static List<VypocetPlanuRevizi> Calculate2(string conn)
         {
             List<VypocetPlanuRevizi> listplanrev = new List<VypocetPlanuRevizi>();
-            string sql = @"";
-            sql = sql + @" select x.ZakaznikId , x.Zakaznik,x.ProvozId ,x.Provoz, x.NazevUmisteni, x.UmisteniId, ";
-            sql = sql + @" min(x.NextRevize) 'R1', Year(min(x.NextRevize)) as 'Rok_R1', case when Month(min(x.NextRevize)) <= 6 then 1 else 2 end as 'R1POL',";
-            sql = sql + @" min(x.Next2Revize) 'R2', Year(min(x.Next2Revize)) as 'Rok_R2', case when Month(min(x.Next2Revize)) <= 6 then 1 else 2 end as 'R2POL'";
-            sql = sql + @" from";
-            sql = sql + @" (";
-            sql = sql + @" select t1.Id as 'ZakaznikId', t1.NazevZakaznika as 'Zakaznik',";
-            sql = sql + @" t2.Id as 'ProvozId', t2.NazevProvozu as 'Provoz',t3.Id as 'UmisteniId', t3.NazevUmisteni, t6.Nazev, t5.seriovecislo,";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)) as 'NextRevize',";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) as 'Next2Revize',";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni)) as 'NextBaterie',";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni)) as 'NextPyro',";
-            sql = sql + @" DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni)) as 'NextTlkZk'";
-            sql = sql + @" from[Servis].[dbo].[Region] t0";
-            sql = sql + @" left join[Servis].[dbo].[Zakaznik] t1 on t0.id = t1.regionid";
-            sql = sql + @" left join[Servis].[dbo].[provoz] t2 on t2.zakaznikid = t1.id";
-            sql = sql + @" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'true'";
-            sql = sql + @" left join[Servis].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id";
-            sql = sql + @" left join[Servis].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId";
-            sql = sql + @" left join[Servis].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id";
-            sql = sql + @" where  t3.id is not null and t4.id is not null";
-            sql = sql + @" ) x";
-            sql = sql + @" group by x.ZakaznikId, x.Zakaznik,x.ProvozId, x.Provoz, x.NazevUmisteni, x.UmisteniId";
+            StringBuilder sql = new StringBuilder();
+            sql.Append(" select x.ZakaznikId , x.Zakaznik,x.ProvozId ,x.Provoz, x.NazevUmisteni, x.UmisteniId, ");
+            sql.Append(" min(x.NextRevize) 'R1', Year(min(x.NextRevize)) as 'Rok_R1', case when Month(min(x.NextRevize)) <= 6 then 1 else 2 end as 'R1POL',");
+            sql.Append(" min(x.Next2Revize) 'R2', Year(min(x.Next2Revize)) as 'Rok_R2', case when Month(min(x.Next2Revize)) <= 6 then 1 else 2 end as 'R2POL'");
+            sql.Append(" from");
+            sql.Append(" (");
+            sql.Append(" select t1.Id as 'ZakaznikId', t1.NazevZakaznika as 'Zakaznik',");
+            sql.Append(" t2.Id as 'ProvozId', t2.NazevProvozu as 'Provoz',t3.Id as 'UmisteniId', t3.NazevUmisteni, t6.Nazev, t5.seriovecislo,");
+            sql.Append(" DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)) as 'NextRevize',");
+            sql.Append(" DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) as 'Next2Revize',");
+            sql.Append(" DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni)) as 'NextBaterie',");
+            sql.Append(" DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni)) as 'NextPyro',");
+            sql.Append(" DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni)) as 'NextTlkZk'");
+            sql.Append(" from[Servis].[dbo].[Region] t0");
+            sql.Append(" left join[Servis].[dbo].[Zakaznik] t1 on t0.id = t1.regionid");
+            sql.Append(" left join[Servis].[dbo].[provoz] t2 on t2.zakaznikid = t1.id");
+            sql.Append(" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'true'");
+            sql.Append(" left join[Servis].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id");
+            sql.Append(" left join[Servis].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId");
+            sql.Append(" left join[Servis].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id");
+            sql.Append(" where  t3.id is not null and t4.id is not null");
+            sql.Append(" ) x");
+            sql.Append(" group by x.ZakaznikId, x.Zakaznik,x.ProvozId, x.Provoz, x.NazevUmisteni, x.UmisteniId");
+
+            log.Debug($"Calculate2 ");
+            log.Debug(sql.ToString());
 
             SqlConnection cnn = new SqlConnection(conn);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
-            cmd.CommandText = sql;
+            cmd.CommandText = sql.ToString();
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -194,62 +202,74 @@ namespace VST_sprava_servisu
                     {
                         item.ZakaznikId = dr.GetInt32(dr.GetOrdinal("ZakaznikId"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"ZakaznikId prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.Zakaznik = dr.GetString(dr.GetOrdinal("Zakaznik"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"Zakaznik prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.ProvozId = dr.GetInt32(dr.GetOrdinal("ProvozId"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"ProvozId prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.Provoz = dr.GetString(dr.GetOrdinal("Provoz"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"Provoz prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.UmisteniId = dr.GetInt32(dr.GetOrdinal("UmisteniId"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"UmisteniId prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.NazevUmisteni = dr.GetString(dr.GetOrdinal("NazevUmisteni"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"NazevUmisteni prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.R1 = dr.GetDateTime(dr.GetOrdinal("R1"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"R1 prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.R1POL = dr.GetInt32(dr.GetOrdinal("R1POL"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"R1POL prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.Rok_R1 = dr.GetInt32(dr.GetOrdinal("Rok_R1"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"Rok_R1 prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.R2 = dr.GetDateTime(dr.GetOrdinal("R2"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"R2 prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.R2POL = dr.GetInt32(dr.GetOrdinal("R2POL"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"R2POL prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.Rok_R2 = dr.GetInt32(dr.GetOrdinal("Rok_R2"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"Rok_R2 prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
 
                     listplanrev.Add(item);
                 }
@@ -351,64 +371,65 @@ namespace VST_sprava_servisu
 
     public partial class SCList
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SCList");
+
         public int Id { get; set; }
         public int Revize { get; set; }
         public int Baterie { get; set; }
         public int Pyro { get; set; }
         public int TlkZk { get; set; }
 
-        public  static List<SCList> FindScForRevision(string conn, int Provoz,  int? Umisteni, int Rok, int Polol)
+        public static List<SCList> FindScForRevision(string conn, int Provoz, int? Umisteni, int Rok, int Polol)
         {
             List<SCList> listplanrev = new List<SCList>();
-            string sql = @"";
-
-
-            sql = sql + @" select t4.id, ";
-            sql = sql + @" case when(Year(DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) = '" + Rok + "'";
-            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) <= 6  and  '" + Polol + "' = '1')";
-            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) > 6  and  '" + Polol + "' = '2')))";
-            sql = sql + @" or(Year(DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)))) = '" + Rok + "'";
-            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)))) <= 6 and  '" + Polol + "' = '1')";
-            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)))) > 6 and  '" + Polol + "' = '2')))";
-            sql = sql + @" then 1 else 0 end as 'Revize',";
-            sql = sql + @" case when(Year(DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni))) = '" + Rok + "'";
-            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni))) <= 6  and  '" + Polol + "' = '1')";
-            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni))) > 6  and  '" + Polol + "' = '2')";
-            sql = sql + @" )) then 1 else 0 end as 'Pyro',";
-            sql = sql + @" case when(Year(DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni))) = '" + Rok + "'";
-            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni))) <= 6  and  '" + Polol + "' = '1')";
-            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni))) > 6  and  '" + Polol + "' = '2')";
-            sql = sql + @" )) then 1 else 0 end as 'Baterie',";
-            sql = sql + @" case when(Year(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) = '" + Rok + "'";
-            sql = sql + @" and((Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) <= 6  and  '" + Polol + "' = '1')";
-            sql = sql + @" or(Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) > 6  and  '" + Polol + "' = '2')";
-            sql = sql + @" )) then 1 else 0 end as 'TlKZK'";
-            sql = sql + @" from[Servis].[dbo].[Region] t0";
-            sql = sql + @" left join[Servis].[dbo].[Zakaznik] t1 on t0.id = t1.regionid";
-            sql = sql + @" left join[Servis].[dbo].[provoz] t2 on t2.zakaznikid = t1.id";
+            StringBuilder sql = new StringBuilder();
+            sql.Append(" select t4.id, ");
+            sql.Append($" case when(Year(DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) = '{Rok}'");
+            sql.Append($" and((Month(DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) <= 6  and  '{Polol}' = '1')");
+            sql.Append($" or(Month(DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) > 6  and  '{Polol}' = '2')))");
+            sql.Append($" or(Year(DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)))) = '{Rok}'");
+            sql.Append($" and((Month(DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)))) <= 6 and  '{Polol}' = '1')");
+            sql.Append($" or(Month(DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)))) > 6 and  '{Polol}' = '2')))");
+            sql.Append(" then 1 else 0 end as 'Revize',");
+            sql.Append($" case when(Year(DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni))) = '{Rok}'");
+            sql.Append($" and((Month(DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni))) <= 6  and  '{Polol}' = '1')");
+            sql.Append($" or(Month(DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni))) > 6  and  '{Polol}' = '2')");
+            sql.Append(" )) then 1 else 0 end as 'Pyro',");
+            sql.Append($" case when(Year(DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni))) = '{Rok}'");
+            sql.Append($" and((Month(DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni))) <= 6  and  '{Polol}' = '1')");
+            sql.Append($" or(Month(DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni))) > 6  and  '{Polol}' = '2')");
+            sql.Append(" )) then 1 else 0 end as 'Baterie',");
+            sql.Append($" case when(Year(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) = '{Rok}'");
+            sql.Append($" and((Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) <= 6  and  '{Polol}' = '1')");
+            sql.Append($" or(Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) > 6  and  '{Polol}' = '2')");
+            sql.Append(" )) then 1 else 0 end as 'TlKZK'");
+            sql.Append(" from[Servis].[dbo].[Region] t0");
+            sql.Append(" left join[Servis].[dbo].[Zakaznik] t1 on t0.id = t1.regionid");
+            sql.Append(" left join[Servis].[dbo].[provoz] t2 on t2.zakaznikid = t1.id");
             if (Umisteni == null)
             {
-                sql = sql + @" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'false' ";
+                sql.Append(" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'false' ");
             }
             else
             {
-                sql = sql + @" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'true'";
+                sql.Append(" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'true'");
             }
-            sql = sql + @" left join[Servis].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id";
-            sql = sql + @" left join[Servis].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId";
-            sql = sql + @" left join[Servis].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id";
-            sql = sql + @" where  t3.id is not null and t4.id is not null";
-            
-            sql = sql + @" and T2.Id = " + Provoz + "";
+            sql.Append(" left join[Servis].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id");
+            sql.Append(" left join[Servis].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId");
+            sql.Append(" left join[Servis].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id");
+            sql.Append(" where  t3.id is not null and t4.id is not null");
+            sql.Append($" and T2.Id = {Provoz}");
             if (Umisteni != null)
             {
-                sql = sql + @" and T3.Id = " + Umisteni + "";
+                sql.Append($" and T3.Id = {Umisteni}");
             }
+            log.Debug($"FindScForRevision Provoz:{Provoz}, Umisteni: {Umisteni}, Rok: {Rok}, Polol: {Polol} ");
+            log.Debug(sql.ToString());
 
             SqlConnection cnn = new SqlConnection(conn);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
-            cmd.CommandText = sql;
+            cmd.CommandText = sql.ToString();
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -423,27 +444,32 @@ namespace VST_sprava_servisu
                     {
                         item.Id = dr.GetInt32(dr.GetOrdinal("id"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"id prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.Revize = dr.GetInt32(dr.GetOrdinal("Revize"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"Revize prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.Pyro = dr.GetInt32(dr.GetOrdinal("Pyro"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"Pyro prázdné {ex.Message} {ex.InnerException} {ex.Data}"); 
+                    }
                     try
                     {
                         item.Baterie = dr.GetInt32(dr.GetOrdinal("Baterie"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"Baterie prázdné {ex.Message} {ex.InnerException} {ex.Data}"); 
+                        }
                     try
                     {
                         item.TlkZk = dr.GetInt32(dr.GetOrdinal("TlkZk"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"TlkZk prázdné {ex.Message} {ex.InnerException} {ex.Data}"); 
+                            }
 
                     listplanrev.Add(item);
                 }
@@ -474,8 +500,15 @@ namespace VST_sprava_servisu
                             if (item.Baterie == 1) { revizesc.Baterie = true; }
                             if (item.Pyro == 1) { revizesc.Pyro = true; }
                             if (item.TlkZk == 1) { revizesc.TlakovaZkouska = true; }
-                            dbCtx.RevizeSC.Add(revizesc);
-                            dbCtx.SaveChanges();
+                            try
+                            {
+                                dbCtx.RevizeSC.Add(revizesc);
+                                dbCtx.SaveChanges();
+                            }
+                            catch (Exception ex)
+                            {
+                                log.Error($"AddItemsFromList {ex.Message} {ex.InnerException} {ex.Data}");
+                            }
                         }
                     }
 

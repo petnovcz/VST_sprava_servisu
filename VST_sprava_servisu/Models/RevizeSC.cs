@@ -9,7 +9,7 @@ namespace VST_sprava_servisu
     public partial class RevizeSC
     {
 
-        
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("RevizeSC");
 
 
         public static List<RevizeSC> GetListByRevizeId(int RevizeId, int? SCprovozuId)
@@ -72,8 +72,13 @@ namespace VST_sprava_servisu
 
             using (var dbCtx = new Model1Container())
             {
-                dbCtx.RevizeSC.Add(revizeSC);
-                dbCtx.SaveChanges();
+                try
+                {
+                    dbCtx.RevizeSC.Add(revizeSC);
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception ex) { log.Error($"CreateRevizeSC {ex.Message} {ex.InnerException} {ex.Data}"); }
+                
             }
         }
 

@@ -8,6 +8,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Text;
+
+
 
 namespace VST_sprava_servisu
 {
@@ -24,6 +27,8 @@ namespace VST_sprava_servisu
 
     public partial class Revize
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("Revize");
+
         [NotMapped]
         private Zakaznik Zakaznik { get; set; }
         [NotMapped]
@@ -31,8 +36,7 @@ namespace VST_sprava_servisu
         [NotMapped]
         public virtual ICollection<RevizeBaterie> RevizeBaterie { get; set; }
 
-        //private string connectionString = @"Data Source=sql;Initial Catalog=Servis;User ID=sa;Password=*2012Versino";
-         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
 
         /// <summary>
@@ -49,6 +53,7 @@ namespace VST_sprava_servisu
                 Revize revize = revizelist[x];
                 revize.RevizeBaterie = revize.CalculateRevizeBaterie(revizeid);
                 revizelist[x] = revize;
+                
 
             }
 
@@ -65,15 +70,18 @@ namespace VST_sprava_servisu
         internal protected List<RevizeBaterie> CalculateRevizeBaterie(int revize)
         {
             List<RevizeBaterie> listplanrev = new List<RevizeBaterie>();
-            string sql = @"";
-            sql = sql + @" select t1.BaterieArtikl as 'BaterieArtikl', COUNT(t1.BaterieArtikl) as 'Pocet', t3.Nazev as 'BaterieName', t3.KodSAP as 'BaterieSAPKod'";
-            sql = sql + @" from RevizeSC t0 inner join SCProvozu t1 on t0.SCProvozuID = t1.Id inner join Artikl t3 on t1.BaterieArtikl = t3.Id";
-            sql = sql + @" where t1.BaterieArtikl is not Null and t0.RevizeId = '" + revize + "' and t0.Baterie = 1";
-            sql = sql + @" group by t1.BaterieArtikl, t3.Nazev, t3.KodSAP";
+            StringBuilder sql = new StringBuilder();
+            sql.Append(" select t1.BaterieArtikl as 'BaterieArtikl', COUNT(t1.BaterieArtikl) as 'Pocet', t3.Nazev as 'BaterieName', t3.KodSAP as 'BaterieSAPKod'");
+            sql.Append(" from RevizeSC t0 inner join SCProvozu t1 on t0.SCProvozuID = t1.Id inner join Artikl t3 on t1.BaterieArtikl = t3.Id");
+            sql.Append(" where t1.BaterieArtikl is not Null and t0.RevizeId = '" + revize + "' and t0.Baterie = 1");
+            sql.Append(" group by t1.BaterieArtikl, t3.Nazev, t3.KodSAP");
+
+            log.Debug($"CalculateRevizeBaterie pro revizi č.{revize.ToString()}");
+            log.Debug(sql.ToString());
             SqlConnection cnn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
-            cmd.CommandText = sql;
+            cmd.CommandText = sql.ToString();
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -88,29 +96,33 @@ namespace VST_sprava_servisu
                     {
                         item.BaterieArtikl = dr.GetInt32(dr.GetOrdinal("BaterieArtikl"));
                     }
-                    catch { }
+                    catch(Exception ex) { //log.Info($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.BaterieSAPKod = dr.GetString(dr.GetOrdinal("BaterieSAPKod"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"Baterie SAPKod prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.BaterieName = dr.GetString(dr.GetOrdinal("BaterieName"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"Baterie nazev prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     try
                     {
                         item.Pocet = dr.GetInt32(dr.GetOrdinal("Pocet"));
                     }
-                    catch { }
+                    catch (Exception ex) { //log.Info($"pocet prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    }
                     
 
                     listplanrev.Add(item);
                 }
             }
             cnn.Close();
-
+            
             return listplanrev;
 
 
@@ -135,9 +147,9 @@ namespace VST_sprava_servisu
                     dbCtx.Entry(revize).State = EntityState.Modified;
                     dbCtx.SaveChanges();
                 }
-                catch
+                catch(Exception ex)
                 {
-
+                    log.Error($"Update Revize Header pro revizi č.{id} s chybovou hláškou {ex.Message} {ex.Data} {ex.InnerException}");
                 }
 
                 
@@ -158,6 +170,7 @@ namespace VST_sprava_servisu
             {
                 provozl = dbCtx.Revize.ToList();
             }
+            
             return provozl;
         }
     
@@ -269,8 +282,13 @@ namespace VST_sprava_servisu
             if (Umisteni != 0) { revize.UmisteniId = Umisteni; }
             using (var dbCtx = new Model1Container())
             {
-                dbCtx.Revize.Add(revize);
-                dbCtx.SaveChanges();
+                try
+                {
+                    dbCtx.Revize.Add(revize);
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception ex)
+                { log.Error($"Generovani revize GenerateRevision {ex.Data} {ex.InnerException} {ex.Message}"); }
             }
             return revize;
         }
@@ -359,7 +377,10 @@ namespace VST_sprava_servisu
                     dbCtx.Entry(revize).State = EntityState.Modified;
                     dbCtx.SaveChanges();
                 }
-                catch{ }
+                catch(Exception ex)
+                {
+                    log.Error($"CloseRevize revize c.{Id} {ex.Data} {ex.InnerException} {ex.HResult} {ex.Message}");
+                }
                 revizesclist = VST_sprava_servisu.RevizeSC.GetListByRevizeId(Id,null);
                 CallSCProvozupdate(revizesclist, revize.KontrolaProvedenaDne.Value);
             }
