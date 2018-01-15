@@ -61,9 +61,9 @@ namespace VST_sprava_servisu
                     db.Artikl.Add(artikl);
                     db.SaveChanges();
                 }
-                catch (SqlException e)
+                catch (Exception ex)
                 {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                    log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                 }
                 return RedirectToAction("Details","SkupinaArtiklu",new { id = artikl.SkupinaArtiklu});
             }
@@ -103,9 +103,9 @@ namespace VST_sprava_servisu
                     db.Entry(artikl).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                catch (SqlException e)
+                catch (Exception ex)
                 {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
+                    log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                 }
                 return RedirectToAction("Details", "SkupinaArtiklu", new { id = artikl.SkupinaArtiklu });
             }
@@ -142,43 +142,14 @@ namespace VST_sprava_servisu
                 db.Artikl.Remove(artikl);
                 db.SaveChanges();
             }
-            catch (SqlException e)
+            catch (Exception ex)
             {
-                log.Error("Error number: " + e.Number + " - " + e.Message);
+                log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
             }
             return RedirectToAction("Details", "SkupinaArtiklu", new { id = idsa });
         }
 
-        [Authorize(Roles = "Administrator,Manager")]
-        public bool CreateFromSAPdata(SAPItem sapItem)
-        {
-
-            if (ModelState.IsValid)
-            {
-                Artikl artikl = new Artikl();
-                artikl.KodSAP = sapItem.ItemCode;
-                artikl.Nazev = sapItem.ItemName;
-
-                artikl.Typ = sapItem.ItmsGrpNam;
-                artikl.Oznaceni = sapItem.ItemName;
-                artikl.RozsahProvoznichTeplot = " ";
-                artikl.SkupinaArtiklu = sapItem.ItmsGrpCod;
-                try
-                {
-                    db.Artikl.Add(artikl);
-                    db.SaveChanges();
-                }
-                catch (SqlException e)
-                {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
-                }
-            }
-
-
-
-
-            return true;
-        }
+        
 
 
         protected override void Dispose(bool disposing)

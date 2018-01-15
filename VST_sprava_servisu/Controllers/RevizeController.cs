@@ -16,9 +16,11 @@ namespace VST_sprava_servisu
 {
     public class RevizeController : Controller
     {
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Model1Container db = new Model1Container();
-        //private string connectionString = @"Data Source=sql;Initial Catalog=SBO;User ID=sa;Password=*2012Versino";
+
         private string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+
         // GET: Revize
         [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Index(int Zakaznik)
@@ -49,22 +51,22 @@ namespace VST_sprava_servisu
             {
                 ViewBag.ListRegion = Session["List_Skupina"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             try
             {
                 ViewBag.ListDateFrom = Session["List_DateFrom"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             try
             {
                 ViewBag.ListDateTo = Session["List_DateTo"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             try
             {
                 ViewBag.ListStatusRevize = Session["List_StatusRevize"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
             ViewBag.Region = Region;
             return View(revize);
@@ -86,7 +88,7 @@ namespace VST_sprava_servisu
             {
                 ViewBag.ListRegion = Session["List_Skupina"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
             try
             {
@@ -94,19 +96,20 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(ListDateFrom);
                 ViewBag.ListDateFrom = xx;
             }
-            catch { }
+            catch (Exception ex) { log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             try
             {
                 var ListDateTo = Session["List_DateTo"].ToString();
                 DateTime xx = Convert.ToDateTime(ListDateTo);
                 ViewBag.ListDateTo = xx;
             }
-            catch { }
+            catch (Exception ex) { log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             try
             {
                 ViewBag.ListStatus = Session["List_Status"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
             revize.Region = Region.Value;
             ViewBag.Region = Region;
             return View(revize);
@@ -132,8 +135,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Revize.Add(revize);
-                db.SaveChanges();
+                try
+                {
+                    db.Revize.Add(revize);
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Create - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
 
@@ -171,8 +178,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(revize).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(revize).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Edit - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Details","Revize",new { Id = revize.Id, Region = Region});
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
@@ -203,8 +214,13 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             Revize revize = db.Revize.Find(id);
-            db.Revize.Remove(revize);
-            db.SaveChanges();
+
+            try
+            {
+                db.Revize.Remove(revize);
+                db.SaveChanges();
+            }
+            catch (Exception ex) { log.Error("DeleteConfirmed - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             return RedirectToAction("Index");
         }
 
@@ -236,17 +252,17 @@ namespace VST_sprava_servisu
             {
                 session_rok = Convert.ToInt32(Session["Rok"].ToString());
             }
-            catch {}
+            catch (Exception ex) { log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             try
             {
                 session_mesic = Convert.ToInt32(Session["Mesic"].ToString());
             }
-            catch { }
+            catch (Exception ex) { log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             try
             {
                 session_region = Convert.ToInt32(Session["List_Skupina"].ToString());
             }
-            catch { }
+            catch (Exception ex) { log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             if (Rok != null) { Session["Rok"] = Rok; }
             if (Mesic != null) { Session["Mesic"] = Mesic; }
             if (Region != null) { Session["List_Skupina"] = Region; }
@@ -285,27 +301,27 @@ namespace VST_sprava_servisu
             {
                 ListRegion = Session["List_Skupina"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
             try
             {
-                var xListDateFrom = Session["List_DateFrom"].ToString();
+                var xListDateFrom = Session["ListLines - List_DateFrom"].ToString();
                 DateTime xx = Convert.ToDateTime(xListDateFrom);
                 ListDateFrom = xx;
             }
-            catch { }
+            catch (Exception ex) { log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             try
             {
                 var ListDateTox = Session["List_DateTo"].ToString();
                 DateTime xx = Convert.ToDateTime(ListDateTox);
                 ListDateTo = xx;
             }
-            catch { }
+            catch (Exception ex) { log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             try
             {
                 ListStatus = Session["List_Status"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
             ViewBag.ListDateFrom = ListDateFrom;
             ViewBag.ListDateTo = ListDateTo;
@@ -337,7 +353,8 @@ namespace VST_sprava_servisu
             {
                 ListRegion = Session["List_Skupina"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
 
             try
             {
@@ -345,19 +362,22 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(xListDateFrom);
                 ListDateFrom = xx;
             }
-            catch { }
+            catch (Exception ex) { log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
             try
             {
                 var ListDateTox = Session["List_DateTo"].ToString();
                 DateTime xx = Convert.ToDateTime(ListDateTox);
                 ListDateTo = xx;
             }
-            catch { }
+            catch (Exception ex) { log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
             try
             {
                 ListStatus = Session["List_Status"].ToString();
             }
-            catch { }
+            catch (Exception ex) { log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
 
 
 
@@ -560,8 +580,12 @@ namespace VST_sprava_servisu
             if (ModelState.IsValid)
             {
                 var region = Region;
-                db.Entry(revize).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(revize).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Replan - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Nahled", "Revize", new { Rok = revize.DatumRevize.Year, Mesic = revize.DatumRevize.Month, Region = region });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
@@ -659,8 +683,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(revize).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(revize).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Fill - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Details", "Revize", new { Id = revize.Id, Region = Region });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
@@ -675,10 +703,7 @@ namespace VST_sprava_servisu
         {
             Revize revize = new Revize();
             Revize.CloseRevize(Id);
-            //dohledat revizi
-            //změnit status revize 
-            //vyhledat všechny RevizeSC
-            //pro každou ReviziSC dohledat SC provozu a update datumu revize 
+            
 
             return RedirectToAction("Details", "Revize", new { Id = Id });
         }

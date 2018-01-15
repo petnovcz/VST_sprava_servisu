@@ -22,16 +22,7 @@ namespace VST_sprava_servisu
             var kontakniOsoba = db.KontakniOsoba.Include(k => k.Provoz).Include(k => k.Zakaznik).Where(k=>k.ZakaznikId == Zakaznik);
             ViewBag.Zakaznik = Zakaznik;
 
-            if (Zakaznik == 1)
-            {
-                var Zcontroller = DependencyResolver.Current.GetService<SAPDIAPIController>();
-                Zcontroller.ControllerContext = new ControllerContext(this.Request.RequestContext, Zcontroller);
-
-                bool x = false;
-                //x = Zcontroller.UpdateContactName("Z000137", "Jerzy Opieka", "Opieka Jerzy");
-
-
-            }
+            
             return View(kontakniOsoba.ToList());
         }
 
@@ -77,10 +68,7 @@ namespace VST_sprava_servisu
                     db.KontakniOsoba.Add(kontakniOsoba);
                     db.SaveChanges();
                 }
-                catch (SqlException e)
-                {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
-                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
 
@@ -89,37 +77,7 @@ namespace VST_sprava_servisu
             return View(kontakniOsoba);
         }
 
-        [Authorize(Roles = "Administrator,Manager")]
-        public bool Generate(int ZakaznikId, string JmenoPrijmeni, string Pozice, string Telefon, string Email, int SAPId)
-        {
-            KontakniOsoba ko = new KontakniOsoba();
-            ko.ZakaznikId = ZakaznikId;
-            ko.JmenoPrijmeni = JmenoPrijmeni;
-            if (Pozice == null) { Pozice = ""; }
-            ko.Pozice = Pozice;
-            if (Telefon == null) { Telefon = ""; }
-            ko.Telefon = Telefon ;
-            if (Email == null) { Email = ""; }
-            ko.Email = Email;
-            ko.SAPId = SAPId;
-            //ko.ProvozId = ProvozId;
-           
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    db.KontakniOsoba.Add(ko);
-                    db.SaveChanges();
-                }
-                catch (SqlException e)
-                {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
-                }
-
-            }
-
-            return true;
-        }
+        
 
 
 
@@ -158,10 +116,7 @@ namespace VST_sprava_servisu
                     db.Entry(kontakniOsoba).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                catch (SqlException e)
-                {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
-                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = kontakniOsoba.ZakaznikId });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.ZakaznikId == kontakniOsoba.ZakaznikId), "Id", "NazevProvozu", kontakniOsoba.ProvozId);
@@ -201,11 +156,8 @@ namespace VST_sprava_servisu
                 db.KontakniOsoba.Remove(kontakniOsoba);
                 db.SaveChanges();
             }
-            catch (SqlException e)
-            {
-                log.Error("Error number: " + e.Number + " - " + e.Message);
-            }
-            return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = Zakaznik });
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik });
         }
 
         protected override void Dispose(bool disposing)

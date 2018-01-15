@@ -73,11 +73,13 @@ namespace VST_sprava_servisu
             StringBuilder sql = new StringBuilder();
             sql.Append(" select t1.BaterieArtikl as 'BaterieArtikl', COUNT(t1.BaterieArtikl) as 'Pocet', t3.Nazev as 'BaterieName', t3.KodSAP as 'BaterieSAPKod'");
             sql.Append(" from RevizeSC t0 inner join SCProvozu t1 on t0.SCProvozuID = t1.Id inner join Artikl t3 on t1.BaterieArtikl = t3.Id");
-            sql.Append(" where t1.BaterieArtikl is not Null and t0.RevizeId = '" + revize + "' and t0.Baterie = 1");
+            sql.Append($" where t1.BaterieArtikl is not Null and t0.RevizeId = '{revize}' and t0.Baterie = 1");
             sql.Append(" group by t1.BaterieArtikl, t3.Nazev, t3.KodSAP");
 
+            //  LOGOVANI
             log.Debug($"CalculateRevizeBaterie pro revizi č.{revize.ToString()}");
             log.Debug(sql.ToString());
+
             SqlConnection cnn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
@@ -96,25 +98,25 @@ namespace VST_sprava_servisu
                     {
                         item.BaterieArtikl = dr.GetInt32(dr.GetOrdinal("BaterieArtikl"));
                     }
-                    catch(Exception ex) { //log.Info($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch(Exception ex) { log.Info($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
                         item.BaterieSAPKod = dr.GetString(dr.GetOrdinal("BaterieSAPKod"));
                     }
-                    catch (Exception ex) { //log.Info($"Baterie SAPKod prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch (Exception ex) { log.Info($"Baterie SAPKod prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
                         item.BaterieName = dr.GetString(dr.GetOrdinal("BaterieName"));
                     }
-                    catch (Exception ex) { //log.Info($"Baterie nazev prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch (Exception ex) { log.Info($"Baterie nazev prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
                         item.Pocet = dr.GetInt32(dr.GetOrdinal("Pocet"));
                     }
-                    catch (Exception ex) { //log.Info($"pocet prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch (Exception ex) { log.Info($"pocet prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     
 

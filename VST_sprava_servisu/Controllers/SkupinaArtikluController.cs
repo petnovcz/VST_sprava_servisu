@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     public class SkupinaArtikluController : Controller
     {
         private Model1Container db = new Model1Container();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SkupinaArtikluController");
 
         // GET: SkupinaArtiklu
         [Authorize(Roles = "Administrator,Manager")]
@@ -53,8 +54,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.SkupinaArtiklu.Add(skupinaArtiklu);
-                db.SaveChanges();
+                try
+                {
+                    db.SkupinaArtiklu.Add(skupinaArtiklu);
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
 
@@ -87,8 +92,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(skupinaArtiklu).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(skupinaArtiklu).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
             return View(skupinaArtiklu);
@@ -117,8 +126,12 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             SkupinaArtiklu skupinaArtiklu = db.SkupinaArtiklu.Find(id);
-            db.SkupinaArtiklu.Remove(skupinaArtiklu);
-            db.SaveChanges();
+            try
+            {
+                db.SkupinaArtiklu.Remove(skupinaArtiklu);
+                db.SaveChanges();
+            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             return RedirectToAction("Index");
         }
 

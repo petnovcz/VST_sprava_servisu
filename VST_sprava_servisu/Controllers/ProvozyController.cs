@@ -80,10 +80,8 @@ namespace VST_sprava_servisu
                     db.Provoz.Add(provoz);
                     db.SaveChanges();
                 }
-                catch (SqlException e)
-                {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
-                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
                 var provozy = db.Provoz.Include(p => p.Zakaznik).Where(p => p.ZakaznikId == Zakaznik);
                 ViewBag.Zakaznik = Zakaznik;
                 return RedirectToAction("Details","Zakaznici",new {Id = Zakaznik });
@@ -93,30 +91,7 @@ namespace VST_sprava_servisu
             return View(provoz);
         }
 
-        [Authorize(Roles = "Administrator,Manager")]
-        public bool Generate(string Address, string CardCode, string Street, string ZipCode, string City, string Country, int Zakaznik)
-        {
-            Provoz provoz  = new Provoz();
-            provoz.ZakaznikId = Zakaznik;
-            provoz.NazevProvozu = Address;
-            provoz.SAPAddress = Address;
-            provoz.AdresaProvozu = Street + ", " + ZipCode + ", " + City + ", " + Country;
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    db.Provoz.Add(provoz);
-                    db.SaveChanges();
-                }
-                catch (SqlException e)
-                {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
-                }
-
-            }
-
-            return true;
-        }
+        
 
 
         // GET: Provozy/Edit/5
@@ -153,10 +128,8 @@ namespace VST_sprava_servisu
                     db.Entry(provoz).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                catch (SqlException e)
-                {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
-                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
                 return RedirectToAction("Details", "Zakaznici", new { Id = zakaznik });
             }
             ViewBag.Zakaznik = zakaznik;
@@ -194,10 +167,8 @@ namespace VST_sprava_servisu
                 db.Provoz.Remove(provoz);
                 db.SaveChanges();
             }
-            catch (SqlException e)
-            {
-                log.Error("Error number: " + e.Number + " - " + e.Message);
-            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
             return RedirectToAction("Details", "Zakaznici", new { Id = zakaznik });
         }
 

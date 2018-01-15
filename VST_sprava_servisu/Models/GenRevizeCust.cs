@@ -9,29 +9,6 @@ using System.Text;
 
 namespace VST_sprava_servisu
 {
-
-    public partial class CalculatedSCForRevision
-    {
-        public int ZakaznikId { get; set;}
-        public int ProvozId { get; set; }
-        public int UmisteniId { get; set; }
-        public int SCProvozuId { get; set; }
-        public Nullable<DateTime> NextRevize { get; set; }
-        public Nullable<DateTime> Next2Revize { get; set; }
-        public Nullable<DateTime> NextBaterie { get; set; }
-        public Nullable<DateTime> NextPyro { get; set; }
-        public Nullable<DateTime> NextTlkZk { get; set; }
-    }
-
-    public partial class DnyRevize
-    {
-        internal DateTime DenRevize1 { get; set; }
-        internal DateTime prvnidenobdobiR1 { get; set; }
-        internal DateTime poslednidenobdobiR1 { get; set; }
-        internal DateTime DenRevize2 { get; set; }
-        internal DateTime prvnidenobdobiR2 { get; set; }
-        internal DateTime poslednidenobdobiR2 { get; set; }
-    }
     public partial class GenRevizeCust
     {
         public int Rok { get; set; }
@@ -51,7 +28,7 @@ namespace VST_sprava_servisu
         public string Nabidka { get; set; }
         public string Projekt { get; set; }
 
-        public DnyRevize dnyrevize { get; set; }
+        public DnyRevize Dnyrevize { get; set; }
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("GenRevizeCust");
 
@@ -79,7 +56,7 @@ namespace VST_sprava_servisu
 
             GenRevizeCust gen = new GenRevizeCust();
             DnyRevize dnyRevize = MinimalniDatum(ZakaznikId, ProvozId, Rok, UmisteniId);
-            gen.dnyrevize = dnyRevize;
+            gen.Dnyrevize = dnyRevize;
             
 
             // REVIZE1
@@ -93,16 +70,16 @@ namespace VST_sprava_servisu
                 }
                 else
                 {
-                    gen.dnyrevize.prvnidenobdobiR1 = Prvnidenobdobi(Rok, 1);
-                    gen.dnyrevize.poslednidenobdobiR1 = Poslednidenobdobi(Rok, 1);
+                    gen.Dnyrevize.PrvnidenobdobiR1 = Prvnidenobdobi(Rok, 1);
+                    gen.Dnyrevize.PoslednidenobdobiR1 = Poslednidenobdobi(Rok, 1);
 
 
 
                     // Prvni revize v obdobi
                     if (
-                        (dnyRevize.DenRevize1 >= gen.dnyrevize.prvnidenobdobiR1)
+                        (dnyRevize.DenRevize1 >= gen.Dnyrevize.PrvnidenobdobiR1)
                         &&
-                        (dnyRevize.DenRevize1 <= gen.dnyrevize.poslednidenobdobiR1)
+                        (dnyRevize.DenRevize1 <= gen.Dnyrevize.PoslednidenobdobiR1)
                         )
                      {
                         gen.Revize1 = Revize.GenerateRevision(ProvozId, Rok, 1, dnyRevize.DenRevize1, 1, UmisteniId, Nabidka, Projekt);
@@ -110,18 +87,18 @@ namespace VST_sprava_servisu
                      }
                     // prvni revize pred obdobim
                     if (
-                        (dnyRevize.DenRevize1 < gen.dnyrevize.prvnidenobdobiR1)
+                        (dnyRevize.DenRevize1 < gen.Dnyrevize.PrvnidenobdobiR1)
 
                         )
                     {
-                        gen.Revize1 = Revize.GenerateRevision(ProvozId, Rok, 1, gen.dnyrevize.prvnidenobdobiR1, 1, UmisteniId, Nabidka, Projekt);
+                        gen.Revize1 = Revize.GenerateRevision(ProvozId, Rok, 1, gen.Dnyrevize.PrvnidenobdobiR1, 1, UmisteniId, Nabidka, Projekt);
 
                     }
                     // prvni revize v druhem pololeti vygeneruje se jako revize 2
                     if (
-                        (dnyRevize.DenRevize1 >= gen.dnyrevize.prvnidenobdobiR2)
+                        (dnyRevize.DenRevize1 >= gen.Dnyrevize.PrvnidenobdobiR2)
                         &&
-                        (dnyRevize.DenRevize1 <= gen.dnyrevize.poslednidenobdobiR2)
+                        (dnyRevize.DenRevize1 <= gen.Dnyrevize.PoslednidenobdobiR2)
 
                         )
                     {
@@ -142,14 +119,14 @@ namespace VST_sprava_servisu
                 }
                 else
                 {
-                    gen.dnyrevize.prvnidenobdobiR1 = Prvnidenobdobi(Rok, 1);
-                    gen.dnyrevize.poslednidenobdobiR1 = Poslednidenobdobi(Rok, 1);
+                    gen.Dnyrevize.PrvnidenobdobiR1 = Prvnidenobdobi(Rok, 1);
+                    gen.Dnyrevize.PoslednidenobdobiR1 = Poslednidenobdobi(Rok, 1);
 
                     // Prvni revize v obdobi
                     if (
-                        (dnyRevize.DenRevize1 >= gen.dnyrevize.prvnidenobdobiR1)
+                        (dnyRevize.DenRevize1 >= gen.Dnyrevize.PrvnidenobdobiR1)
                         &&
-                        (dnyRevize.DenRevize1 <= gen.dnyrevize.poslednidenobdobiR1)
+                        (dnyRevize.DenRevize1 <= gen.Dnyrevize.PoslednidenobdobiR1)
                         )
                     {
                         gen.Revize1 = Revize.GenerateRevision(ProvozId, Rok, 1, dnyRevize.DenRevize1, 1, null, Nabidka, Projekt);
@@ -157,18 +134,18 @@ namespace VST_sprava_servisu
                     }
                     // prvni revize pred obdobim
                     if (
-                        (dnyRevize.DenRevize1 < gen.dnyrevize.prvnidenobdobiR1)
+                        (dnyRevize.DenRevize1 < gen.Dnyrevize.PrvnidenobdobiR1)
 
                         )
                     {
-                        gen.Revize1 = Revize.GenerateRevision(ProvozId, Rok, 1, gen.dnyrevize.prvnidenobdobiR1, 1, null, Nabidka, Projekt);
+                        gen.Revize1 = Revize.GenerateRevision(ProvozId, Rok, 1, gen.Dnyrevize.PrvnidenobdobiR1, 1, null, Nabidka, Projekt);
 
                     }
                     // prvni revize v druhem pololeti vygeneruje se jako revize 2
                     if (
-                        (dnyRevize.DenRevize1 >= gen.dnyrevize.prvnidenobdobiR2)
+                        (dnyRevize.DenRevize1 >= gen.Dnyrevize.PrvnidenobdobiR2)
                         &&
-                        (dnyRevize.DenRevize1 <= gen.dnyrevize.poslednidenobdobiR2)
+                        (dnyRevize.DenRevize1 <= gen.Dnyrevize.PoslednidenobdobiR2)
 
                         )
                     {
@@ -190,16 +167,16 @@ namespace VST_sprava_servisu
                 }
                 else
                 {
-                    gen.dnyrevize.prvnidenobdobiR2 = Prvnidenobdobi(Rok, 2);
-                    gen.dnyrevize.poslednidenobdobiR2 = Poslednidenobdobi(Rok, 2);
+                    gen.Dnyrevize.PrvnidenobdobiR2 = Prvnidenobdobi(Rok, 2);
+                    gen.Dnyrevize.PoslednidenobdobiR2 = Poslednidenobdobi(Rok, 2);
 
 
 
                     // druha revize v obdobi
                     if (
-                        (dnyRevize.DenRevize2 >= gen.dnyrevize.prvnidenobdobiR2)
+                        (dnyRevize.DenRevize2 >= gen.Dnyrevize.PrvnidenobdobiR2)
                         &&
-                        (dnyRevize.DenRevize2 <= gen.dnyrevize.poslednidenobdobiR2)
+                        (dnyRevize.DenRevize2 <= gen.Dnyrevize.PoslednidenobdobiR2)
                         )
                     {
                         gen.Revize2 = Revize.GenerateRevision(ProvozId, Rok, 2, dnyRevize.DenRevize2, 1, UmisteniId, Nabidka, Projekt);
@@ -207,11 +184,11 @@ namespace VST_sprava_servisu
                     }
                     // druha revize pred obdobim
                     if (
-                        (dnyRevize.DenRevize2 < gen.dnyrevize.prvnidenobdobiR2)
+                        (dnyRevize.DenRevize2 < gen.Dnyrevize.PrvnidenobdobiR2)
 
                         )
                     {
-                        gen.Revize2 = Revize.GenerateRevision(ProvozId, Rok, 2, gen.dnyrevize.prvnidenobdobiR2, 1, UmisteniId, Nabidka, Projekt);
+                        gen.Revize2 = Revize.GenerateRevision(ProvozId, Rok, 2, gen.Dnyrevize.PrvnidenobdobiR2, 1, UmisteniId, Nabidka, Projekt);
 
                     }
                     
@@ -229,14 +206,14 @@ namespace VST_sprava_servisu
                 }
                 else
                 {
-                    gen.dnyrevize.prvnidenobdobiR2 = Prvnidenobdobi(Rok, 2);
-                    gen.dnyrevize.poslednidenobdobiR2 = Poslednidenobdobi(Rok, 2);
+                    gen.Dnyrevize.PrvnidenobdobiR2 = Prvnidenobdobi(Rok, 2);
+                    gen.Dnyrevize.PoslednidenobdobiR2 = Poslednidenobdobi(Rok, 2);
 
                     // druha revize v obdobi
                     if (
-                        (dnyRevize.DenRevize2 >= gen.dnyrevize.prvnidenobdobiR2)
+                        (dnyRevize.DenRevize2 >= gen.Dnyrevize.PrvnidenobdobiR2)
                         &&
-                        (dnyRevize.DenRevize2 <= gen.dnyrevize.poslednidenobdobiR2)
+                        (dnyRevize.DenRevize2 <= gen.Dnyrevize.PoslednidenobdobiR2)
                         )
                     {
                         gen.Revize2 = Revize.GenerateRevision(ProvozId, Rok, 2, dnyRevize.DenRevize2, 1, null, Nabidka, Projekt);
@@ -244,17 +221,17 @@ namespace VST_sprava_servisu
                     }
                     // druha revize pred obdobim
                     if (
-                        (dnyRevize.DenRevize2 < gen.dnyrevize.prvnidenobdobiR2)
+                        (dnyRevize.DenRevize2 < gen.Dnyrevize.PrvnidenobdobiR2)
 
                         )
                     {
-                        gen.Revize2 = Revize.GenerateRevision(ProvozId, Rok, 2, gen.dnyrevize.prvnidenobdobiR2, 1, null, Nabidka, Projekt);
+                        gen.Revize2 = Revize.GenerateRevision(ProvozId, Rok, 2, gen.Dnyrevize.PrvnidenobdobiR2, 1, null, Nabidka, Projekt);
 
                     }
                 }
             }
 
-            List<CalculatedSCForRevision> list = calculatescfrorevision(ZakaznikId, ProvozId, UmisteniId);
+            List<CalculatedSCForRevision> list = Calculatescfrorevision(ZakaznikId, ProvozId, UmisteniId);
             InsertSCtoRevision(gen, list);
             gen.Revize1.UpdateRevizeHeader(gen.Revize1.Id);
             gen.Revize2.UpdateRevizeHeader(gen.Revize2.Id);
@@ -347,7 +324,11 @@ namespace VST_sprava_servisu
             sql.Append($" t1.ID = '{ZakaznikId}' and T2.id = '{ProvozId}' and(T3.Id = '{UmisteniId}' or '{UmisteniId}' = '0')");
             sql.Append(" ) x");
             sql.Append(" group by x.ZakaznikId, x.Zakaznik,x.ProvozId, x.Provoz");
-            
+
+            //LOGOVANI
+            log.Debug($"MinimalniDatum pro revizi pro ZakaznikID: {ZakaznikId},ProvozId : {ProvozId}, Rok: {Rok}, UmisteniId: {UmisteniId}");
+            log.Debug(sql.ToString());
+
             SqlConnection cnn = new SqlConnection(con);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
@@ -366,12 +347,12 @@ namespace VST_sprava_servisu
                     {
                         dnyrevize.DenRevize1 = dr.GetDateTime(dr.GetOrdinal("R1"));
                     }
-                    catch(Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
                         dnyrevize.DenRevize2 = dr.GetDateTime(dr.GetOrdinal("R2"));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 }
             }
             cnn.Close();
@@ -388,7 +369,7 @@ namespace VST_sprava_servisu
             return result;
         }
 
-        internal protected static List<CalculatedSCForRevision> calculatescfrorevision(int ZakaznikId, int ProvozId, int? UmisteniId)
+        internal protected static List<CalculatedSCForRevision> Calculatescfrorevision(int ZakaznikId, int ProvozId, int? UmisteniId)
         {
             List<CalculatedSCForRevision> calc = new List<CalculatedSCForRevision>();
 
@@ -412,8 +393,10 @@ namespace VST_sprava_servisu
             sql.Append($" and t1.Id = '{ProvozId}' ");
             sql.Append($" and (t2.Id = '{UmisteniId}' or '{UmisteniId}' = '0')");
 
-            log.Debug("calculatescfrorevision");
+            //LOGOVANI
+            log.Debug($"calculatescfrorevision pro ZakaznikId: {ZakaznikId}, ProvozId: {ProvozId}, UmisteniId: {UmisteniId}");
             log.Debug(sql.ToString());
+
             SqlConnection cnn = new SqlConnection(con);
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
@@ -432,47 +415,47 @@ namespace VST_sprava_servisu
                     {
                         item.ZakaznikId = dr.GetInt32(dr.GetOrdinal("ZakaznikId"));
                     }
-                    catch(Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
                         item.ProvozId = dr.GetInt32(dr.GetOrdinal("ProvozId"));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
                         item.UmisteniId = dr.GetInt32(dr.GetOrdinal("UmisteniId"));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
                         item.SCProvozuId = dr.GetInt32(dr.GetOrdinal("SCProvozuId"));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
                         item.NextRevize = dr.GetDateTime(dr.GetOrdinal("NextRevize"));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
                         item.Next2Revize = dr.GetDateTime(dr.GetOrdinal("Next2Revize"));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
                         item.NextPyro = dr.GetDateTime(dr.GetOrdinal("NextPyro"));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
                         item.NextBaterie = dr.GetDateTime(dr.GetOrdinal("NextBaterie"));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
                         item.NextTlkZk = dr.GetDateTime(dr.GetOrdinal("NextTlkZk"));
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     calc.Add(item);
                 }
             }
@@ -497,13 +480,13 @@ namespace VST_sprava_servisu
 
 
 
-                if (item.NextRevize <= gen.dnyrevize.poslednidenobdobiR1)
+                if (item.NextRevize <= gen.Dnyrevize.PoslednidenobdobiR1)
                 {
                     
                     RSC1.RevizeId = gen.Revize1.Id;
                     RSC1.SCProvozuId = item.SCProvozuId;
                     RSC1.UmisteniId = item.UmisteniId;
-                    if (item.NextBaterie <= gen.dnyrevize.poslednidenobdobiR1)
+                    if (item.NextBaterie <= gen.Dnyrevize.PoslednidenobdobiR1)
                     {
                         RSC1.Baterie = true;
                     }
@@ -511,7 +494,7 @@ namespace VST_sprava_servisu
                     {
                         RSC1.Baterie = false;
                     }
-                    if (item.NextPyro <= gen.dnyrevize.poslednidenobdobiR1)
+                    if (item.NextPyro <= gen.Dnyrevize.PoslednidenobdobiR1)
                     {
                         RSC1.Pyro = true;
                     }
@@ -519,7 +502,7 @@ namespace VST_sprava_servisu
                     {
                         RSC1.Pyro = false;
                     }
-                    if (item.NextTlkZk <= gen.dnyrevize.poslednidenobdobiR1)
+                    if (item.NextTlkZk <= gen.Dnyrevize.PoslednidenobdobiR1)
                     {
                         RSC1.TlakovaZkouska = true;
                     }
@@ -528,12 +511,12 @@ namespace VST_sprava_servisu
                         RSC1.TlakovaZkouska = false;
                     }
                 }
-                if (item.NextRevize >= gen.dnyrevize.prvnidenobdobiR2 && item.NextRevize <= gen.dnyrevize.poslednidenobdobiR2)
+                if (item.NextRevize >= gen.Dnyrevize.PrvnidenobdobiR2 && item.NextRevize <= gen.Dnyrevize.PoslednidenobdobiR2)
                 {
                     RSC2.RevizeId = gen.Revize2.Id;
                     RSC2.SCProvozuId = item.SCProvozuId;
                     RSC2.UmisteniId = item.UmisteniId;
-                    if (item.NextBaterie >= gen.dnyrevize.prvnidenobdobiR2 && item.NextBaterie <= gen.dnyrevize.poslednidenobdobiR2)
+                    if (item.NextBaterie >= gen.Dnyrevize.PrvnidenobdobiR2 && item.NextBaterie <= gen.Dnyrevize.PoslednidenobdobiR2)
                     {
                         RSC2.Baterie = true;
                     }
@@ -541,7 +524,7 @@ namespace VST_sprava_servisu
                     {
                         RSC2.Baterie = false;
                     }
-                    if (item.NextPyro >= gen.dnyrevize.prvnidenobdobiR2 && item.NextPyro <= gen.dnyrevize.poslednidenobdobiR2)
+                    if (item.NextPyro >= gen.Dnyrevize.PrvnidenobdobiR2 && item.NextPyro <= gen.Dnyrevize.PoslednidenobdobiR2)
                     {
                         RSC2.Pyro = true;
                     }
@@ -549,7 +532,7 @@ namespace VST_sprava_servisu
                     {
                         RSC2.Pyro = false;
                     }
-                    if (item.NextTlkZk >= gen.dnyrevize.prvnidenobdobiR2 && item.NextTlkZk <= gen.dnyrevize.poslednidenobdobiR2)
+                    if (item.NextTlkZk >= gen.Dnyrevize.PrvnidenobdobiR2 && item.NextTlkZk <= gen.Dnyrevize.PoslednidenobdobiR2)
                     {
                         RSC2.TlakovaZkouska = true;
                     }
@@ -561,12 +544,12 @@ namespace VST_sprava_servisu
 
                 }
 
-                if (item.Next2Revize <=  gen.dnyrevize.poslednidenobdobiR2)
+                if (item.Next2Revize <=  gen.Dnyrevize.PoslednidenobdobiR2)
                 {
                     RSC2.RevizeId = gen.Revize2.Id;
                     RSC2.SCProvozuId = item.SCProvozuId;
                     RSC2.UmisteniId = item.UmisteniId;
-                    if (item.NextBaterie >= gen.dnyrevize.prvnidenobdobiR2 && item.NextBaterie <= gen.dnyrevize.poslednidenobdobiR2)
+                    if (item.NextBaterie >= gen.Dnyrevize.PrvnidenobdobiR2 && item.NextBaterie <= gen.Dnyrevize.PoslednidenobdobiR2)
                     {
                         RSC2.Baterie = true;
                     }
@@ -574,7 +557,7 @@ namespace VST_sprava_servisu
                     {
                         RSC2.Baterie = false;
                     }
-                    if (item.NextPyro >= gen.dnyrevize.prvnidenobdobiR2 && item.NextPyro <= gen.dnyrevize.poslednidenobdobiR2)
+                    if (item.NextPyro >= gen.Dnyrevize.PrvnidenobdobiR2 && item.NextPyro <= gen.Dnyrevize.PoslednidenobdobiR2)
                     {
                         RSC2.Pyro = true;
                     }
@@ -582,7 +565,7 @@ namespace VST_sprava_servisu
                     {
                         RSC2.Pyro = false;
                     }
-                    if (item.NextTlkZk >= gen.dnyrevize.prvnidenobdobiR2 && item.NextTlkZk <= gen.dnyrevize.poslednidenobdobiR2)
+                    if (item.NextTlkZk >= gen.Dnyrevize.PrvnidenobdobiR2 && item.NextTlkZk <= gen.Dnyrevize.PoslednidenobdobiR2)
                     {
                         RSC2.TlakovaZkouska = true;
                     }

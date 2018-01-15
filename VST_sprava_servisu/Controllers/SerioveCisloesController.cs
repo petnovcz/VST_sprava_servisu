@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     public class SerioveCisloesController : Controller
     {
         private Model1Container db = new Model1Container();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SerioveCisloesController");
 
         // GET: SerioveCisloes
         [Authorize(Roles = "Administrator,Manager")]
@@ -55,8 +56,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.SerioveCislo.Add(serioveCislo);
-                db.SaveChanges();
+                try
+                {
+                    db.SerioveCislo.Add(serioveCislo);
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
 
@@ -91,8 +96,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(serioveCislo).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(serioveCislo).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
             ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", serioveCislo.ArtiklId);
@@ -122,8 +131,12 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             SerioveCislo serioveCislo = db.SerioveCislo.Find(id);
-            db.SerioveCislo.Remove(serioveCislo);
-            db.SaveChanges();
+            try
+            {
+                db.SerioveCislo.Remove(serioveCislo);
+                db.SaveChanges();
+            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             return RedirectToAction("Index");
         }
 

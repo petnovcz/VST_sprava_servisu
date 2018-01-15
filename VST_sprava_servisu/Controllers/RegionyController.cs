@@ -61,10 +61,8 @@ namespace VST_sprava_servisu
                     db.Region.Add(region);
                     db.SaveChanges();
                 }
-                catch (SqlException e)
-                {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
-                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
                 return RedirectToAction("Index");
             }
 
@@ -102,10 +100,8 @@ namespace VST_sprava_servisu
                     db.Entry(region).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                catch (SqlException e)
-                {
-                    log.Error("Error number: " + e.Number + " - " + e.Message);
-                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
                 return RedirectToAction("Index");
             }
             return View(region);
@@ -139,10 +135,8 @@ namespace VST_sprava_servisu
                 db.Region.Remove(region);
                 db.SaveChanges();
             }
-            catch (SqlException e)
-            {
-                log.Error("Error number: " + e.Number + " - " + e.Message);
-            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
             return RedirectToAction("Index");
         }
 

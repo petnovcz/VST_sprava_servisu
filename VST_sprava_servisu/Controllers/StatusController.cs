@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     public class StatusController : Controller
     {
         private Model1Container db = new Model1Container();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("StatusController");
 
         // GET: Status
         [Authorize(Roles = "Administrator,Manager")]
@@ -53,8 +54,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Status.Add(status);
-                db.SaveChanges();
+                try
+                {
+                    db.Status.Add(status);
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
 
@@ -87,8 +92,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(status).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(status).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
             return View(status);
@@ -117,8 +126,12 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             Status status = db.Status.Find(id);
-            db.Status.Remove(status);
-            db.SaveChanges();
+            try
+            {
+                db.Status.Remove(status);
+                db.SaveChanges();
+            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             return RedirectToAction("Index");
         }
 

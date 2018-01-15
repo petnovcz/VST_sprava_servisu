@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     public class SCProvozuController : Controller
     {
         private Model1Container db = new Model1Container();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SCProvozuController");
 
         // GET: SCProvozu
         [Authorize(Roles = "Administrator,Manager")]
@@ -63,8 +64,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.SCProvozu.Add(sCProvozu);
-                db.SaveChanges();
+                try
+                {
+                    db.SCProvozu.Add(sCProvozu);
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
 
@@ -108,8 +113,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sCProvozu).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(sCProvozu).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 int Provoz = sCProvozu.ProvozId;
                 int Umisteni = sCProvozu.Umisteni.Value;
                 int Zakaznik = db.Provoz.Where(p => p.Id == Provoz).Select(p => p.ZakaznikId).FirstOrDefault();
@@ -148,8 +157,12 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             SCProvozu sCProvozu = db.SCProvozu.Find(id);
-            db.SCProvozu.Remove(sCProvozu);
-            db.SaveChanges();
+            try
+            {
+                db.SCProvozu.Remove(sCProvozu);
+                db.SaveChanges();
+            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             return RedirectToAction("Index");
         }
 

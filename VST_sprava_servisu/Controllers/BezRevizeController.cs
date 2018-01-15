@@ -9,6 +9,8 @@ namespace VST_sprava_servisu
     public class BezRevizeController : Controller
     {
         // GET: BezRevize
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public ActionResult Index(int? Rok, int? Skupina, string Search)
         {
             BezRevize BR = new BezRevize();
@@ -29,7 +31,7 @@ namespace VST_sprava_servisu
                     var x = Session["List_Skupina"].ToString();
                     Skupina = Convert.ToInt32(x);
                 }
-                catch { }
+                catch(Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);  }
                 if (Skupina == null)
                 {
                     Skupina = 0;

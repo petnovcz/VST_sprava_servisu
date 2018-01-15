@@ -9,6 +9,7 @@ namespace VST_sprava_servisu
 {
     public partial class SCProvozu
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SCProvozu");
 
         internal protected static List<SCProvozu> GetList(int? Provoz, int? SerioveCislo, int? Status, int? Umisteni)
         {
@@ -61,6 +62,43 @@ namespace VST_sprava_servisu
                 }
 
             }
+        }
+        public static int AddSCProvozu(SCImport scimport, int id)
+        {
+            int idscprovozu = 0;
+            SCProvozu scprovozu = new SCProvozu();
+            scprovozu.SerioveCisloId = id;
+            scprovozu.ProvozId = scimport.Provozy;
+            using (var dbCtx = new Model1Container())
+            {
+                scprovozu.StatusId = dbCtx.Status.Where(s => s.Aktivni == true).Select(s => s.Id).FirstOrDefault();
+            }
+            scprovozu.DatumPrirazeni = scimport.DatumDodani;
+            if (scimport.DatumPosledniZmeny == null) { scprovozu.DatumPosledniZmeny = scimport.DatumRevize; }
+            else { scprovozu.DatumPosledniZmeny = scimport.DatumPosledniZmeny; }
+            scprovozu.DatumVymeny = null;
+            scprovozu.Umisteni = scimport.Umisteni;
+            scprovozu.DatumRevize = scimport.DatumRevize;
+            scprovozu.DatumBaterie = scimport.DatumBaterie;
+            scprovozu.DatumPyro = scimport.DatumPyro;
+            scprovozu.DatumTlkZk = scimport.DatumTlkZk;
+            scprovozu.Lokace = scimport.Lokace;
+            scprovozu.Znaceni = scimport.Znaceni;
+            scprovozu.Baterie = scimport.Baterie;
+            scprovozu.Proverit = scimport.Proverit;
+            scprovozu.BaterieArtikl = scimport.BaterieArtikl;
+            using (var dbCtx = new Model1Container())
+            {
+                try
+                {
+                    dbCtx.SCProvozu.Add(scprovozu);
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            }
+            idscprovozu = scprovozu.Id;
+            return idscprovozu;
+
         }
     }
 }

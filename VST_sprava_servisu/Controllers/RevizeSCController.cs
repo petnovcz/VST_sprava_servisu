@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     public class RevizeSCController : Controller
     {
         private Model1Container db = new Model1Container();
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: RevizeSC
         public ActionResult Index(int id)
@@ -55,8 +56,13 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.RevizeSC.Add(revizeSC);
-                db.SaveChanges();
+                try
+                {
+                    db.RevizeSC.Add(revizeSC);
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
                 return RedirectToAction("Index");
             }
 
@@ -93,8 +99,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(revizeSC).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(revizeSC).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
             ViewBag.RevizeId = new SelectList(db.Revize, "Id", "ZjistenyStav", revizeSC.RevizeId);
@@ -124,8 +134,13 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             RevizeSC revizeSC = db.RevizeSC.Find(id);
-            db.RevizeSC.Remove(revizeSC);
-            db.SaveChanges();
+            try
+            {
+                db.RevizeSC.Remove(revizeSC);
+                db.SaveChanges();
+            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
             return RedirectToAction("Index");
         }
 

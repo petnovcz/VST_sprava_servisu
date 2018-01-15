@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     public class ZakazniciController : Controller
     {
         private Model1Container db = new Model1Container();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ZakazniciController");
 
         // GET: Zakaznici
         [Authorize(Roles = "Administrator,Manager")]
@@ -153,8 +154,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Zakaznik.Add(zakaznik);
-                db.SaveChanges();
+                try
+                {
+                    db.Zakaznik.Add(zakaznik);
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
 
@@ -191,8 +196,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(zakaznik).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(zakaznik).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
             ViewBag.RegionId = new SelectList(db.Region, "Id", "NazevRegionu", zakaznik.RegionId);
@@ -223,37 +232,16 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             Zakaznik zakaznik = db.Zakaznik.Find(id);
-            db.Zakaznik.Remove(zakaznik);
-            db.SaveChanges();
+            try
+            {
+                db.Zakaznik.Remove(zakaznik);
+                db.SaveChanges();
+            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "Administrator,Manager")]
-        public bool CreateFromSAPdata(SAPOP sapOP)
-        {
-
-            if (ModelState.IsValid)
-            {
-                Zakaznik zakaznik = new Zakaznik();
-                zakaznik.KodSAP = sapOP.CardCode;
-                zakaznik.NazevZakaznika = sapOP.CardName;
-                zakaznik.Adresa = (sapOP.Address + ", " + sapOP.City + ", " + sapOP.ZipCode + ", " + sapOP.Country);
-                zakaznik.DIC = sapOP.LicTradNum;
-                zakaznik.IC = sapOP.VatIdUnCmp;
-                zakaznik.JazykId = sapOP.JazykId;
-                zakaznik.RegionId = sapOP.RegionId;
-                zakaznik.Telefon = sapOP.Phone;
-                zakaznik.Email = sapOP.Email;
-                zakaznik.Kontakt = "d";
-                db.Zakaznik.Add(zakaznik);
-                db.SaveChanges();
-            }
-
-
-
-
-            return true;
-        }
+        
 
 
 

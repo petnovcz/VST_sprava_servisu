@@ -8,6 +8,7 @@ namespace VST_sprava_servisu
 {
     public class SAPDIAPIController : Controller
     {
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         // GET: SAPDIAPI
         [Authorize(Roles = "Administrator,Manager")]
         public SAPbobsCOM.Company Connect()
@@ -106,7 +107,7 @@ namespace VST_sprava_servisu
 
                 }
 
-                catch (Exception ex)
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
                 {
 

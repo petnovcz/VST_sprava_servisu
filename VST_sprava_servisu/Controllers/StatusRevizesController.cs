@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     public class StatusRevizesController : Controller
     {
         private Model1Container db = new Model1Container();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("StatusRevizesController");
 
         // GET: StatusRevizes
         [Authorize(Roles = "Administrator,Manager")]
@@ -53,8 +54,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.StatusRevize.Add(statusRevize);
-                db.SaveChanges();
+                try
+                {
+                    db.StatusRevize.Add(statusRevize);
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
 
@@ -87,8 +92,12 @@ namespace VST_sprava_servisu
         {
             if (ModelState.IsValid)
             {
-                db.Entry(statusRevize).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(statusRevize).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Index");
             }
             return View(statusRevize);
@@ -117,8 +126,12 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             StatusRevize statusRevize = db.StatusRevize.Find(id);
-            db.StatusRevize.Remove(statusRevize);
-            db.SaveChanges();
+            try
+            {
+                db.StatusRevize.Remove(statusRevize);
+                db.SaveChanges();
+            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             return RedirectToAction("Index");
         }
 

@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     public class UmistenisController : Controller
     {
         private Model1Container db = new Model1Container();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("UmistenisController");
 
         // GET: Umistenis
         [Authorize(Roles = "Administrator,Manager")]
@@ -78,8 +79,12 @@ namespace VST_sprava_servisu
             if (ModelState.IsValid)
             {
                 int zakaznik = db.Provoz.Where(m => m.Id == umisteni.ProvozId).Select(m => m.ZakaznikId).FirstOrDefault();
-                db.Umisteni.Add(umisteni);
-                db.SaveChanges();
+                try
+                {
+                    db.Umisteni.Add(umisteni);
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Details", "Provozy", new { Id = umisteni.ProvozId });
             }
 
@@ -117,8 +122,12 @@ namespace VST_sprava_servisu
             if (ModelState.IsValid)
             {
                 int zakaznik = db.Provoz.Where(m => m.Id == umisteni.ProvozId).Select(m => m.ZakaznikId).FirstOrDefault();
-                db.Entry(umisteni).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(umisteni).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Details","Provozy",new { Id = umisteni.ProvozId });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.Id == umisteni.ProvozId), "Id", "NazevProvozu", umisteni.ProvozId);
@@ -148,8 +157,12 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             Umisteni umisteni = db.Umisteni.Find(id);
-            db.Umisteni.Remove(umisteni);
-            db.SaveChanges();
+            try
+            {
+                db.Umisteni.Remove(umisteni);
+                db.SaveChanges();
+            }
+            catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             return RedirectToAction("Index");
         }
 
