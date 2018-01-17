@@ -28,7 +28,9 @@
                     @Html.DisplayNameFor(model => model.Baterie)<br>
                     @Html.DisplayNameFor(model => model.TlakovaZkouska)
                 </th>
-
+                <th>
+                    
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -53,7 +55,9 @@
                         @Html.DisplayFor(modelItem => item.Baterie)<br>
                         @Html.DisplayFor(modelItem => item.TlakovaZkouska)
                     </td>
-
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id }, new { @class = "btn btn-warning" })
+                        </td>
                 </tr>
             }
         </tbody>

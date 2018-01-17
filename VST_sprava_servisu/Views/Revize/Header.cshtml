@@ -70,13 +70,14 @@
                 @Html.AntiForgeryToken()
                 <input type="submit" value="Seznam revizi" class="btn btn-info btn-xs btn-block" />
             }
-            <p>
-                <br>
-                @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = "btn btn-" + color + " btn-xs btn-block" })
-                @Html.ActionLink("Tisk záznamu o kontrole", "OpenPDF", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-                @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-                @Html.ActionLink("Tisk potvrzení", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-                @Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-            </p>
+                <p>
+                    <br>
+                    @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = "btn btn-" + color + " btn-xs btn-block" })
+                    @Html.ActionLink("Tisk záznamu o kontrole", "OpenPDF", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                    @Html.ActionLink("Tisk záznamu 2", "TiskZaznamuOKontrole", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                    @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                    @Html.ActionLink("Tisk potvrzení", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                    @Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
+                </p>
         </div>
     </div>

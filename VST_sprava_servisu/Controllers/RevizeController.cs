@@ -1,4 +1,6 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions;
+using CrystalDecisions.CrystalReports;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -184,7 +186,7 @@ namespace VST_sprava_servisu
                     db.SaveChanges();
                 }
                 catch (Exception ex) { log.Error("Edit - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-                return RedirectToAction("Details","Revize",new { Id = revize.Id, Region = Region});
+                return RedirectToAction("Details","Revize",new { revize.Id, Region});
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
@@ -596,22 +598,24 @@ namespace VST_sprava_servisu
         [Authorize(Roles = "Administrator,Manager")]
         public ActionResult TiskZaznamuOKontrole(int Id)
         {
-            //List<VypocetPlanuRevizi> list = VypocetPlanuRevizi.Run(connectionString);
+            
             ReportDocument rd = new ReportDocument();
-            // Your .rpt file path will be below
-            rd.Load(Path.Combine(Server.MapPath("~/Servis.rpt")));
-            //set dataset to the report viewer.
+            string path2 = @"C:\Logs\Crystal\Servis.rpt";
+            rd.Load(path2);
+            
             rd.SetParameterValue("Id@", Id);
-            //rd.ParameterFields.
+            
             rd.SetDatabaseLogon("sa", "*2012Versino",
-                               "SQL", "SBO", false);
-            ;
+                               "SQL", "Servis", false);
+            
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
             Stream str = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             str.Seek(0, SeekOrigin.Begin);
             string savedFilename = string.Format("Revize_{0}.pdf", Id);
+            rd.Close();
+            rd.Dispose();
 
             return File(str, "application/pdf", savedFilename);
         }
@@ -620,38 +624,58 @@ namespace VST_sprava_servisu
         public void OpenPDF(int Id)
         {
             ReportDocument Rel = new ReportDocument();
-            Rel.Load(Path.Combine(Server.MapPath("~/Servis.rpt")));
-            Rel.SetParameterValue("Id@", Id);
-            //rd.ParameterFields.
-            Rel.SetDatabaseLogon("sa", "*2012Versino",
-                               "SQL", "Servis", false);
-            
-            BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
-            Response.ClearContent();
-            Response.ClearHeaders();
-            Response.ContentType = "application/pdf";
-            Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
-            Response.Flush();
-            Response.Close();
+            string path2 = @"C:\Logs\Crystal\Servis.rpt";
+            log.Error($"adresa {path2}");
+
+            try
+            {
+
+                Rel.Load(path2);
+                Rel.SetParameterValue("Id@", Id);
+                Rel.SetDatabaseLogon("sa", "*2012Versino",
+                                   "SQL", "Servis", false);
+
+                BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+                Rel.Close();
+                Rel.Dispose();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.ContentType = "application/pdf";
+                Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+                Response.Flush();
+                Response.Close();
+            }
+            catch { log.Error($"Nena4tena adresa {path2}"); }
+
         }
 
         [Authorize(Roles = "Administrator,Manager")]
         public void OpenPDFPotvrzeni(int Id)
         {
             ReportDocument Rel = new ReportDocument();
-            Rel.Load(Path.Combine(Server.MapPath("~/Servis2.rpt")));
-            Rel.SetParameterValue("Id@", Id);
-            //rd.ParameterFields.
-            Rel.SetDatabaseLogon("sa", "*2012Versino",
-                               "SQL", "Servis", false);
+            string path2 = @"C:\Logs\Crystal\Servis2.rpt";
+            log.Error($"adresa {path2}");
+            
+            try
+            {
 
-            BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
-            Response.ClearContent();
-            Response.ClearHeaders();
-            Response.ContentType = "application/pdf";
-            Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
-            Response.Flush();
-            Response.Close();
+                Rel.Load(path2);
+                Rel.SetParameterValue("Id@", Id);
+                Rel.SetDatabaseLogon("sa", "*2012Versino",
+                                   "SQL", "Servis", false);
+
+                BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+                Rel.Close();
+                Rel.Dispose();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.ContentType = "application/pdf";
+                Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+                Response.Flush();
+                Response.Close();
+            }
+            catch { log.Error($"Nena4tena adresa {path2}"); }
+            
         }
 
         [Authorize(Roles = "Administrator,Manager")]
@@ -689,7 +713,7 @@ namespace VST_sprava_servisu
                     db.SaveChanges();
                 }
                 catch (Exception ex) { log.Error("Fill - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-                return RedirectToAction("Details", "Revize", new { Id = revize.Id, Region = Region });
+                return RedirectToAction("Details", "Revize", new { revize.Id, Region });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
@@ -705,7 +729,7 @@ namespace VST_sprava_servisu
             Revize.CloseRevize(Id);
             
 
-            return RedirectToAction("Details", "Revize", new { Id = Id });
+            return RedirectToAction("Nahled", "Revize");
         }
     }
 }

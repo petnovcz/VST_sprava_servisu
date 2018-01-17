@@ -55,11 +55,7 @@ namespace VST_sprava_servisu
                     dbCtx.Entry(sc).State = EntityState.Modified;
                     dbCtx.SaveChanges();
                 }
-                catch (DbUpdateException ex)
-                {
-                    Console.WriteLine(ex.InnerException.Message);
-                    
-                }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
             }
         }

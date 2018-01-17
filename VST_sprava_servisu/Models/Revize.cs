@@ -394,7 +394,7 @@ namespace VST_sprava_servisu
         {
             foreach (var item in revizesclist)
             {
-                VST_sprava_servisu.SCProvozu.UpdateSC(item.SCProvozuId, datumkontroly, item.Baterie, item.Pyro, item.TlakovaZkouska);
+                SCProvozu.UpdateSC(item.SCProvozuId, datumkontroly, item.Baterie, item.Pyro, item.TlakovaZkouska);
             }
 
 
