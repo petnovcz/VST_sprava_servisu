@@ -5,38 +5,47 @@
 }
 @{
     Layout = "";
+    var @disabled = "";
 }
-<div class="col-lg-12">
-    <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.SCProvozu.SerioveCislo.Artikl.Nazev)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SCProvozu.SerioveCislo.SerioveCislo1)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)<br>
-                    @Html.DisplayNameFor(model => model.SCProvozu.Lokace)<br>
-                    @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)
-                </th>
 
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Pyro)<br>
-                    @Html.DisplayNameFor(model => model.Baterie)<br>
-                    @Html.DisplayNameFor(model => model.TlakovaZkouska)
-                </th>
-                <th>
-                    
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+        <div class="col-lg-12">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SCProvozu.SerioveCislo.Artikl.Nazev)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SCProvozu.SerioveCislo.SerioveCislo1)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)<br>
+                            @Html.DisplayNameFor(model => model.SCProvozu.Lokace)<br>
+                            @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)
+                        </th>
 
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Pyro)<br>
+                            @Html.DisplayNameFor(model => model.Baterie)<br>
+                            @Html.DisplayNameFor(model => model.TlakovaZkouska)
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                {
+                    if (item.Revize.StatusRevize.Realizovana == true)
+                    {
+                        disabled = "disabled";
+                    }
+                }
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.SCProvozu.SerioveCislo.Artikl.Nazev)
@@ -56,10 +65,10 @@
                         @Html.DisplayFor(modelItem => item.TlakovaZkouska)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id }, new { @class = "btn btn-warning" })
-                        </td>
+                        @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id, r = item.Revize.StatusRevize.Realizovana }, new { @class = $"btn btn-warning {disabled}" })
+                    </td>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                }
+                </tbody>
+            </table>
+        </div>

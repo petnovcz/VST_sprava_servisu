@@ -3,6 +3,7 @@
 @{
     Layout = null;
     var @color = "";
+    var @disabled = "";
 }
 
 
@@ -13,12 +14,15 @@
     {
         if (item.StatusRevize.Planovana == true)
         { color = "danger";
+            disabled = "";
         }
         if (item.StatusRevize.Potvrzena == true)
         { color = "warning";
+            disabled = "";
         }
         if (item.StatusRevize.Realizovana == true)
         { color = "success";
+            disabled = "disabled";
         }
 
         <div class="vstcal parent" style=" overflow: hidden; position: relative; margin-top:5px !important;" >
@@ -33,7 +37,7 @@
                  @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
 </div>
             <div class="vstcalr col-lg-2">
-                @Html.ActionLink(" ", "Replan", "Revize", new { Id = item.Id, Region = ViewBag.Region }, new { @class = "modal-link btn btn-"+ @color+" btn-block btn-xs glyphicon glyphicon-cog"})
+                @Html.ActionLink(" ", "Replan", "Revize", new { Id = item.Id, Region = ViewBag.Region }, new { @class = $"modal-link btn btn-{@color} btn-block btn-xs glyphicon glyphicon-cog {@disabled}"})
             </div>
             <div class="vstcalr col-lg-12" style="font-size:12px; font-weight:500;">
                 @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
