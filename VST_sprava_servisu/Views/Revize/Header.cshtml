@@ -75,10 +75,12 @@
                     <br>
                     @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-{color} btn-xs btn-block {disabled}" })
                     @Html.ActionLink("Tisk záznamu o kontrole", "OpenPDF", "Revize", new { Id = Model.Id }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
-                    @Html.ActionLink("Tisk záznamu 2", "TiskZaznamuOKontrole", "Revize", new { Id = Model.Id }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
+                    
                     @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
                     @Html.ActionLink("Tisk potvrzení", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
                     @Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
+                    <br>
+                    @Html.ActionLink("Přidej prvek", "Create", "RevizeSC", new {RevizeId = Model.Id }, new { @class = $"btn btn-success btn-block btn-xs {disabled}" })
                 </p>
         </div>
     </div>

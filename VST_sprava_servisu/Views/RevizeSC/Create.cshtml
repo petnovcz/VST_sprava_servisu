@@ -4,23 +4,19 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+@Html.Action("Header", "Revize", new { Id = ViewBag.RevizeId })
+<div class="col-lg-12 " style="border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
     <div class="form-horizontal">
         <h4>RevizeSC</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.RevizeId, "RevizeId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("RevizeId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.RevizeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.Hidden("RevizeId", (Object)ViewBag.RevizeId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.SCProvozuId, "SCProvozuId", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -31,45 +27,45 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StavKoroze, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StavKoroze, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StavKoroze, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.Baterie, htmlAttributes: new { @class = "control-label col-md-4 " })
+            <div class="col-md-8">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Baterie)
+                    @Html.ValidationMessageFor(model => model.Baterie, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pyro, htmlAttributes: new { @class = "control-label col-md-4 " })
+            <div class="col-md-8">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Pyro)
+                    @Html.ValidationMessageFor(model => model.Pyro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TlakovaZkouska, htmlAttributes: new { @class = "control-label col-md-4 " })
+            <div class="col-md-8">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.TlakovaZkouska)
+                    @Html.ValidationMessageFor(model => model.TlakovaZkouska, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StavZnecisteni, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StavZnecisteni, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StavZnecisteni, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.JineZavady, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.JineZavady, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.JineZavady, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UmisteniId, "UmisteniId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UmisteniId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UmisteniId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Přidej" class="btn btn-success" />
+                @Html.ActionLink("Zpět na detaily revize", "Details", "Revize", new { Id = ViewBag.RevizeId }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div>
+        
+    </div>
 </div>

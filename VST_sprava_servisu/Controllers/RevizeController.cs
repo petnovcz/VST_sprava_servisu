@@ -86,6 +86,7 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+
             try
             {
                 ViewBag.ListRegion = Session["List_Skupina"].ToString();
@@ -111,9 +112,19 @@ namespace VST_sprava_servisu
                 ViewBag.ListStatus = Session["List_Status"].ToString();
             }
             catch (Exception ex) { log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            if (Region == null)
+            {
 
-            revize.Region = Region.Value;
-            ViewBag.Region = Region;
+                ViewBag.Region = 0;
+                revize.Region  = 0;
+            }
+            else
+            {
+                revize.Region = Region.Value;
+                ViewBag.Region = Region;
+            }
+            
+            
             return View(revize);
         }
 

@@ -9,36 +9,37 @@
 }
 
 
-        <div class="col-lg-12">
-            <table class="table table-condensed">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SCProvozu.SerioveCislo.Artikl.Nazev)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SCProvozu.SerioveCislo.SerioveCislo1)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)<br>
-                            @Html.DisplayNameFor(model => model.SCProvozu.Lokace)<br>
-                            @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)
-                        </th>
+
+<div class="col-lg-12">
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SCProvozu.SerioveCislo.Artikl.Nazev)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SCProvozu.SerioveCislo.SerioveCislo1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)<br>
+                    @Html.DisplayNameFor(model => model.SCProvozu.Lokace)<br>
+                    @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)
+                </th>
 
 
-                        <th>
-                            @Html.DisplayNameFor(model => model.Pyro)<br>
-                            @Html.DisplayNameFor(model => model.Baterie)<br>
-                            @Html.DisplayNameFor(model => model.TlakovaZkouska)
-                        </th>
-                        <th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pyro)<br>
+                    @Html.DisplayNameFor(model => model.Baterie)<br>
+                    @Html.DisplayNameFor(model => model.TlakovaZkouska)
+                </th>
+                <th>
 
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
 
                 {
                     if (item.Revize.StatusRevize.Realizovana == true)
@@ -65,10 +66,11 @@
                         @Html.DisplayFor(modelItem => item.TlakovaZkouska)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id, r = item.Revize.StatusRevize.Realizovana }, new { @class = $"btn btn-warning {disabled}" })
+                        @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-xs {disabled}" })
+                        @Html.ActionLink("Smaž", "Delete", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-danger btn-xs {disabled}" })
                     </td>
                 </tr>
-                }
-                </tbody>
-            </table>
-        </div>
+            }
+        </tbody>
+    </table>
+</div>

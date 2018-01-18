@@ -130,7 +130,7 @@ namespace VST_sprava_servisu
 
         }
 
-        internal protected void UpdateRevizeHeader (int id)
+        public void UpdateRevizeHeader (int id)
         {
             using (var dbCtx = new Model1Container())
             {
