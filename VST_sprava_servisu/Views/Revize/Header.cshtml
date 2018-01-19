@@ -71,16 +71,48 @@
                 @Html.AntiForgeryToken()
                 <input type="submit" value="Seznam revizi" class="btn btn-info btn-xs btn-block" />
             }
+
                 <p>
                     <br>
                     @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-{color} btn-xs btn-block {disabled}" })
-                    @Html.ActionLink("Tisk záznamu o kontrole", "OpenPDF", "Revize", new { Id = Model.Id }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
-                    
-                    @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
-                    @Html.ActionLink("Tisk potvrzení", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id }, new { @class = "btn btn-vstprimary btn-xs btn-block" })
-                    @Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
-                    <br>
-                    @Html.ActionLink("Přidej prvek", "Create", "RevizeSC", new {RevizeId = Model.Id }, new { @class = $"btn btn-success btn-block btn-xs {disabled}" })
+                    @if (Request.IsAuthenticated && (User.IsInRole("Administrator")|| User.IsInRole("Manager")))
+                    {
+                <div class="dropdown">
+                    <button class="btn btn-vstprimary btn-block btn-xs dropdown-toggle @disabled" type="button" data-toggle="dropdown">
+                        Tisk záznamu o kontrole
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Česká verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
+                        <li>@Html.ActionLink("Anglická verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
+                        <li>@Html.ActionLink("Německá verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
+                        <li>@Html.ActionLink("Polská verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
+                    </ul>
+                </div>
+
+
+
+                @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
+                <div class="dropdown">
+                    <button class="btn btn-vstprimary btn-block btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                        Tisk dokladu o provozuschopnosti
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Česká verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
+                        <li>@Html.ActionLink("Anglická verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
+                        <li>@Html.ActionLink("Německá verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
+                        <li>@Html.ActionLink("Polská verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
+                    </ul>
+                </div>
+
+                @Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
+                <br>
+                @Html.ActionLink("Přidej prvek", "Create", "RevizeSC", new { RevizeId = Model.Id }, new { @class = $"btn btn-success btn-block btn-xs {disabled}" })
+
+}
                 </p>
         </div>
     </div>

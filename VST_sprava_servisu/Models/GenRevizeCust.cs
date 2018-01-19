@@ -578,20 +578,27 @@ namespace VST_sprava_servisu
                 }
                 using (var dbCtx = new Model1Container())
                 {
-                    
-                    try
-                    {
-                        dbCtx.RevizeSC.Add(RSC1);
-                        dbCtx.SaveChanges();
-                    }
-                    catch (Exception ex) { log.Error($"InsertSCtoRevision {ex.Message} {ex.InnerException} {ex.Data}"); }
-                    try
-                    {
-                        dbCtx.RevizeSC.Add(RSC2);
-                        dbCtx.SaveChanges();
-                    }
-                    catch(Exception ex) { log.Error($"InsertSCtoRevision {ex.Message} {ex.InnerException} {ex.Data}"); }
 
+                    if (RSC1.RevizeId != 0)
+                    {
+                        try
+                        {
+                            dbCtx.RevizeSC.Add(RSC1);
+                            dbCtx.SaveChanges();
+                        }
+                        
+                    catch (Exception ex) { log.Error($"InsertSCtoRevision {ex.Message} {ex.InnerException} {ex.Data}"); }
+                    }
+
+                    if (RSC2.RevizeId != 0)
+                    {
+                        try
+                        {
+                            dbCtx.RevizeSC.Add(RSC2);
+                            dbCtx.SaveChanges();
+                        }
+                        catch (Exception ex) { log.Error($"InsertSCtoRevision {ex.Message} {ex.InnerException} {ex.Data}"); }
+                    }
                 }
 
 

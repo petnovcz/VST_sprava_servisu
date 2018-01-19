@@ -27,9 +27,10 @@ namespace VST_sprava_servisu
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
             StringBuilder sql = new StringBuilder();
 
-            sql.Append(" select ItemCode, ItemName, t0.ItmsGrpCod, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where /*ManSerNum = 'Y'*/");
-            sql.Append($" /*and*/ ItemCode = '{ItemCode}' ");
+            sql.Append(" select ItemCode, ItemName, t0.ItmsGrpCod as 'ItmsGrpCod', t1.ItmsGrpNam as 'ItmGrpNam' from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where ");
+            sql.Append($" ItemCode = '{ItemCode}' ");
 
+            log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
@@ -47,24 +48,25 @@ namespace VST_sprava_servisu
 
                     if (dr.GetString(dr.GetOrdinal("ItemCode")) != null)
                     {
-                        sapItem.ItemCode = dr.GetString(dr.GetOrdinal("ItemCode"));
+                        sapItem.ItemCode = dr.GetString(0);
                     }
                     try
                     {
-                        sapItem.ItemName = dr.GetString(dr.GetOrdinal("ItemName"));
+                        sapItem.ItemName = dr.GetString(1);
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
-                        sapItem.ItmsGrpNam = dr.GetString(dr.GetOrdinal("ItmsGrpNam"));
+                        sapItem.ItmsGrpNam = dr.GetString(3);
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
-                        sapItem.ItmsGrpCod = Int32.Parse(dr.GetString(dr.GetOrdinal("ItmsGrpCod")));
+                        
+                        int codeint = dr.GetInt16(2);
+                        sapItem.ItmsGrpCod = codeint;
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-
 
                 }
             }
@@ -112,7 +114,7 @@ namespace VST_sprava_servisu
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
-                        sapitem.ItmsGrpCod = dr.GetInt32(dr.GetOrdinal("ItmsGrpCod"));
+                        sapitem.ItmsGrpCod = dr.GetInt16(dr.GetOrdinal("ItmsGrpCod"));
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 

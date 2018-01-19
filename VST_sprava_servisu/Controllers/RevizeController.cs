@@ -632,16 +632,19 @@ namespace VST_sprava_servisu
         }
 
         [Authorize(Roles = "Administrator,Manager")]
-        public void OpenPDF(int Id)
+        public void OpenPDF(int Id, string lang)
         {
             ReportDocument Rel = new ReportDocument();
-            string path2 = @"C:\Logs\Crystal\Servis.rpt";
-            log.Error($"adresa {path2}");
+            string path = $"C:\\Logs\\Crystal\\Servis_{lang}.rpt";
+            
+
+
+            log.Error($"adresa {path}");
 
             try
             {
 
-                Rel.Load(path2);
+                Rel.Load(path);
                 Rel.SetParameterValue("Id@", Id);
                 Rel.SetDatabaseLogon("sa", "*2012Versino",
                                    "SQL", "Servis", false);
@@ -656,21 +659,21 @@ namespace VST_sprava_servisu
                 Response.Flush();
                 Response.Close();
             }
-            catch { log.Error($"Nena4tena adresa {path2}"); }
+            catch { log.Error($"Nena4tena adresa {path}"); }
 
         }
 
         [Authorize(Roles = "Administrator,Manager")]
-        public void OpenPDFPotvrzeni(int Id)
+        public void OpenPDFPotvrzeni(int Id, string lang)
         {
             ReportDocument Rel = new ReportDocument();
-            string path2 = @"C:\Logs\Crystal\Servis2.rpt";
-            log.Error($"adresa {path2}");
+            string path = $"C:\\Logs\\Crystal\\Servis2_{lang}.rpt";
+            log.Error($"adresa {path}");
             
             try
             {
 
-                Rel.Load(path2);
+                Rel.Load(path);
                 Rel.SetParameterValue("Id@", Id);
                 Rel.SetDatabaseLogon("sa", "*2012Versino",
                                    "SQL", "Servis", false);
@@ -685,7 +688,7 @@ namespace VST_sprava_servisu
                 Response.Flush();
                 Response.Close();
             }
-            catch { log.Error($"Nena4tena adresa {path2}"); }
+            catch { log.Error($"Nena4tena adresa {path}"); }
             
         }
 

@@ -11,6 +11,7 @@ namespace VST_sprava_servisu
         // GET: BezRevize
         readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index(int? Rok, int? Skupina, string Search)
         {
             BezRevize BR = new BezRevize();
@@ -57,10 +58,12 @@ namespace VST_sprava_servisu
             if (Rok != null)
             {
                 ViewBag.Rok = new SelectList(roklist, "Value", "Text", Rok);
+                BR.Rok = Rok ?? 0;
             }
             else
             {
                 ViewBag.Rok = new SelectList(roklist, "Value", "Text", null);
+                BR.Rok = Rok ?? 0;
             }
             if (Search == null) { Search = ""; }
             BR.ZakaznickySeznam = BezRevize.GetCustomerListWithoutRevision(Rok.Value, Skupina.Value, Search);

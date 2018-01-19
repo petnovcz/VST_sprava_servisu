@@ -35,7 +35,7 @@ namespace VST_sprava_servisu.Controllers
             gr.Nabidka = Nabidka;
             gr.Projekt = Projekt;
             GenRevizeCust.Run(ZakaznikId, ProvozId, Rok, UmisteniId, Nabidka, Projekt);
-            return View(gr);
+            return RedirectToAction("Nahled","Revize",null);
         }
     }
 }
