@@ -51,9 +51,9 @@ namespace VST_sprava_servisu
             //Add select list item to list of selectlistitems
             roklist.Add(new SelectListItem() { Value = DateTime.Now.Year.ToString(), Text = DateTime.Now.Year.ToString() });
             roklist.Add(new SelectListItem() { Value = (DateTime.Now.Year + 1).ToString(), Text = (DateTime.Now.Year + 1).ToString() });
-
+            roklist.Add(new SelectListItem() { Value = (DateTime.Now.Year - 1).ToString(), Text = (DateTime.Now.Year - 1).ToString() });
             //Return the list of selectlistitems as a selectlist
-            
+
             if (Rok == null) { BR.Rok = DateTime.Now.Year; Rok = DateTime.Now.Year; }
             if (Rok != null)
             {

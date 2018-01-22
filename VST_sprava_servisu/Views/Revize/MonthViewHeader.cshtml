@@ -138,7 +138,67 @@
             </div>
         </div>
 
+        <div class="item @if (ViewBag.LastYear == ViewBag.Rok) { @X; }">
+            <div class="col-lg-offset-2 col-lg-6">
+                <div class="col-lg-12" style="text-align:center">
+                    <h3 class="vstcolor">@ViewBag.LastYear</h3>
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("1", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 1, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 1) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("2", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 2, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 2) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("3", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 3, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 3) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("4", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 4, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 4) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("5", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 5, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 5) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("6", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 6, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 6) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("7", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 7, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 7) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("8", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 8, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 8) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("9", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 9, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 9) ? "btn btn-block btn-xs  btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("10", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 10, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 10) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("11", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 11, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 11) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
+                <div class="col-lg-1">
+                    @Html.ActionLink("12", "Nahled", "Revize", new { Rok = ViewBag.LastYear, Mesic = 12, Region = ViewBag.Region }, new { @class = ((ViewBag.LastYear == ViewBag.Rok && ViewBag.Mesic == 12) ? "btn btn-block btn-xs btn-success" : "btn btn-block btn-xs btn-vstprimary") })
+                </div>
 
+            </div>
+            <div class="col-lg-2 ">
+                <div class="col-lg-12">
+                    @Html.ActionLink("Vše", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 0 }, new { @class = ((ViewBag.Region == 0) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Česká republika", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 1 }, new { @class = ((ViewBag.Region == 1) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Polsko", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 2 }, new { @class = ((ViewBag.Region == 2) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Slovensko a Maďarsko", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 3 }, new { @class = ((ViewBag.Region == 3) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+                <div class="col-lg-12">
+                    @Html.ActionLink("Ostatní", "Nahled", "Revize", new { Rok = ViewBag.Rok, Mesic = ViewBag.Mesic, Region = 4 }, new { @class = ((ViewBag.Region == 4) ? "btn btn-xs btn-block btn-success" : "btn btn-xs btn-block btn-vstprimary") })
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Left and right controls -->

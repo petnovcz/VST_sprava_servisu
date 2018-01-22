@@ -18,8 +18,7 @@ namespace VST_sprava_servisu.Controllers
             gr.UmisteniId = UmisteniId.Value;
             gr.Skupina = Skupina;
             gr.Search = Search;
-            gr.ProvozId = ProvozId;
-            
+            gr.ProvozId = ProvozId;            
             return View(gr);
         }
 

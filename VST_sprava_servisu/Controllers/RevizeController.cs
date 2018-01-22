@@ -250,6 +250,7 @@ namespace VST_sprava_servisu
         {
             ViewBag.ThisYear = DateTime.Now.Year;
             ViewBag.NextYear = DateTime.Now.Year + 1;
+            ViewBag.LastYear = DateTime.Now.Year - 1;
             ViewBag.Rok = Rok;
             ViewBag.Mesic = Mesic;
             ViewBag.Region = Region;
