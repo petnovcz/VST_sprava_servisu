@@ -20,16 +20,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Kalendář", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Seznam", "List", "Revize", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Bez revize", "Index", "BezRevize", new { area = "" }, new { @class = "navbar-brand" })
+                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
-                    
-                    <li>@Html.ActionLink("Zákazníci", "Search", "Zakaznici")</li>
-                    <li>@Html.ActionLink("Nastavení", "Index", "Nastaveni")</li>
+                    <li>@Html.ActionLink("Kalendář", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }) </li>
+                    <li>@Html.ActionLink("Seznam", "List", "Revize", new { area = "" }, new { @class = "" }) </li>
+                    <li>@Html.ActionLink("Bez revize", "Index", "BezRevize", new { area = "" }, new { @class = "" })</li>
+                    <li>@Html.ActionLink("Zákazníci", "Search", "Zakaznici", new { area = "" }, new { @class = "" })</li>
+                    <li>@Html.ActionLink("Nastavení", "Index", "Nastaveni", new { area = "" }, new { @class = "" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

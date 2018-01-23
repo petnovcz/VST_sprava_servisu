@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,13 +12,16 @@ using System.Web;
 
 namespace VST_sprava_servisu
 {
-    
+
     public partial class BezRevize
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("BezRevize");
 
+        [Display(Name="Rok")]
         public int Rok { get; set; }
+        [Display(Name = "Skupina")]
         public int Skupina { get; set; }
+        [Display(Name = "Hledání")]
         public string Search { get; set; }
         public List<ZakaznickySeznam> ZakaznickySeznam { get; set; }
 
