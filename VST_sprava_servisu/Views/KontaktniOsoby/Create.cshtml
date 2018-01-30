@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "Create";
+    
+        Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+    
 }
 @Html.Action("Header", "Zakaznici", new { id = ViewBag.Zakaznik })
 
@@ -9,78 +12,66 @@
     <center><h4>Vytvoř provoz</h4></center>
 </div>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal col-lg-12" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.Hidden("ZakaznikId", (object)ViewBag.Zakaznik)
-        <div class="form-group">
-            @Html.LabelFor(model => model.ZakaznikId, "ZakaznikId", htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
-                @Html.DropDownList("ZakaznikId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ZakaznikId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.ZakaznikId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.JmenoPrijmeni, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.JmenoPrijmeni, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.JmenoPrijmeni, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.JmenoPrijmeni, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Pozice, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.Pozice, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.Pozice, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Pozice, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Telefon, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.Telefon, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.Telefon, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Telefon, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SAPId, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.SAPId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SAPId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProvozId, "ProvozId", htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.ProvozId, "ProvozId", htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 @Html.DropDownList("ProvozId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ProvozId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-4 col-md-8">
-                <input type="submit" value="Vytvoř" class="btn btn-success" />
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Vytvoř" class="btn btn-block btn-success" />
+                @Html.ActionLink("Kontaktní osoby zákazníka", "Index", "KontaktniOsoby", new { Zakaznik = ViewBag.Zakaznik }, new { @class = "btn btn-block btn-info" })
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+
 </div>

@@ -1,18 +1,53 @@
 ﻿@model IEnumerable<VST_sprava_servisu.Revize>
 
 @{
-
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 
 
 
 @Html.Action("Header", "Zakaznici", new { id = ViewBag.Zakaznik })
 
-<table id="myTable" class="table" style="display: none;">
+<table class="table" id="myTable" style="display: none;">
+    <caption>
+
+        @if (ViewBag.ListDateFrom != null)
+        {@Html.Raw("Datum od:"); @ViewBag.ListDateFrom.ToString("dd.MMM.yyyy"); @Html.Raw("");
+    }
+        @if (ViewBag.ListDateTo != null)
+        {@Html.Raw("<div>Datim do:" + @ViewBag.ListDateTo.ToString("dd.MMM.yyyy") + "</div>");
+    }
+        @if (ViewBag.ListStatus != null)
+        {@Html.Raw("<div>Status revize:" + @ViewBag.ListStatus + "</div>");
+    }
+        @if (ViewBag.ListRegion != null)
+        {@Html.Raw("<div>Region:" + @ViewBag.ListRegion + "</div>");
+    }
+
+
+    </caption>
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.DatumRevize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Provoz.Zakaznik.NazevZakaznika)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusRevize.NazevStatusuRevize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projekt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nabidka)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Rok)
@@ -21,80 +56,169 @@
                 @Html.DisplayNameFor(model => model.Pololeti)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
+                @Html.DisplayNameFor(model => model.Baterie)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StatusRevize.NazevStatusuRevize)
+                @Html.DisplayNameFor(model => model.Pyro)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.KontrolaProvedenaDne)
+                @Html.DisplayNameFor(model => model.TlkZk)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.AP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.S)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RJ)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.M)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.V)
+            </th>
+            <th>
+
+            </th>
+
+
+
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
-    {
-
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumRevize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rok)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pololeti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusRevize.NazevStatusuRevize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KontrolaProvedenaDne)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-
-            </td>
-        </tr>
-
-
-}
-    </tbody>
-        <tfoot>
+        {
             <tr>
-                <th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumRevize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Provoz.Zakaznik.NazevZakaznika)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
 
-                </th>
-                <th>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusRevize.NazevStatusuRevize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Projekt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nabidka)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rok)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pololeti)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Baterie)
+                    @foreach (var x in item.RevizeBaterie)
+                    {
+                        @Html.Raw("<br>" + @x.BaterieSAPKod + " - " + x.Pocet)
 
-                </th>
-                <th>
 
-                </th>
-                <th>
-
-                </th>
-                <th>
-
-                </th>
-                <th>
-
-                </th>
-                <th>
-
-                </th>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pyro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TlkZk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.S)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RJ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.M)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.V)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "Details", "Revize", new { Id = item.Id, Region = item.Provoz.Zakaznik.Region.Skupina }, new { @class = "btn btn-info btn-block  btn-xs btn-default glyphicon glyphicon-play" })
+                </td>
 
 
 
             </tr>
-        </tfoot>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
 
-    </table>
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+
+        </tr>
+    </tfoot>
+</table>
 
 @section Scripts{
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />

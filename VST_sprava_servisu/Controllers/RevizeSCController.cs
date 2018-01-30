@@ -105,7 +105,7 @@ namespace VST_sprava_servisu
 
                 Revize revize = new Revize();
                 revize = db.Revize.Find(RevizeId);
-                revize.UpdateRevizeHeader(RevizeId);
+                Revize.UpdateRevizeHeader(RevizeId);
                 return RedirectToAction("Details", "Revize", new { Id = RevizeId });
                 //return RedirectToAction("Index");
             }
@@ -141,7 +141,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska")] RevizeSC revizeSC)
+        public ActionResult Edit([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska,Stav")] RevizeSC revizeSC)
         {
             int RevizeId = 0;
             if (ModelState.IsValid)
@@ -155,7 +155,7 @@ namespace VST_sprava_servisu
                 catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 Revize revize = new Revize();
                 revize = db.Revize.Find(RevizeId);
-                revize.UpdateRevizeHeader(RevizeId);
+                Revize.UpdateRevizeHeader(RevizeId);
                 return RedirectToAction("Details","Revize",new {Id = RevizeId });
             }
             ViewBag.RevizeId = new SelectList(db.Revize, "Id", "ZjistenyStav", revizeSC.RevizeId);
@@ -198,7 +198,7 @@ namespace VST_sprava_servisu
 
             Revize revize = new Revize();
             revize = db.Revize.Find(RevizeId);
-            revize.UpdateRevizeHeader(RevizeId);
+            Revize.UpdateRevizeHeader(RevizeId);
             return RedirectToAction("Details", "Revize", new { Id = RevizeId });
         }
 

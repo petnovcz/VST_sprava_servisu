@@ -24,6 +24,7 @@ namespace VST_sprava_servisu
         public bool Baterie { get; set; }
         public bool Pyro { get; set; }
         public bool TlakovaZkouska { get; set; }
+        public bool Stav { get; set; }
     
         public virtual Revize Revize { get; set; }
         public virtual SCProvozu SCProvozu { get; set; }

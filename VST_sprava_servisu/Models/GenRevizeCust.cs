@@ -66,7 +66,7 @@ namespace VST_sprava_servisu
                 if (existrevize1 == true)
                 {
                     //prirazeni revize do modelu
-                    gen.Revize1 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 1, UmisteniId);
+                    gen.Revize1 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 1, UmisteniId,null);
                 }
                 else
                 {
@@ -115,7 +115,7 @@ namespace VST_sprava_servisu
                 if (existrevize1 == true)
                 {
                     //prirazeni revize do modelu
-                    gen.Revize1 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 1, null);
+                    gen.Revize1 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 1, null,null);
                 }
                 else
                 {
@@ -163,7 +163,7 @@ namespace VST_sprava_servisu
                 if (existrevize2 == true)
                 {
                     //prirazeni revize do modelu
-                    gen.Revize2 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 2, UmisteniId);
+                    gen.Revize2 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 2, UmisteniId,null);
                 }
                 else
                 {
@@ -202,7 +202,7 @@ namespace VST_sprava_servisu
                 if (existrevize2 == true)
                 {
                     //prirazeni revize do modelu
-                    gen.Revize2 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 2, null);
+                    gen.Revize2 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 2, null,null);
                 }
                 else
                 {
@@ -233,8 +233,8 @@ namespace VST_sprava_servisu
 
             List<CalculatedSCForRevision> list = Calculatescfrorevision(ZakaznikId, ProvozId, UmisteniId);
             InsertSCtoRevision(gen, list);
-            gen.Revize1.UpdateRevizeHeader(gen.Revize1.Id);
-            gen.Revize2.UpdateRevizeHeader(gen.Revize2.Id);
+            Revize.UpdateRevizeHeader(gen.Revize1.Id);
+            Revize.UpdateRevizeHeader(gen.Revize2.Id);
             // na zaklade prvku provozu spocitat kdy by mela byt dalsi revize 
             // - pokud v obdobi - spoctene datum ()
             // - pokud starsi vygenerovat k 1.1.daneho roku
@@ -583,6 +583,7 @@ namespace VST_sprava_servisu
                     {
                         try
                         {
+                            RSC1.Stav = true;
                             dbCtx.RevizeSC.Add(RSC1);
                             dbCtx.SaveChanges();
                         }
@@ -594,6 +595,7 @@ namespace VST_sprava_servisu
                     {
                         try
                         {
+                            RSC2.Stav = true;
                             dbCtx.RevizeSC.Add(RSC2);
                             dbCtx.SaveChanges();
                         }

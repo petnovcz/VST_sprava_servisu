@@ -1,13 +1,20 @@
 ﻿@model VST_sprava_servisu.Provoz
+@{
+    
+
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+
+}
 
 @Html.Action("Header", "Zakaznici", new { id = ViewBag.Zakaznik })
-   
+
+
 <div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
     <center><h4>Editace provozu</h4></center>
 </div>
-    
-  @using (Html.BeginForm())
-  {
+
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal col-lg-12" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
@@ -20,16 +27,16 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NazevProvozu, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.NazevProvozu, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.NazevProvozu, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NazevProvozu, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OddeleniVybuchu, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.OddeleniVybuchu, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.OddeleniVybuchu)
                     @Html.ValidationMessageFor(model => model.OddeleniVybuchu, "", new { @class = "text-danger" })
@@ -38,8 +45,8 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PotlaceniVybuchu, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.PotlaceniVybuchu, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.PotlaceniVybuchu)
                     @Html.ValidationMessageFor(model => model.PotlaceniVybuchu, "", new { @class = "text-danger" })
@@ -48,8 +55,8 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OdlehceniVybuchu, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.OdlehceniVybuchu, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.OdlehceniVybuchu)
                     @Html.ValidationMessageFor(model => model.OdlehceniVybuchu, "", new { @class = "text-danger" })
@@ -58,21 +65,21 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AdresaProvozu, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.AdresaProvozu, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.AdresaProvozu, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AdresaProvozu, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.SAPAddress, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.SAPAddress, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.SAPAddress, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SAPAddress, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-4 col-md-8">
+            <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Ulož" class="btn btn-success" />
             </div>
         </div>
@@ -81,4 +88,4 @@
 
 
 
-  }
+}

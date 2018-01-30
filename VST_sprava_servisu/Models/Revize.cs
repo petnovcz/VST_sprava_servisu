@@ -130,7 +130,7 @@ namespace VST_sprava_servisu
 
         }
 
-        public void UpdateRevizeHeader (int id)
+        public static void UpdateRevizeHeader (int id)
         {
             using (var dbCtx = new Model1Container())
             {
@@ -186,7 +186,7 @@ namespace VST_sprava_servisu
             var provoz = new Revize();
             using (var dbCtx = new Model1Container())
             {
-                provoz = dbCtx.Revize.Where(r => r.Id == Id).FirstOrDefault();
+                provoz = dbCtx.Revize.Where(r => r.Id == Id).Include(r=>r.Provoz).FirstOrDefault();
             }
             return provoz;
         }
@@ -232,31 +232,36 @@ namespace VST_sprava_servisu
         /// </summary>
         /// <param name="Search"></param>
         /// <returns></returns>
-        internal protected static Revize ReturnRevision(int Zakaznik, int Provoz, int Rok, int Pololeti, int? Umisteni)
+        internal protected static Revize ReturnRevision(int Zakaznik, int Provoz, int Rok, int Pololeti, int? Umisteni, bool? closed)
         {
             
             Revize revize = new Revize();
-            int? x = 0;
+            
+            
             using (var dbCtx = new Model1Container())
             {
-                if (Umisteni == null)
-                {
-                    x = dbCtx.Revize
+                var  x =  dbCtx.Revize
                     .Where(r => r.ProvozId == Provoz)
                     .Where(r => r.Rok == Rok)
-                    .Where(r => r.Pololeti == Pololeti)
-                    .Select(r => r.Id).FirstOrDefault();
-                }
+                    .Where(r => r.Pololeti == Pololeti); 
+
+                var status = dbCtx.StatusRevize.Where(s => s.Realizovana == true).FirstOrDefault();
+                if (Umisteni == null)
+                {}
                 else
                 {
-
-                    x = dbCtx.Revize
-                    .Where(r => r.ProvozId == Provoz)
-                    .Where(r => r.Rok == Rok)
-                    .Where(r => r.Pololeti == Pololeti)
-                    .Where(r => r.UmisteniId == Umisteni)
-                    .Select(r => r.Id).FirstOrDefault();
+                    x.Where(r => r.UmisteniId == Umisteni);                  
                 }
+                if (closed == true)
+                {
+                    x.Where(r => r.StatusRevizeId == status.Id);
+                }
+                if (closed == false)
+                {
+                    x.Where(r => r.StatusRevizeId != status.Id);
+                }
+                ;
+                revize = x.FirstOrDefault();
             }            
             return revize;
         }

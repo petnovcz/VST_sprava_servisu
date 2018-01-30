@@ -75,8 +75,8 @@
                 <p>
                     <br>
                     @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-{color} btn-xs btn-block {disabled}" })
-                    @if (Request.IsAuthenticated && (User.IsInRole("Administrator")|| User.IsInRole("Manager")))
-                    {
+                    @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
+    {
                 <div class="dropdown">
                     <button class="btn btn-vstprimary btn-block btn-xs dropdown-toggle @disabled" type="button" data-toggle="dropdown">
                         Tisk záznamu o kontrole
@@ -111,6 +111,33 @@
                 @Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
                 <br>
                 @Html.ActionLink("Přidej prvek", "Create", "RevizeSC", new { RevizeId = Model.Id }, new { @class = $"btn btn-success btn-block btn-xs {disabled}" })
+                <div class="dropdown">
+                    <button class="btn btn-vstprimary btn-block btn-xs dropdown-toggle @disabled" type="button" data-toggle="dropdown">
+                        Automatické úpravy
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Html.ActionLink("Přesuň tlakové zkoušky do samostatné revize", "Index", "GenerovaniRevizeTlakoveZkousky", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Přesuň baterie do následné revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+
+                        </li>
+                        <li>
+                            @Html.ActionLink("Přesuň pyro do následné revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+
+                        </li>
+                        <li>
+                            @Html.ActionLink("Přesuň baterie do předchozí revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+                        </li>
+                            <li>
+                            @Html.ActionLink("Přesuň pyro do předchozí revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+                        </li>
+                    </ul>
+                </div>
+
+                
 
 }
                 </p>

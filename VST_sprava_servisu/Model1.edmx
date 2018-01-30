@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Artikl">
           <Key>
             <PropertyRef Name="Id" />
@@ -142,6 +142,7 @@
           <Property Name="Baterie" Type="bit" Nullable="false" />
           <Property Name="Pyro" Type="bit" Nullable="false" />
           <Property Name="TlakovaZkouska" Type="bit" Nullable="false" />
+          <Property Name="Stav" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -159,8 +160,8 @@
           <Property Name="DatumBaterie" Type="datetime" />
           <Property Name="DatumPyro" Type="datetime" />
           <Property Name="DatumTlkZk" Type="datetime" />
-          <Property Name="Lokace" Type="nvarchar" MaxLength="50" />
-          <Property Name="Znaceni" Type="nchar" MaxLength="10" />
+          <Property Name="Lokace" Type="nvarchar" MaxLength="250" />
+          <Property Name="Znaceni" Type="nchar" MaxLength="250" />
           <Property Name="Proverit" Type="bit" Nullable="false" />
           <Property Name="Baterie" Type="bit" Nullable="false" />
           <Property Name="BaterieArtikl" Type="int" />
@@ -890,6 +891,7 @@
           <Property Name="Baterie" Type="Boolean" Nullable="false" />
           <Property Name="Pyro" Type="Boolean" Nullable="false" />
           <Property Name="TlakovaZkouska" Type="Boolean" Nullable="false" />
+          <Property Name="Stav" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -1346,7 +1348,8 @@
     <EntitySetMapping Name="RevizeSC">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.RevizeSC)">
         <MappingFragment StoreEntitySet="RevizeSC">
-          <ScalarProperty Name="TlakovaZkouska" ColumnName="TlakovaZkouska" />
+          <ScalarProperty Name="Stav" ColumnName="Stav" />
+                <ScalarProperty Name="TlakovaZkouska" ColumnName="TlakovaZkouska" />
                 <ScalarProperty Name="Pyro" ColumnName="Pyro" />
                 <ScalarProperty Name="Baterie" ColumnName="Baterie" />
                 <ScalarProperty Name="UmisteniId" ColumnName="UmisteniId" />

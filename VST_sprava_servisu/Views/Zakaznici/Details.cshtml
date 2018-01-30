@@ -3,21 +3,23 @@
 @{
     ViewBag.Title = "Details";
 }
+@{
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+}
 
-
-@Html.Action("Header","Zakaznici",new { Zakaznik = Model.Id })
+@Html.Action("Header", "Zakaznici", new { Zakaznik = Model.Id })
 
 
 
 
 <div class="row">
-    <div id="provozy-list" class="col-lg-12">@Html.Action("Index","Provozy",new { Zakaznik = Model.Id})</div>
-    
-   
+    <div id="provozy-list" class="col-lg-12">@Html.Action("Index", "Provozy", new { Zakaznik = Model.Id })</div>
+
+
 
 </div>
 
 
-   
+
 
 

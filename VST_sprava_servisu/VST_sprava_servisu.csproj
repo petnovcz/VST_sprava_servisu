@@ -294,6 +294,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BezRevizeController.cs" />
     <Compile Include="Controllers\CrystalController.cs" />
+    <Compile Include="Controllers\GenerovaniRevizeTlakoveZkouskyController.cs" />
     <Compile Include="Controllers\GenerovaniReviziController.cs" />
     <Compile Include="Controllers\GenRevizeCustController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -332,6 +333,7 @@
     <Compile Include="Models\BezRevize.cs" />
     <Compile Include="Models\CalculatedSCForRevision.cs" />
     <Compile Include="Models\DnyRevize.cs" />
+    <Compile Include="Models\GenerovaniRevizeTlakoveZkousky.cs" />
     <Compile Include="Models\GenerovaniRevizi.cs" />
     <Compile Include="Models\GenRevizeCust.cs" />
     <Compile Include="Models\GRFiltr.cs" />
@@ -1112,6 +1114,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Crystal\" />
+    <Folder Include="Views\GenerovaniRevizeTlakoveZkousky\" />
     <Folder Include="Views\pdf\" />
     <Folder Include="Views\SAPDIAPI\" />
   </ItemGroup>

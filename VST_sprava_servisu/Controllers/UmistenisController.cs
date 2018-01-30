@@ -147,6 +147,8 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+            ViewBag.Provoz = umisteni.ProvozId;
+            ViewBag.Zakaznik = db.Provoz.Where(t=>t.Id == umisteni.ProvozId).Select(t=>t.ZakaznikId).FirstOrDefault();
             return View(umisteni);
         }
 

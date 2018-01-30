@@ -202,7 +202,7 @@ namespace VST_sprava_servisu
                     db.SaveChanges();
                 }
                 catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Zakaznici", new { Id = zakaznik.Id });
             }
             ViewBag.RegionId = new SelectList(db.Region, "Id", "NazevRegionu", zakaznik.RegionId);
             ViewBag.JazykId = new SelectList(db.Jazyk, "Id", "NazevJazyku", zakaznik.JazykId);

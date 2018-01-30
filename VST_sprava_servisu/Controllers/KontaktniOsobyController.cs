@@ -50,7 +50,9 @@ namespace VST_sprava_servisu
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m=>m.ZakaznikId == Zakaznik), "Id", "NazevProvozu");
             ViewBag.ZakaznikId = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", Zakaznik);
             ViewBag.Zakaznik = Zakaznik;
-            return View();
+            KontakniOsoba ko = new KontakniOsoba();
+            ko.ZakaznikId = Zakaznik;
+            return View(ko);
         }
 
         // POST: KontaktniOsoby/Create
@@ -69,7 +71,7 @@ namespace VST_sprava_servisu
                     db.SaveChanges();
                 }
                 catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik = kontakniOsoba.ZakaznikId });
             }
 
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m => m.ZakaznikId == kontakniOsoba.ZakaznikId), "Id", "NazevProvozu", kontakniOsoba.ProvozId);

@@ -33,6 +33,16 @@
                     @Html.DisplayNameFor(model => model.TlakovaZkouska)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Stav)<br>
+
+                </th>
+                <th>
+                    Zjištěný stav<br>
+                    Provedené zásahy<br>
+                    Opatření k odstranění<br>
+
+                </th>
+                <th>
 
                 </th>
             </tr>
@@ -47,32 +57,41 @@
                         disabled = "disabled";
                     }
                 }
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SCProvozu.SerioveCislo.Artikl.Nazev)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SCProvozu.SerioveCislo.SerioveCislo1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)<br>
-                        @Html.DisplayFor(modelItem => item.SCProvozu.Lokace)<br>
-                        @Html.DisplayFor(modelItem => item.SCProvozu.Znaceni)
-                    </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SCProvozu.SerioveCislo.Artikl.Nazev)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SCProvozu.SerioveCislo.SerioveCislo1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)<br>
+                    @Html.DisplayFor(modelItem => item.SCProvozu.Lokace)<br>
+                    @Html.DisplayFor(modelItem => item.SCProvozu.Znaceni)
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pyro)<br>
-                        @Html.DisplayFor(modelItem => item.Baterie)<br>
-                        @Html.DisplayFor(modelItem => item.TlakovaZkouska)
-                    </td>
-                    <td>
-                        @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
-                        {
-                    @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-xs {disabled}" })
-                    @Html.ActionLink("Smaž", "Delete", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-danger btn-xs {disabled}" })
-                        }
-                    </td>
-                </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pyro)<br>
+                    @Html.DisplayFor(modelItem => item.Baterie)<br>
+                    @Html.DisplayFor(modelItem => item.TlakovaZkouska)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stav)<br>
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JineZavady)<br>
+                    @Html.DisplayFor(modelItem => item.StavKoroze)<br>
+                    @Html.DisplayFor(modelItem => item.StavZnecisteni)<br>
+                </td>
+                <td>
+                    @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
+        {
+            @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-xs {disabled}" })
+            @Html.ActionLink("Smaž", "Delete", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-danger btn-xs {disabled}" })
+}
+                </td>
+            </tr>
             }
         </tbody>
     </table>
