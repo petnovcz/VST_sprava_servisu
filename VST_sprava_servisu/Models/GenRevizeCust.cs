@@ -392,6 +392,7 @@ namespace VST_sprava_servisu
             sql.Append($" t0.id = '{ZakaznikId}'");
             sql.Append($" and t1.Id = '{ProvozId}' ");
             sql.Append($" and (t2.Id = '{UmisteniId}' or '{UmisteniId}' = '0')");
+            sql.Append($" and T3.StatusId <> 2");
 
             //LOGOVANI
             log.Debug($"calculatescfrorevision pro ZakaznikId: {ZakaznikId}, ProvozId: {ProvozId}, UmisteniId: {UmisteniId}");

@@ -42,5 +42,6 @@ namespace VST_sprava_servisu
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<VymenyLahvi> VymenyLahvi { get; set; }
     }
 }

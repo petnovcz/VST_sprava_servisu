@@ -181,7 +181,7 @@ namespace VST_sprava_servisu
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        internal protected static Revize GetById(int Id)
+        public static Revize GetById(int Id)
         {
             var provoz = new Revize();
             using (var dbCtx = new Model1Container())

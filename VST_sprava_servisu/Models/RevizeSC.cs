@@ -12,6 +12,19 @@ namespace VST_sprava_servisu
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("RevizeSC");
 
+        public static RevizeSC GetRevizeSCByRevizeSCid(int RevizeSCId)
+        {
+            RevizeSC revizeSC = new RevizeSC();
+            using (var dbCtx = new Model1Container())
+            {
+                revizeSC = dbCtx.RevizeSC
+                    .Where(r => r.Id == RevizeSCId)
+                    .Include(r => r.SCProvozu)
+                    .Include(r => r.SCProvozu.Artikl)
+                    .FirstOrDefault();
+            }
+            return revizeSC;
+        }
 
         public static List<RevizeSC> GetListByRevizeId(int RevizeId, int? SCprovozuId)
         {

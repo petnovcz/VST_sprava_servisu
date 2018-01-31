@@ -36,7 +36,12 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
-            //umisteni.SCProvozu
+            var x = db.SCProvozu
+                .Include(s => s.Status);
+            x = x.Where(s => s.StatusId != 2 && s.ProvozId == umisteni.ProvozId && s.Umisteni == umisteni.Id);
+
+            umisteni.SCProvozu = null;
+            ViewBag.SCProvozu = x    .ToList();
             ViewBag.Provoz = Provoz;
             ViewBag.Zakaznik = Zakaznik;
             return View(umisteni);

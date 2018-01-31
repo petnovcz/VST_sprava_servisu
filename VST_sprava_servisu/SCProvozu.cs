@@ -62,5 +62,9 @@ namespace VST_sprava_servisu
         public virtual Status Status { get; set; }
         public virtual Umisteni Umisteni1 { get; set; }
         public virtual Artikl Artikl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VymenyLahvi> VymenyLahvi { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VymenyLahvi> VymenyLahvi1 { get; set; }
     }
 }

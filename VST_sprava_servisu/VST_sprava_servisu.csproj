@@ -301,6 +301,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NastaveniController.cs" />
     <Compile Include="Controllers\pdfController.cs" />
+    <Compile Include="Controllers\ProvedeniVymenyLahveController.cs" />
     <Compile Include="Controllers\SAPDIAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -340,6 +341,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\KontakniOsoba.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProvedeniVymenyLahve.cs" />
     <Compile Include="Models\Provoz.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Revize.cs" />
@@ -431,6 +433,9 @@
     <Compile Include="Controllers\ZakazniciController.cs" />
     <Compile Include="Controllers\UmistenisController.cs" />
     <Compile Include="UzivateleController.cs" />
+    <Compile Include="VymenyLahvi.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Zakaznik.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1110,6 +1115,8 @@
     <Content Include="Views\BezRevize\Index.cshtml" />
     <Content Include="Views\BezRevize\Details.cshtml" />
     <Content Include="Views\GenRevizeCust\Index.cshtml" />
+    <Content Include="Views\ProvedeniVymenyLahve\VyhledaniSC.cshtml" />
+    <Content Include="Views\ProvedeniVymenyLahve\VyhledaniSCImport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -43,6 +43,9 @@
         <EntityTypeShape EntityType="Model1.AspNetUsers" Width="1.5" PointX="15.375" PointY="7.375" />
         <AssociationConnector Association="Model1.AspNetUsersAspNetUserRoles" />
         <AssociationConnector Association="Model1.FK_SCProvozu_Artikl" />
+        <EntityTypeShape EntityType="Model1.VymenyLahvi" Width="1.5" PointX="11.625" PointY="0.75" />
+        <AssociationConnector Association="Model1.FK_VymenyLahvi_ToSCProvozuN" />
+        <AssociationConnector Association="Model1.FK_VymenyLahvi_ToSCProvozuP" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
