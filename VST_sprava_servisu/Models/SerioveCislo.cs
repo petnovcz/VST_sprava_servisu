@@ -31,5 +31,18 @@ namespace VST_sprava_servisu
 
         }
 
+        public static SerioveCislo GetSerioveCisloById(int SC)
+        {
+            SerioveCislo serioveCislo = new SerioveCislo();
+            using (var dbCtx = new Model1Container())
+            {
+                serioveCislo = dbCtx.SerioveCislo.Where(r => r.Id == SC).FirstOrDefault();
+                serioveCislo.Artikl = dbCtx.Artikl.Where(r => r.Id == serioveCislo.ArtiklId).FirstOrDefault();
+
+            }
+
+            return serioveCislo;
+        }
+
     }
 }

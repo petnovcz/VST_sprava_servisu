@@ -26,6 +26,7 @@ namespace VST_sprava_servisu
             using (var dbCtx = new Model1Container())
             {
                 provoz = dbCtx.Provoz.Where(r => r.Id == Id).FirstOrDefault();
+                provoz.Zakaznik = dbCtx.Zakaznik.Where(r => r.Id == provoz.ZakaznikId).FirstOrDefault();
             }
             return provoz;
         }

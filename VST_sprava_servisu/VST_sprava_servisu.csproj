@@ -363,6 +363,7 @@
     <Compile Include="Models\SessionReader.cs" />
     <Compile Include="Models\StatusRevize.cs" />
     <Compile Include="Models\Umisteni.cs" />
+    <Compile Include="Models\VymenyLahvi.cs" />
     <Compile Include="Models\VypocetPlanuRevizi.cs" />
     <Compile Include="Models\ZakaznickySeznam.cs" />
     <Compile Include="Models\Zakaznik.cs" />
@@ -1117,6 +1118,7 @@
     <Content Include="Views\GenRevizeCust\Index.cshtml" />
     <Content Include="Views\ProvedeniVymenyLahve\VyhledaniSC.cshtml" />
     <Content Include="Views\ProvedeniVymenyLahve\VyhledaniSCImport.cshtml" />
+    <Content Include="Views\ProvedeniVymenyLahve\ImportSCtoServis.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

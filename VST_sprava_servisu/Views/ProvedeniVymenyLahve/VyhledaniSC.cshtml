@@ -4,7 +4,12 @@
 }
 
 @Html.Action("Header", "Revize", new { Id = Model.Revize.Id, Revize = Model.Revize.Id })
-<h2>VyhledaniSC</h2>
+
+<h2>Vyhledání sériového čísla v SAP</h2>
+
+<p>
+    Výměna prvku @Model.RevizeSC.SCProvozu.SerioveCislo.Artikl.Nazev,@Model.RevizeSC.SCProvozu.SerioveCislo.Artikl.KodSAP, @Model.RevizeSC.SCProvozu.SerioveCislo.SerioveCislo1, @Model.RevizeSC.SCProvozu.Znaceni,    @Model.RevizeSC.SCProvozu.Lokace
+</p>
 
 @using (Html.BeginForm("VyhledaniSCImport", "ProvedeniVymenyLahve"))
 {

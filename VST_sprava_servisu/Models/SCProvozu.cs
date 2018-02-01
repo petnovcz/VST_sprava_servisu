@@ -11,6 +11,41 @@ namespace VST_sprava_servisu
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SCProvozu");
 
+
+        internal protected static void ZneaktivniSCProvozu(SCProvozu oldSCProvozu, DateTime DatumRevize)
+        {
+            SCProvozu sc = new SCProvozu();
+
+            using (var dbCtx = new Model1Container())
+            {
+                sc = dbCtx.SCProvozu.Find(oldSCProvozu.Id);
+                sc.StatusId = dbCtx.Status.Where(r => r.Neaktivni == true).Select(r => r.Id).FirstOrDefault();
+                sc.DatumVymeny = DatumRevize;
+                sc.DatumPosledniZmeny = DatumRevize;
+                try
+                {
+
+                    dbCtx.Entry(sc).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+                catch { }
+
+
+            }
+        }
+
+
+        internal protected static SCProvozu GetSCProvozuById(int SCProvozuId)
+        {
+            SCProvozu sCProvozu = new SCProvozu();
+            using (var dbCtx = new Model1Container())
+            {
+                sCProvozu = dbCtx.SCProvozu.Where(r => r.Id == SCProvozuId).FirstOrDefault();
+            }
+
+            return sCProvozu;
+        }
+
         internal protected static List<SCProvozu> GetList(int? Provoz, int? SerioveCislo, int? Status, int? Umisteni)
         {
             var list = new List<SCProvozu>();

@@ -91,6 +91,9 @@
           <Property Name="OdlehceniVybuchu" Type="bit" Nullable="false" />
           <Property Name="AdresaProvozu" Type="ntext" />
           <Property Name="SAPAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="PouzijVTisku" Type="bit" Nullable="false" />
+          <Property Name="IC" Type="nvarchar" MaxLength="50" />
+          <Property Name="DIC" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -831,6 +834,9 @@
           <Property Name="AdresaProvozu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SAPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="KontakniOsoba" Relationship="Model1.FK_ProvozKontakniOsoba" FromRole="Provoz" ToRole="KontakniOsoba" />
+          <Property Name="PouzijVTisku" Type="Boolean" Nullable="false" />
+          <Property Name="IC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="ProvozZakaznik">
           <End Type="Model1.Provoz" Role="Provoz" Multiplicity="*" />
@@ -1362,7 +1368,10 @@
     <EntitySetMapping Name="Provoz">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Provoz)">
         <MappingFragment StoreEntitySet="Provoz">
-          <ScalarProperty Name="SAPAddress" ColumnName="SAPAddress" />
+          <ScalarProperty Name="DIC" ColumnName="DIC" />
+                <ScalarProperty Name="IC" ColumnName="IC" />
+                <ScalarProperty Name="PouzijVTisku" ColumnName="PouzijVTisku" />
+                <ScalarProperty Name="SAPAddress" ColumnName="SAPAddress" />
                 <ScalarProperty Name="AdresaProvozu" ColumnName="AdresaProvozu" />
                 <ScalarProperty Name="OdlehceniVybuchu" ColumnName="OdlehceniVybuchu" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

@@ -24,5 +24,15 @@ namespace VST_sprava_servisu
             pvl.SAPSerioveCisloList = SAPSerioveCislo.LoadSCFromSAP(SC, 1);
             return View(pvl);
         }
+        [HttpPost]
+        public ActionResult ImportSCtoServis(int RevizeSCId, int ArticlId, string SerioveCislo, DateTime DatumVyroby, DateTime DatumDodani)
+        {
+            ProvedeniVymenyLahve pvl = new ProvedeniVymenyLahve();
+            pvl = ProvedeniVymenyLahve.Main(RevizeSCId);
+            ProvedeniVymenyLahve.VymenaLahve(RevizeSCId, ArticlId, SerioveCislo, DatumVyroby, DatumDodani);
+            
+
+            return View(pvl);
+        }
     }
 }

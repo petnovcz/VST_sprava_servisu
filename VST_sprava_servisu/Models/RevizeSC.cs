@@ -19,9 +19,12 @@ namespace VST_sprava_servisu
             {
                 revizeSC = dbCtx.RevizeSC
                     .Where(r => r.Id == RevizeSCId)
-                    .Include(r => r.SCProvozu)
-                    .Include(r => r.SCProvozu.Artikl)
+                    //.Include(r => r.SCProvozu)                
                     .FirstOrDefault();
+                revizeSC.SCProvozu = dbCtx.SCProvozu.Where(r => r.Id == revizeSC.SCProvozuId).FirstOrDefault();
+                revizeSC.SCProvozu.SerioveCislo = dbCtx.SerioveCislo.Where(r => r.Id == revizeSC.SCProvozu.SerioveCisloId).FirstOrDefault();
+                revizeSC.SCProvozu.SerioveCislo.Artikl = dbCtx.Artikl.Where(r => r.Id == revizeSC.SCProvozu.SerioveCislo.ArtiklId).FirstOrDefault();
+                
             }
             return revizeSC;
         }

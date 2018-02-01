@@ -39,7 +39,13 @@ namespace VST_sprava_servisu
         public string AdresaProvozu { get; set; }
         [Display(Name = "SAP kód adresy")]
         public string SAPAddress { get; set; }
-    
+        [Display(Name = "Použij adresu v tisku")]
+        public bool PouzijVTisku { get; set; }
+        [Display(Name = "IÈ")]
+        public string IC { get; set; }
+        [Display(Name = "DIÈ")]
+        public string DIC { get; set; }
+
         public virtual Zakaznik Zakaznik { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Umisteni> Umisteni { get; set; }

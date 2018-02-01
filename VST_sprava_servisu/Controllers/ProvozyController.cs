@@ -70,7 +70,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Create([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu,SAPAddress")] Provoz provoz)
+        public ActionResult Create([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu,SAPAddress,PouzijVTisku,IC,DIC")] Provoz provoz)
         {
             int Zakaznik = provoz.ZakaznikId;
             if (ModelState.IsValid)
@@ -118,7 +118,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu,SAPAddress")] Provoz provoz)
+        public ActionResult Edit([Bind(Include = "Id,ZakaznikId,NazevProvozu,OddeleniVybuchu,PotlaceniVybuchu,OdlehceniVybuchu,AdresaProvozu,SAPAddress,PouzijVTisku,IC,DIC")] Provoz provoz)
         {
             int zakaznik = provoz.ZakaznikId;
             if (ModelState.IsValid)

@@ -3,7 +3,8 @@
     ViewBag.Title = "VyhledaniSCImport";
 }
 @Html.Action("Header", "Revize", new { Id = Model.Revize.Id, Revize = Model.Revize.Id })
-<h2>VyhledaniSCImport</h2>
+
+<h2>Vyhledání sériového čísla pro výměnu</h2>
 
 @foreach (var item in Model.SAPSerioveCisloList)
 {
@@ -22,14 +23,15 @@
     <center>
 
         @using (Html.BeginForm("ImportSCtoServis", "ProvedeniVymenyLahve"))
-        {
+    {
 
-            @Html.Hidden("RevizeSCId", Model.RevizeSCId)
-            @Html.Hidden("ArtiklId", item.ArticlId)
-            @Html.Hidden("DatumVyroby", item.DatumVyroby)
-            @Html.Hidden("DatumDodani", item.DatumVyroby)
-            <input type="submit" value="Přiřaď do Provozu / Technologie" class="btn btn-success" />
-        }
+        @Html.Hidden("RevizeSCId", Model.RevizeSCId)
+        @Html.Hidden("ArticlId", item.ArticlId)
+        @Html.Hidden("SerioveCislo", item.SerioveCislo)
+        @Html.Hidden("DatumVyroby", item.DatumVyroby)
+        @Html.Hidden("DatumDodani", item.DatumVyroby)
+        <input type="submit" value="Přiřaď do Provozu / Technologie" class="btn btn-success" />
+}
     </center>
 </div>
 
