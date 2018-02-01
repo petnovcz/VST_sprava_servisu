@@ -19,8 +19,10 @@ namespace VST_sprava_servisu
         public int SCProvozuNova { get; set; }
         public string SCLahve { get; set; }
         public System.DateTime DatumVymeny { get; set; }
+        public int Revize { get; set; }
     
         public virtual SCProvozu SCProvozu { get; set; }
         public virtual SCProvozu SCProvozu1 { get; set; }
+        public virtual Revize Revize1 { get; set; }
     }
 }

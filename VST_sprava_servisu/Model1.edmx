@@ -235,6 +235,7 @@
           <Property Name="SCProvozuNova" Type="int" Nullable="false" />
           <Property Name="SCLahve" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DatumVymeny" Type="datetime" Nullable="false" />
+          <Property Name="Revize" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Zakaznik">
           <Key>
@@ -492,6 +493,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VymenyLahvi_ToRevize">
+          <End Role="Revize" Type="Self.Revize" Multiplicity="1" />
+          <End Role="VymenyLahvi" Type="Self.VymenyLahvi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Revize">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VymenyLahvi">
+              <PropertyRef Name="Revize" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VymenyLahvi_ToSCProvozuN">
           <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="1" />
           <End Role="VymenyLahvi" Type="Self.VymenyLahvi" Multiplicity="*" />
@@ -627,6 +640,10 @@
             <End Role="Provoz" EntitySet="Provoz" />
             <End Role="Umisteni" EntitySet="Umisteni" />
           </AssociationSet>
+          <AssociationSet Name="FK_VymenyLahvi_ToRevize" Association="Self.FK_VymenyLahvi_ToRevize">
+            <End Role="Revize" EntitySet="Revize" />
+            <End Role="VymenyLahvi" EntitySet="VymenyLahvi" />
+          </AssociationSet>
           <AssociationSet Name="FK_VymenyLahvi_ToSCProvozuN" Association="Self.FK_VymenyLahvi_ToSCProvozuN">
             <End Role="SCProvozu" EntitySet="SCProvozu" />
             <End Role="VymenyLahvi" EntitySet="VymenyLahvi" />
@@ -753,6 +770,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_VymenyLahvi_ToSCProvozuP" Association="Model1.FK_VymenyLahvi_ToSCProvozuP">
             <End Role="SCProvozu" EntitySet="SCProvozu" />
+            <End Role="VymenyLahvi" EntitySet="VymenyLahvi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VymenyLahvi_ToRevize" Association="Model1.FK_VymenyLahvi_ToRevize">
+            <End Role="Revize" EntitySet="Revize" />
             <End Role="VymenyLahvi" EntitySet="VymenyLahvi" />
           </AssociationSet>
         </EntityContainer>
@@ -931,6 +952,7 @@
           <Property Name="V" Type="Int32" />
           <Property Name="Projekt" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <Property Name="Nabidka" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="VymenyLahvi" Relationship="Model1.FK_VymenyLahvi_ToRevize" FromRole="Revize" ToRole="VymenyLahvi" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -1300,6 +1322,8 @@
           <Property Name="DatumVymeny" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_VymenyLahvi_ToSCProvozuN" FromRole="VymenyLahvi" ToRole="SCProvozu" />
           <NavigationProperty Name="SCProvozu1" Relationship="Model1.FK_VymenyLahvi_ToSCProvozuP" FromRole="VymenyLahvi" ToRole="SCProvozu" />
+          <Property Name="Revize" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Revize1" Relationship="Model1.FK_VymenyLahvi_ToRevize" FromRole="VymenyLahvi" ToRole="Revize" />
         </EntityType>
         <Association Name="FK_VymenyLahvi_ToSCProvozuN">
           <End Type="Model1.SCProvozu" Role="SCProvozu" Multiplicity="1" />
@@ -1322,6 +1346,18 @@
             </Principal>
             <Dependent Role="VymenyLahvi">
               <PropertyRef Name="SCProvozuPuvodni" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VymenyLahvi_ToRevize">
+          <End Type="Model1.Revize" Role="Revize" Multiplicity="1" />
+          <End Type="Model1.VymenyLahvi" Role="VymenyLahvi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Revize">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VymenyLahvi">
+              <PropertyRef Name="Revize" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1587,6 +1623,7 @@
           <EntitySetMapping Name="VymenyLahvi">
             <EntityTypeMapping TypeName="Model1.VymenyLahvi">
               <MappingFragment StoreEntitySet="VymenyLahvi">
+                <ScalarProperty Name="Revize" ColumnName="Revize" />
                 <ScalarProperty Name="DatumVymeny" ColumnName="DatumVymeny" />
                 <ScalarProperty Name="SCLahve" ColumnName="SCLahve" />
                 <ScalarProperty Name="SCProvozuNova" ColumnName="SCProvozuNova" />

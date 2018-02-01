@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace VST_sprava_servisu
@@ -13,10 +15,58 @@ namespace VST_sprava_servisu
         public Revize Revize { get; set; }
         public RevizeSC RevizeSC { get; set; }
         public SAPSerioveCislo SAPSerioveCislo { get; set;}
-        
+
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ProvedeniVymenyLahve");
+
+        private static string DohledaniSeriovehoCislaLahveDleSeriovehoCislaAkcnihoprvku(string SC, string SAPKodArtiklu)
+        {
+            string sclahve = "";
+
+            
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            StringBuilder sql = new StringBuilder();
+
+            sql.Append(" select coalesce(t0.IntrSerial, t0.SysSerial) as 'Serial'  ");
+            sql.Append($"  from OSRI t0 ");
+            sql.Append($"  inner join SRI1 t1 on t0.SysSerial = t1.SysSerial and t0.ItemCode = t1.ItemCode ");
+            sql.Append($"  left join OIGE t2 on t1.BaseNum = t2.DocNum");
+            sql.Append($"  left join IGE1 t3 on t2.DocEntry = t3.DocEntry and t3.ItemCode = t1.ItemCode");
+            sql.Append($"  left join oitm t4 on t1.ItemCode = t4.ItemCode");
+            sql.Append($"  where t3.BaseRef = ");
+            sql.Append($"  (select t3.BaseRef from OSRI t0 ");
+            sql.Append($"  inner join SRI1 t1 on t0.SysSerial = t1.SysSerial and t0.ItemCode = t1.ItemCode and t1.BaseType = '59'");
+            sql.Append($"  left join OIGN t2 on t1.BaseNum = t2.DocNum");
+            sql.Append($"  left join IGN1 t3 on t2.DocEntry = t3.DocEntry");
+            sql.Append($"  where t0.IntrSerial = '{SC}' and t3.BaseRef is not null and T0.ItemCode = '{SAPKodArtiklu}') and t4.ItmsGrpCod = '138' ");
+            
+
+
+            SqlConnection cnn = new SqlConnection(connectionString);
+            //SqlConnection con = new SqlConnection(cnn);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql.ToString();
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+                    var x  = dr.GetInt32(0);
+                    sclahve = x.ToString();
+                }
+            }
+            cnn.Close();
+            
 
 
 
+
+            return sclahve;
+        }
 
 
 
@@ -77,11 +127,15 @@ namespace VST_sprava_servisu
 
             // vytvoreni Serioveho cisla akcniho prvku
             var id = SerioveCislo.AddSeriovecislo(sCImport);
+            newSerioveCislo = SerioveCislo.GetSerioveCisloById(id);
             // vyvoreni noveho provozusc
             var idscprovozu = SCProvozu.AddSCProvozu(sCImport, id);
             newSCProvozu = SCProvozu.GetSCProvozuById(idscprovozu);
+            //Dohledani serioveho cisla lahve
+            var seriovecislolahve = DohledaniSeriovehoCislaLahveDleSeriovehoCislaAkcnihoprvku(newSerioveCislo.SerioveCislo1, newSerioveCislo.Artikl.KodSAP);
+
             // vytvoření vazby vymeny mezi jednotlivými SCProvozu
-            vymenyLahvi = VymenyLahvi.GenerujVymenu(oldSCProvozu, newSCProvozu, revize.DatumRevize);
+            vymenyLahvi = VymenyLahvi.GenerujVymenu(oldSCProvozu, newSCProvozu, revize.DatumRevize, revize.Id, seriovecislolahve);
             // zneaktivneni stareho provozusc
             SCProvozu.ZneaktivniSCProvozu(oldSCProvozu, revize.DatumRevize);
             // vymena v nasledujicich otevrenych revizich 

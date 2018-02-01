@@ -8,7 +8,7 @@ namespace VST_sprava_servisu
     public partial class VymenyLahvi
     {
 
-        internal protected static VymenyLahvi GenerujVymenu(SCProvozu oldSCProvozu, SCProvozu newSCProvozu, DateTime DatumVymeny)
+        internal protected static VymenyLahvi GenerujVymenu(SCProvozu oldSCProvozu, SCProvozu newSCProvozu, DateTime DatumVymeny, int RevizeId, string SClahve)
         {
             VymenyLahvi vl = new VymenyLahvi();
             using (var dbCtx = new Model1Container())
@@ -16,13 +16,14 @@ namespace VST_sprava_servisu
                 vl.SCProvozuNova = newSCProvozu.Id;
                 vl.SCProvozuPuvodni = oldSCProvozu.Id;
                 vl.DatumVymeny = DatumVymeny;
-                vl.SCLahve = "fdsfsd";
+                vl.Revize = RevizeId;
+                vl.SCLahve = SClahve;
                 try
                 {
                     dbCtx.VymenyLahvi.Add(vl);
                     dbCtx.SaveChanges();
                 }
-                catch { }
+                catch(Exception ex) {  }
 
             }
             return vl;
