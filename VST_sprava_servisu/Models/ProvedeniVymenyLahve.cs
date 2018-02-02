@@ -138,8 +138,12 @@ namespace VST_sprava_servisu
             vymenyLahvi = VymenyLahvi.GenerujVymenu(oldSCProvozu, newSCProvozu, revize.DatumRevize, revize.Id, seriovecislolahve);
             // zneaktivneni stareho provozusc
             SCProvozu.ZneaktivniSCProvozu(oldSCProvozu, revize.DatumRevize);
-            // vymena v nasledujicich otevrenych revizich 
 
+            // odebrani stare revizesc
+            RevizeSC.Remove(oldRevizeSC.Id);
+
+            // vymena v nasledujicich otevrenych revizich stareho revizesc za noveho
+            RevizeSC.ChangeRevizeSCForUpcomingOpenRevision(oldSCProvozu, newSCProvozu, revize.DatumRevize);
 
 
 

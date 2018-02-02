@@ -1,0 +1,64 @@
+﻿@model VST_sprava_servisu.VymenyLahvi
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>VymenyLahvi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SCProvozuPuvodni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCProvozuPuvodni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCProvozuNova)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCProvozuNova)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCLahve)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCLahve)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumVymeny)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumVymeny)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Revize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Revize)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

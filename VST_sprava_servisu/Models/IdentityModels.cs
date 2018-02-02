@@ -29,5 +29,7 @@ namespace VST_sprava_servisu.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<VST_sprava_servisu.VymenyLahvi> VymenyLahvis { get; set; }
     }
 }

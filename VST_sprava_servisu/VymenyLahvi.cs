@@ -11,9 +11,11 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class VymenyLahvi
     {
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int SCProvozuPuvodni { get; set; }
         public int SCProvozuNova { get; set; }

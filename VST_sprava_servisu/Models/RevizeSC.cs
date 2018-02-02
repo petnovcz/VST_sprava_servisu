@@ -12,6 +12,72 @@ namespace VST_sprava_servisu
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("RevizeSC");
 
+        internal protected static void Remove(int RevizeSCId)
+        {
+            using (var dbCtx = new Model1Container())
+            {
+                RevizeSC revizeSC = dbCtx.RevizeSC.Find(RevizeSCId);
+                try
+                {
+
+                    dbCtx.RevizeSC.Remove(revizeSC);
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception ex) { }
+            }
+        }
+
+        internal protected static void ChangeRevizeSCForUpcomingOpenRevision(SCProvozu oldSCProvozu, SCProvozu newSCProvozu, DateTime PocatecniDatum)
+        {
+            List<RevizeSC> list = new List<RevizeSC>();
+            list = GetNextOpenRevizeForRevizeSC(oldSCProvozu, PocatecniDatum);
+            SwitchSCprovozu(list, newSCProvozu);
+
+        }
+
+        private static void SwitchSCprovozu(List<RevizeSC> list, SCProvozu newSCProvozu)
+        {
+            foreach (var item in list)
+            {
+                using (var dbCtx = new Model1Container())
+                {
+                    RevizeSC revizeSC = new RevizeSC();
+                    revizeSC = dbCtx.RevizeSC.Find(item.Id);
+                    revizeSC.SCProvozuId = newSCProvozu.Id;
+                    try
+                    {
+                        dbCtx.Entry(revizeSC).State = EntityState.Modified;
+                        dbCtx.SaveChanges();
+                    }
+                    catch (Exception ex) { }
+
+                }
+
+
+            }
+
+
+        }
+
+
+        private static List<RevizeSC> GetNextOpenRevizeForRevizeSC(SCProvozu scPRovozu, DateTime pocatecniDatum)
+        {
+            List<RevizeSC> list = new List<RevizeSC>();
+            
+            using (var dbCtx = new Model1Container())
+            {
+                var uzavrena = dbCtx.StatusRevize.Where(s => s.Realizovana != true).Select(r=>r.Id).FirstOrDefault();
+                var x = dbCtx.RevizeSC.Where(r => r.SCProvozuId == scPRovozu.Id).Include(r => r.Revize)
+                    .Where(r => r.Revize.DatumRevize > pocatecniDatum)
+                    .Where(r => r.Revize.StatusRevizeId == uzavrena).ToList();
+
+                list = x;
+            }
+                return list;
+        }
+
+
+
         public static RevizeSC GetRevizeSCByRevizeSCid(int RevizeSCId)
         {
             RevizeSC revizeSC = new RevizeSC();
