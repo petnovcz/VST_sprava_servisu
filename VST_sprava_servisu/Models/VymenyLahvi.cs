@@ -17,6 +17,7 @@ namespace VST_sprava_servisu
                 vl.SCProvozuPuvodni = oldSCProvozu.Id;
                 vl.DatumVymeny = DatumVymeny;
                 vl.Revize = RevizeId;
+                vl.Umisteni = oldSCProvozu.Umisteni;
                 vl.SCLahve = SClahve;
                 try
                 {

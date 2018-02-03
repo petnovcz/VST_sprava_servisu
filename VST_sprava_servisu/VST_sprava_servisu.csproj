@@ -335,6 +335,7 @@
     <Compile Include="Models\CalculatedSCForRevision.cs" />
     <Compile Include="Models\DnyRevize.cs" />
     <Compile Include="Models\GenerovaniRevizeTlakoveZkousky.cs" />
+    <Compile Include="Models\Jazyk.cs" />
     <Compile Include="Models\PresunMeziRevizemii.cs" />
     <Compile Include="Models\GenRevizeCust.cs" />
     <Compile Include="Models\GRFiltr.cs" />

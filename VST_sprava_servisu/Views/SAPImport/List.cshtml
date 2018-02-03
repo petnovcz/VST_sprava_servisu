@@ -32,12 +32,15 @@
 
     }
 
-    @ViewBag.Result
+        <p class="vstcolorwhite">
+            <br>
+            @ViewBag.Result
+            </p>
 
 
-    <div id="List">
-        @Html.Partial("SAPOPList", Model.ListSAPOP)
-    </div>
+            <div id="List">
+                @Html.Partial("SAPOPList", Model.ListSAPOP)
+            </div>
 </div>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.Entity;
 using System.Configuration;
+using System.Text;
 
 namespace VST_sprava_servisu
 {
@@ -54,12 +55,28 @@ namespace VST_sprava_servisu
         {
             SAPOP sapOP = new SAPOP();
             sapOP = SAPOP.GetSAPOPByCode(kodOP);
+            bool jazyk = Jazyk.ValidateValue(sapOP.JazykId);
+            bool region = Region.ValidateValue(sapOP.RegionId);
             bool success = Zakaznik.CreateFromSAPdata(sapOP);
             if (success == true)
             {
                 ViewBag.Result = "Import proběhl OK";
             }
-            else { ViewBag.Result = "Import neproběhl"; }
+            else
+            {
+                StringBuilder result = new StringBuilder();
+                result.Append("Import neproběhl:");
+                if (jazyk == false)
+                {
+                    result.Append("Jazyk tiskové šablony nastavený na kartě obchodního partnera v SAP není nastaven v Servisním software. ");
+                }
+                if (region == false)
+                {
+                    result.Append("Region nastavený na kartě obchodního partnera v SAP není nastaven v Servisním software. ");
+                }
+                ViewBag.Result = result.ToString();
+            }
+
             SAPOPImportParametr SAPOPlist = new SAPOPImportParametr();
             string Search = "";
             if (Search == null)

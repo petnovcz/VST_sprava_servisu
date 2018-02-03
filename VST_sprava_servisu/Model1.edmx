@@ -236,6 +236,8 @@
           <Property Name="SCLahve" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DatumVymeny" Type="datetime" Nullable="false" />
           <Property Name="Revize" Type="int" Nullable="false" />
+          <Property Name="Popis" Type="nvarchar(max)" />
+          <Property Name="Umisteni" Type="int" />
         </EntityType>
         <EntityType Name="Zakaznik">
           <Key>
@@ -1324,6 +1326,8 @@
           <NavigationProperty Name="SCProvozu1" Relationship="Model1.FK_VymenyLahvi_ToSCProvozuP" FromRole="VymenyLahvi" ToRole="SCProvozu" />
           <Property Name="Revize" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Revize1" Relationship="Model1.FK_VymenyLahvi_ToRevize" FromRole="VymenyLahvi" ToRole="Revize" />
+          <Property Name="Popis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Umisteni" Type="Int32" />
         </EntityType>
         <Association Name="FK_VymenyLahvi_ToSCProvozuN">
           <End Type="Model1.SCProvozu" Role="SCProvozu" Multiplicity="1" />
@@ -1623,6 +1627,8 @@
           <EntitySetMapping Name="VymenyLahvi">
             <EntityTypeMapping TypeName="Model1.VymenyLahvi">
               <MappingFragment StoreEntitySet="VymenyLahvi">
+                <ScalarProperty Name="Umisteni" ColumnName="Umisteni" />
+                <ScalarProperty Name="Popis" ColumnName="Popis" />
                 <ScalarProperty Name="Revize" ColumnName="Revize" />
                 <ScalarProperty Name="DatumVymeny" ColumnName="DatumVymeny" />
                 <ScalarProperty Name="SCLahve" ColumnName="SCLahve" />

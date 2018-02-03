@@ -26,8 +26,12 @@ namespace VST_sprava_servisu
         public string SCLahve { get; set; }
         [Display(Name = "Datum výmìny")]
         public System.DateTime DatumVymeny { get; set; }
+        [Display(Name = "Revize")]
         public int Revize { get; set; }
-    
+        [Display(Name = "Popis")]
+        public string Popis { get; set; }
+        [Display(Name = "Umístìní")]
+        public Nullable<int> Umisteni { get; set; }
         public virtual SCProvozu SCProvozu { get; set; }
         public virtual SCProvozu SCProvozu1 { get; set; }
         public virtual Revize Revize1 { get; set; }

@@ -7,6 +7,20 @@ namespace VST_sprava_servisu
 {
     public partial class Region
     {
+
+        public static bool ValidateValue(int ID)
+        {
+            bool success = false;
+            using (var dbCtx = new Model1Container())
+            {
+                var count = dbCtx.Region.Where(j => j.Id == ID).Count();
+                if (count > 0) { success = true; }
+
+
+            }
+            return success;
+        }
+
         internal protected static List<Region> GetAll()
         {
             var regionl = new List<Region>();

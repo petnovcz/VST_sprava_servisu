@@ -16,7 +16,11 @@ namespace VST_sprava_servisu
         // GET: VymenyLahvi
         public ActionResult Index(int RevizeId)
         {
-            var vymenyLahvi = db.VymenyLahvi.Include(v => v.SCProvozu).Include(v => v.SCProvozu1).Include(v => v.Revize1)
+            var vymenyLahvi = db.VymenyLahvi
+                .Include(v => v.SCProvozu)
+                .Include(v => v.SCProvozu1)
+                .Include(v => v.Revize1)
+                .Include(v=>v.Revize1.StatusRevize)
                 .Where(v =>v.Revize == RevizeId);
             return View(vymenyLahvi.ToList());
         }
@@ -88,7 +92,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SCProvozuPuvodni,SCProvozuNova,SCLahve,DatumVymeny,Revize")] VymenyLahvi vymenyLahvi)
+        public ActionResult Edit([Bind(Include = "Id,SCProvozuPuvodni,SCProvozuNova,SCLahve,DatumVymeny,Revize,Popis,Umisteni")] VymenyLahvi vymenyLahvi)
         {
             if (ModelState.IsValid)
             {
