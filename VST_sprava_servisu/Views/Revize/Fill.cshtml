@@ -34,7 +34,7 @@
         @Html.HiddenFor(model => model.RJ)
         @Html.HiddenFor(model => model.M)
         @Html.HiddenFor(model => model.V)
-        @Html.HiddenFor(model => model.PristiKontrola)
+
         @Html.HiddenFor(model => model.DatumRevize)
         @Html.HiddenFor(model => model.StatusRevizeId)
         @Html.HiddenFor(model => model.Projekt)
@@ -72,6 +72,14 @@
             <div class="col-md-9">
                 @Html.EditorFor(model => model.KontrolaProvedenaDne, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
                 @Html.ValidationMessageFor(model => model.KontrolaProvedenaDne, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PristiKontrola, htmlAttributes: new { @class = "control-label col-md-3 " })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.PristiKontrola, new { htmlAttributes = new { @class = "form-control " } })
+                @Html.ValidationMessageFor(model => model.PristiKontrola, "", new { @class = "text-danger" })
 
             </div>
         </div>

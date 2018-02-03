@@ -14,17 +14,24 @@ namespace VST_sprava_servisu
     {
 
         [Key]
+        [Required(ErrorMessage = "Zadejte prosím kód OP")] 
         public string CardCode { get; set; }
+        [Required(ErrorMessage = "Zadejte prosím Název OP")]
         public string CardName { get; set; }
-
+        [Required(ErrorMessage = "Zadejte prosím adresu OP")]
         public string Address { get; set; }
+        [Required(ErrorMessage = "Zadejte prosím město OP")]
         public string City { get; set; }
+        [Required(ErrorMessage = "Zadejte prosím PSČ OP")]
         public string ZipCode { get; set; }
+        [Required(ErrorMessage = "Zadejte prosím stát OP")]
         public string Country { get; set; }
+
         public string LicTradNum { get; set; }
         public string VatIdUnCmp { get; set; }
-
+        [Required(ErrorMessage = "Zadejte prosím region")]
         public int RegionId { get; set; }
+        [Required(ErrorMessage = "Zadejte prosím jazyk")]
         public int JazykId { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }

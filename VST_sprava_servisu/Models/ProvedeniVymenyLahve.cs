@@ -111,10 +111,10 @@ namespace VST_sprava_servisu
             sCImport.DatumPosledniZmeny = revize.DatumRevize;
             sCImport.DatumPrirazeni = revize.DatumRevize;
             sCImport.DatumPyro = oldSCProvozu.DatumPyro;
-            sCImport.DatumRevize = revize.DatumRevize;
+            sCImport.DatumRevize = oldSCProvozu.DatumRevize;
             sCImport.DatumTlkZk = revize.DatumRevize;
             sCImport.DatumVymeny = null;
-            sCImport.DatumVyroby = DatumVyroby;
+            sCImport.DatumVyroby = revize.DatumRevize;
             sCImport.Lokace = oldSCProvozu.Lokace;
             sCImport.Proverit = false;
             sCImport.Provozy = oldSCProvozu.ProvozId;

@@ -41,9 +41,10 @@ namespace VST_sprava_servisu
         [Authorize(Roles = "Administrator,Manager")]
         public static bool CreateFromSAPdata(SAPOP sapOP)
         {
+            var vysledek = true;
             using (var dbCtx = new Model1Container())
             {
-
+                
                 Zakaznik zakaznik = new Zakaznik();
                 zakaznik.KodSAP = sapOP.CardCode;
                 zakaznik.NazevZakaznika = sapOP.CardName;
@@ -60,13 +61,13 @@ namespace VST_sprava_servisu
                     dbCtx.Zakaznik.Add(zakaznik);
                     dbCtx.SaveChanges();
                 }
-                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                catch (Exception ex) { vysledek = false;  log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             }
 
 
 
 
-            return true;
+            return vysledek;
         }
     }
 

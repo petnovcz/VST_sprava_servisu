@@ -59,6 +59,7 @@ namespace VST_sprava_servisu
             {
                 ViewBag.Result = "Import proběhl OK";
             }
+            else { ViewBag.Result = "Import neproběhl"; }
             SAPOPImportParametr SAPOPlist = new SAPOPImportParametr();
             string Search = "";
             if (Search == null)

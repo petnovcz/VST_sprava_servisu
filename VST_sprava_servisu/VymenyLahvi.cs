@@ -11,15 +11,20 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class VymenyLahvi
     {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Display(Name = "Sériové èíslo pùvodního AP")]
         public int SCProvozuPuvodni { get; set; }
+        [Display(Name = "Sériové èíslo nového AP")]
         public int SCProvozuNova { get; set; }
+        [Display(Name = "Sériové èíslo lahve nového AP")]
         public string SCLahve { get; set; }
+        [Display(Name = "Datum výmìny")]
         public System.DateTime DatumVymeny { get; set; }
         public int Revize { get; set; }
     

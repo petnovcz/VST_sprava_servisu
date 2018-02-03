@@ -665,6 +665,38 @@ namespace VST_sprava_servisu
         }
 
         [Authorize(Roles = "Administrator,Manager")]
+        public void OpenPDFTlkZk(int Id, string lang)
+        {
+            ReportDocument Rel = new ReportDocument();
+            string path = $"C:\\Logs\\Crystal\\ServisTlkZk_{lang}.rpt";
+
+
+
+            log.Error($"adresa {path}");
+
+            try
+            {
+
+                Rel.Load(path);
+                Rel.SetParameterValue("Id@", Id);
+                Rel.SetDatabaseLogon("sa", "*2012Versino",
+                                   "SQL", "Servis", false);
+
+                BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+                Rel.Close();
+                Rel.Dispose();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.ContentType = "application/pdf";
+                Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+                Response.Flush();
+                Response.Close();
+            }
+            catch { log.Error($"Nena4tena adresa {path}"); }
+
+        }
+
+        [Authorize(Roles = "Administrator,Manager")]
         public void OpenPDFPotvrzeni(int Id, string lang)
         {
             ReportDocument Rel = new ReportDocument();

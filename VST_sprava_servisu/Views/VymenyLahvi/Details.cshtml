@@ -1,0 +1,58 @@
+﻿@model VST_sprava_servisu.VymenyLahvi
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VymenyLahvi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SCLahve)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCLahve)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumVymeny)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumVymeny)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCProvozu.Lokace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCProvozu.Lokace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCProvozu1.Lokace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCProvozu1.Lokace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Revize1.ZjistenyStav)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Revize1.ZjistenyStav)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

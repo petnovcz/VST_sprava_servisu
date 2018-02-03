@@ -91,6 +91,20 @@
                     </ul>
                 </div>
 
+                <div class="dropdown">
+                    <button class="btn btn-vstprimary btn-block btn-xs dropdown-toggle @disabled" type="button" data-toggle="dropdown">
+                        Tisk protokolu o provedení tlakové zkoušky
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Česká verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
+                        <li>@Html.ActionLink("Anglická verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
+                        <li>@Html.ActionLink("Německá verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
+                        <li>@Html.ActionLink("Polská verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
+                    </ul>
+                </div>
+
 
 
                 @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
@@ -131,13 +145,13 @@
                         <li>
                             @Html.ActionLink("Přesuň baterie do předchozí revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
                         </li>
-                            <li>
+                        <li>
                             @Html.ActionLink("Přesuň pyro do předchozí revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
                         </li>
                     </ul>
                 </div>
 
-                
+
 
 }
                 </p>

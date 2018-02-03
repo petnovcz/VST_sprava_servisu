@@ -44,7 +44,7 @@ namespace VST_sprava_servisu
         public string OpatreniKOdstraneni { get; set; }
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Kontrola provedena dne")]
         public Nullable<System.DateTime> KontrolaProvedenaDne { get; set; }
-        [Display(Name = "Pøíští kontrola")]
+        [Display(Name = "Èíslo tlakové zkoušky")]
         public string PristiKontrola { get; set; }
         public Nullable<int> Rok { get; set; }
         public Nullable<int> Pololeti { get; set; }
