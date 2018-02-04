@@ -87,11 +87,11 @@
                 <td>
                     @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
                     {
-                        @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-xs {disabled}" })
-                        @Html.ActionLink("Smaž", "Delete", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-danger btn-xs {disabled}" })
+                        @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-md btn-block {disabled}" })
+                        @Html.ActionLink("Smaž", "Delete", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-danger btn-md btn-block {disabled}" })
                             if (item.TlakovaZkouska==true)
                             {
-                                @Html.ActionLink("Výměna", "VyhledaniSC", "ProvedeniVymenyLahve", new { RevizeSCId = item.Id }, new { @class = $"btn btn-danger btn-xs {disabled}" })
+                                @Html.ActionLink("Výměna", "VyhledaniSC", "ProvedeniVymenyLahve", new { RevizeSCId = item.Id }, new { @class = $"btn btn-primary btn-md btn-block {disabled}" })
                             }
                         }
                 </td>

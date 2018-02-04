@@ -308,8 +308,8 @@ namespace VST_sprava_servisu
             sql.Append(" from (");
             sql.Append(" select t1.Id as 'ZakaznikId', t1.NazevZakaznika as 'Zakaznik',");
             sql.Append(" t2.Id as 'ProvozId', t2.NazevProvozu as 'Provoz', t3.Id as 'UmisteniId', t3.NazevUmisteni, t6.Nazev, t5.seriovecislo,");
-            sql.Append(" DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni)) as 'NextRevize',");
-            sql.Append(" DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t4.datumrevize, t4.datumprirazeni))) as 'Next2Revize',");
+            sql.Append(" DATEADD(month, convert(int, coalesce(t4.UpravenaPeriodaRevize,t6.periodarevize)), coalesce(t4.datumrevize, t4.datumprirazeni)) as 'NextRevize',");
+            sql.Append(" DATEADD(month, convert(int, coalesce(t4.UpravenaPeriodaRevize,t6.periodarevize)), DATEADD(month, convert(int, coalesce(t4.UpravenaPeriodaRevize,t6.periodarevize)), coalesce(t4.datumrevize, t4.datumprirazeni))) as 'Next2Revize',");
             sql.Append(" DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni)) as 'NextBaterie',");
             sql.Append(" DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni)) as 'NextPyro',");
             sql.Append(" DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni)) as 'NextTlkZk'");
@@ -376,8 +376,8 @@ namespace VST_sprava_servisu
             string con = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             StringBuilder sql = new StringBuilder();
             sql.Append("select t0.id as 'ZakaznikId', t1.id as 'ProvozId',t2.id as 'UmisteniId', t3.Id as 'SCProvozuId',");
-            sql.Append(" DATEADD(month, convert(int, t6.periodarevize), coalesce(t3.datumrevize, t3.datumprirazeni)) as 'NextRevize',");
-            sql.Append(" DATEADD(month, convert(int, t6.periodarevize), DATEADD(month, convert(int, t6.periodarevize), coalesce(t3.datumrevize, t3.datumprirazeni))) as 'Next2Revize',");
+            sql.Append(" DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaRevize,t6.periodarevize)), coalesce(t3.datumrevize, t3.datumprirazeni)) as 'NextRevize',");
+            sql.Append(" DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaRevize,t6.periodarevize)), DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaRevize,t6.periodarevize)), coalesce(t3.datumrevize, t3.datumprirazeni))) as 'Next2Revize',");
             sql.Append(" case when T7.VymenaBaterie = 1 then DATEADD(month, convert(int, t6.periodabaterie), coalesce(t3.datumbaterie, t3.datumprirazeni)) else null end as 'NextBaterie',");
             sql.Append(" case when T7.VymenaPyro = 1 then DATEADD(month, convert(int, t6.periodapyro), coalesce(t3.datumpyro, t3.datumprirazeni)) else null end as 'NextPyro',");
             sql.Append(" case when T7.tlakovazk = 1 then DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t3.datumtlkzk, t3.datumprirazeni)) else null end as 'NextTlkZk'");

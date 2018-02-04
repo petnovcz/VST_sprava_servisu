@@ -54,7 +54,9 @@ namespace VST_sprava_servisu
         public bool Baterie { get; set; }
         [Display(Name = "Použitá baterie")]
         public Nullable<int> BaterieArtikl { get; set; }
-    
+        [Display(Name = "Upravená perioda revize [m]")]
+        public Nullable<int> UpravenaPeriodaRevize { get; set; }
+
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RevizeSC> RevizeSC { get; set; }

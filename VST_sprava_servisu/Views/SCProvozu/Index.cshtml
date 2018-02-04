@@ -30,42 +30,44 @@
                 @Html.DisplayNameFor(model => model.DatumPyro)<br>
                 @Html.DisplayNameFor(model => model.DatumTlkZk)
             </th>
-
+            <th>@Html.DisplayNameFor(model => model.UpravenaPeriodaRevize)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SerioveCislo.Artikl.KodSAP)<br>
-                    @Html.DisplayFor(modelItem => item.SerioveCislo.Artikl.Nazev)<br>
-                    @Html.DisplayFor(modelItem => item.Lokace)<br>
-                    @Html.DisplayFor(modelItem => item.Znaceni)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SerioveCislo.SerioveCislo1)<br>
-                    @Html.DisplayFor(modelItem => item.Status.NazevStatusu)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerioveCislo.Artikl.KodSAP)<br>
+                @Html.DisplayFor(modelItem => item.SerioveCislo.Artikl.Nazev)<br>
+                @Html.DisplayFor(modelItem => item.Lokace)<br>
+                @Html.DisplayFor(modelItem => item.Znaceni)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerioveCislo.SerioveCislo1)<br>
+                @Html.DisplayFor(modelItem => item.Status.NazevStatusu)
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.DatumPrirazeni)<br>
-                    @Html.DisplayFor(modelItem => item.DatumPosledniZmeny)<br>
-                    @Html.DisplayFor(modelItem => item.DatumVymeny)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DatumRevize)<br>
-                    @Html.DisplayFor(modelItem => item.DatumBaterie)<br>
-                    @Html.DisplayFor(modelItem => item.DatumPyro)<br>
-                    @Html.DisplayFor(modelItem => item.DatumTlkZk)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumPrirazeni)<br>
+                @Html.DisplayFor(modelItem => item.DatumPosledniZmeny)<br>
+                @Html.DisplayFor(modelItem => item.DatumVymeny)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumRevize)<br>
+                @Html.DisplayFor(modelItem => item.DatumBaterie)<br>
+                @Html.DisplayFor(modelItem => item.DatumPyro)<br>
+                @Html.DisplayFor(modelItem => item.DatumTlkZk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpravenaPeriodaRevize)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", "SCProvozu", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-edit" })
 
-                <td>
-                    @Html.ActionLink(" ", "Edit","SCProvozu", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-edit"})
-                    
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

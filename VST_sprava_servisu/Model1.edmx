@@ -168,6 +168,7 @@
           <Property Name="Proverit" Type="bit" Nullable="false" />
           <Property Name="Baterie" Type="bit" Nullable="false" />
           <Property Name="BaterieArtikl" Type="int" />
+          <Property Name="UpravenaPeriodaRevize" Type="int" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -1004,6 +1005,7 @@
           <NavigationProperty Name="Artikl" Relationship="Model1.FK_SCProvozu_Artikl" FromRole="SCProvozu" ToRole="Artikl" />
           <NavigationProperty Name="VymenyLahvi" Relationship="Model1.FK_VymenyLahvi_ToSCProvozuN" FromRole="SCProvozu" ToRole="VymenyLahvi" />
           <NavigationProperty Name="VymenyLahvi1" Relationship="Model1.FK_VymenyLahvi_ToSCProvozuP" FromRole="SCProvozu" ToRole="VymenyLahvi" />
+          <Property Name="UpravenaPeriodaRevize" Type="Int32" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -1504,7 +1506,8 @@
     <EntitySetMapping Name="SCProvozu">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.SCProvozu)">
         <MappingFragment StoreEntitySet="SCProvozu">
-          <ScalarProperty Name="BaterieArtikl" ColumnName="BaterieArtikl" />
+          <ScalarProperty Name="UpravenaPeriodaRevize" ColumnName="UpravenaPeriodaRevize" />
+                <ScalarProperty Name="BaterieArtikl" ColumnName="BaterieArtikl" />
                 <ScalarProperty Name="Baterie" ColumnName="Baterie" />
                 <ScalarProperty Name="Proverit" ColumnName="Proverit" />
                 <ScalarProperty Name="Znaceni" ColumnName="Znaceni" />
