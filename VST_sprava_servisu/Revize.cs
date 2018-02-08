@@ -60,6 +60,7 @@ namespace VST_sprava_servisu
         public Nullable<int> RJ { get; set; }
         public Nullable<int> M { get; set; }
         public Nullable<int> V { get; set; }
+        public Nullable<int> F { get; set; }
         [Display(Name = "Projekt")]
         public string Projekt { get; set; }
         [Display(Name = "Nabídka")]

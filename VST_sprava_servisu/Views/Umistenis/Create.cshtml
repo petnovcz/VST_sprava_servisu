@@ -1,7 +1,7 @@
 ﻿@model VST_sprava_servisu.Umisteni
 
 @{
-    
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 @{
     int index = Convert.ToInt32(ViewData["Zakaznik"]);
@@ -47,15 +47,15 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Ulož" class="btn btn-success"/>
-                    
-                        @Html.ActionLink(" ", "Details","Provozy",new {Id=index2 }, new { @class= "btn btn-success glyphicon glyphicon-th-list" })
-                    
+                    <input type="submit" value="Ulož" class="btn btn-success" />
+
+                    @Html.ActionLink(" ", "Details", "Provozy", new { Id = index2 }, new { @class = "btn btn-success glyphicon glyphicon-th-list" })
+
                 </div>
             </div>
         </div>
     }
 
-    
+
 </div>
 

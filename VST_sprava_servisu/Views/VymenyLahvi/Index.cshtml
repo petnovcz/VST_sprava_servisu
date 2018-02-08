@@ -72,7 +72,7 @@
             <td>
                 @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
     {
-            @Html.ActionLink("Edit", "Edit", "VymenyLahvi", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-xs " })
+            @Html.ActionLink("Edit", "Edit", "VymenyLahvi", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-md btn-block " })
             
 }
 

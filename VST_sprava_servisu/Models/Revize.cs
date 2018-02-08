@@ -137,12 +137,13 @@ namespace VST_sprava_servisu
                 Revize revize = new Revize();
                 revize = dbCtx.Revize.Find(id);
                 revize.Baterie = dbCtx.RevizeSC.Where(r=>r.RevizeId == id && r.Baterie == true).Count();
-                revize.Pyro = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.Pyro == true).Count();
+                revize.Pyro = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.Pyro == true).Count() + dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.Pyro == true && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id >= 134 && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id <= 135).Count();
                 revize.TlkZk = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.TlakovaZkouska == true).Count();
                 revize.AP = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 131).Count();
                 revize.S = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 1).Count();
                 revize.RJ = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 130).Count();
-                revize.V = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id >= 132 && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id <= 135).Count();
+                revize.V = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id >= 132 && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id <= 133).Count();
+                revize.F = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id >= 134 && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id <= 135).Count();
                 revize.M = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 136 ).Count();
                 try
                 {

@@ -32,7 +32,7 @@ namespace VST_sprava_servisu
             ProvedeniVymenyLahve.VymenaLahve(RevizeSCId, ArticlId, SerioveCislo, DatumVyroby, DatumDodani);
             
 
-            return View(pvl);
+            return RedirectToAction("Details","Revize",new { id = pvl.Revize.Id});
         }
     }
 }

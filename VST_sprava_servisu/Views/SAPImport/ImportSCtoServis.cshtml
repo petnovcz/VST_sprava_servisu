@@ -1,16 +1,16 @@
 ﻿@model VST_sprava_servisu.SCImport
 
 @{
-     
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 @Html.Action("Header", "Zakaznici", new { Id = Model.Zakaznik })
 @Html.Action("Header", "Provozy", new { Id = Model.Provozy })
 @Html.Action("Header", "Umistenis", new { Id = Model.Umisteni })
 
-    <div class="row" style="background-color:rgba(0, 0, 0, 0.3);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px; padding-top:10px;padding-bottom:10px;">
-    
-       @using (Html.BeginForm("ImportSCtoServis", "SAPImport"))
-       {
+<div class="row" style="background-color:rgba(0, 0, 0, 0.5);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px; padding-top:10px;padding-bottom:10px;">
+
+    @using (Html.BeginForm("ImportSCtoServis", "SAPImport"))
+    {
         @Html.AntiForgeryToken()
         <br>
         <div class="form-horizontal col-lg-8">
@@ -26,7 +26,7 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.ArtiklId, "ArtiklId", htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.ArtiklId, "ArtiklId", htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.DropDownList("ArtiklId", null, htmlAttributes: new { @class = "form-control selectpicker", data_live_search = true })
                     @Html.ValidationMessageFor(model => model.ArtiklId, "", new { @class = "text-danger" })
@@ -34,21 +34,21 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.SerioveCislo, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.SerioveCislo, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.SerioveCislo, new { htmlAttributes = new { @class = "form-control", style = "width:100% !important" } })
                     @Html.ValidationMessageFor(model => model.SerioveCislo, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Lokace, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.Lokace, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.Lokace, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Lokace, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Znaceni, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.Znaceni, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.Znaceni, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Znaceni, "", new { @class = "text-danger" })
@@ -56,14 +56,14 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.DatumVyroby, htmlAttributes: new { @class = "control-label col-md-5 " })
+                @Html.LabelFor(model => model.DatumVyroby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.DatumVyroby, new { htmlAttributes = new { @class = "form-control datetimepicker " } })
                     @Html.ValidationMessageFor(model => model.DatumVyroby, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.DatumDodani, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.DatumDodani, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.DatumDodani, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
                     @Html.ValidationMessageFor(model => model.DatumDodani, "", new { @class = "text-danger" })
@@ -72,42 +72,42 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.DatumRevize, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
                     @Html.ValidationMessageFor(model => model.DatumRevize, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.DatumBaterie, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.DatumBaterie, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.DatumBaterie, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
                     @Html.ValidationMessageFor(model => model.DatumBaterie, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.BaterieArtikl, "BaterieArtikl", htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.BaterieArtikl, "BaterieArtikl", htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.DropDownList("BaterieArtikl", null, " ", htmlAttributes: new { @class = "form-control selectpicker", data_live_search = true })
                     @Html.ValidationMessageFor(model => model.BaterieArtikl, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.DatumPyro, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.DatumPyro, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.DatumPyro, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
                     @Html.ValidationMessageFor(model => model.DatumPyro, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.DatumTlkZk, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.DatumTlkZk, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.DatumTlkZk, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
                     @Html.ValidationMessageFor(model => model.DatumTlkZk, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Proverit, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.Proverit, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     <div class="checkbox">
                         @Html.EditorFor(model => model.Proverit)
@@ -117,7 +117,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.UpravenaPeriodaRevize, htmlAttributes: new { @class = "control-label col-md-5" })
+                @Html.LabelFor(model => model.UpravenaPeriodaRevize, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.UpravenaPeriodaRevize, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.UpravenaPeriodaRevize, "", new { @class = "text-danger" })
@@ -131,31 +131,31 @@
                 </div>
             </div>
         </div>
-       } 
-   
+    }
+
 </div>
 
 
 
 <div class="col-lg-12">
-    
+
 </div>
 @section Scripts {
     <script type="text/javascript">
-        
-            $('.selectpicker').selectpicker({
-                
-                
-          });
+
+        $('.selectpicker').selectpicker({
 
 
-     $('.datetimepicker').datetimepicker(
-     {
-         format: 'DD.MM.YYYY'
-         //daysOfWeekDisabled: [0, 6]
-         ,locale: 'cs'
+        });
+
+
+        $('.datetimepicker').datetimepicker(
+            {
+                format: 'DD.MM.YYYY'
+                //daysOfWeekDisabled: [0, 6]
+                , locale: 'cs'
 
 
 
-     }); </script>
+            });</script>
 }

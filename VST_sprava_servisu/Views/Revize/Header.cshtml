@@ -3,9 +3,13 @@
     ViewBag.Title = "Header";
 }
 @{
-    Layout = ""; var @color = ""; var @color2 = ""; var @disabled = "";
+    Layout = ""; var @color = ""; var @color2 = ""; var @disabled = ""; var @disableduzavreni = "";
 }
 @{
+    if (Model.DatumVystaveni == null)
+    {
+        disableduzavreni = "disabled";
+    }
     if (Model.StatusRevize.Planovana == true)
     {
         color = "danger";
@@ -25,7 +29,7 @@
 }
 
     <div class="row" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
-        <div class="col-lg-6 ">
+        <div class="col-lg-6 col-md-6">
             <h3 class="vstcolor">@Html.DisplayFor(model => model.Provoz.Zakaznik.NazevZakaznika)</h3>
             <h4 class="vstcolor">@Html.DisplayFor(model => model.Provoz.NazevProvozu) / @Html.DisplayFor(model => model.Umisteni.NazevUmisteni)</h4>
             <h4 class="" style="color:@color2">@Html.DisplayFor(model => model.StatusRevize.NazevStatusuRevize)</h4>
@@ -43,29 +47,31 @@
                     </td>
                     <td style="text-align:left; font-size:18px; font-weight:700;">
                         @if (Model.AP > 0)
-                        {<text>@Model.AP</text><text>AP</text>}
+    {<text>@Model.AP</text><text>AP</text>}
                         @if (Model.S > 0)
-                        {<text>@Model.S</text><text>S</text>}
+    {<text>@Model.S</text><text>S</text>}
                         @if (Model.RJ > 0)
-                        {<text>@Model.RJ</text><text>RJ</text>}
+    {<text>@Model.RJ</text><text>RJ</text>}
                         @if (Model.V > 0)
-                        {<text>@Model.V</text><text>V</text>}
+    {<text>@Model.V</text><text>V</text>}
+                        @if (Model.V > 0)
+    {<text>@Model.F</text><text>F</text>}
                         @if (Model.M > 0)
-                        {<text>@Model.M</text><text>M</text>}
+    {<text>@Model.M</text><text>M</text>}
                     </td>
                 </tr>
             </table>
 
         </div>
-        <div class="col-lg-6 vstcolorwhite">
-            <div class="col-lg-4 ">
+        <div class="col-lg-6 col-md-6 vstcolorwhite">
+            <div class="col-lg-4 col-md-4">
                 @using (Html.BeginForm("Nahled", "Revize"))
         {@Html.Hidden("Rok", Model.DatumRevize.Year) @Html.Hidden("Mesic", Model.DatumRevize.Month) @Html.Hidden("Region", Model.Region)
         @Html.AntiForgeryToken()
         <input type="submit" value="Kalendář" class="btn btn-info btn-block btn-md btn-block" />
 }
             </div>
-            <div class="col-lg-4 ">
+            <div class="col-lg-4 col-md-4">
                 @using (Html.BeginForm("List", "Revize"))
         {@Html.Hidden("Send", true) @Html.Hidden("Skupina", (object)ViewBag.ListRegion) @Html.Hidden("Status", (object)ViewBag.ListStatus)
         @Html.Hidden("DateTo", (object)ViewBag.ListDateTo) @Html.Hidden("DateFrom", (object)ViewBag.ListDateFrom)
@@ -74,8 +80,8 @@
 }
             </div>
             <div class="col-lg-4 ">
-                @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id, Region = Model.Region }, 
-               new { @class = $"btn btn-{color} btn-md btn-block {disabled}" })
+                @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id, Region = Model.Region },
+            new { @class = $"btn btn-{color} btn-md btn-block {disabled}" })
             </div>
             @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
     {
@@ -121,17 +127,18 @@
         </div>
 
         <div class="col-lg-12 ">
-            @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize", 
-           new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-md btn-block {disabled}" })
+            @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize",
+        new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-md btn-block {disabled}" })
         </div>
-
+                
         <div class="col-lg-12 ">
-            @Html.ActionLink("Uzavření revize", "Close", "Revize", 
-           new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-md btn-block {disabled}" })
+            @Html.ActionLink("Uzavření revize", "Close", "Revize",
+        new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-md btn-block {disabled} {disableduzavreni}" })
         </div>
+        
         <div class="col-lg-12 ">
-            @Html.ActionLink("Přidej prvek", "Create", "RevizeSC", 
-           new { RevizeId = Model.Id }, new { @class = $"btn btn-success btn-block btn-md {disabled}" })
+            @Html.ActionLink("Přidej prvek", "Create", "RevizeSC",
+        new { RevizeId = Model.Id }, new { @class = $"btn btn-success btn-block btn-md {disabled}" })
         </div>
         <div class="col-lg-12 ">
             <button class="btn btn-vstprimary btn-block btn-md dropdown-toggle @disabled" type="button" data-toggle="dropdown">
@@ -161,15 +168,15 @@
 
 
 
-            <br>
+        <br>
 
-            <div class="dropdown">
-                
-            </div>
+        <div class="dropdown">
+
+        </div>
 
 
 
-            }
-            
+}
+
         </div>
         </div>
