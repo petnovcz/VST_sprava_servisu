@@ -12,6 +12,28 @@ namespace VST_sprava_servisu
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("RevizeSC");
 
+        internal protected static void DeleteRevizeSCFromRevize(int RevizeID)
+        {
+            using (var dbCtx = new Model1Container())
+            {
+                List<RevizeSC> list = new List<RevizeSC>();
+                list = dbCtx.RevizeSC.Where(r => r.RevizeId == RevizeID).ToList();
+
+                foreach (var item in list)
+                {
+                    var revizesc = dbCtx.RevizeSC.Find(item.Id);
+                    try
+                    {
+                        dbCtx.RevizeSC.Remove(revizesc);
+                        dbCtx.SaveChanges();
+                    }
+                    catch (Exception ex) { }
+
+                }
+            }
+        }
+
+
         internal protected static void Remove(int RevizeSCId)
         {
             using (var dbCtx = new Model1Container())

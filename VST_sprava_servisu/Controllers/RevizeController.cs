@@ -227,14 +227,14 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             Revize revize = db.Revize.Find(id);
-
+            RevizeSC.DeleteRevizeSCFromRevize(revize.Id);
             try
             {
                 db.Revize.Remove(revize);
                 db.SaveChanges();
             }
             catch (Exception ex) { log.Error("DeleteConfirmed - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-            return RedirectToAction("Index");
+            return RedirectToAction("Nahled", "Revize", null);
         }
 
         protected override void Dispose(bool disposing)

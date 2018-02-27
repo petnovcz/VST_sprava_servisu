@@ -11,6 +11,19 @@ namespace VST_sprava_servisu
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SCProvozu");
 
+        public bool OpenRevize {
+            get
+            {
+                bool result = false;
+                using (var dbCtx = new Model1Container())
+                {
+                    var x = dbCtx.RevizeSC.Include(r => r.Revize).Where(r => r.SCProvozuId == Id).Where(r => r.Revize.StatusRevize.Planovana == true || r.Revize.StatusRevize.Potvrzena == true).Count();
+                    if (x > 0) { result = true; } else { result = false; }
+                }
+                return result;
+            }
+
+        }
 
         internal protected static void ZneaktivniSCProvozu(SCProvozu oldSCProvozu, DateTime DatumRevize)
         {

@@ -35,5 +35,9 @@ namespace VST_sprava_servisu
         public virtual Artikl Artikl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SCProvozu> SCProvozu { get; set; }
+
+        public int provoz { get; set; }
+        public int umisteni { get; set; }
+        public int zakaznik { get; set; }
     }
 }

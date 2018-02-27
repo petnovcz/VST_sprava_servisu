@@ -80,6 +80,9 @@
                 @Html.DisplayNameFor(model => model.V)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.F)
+            </th>
+            <th>
 
             </th>
 
@@ -91,72 +94,75 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DatumRevize)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Provoz.Zakaznik.NazevZakaznika)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumRevize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provoz.Zakaznik.NazevZakaznika)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StatusRevize.NazevStatusuRevize)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Projekt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nabidka)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rok)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pololeti)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Baterie)
-                    @foreach (var x in item.RevizeBaterie)
-                    {
-                        @Html.Raw("<br>" + @x.BaterieSAPKod + " - " + x.Pocet)
-
-
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pyro)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TlkZk)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AP)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.S)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RJ)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.M)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.V)
-                </td>
-                <td>
-                    @Html.ActionLink(" ", "Details", "Revize", new { Id = item.Id, Region = item.Provoz.Zakaznik.Region.Skupina }, new { @class = "btn btn-info btn-block  btn-xs btn-default glyphicon glyphicon-play" })
-                </td>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusRevize.NazevStatusuRevize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Projekt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nabidka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rok)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pololeti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Baterie)
+                @foreach (var x in item.RevizeBaterie)
+        {
+            @Html.Raw("<br>" + @x.BaterieSAPKod + " - " + x.Pocet)
 
 
+}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pyro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TlkZk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.S)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RJ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.M)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.V)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Details", "Revize", new { Id = item.Id, Region = item.Provoz.Zakaznik.Region.Skupina }, new { @class = "btn btn-info btn-block  btn-xs btn-default glyphicon glyphicon-play" })
+            </td>
 
-            </tr>
+
+
+        </tr>
         }
     </tbody>
     <tfoot>

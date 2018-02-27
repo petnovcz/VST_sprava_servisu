@@ -14,6 +14,21 @@ namespace VST_sprava_servisu
         private Model1Container db = new Model1Container();
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ZakazniciController");
 
+
+        public ActionResult Redirect(int ZakaznikId, int ProvozId, int? UmisteniId)
+        {
+            if (UmisteniId == null)
+            {
+                return RedirectToAction("Details","Provozy", new { id = ProvozId });
+            }
+            else
+            {
+                return RedirectToAction("Details","Umistenis",new { id = UmisteniId, Provoz = ProvozId, Zakaznik = ZakaznikId });
+            }
+            
+        }
+        
+        
         // GET: Zakaznici
         [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index(int? Region, string Search)

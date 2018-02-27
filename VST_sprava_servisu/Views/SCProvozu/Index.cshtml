@@ -64,8 +64,15 @@
                 @Html.DisplayFor(modelItem => item.UpravenaPeriodaRevize)
             </td>
             <td>
-                @Html.ActionLink(" ", "Edit", "SCProvozu", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-edit" })
-
+                
+                @Html.ActionLink("Editace prvku provozu", "Edit", "SCProvozu", new { id = item.Id }, new { @class = "btn btn-xs btn-warning btn-block" })
+                
+                
+                @if (item.OpenRevize == false)
+                {
+                @Html.ActionLink("Smazání prvku provozu", "Delete", "SCProvozu", new { id = item.Id }, new { @class = "btn btn-danger btn-xs btn-block" })
+                @Html.ActionLink("Editace sériového čísla ", "Edit", "SerioveCisloes", new { id = item.SerioveCisloId, umisteni = item.Umisteni, provoz = item.ProvozId, zakaznik = item.Provoz.ZakaznikId }, new { @class = "btn btn-xs btn-warning btn-block" })
+                }
             </td>
         </tr>
         }

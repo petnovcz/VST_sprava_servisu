@@ -11,19 +11,30 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class RevizeSC
     {
         public int Id { get; set; }
+        [Display(Name = "Revize")]
         public int RevizeId { get; set; }
+        [Display(Name = "Prvek provozu")]
         public int SCProvozuId { get; set; }
+        [Display(Name = "Provedené zásahy")]
         public string StavKoroze { get; set; }
+        [Display(Name = "Opatøení k odstranìní")]
         public string StavZnecisteni { get; set; }
+        [Display(Name = "Zjištìný stav")]
         public string JineZavady { get; set; }
+        [Display(Name = "Umístìní / technologie")]
         public Nullable<int> UmisteniId { get; set; }
+        [Display(Name = "Výmìna baterie")]
         public bool Baterie { get; set; }
+        [Display(Name = "Výmìna pyro")]
         public bool Pyro { get; set; }
+        [Display(Name = "Provedení tlakové zkoušky")]
         public bool TlakovaZkouska { get; set; }
+        [Display(Name = "Zpùsobilý k provozu")]
         public bool Stav { get; set; }
     
         public virtual Revize Revize { get; set; }

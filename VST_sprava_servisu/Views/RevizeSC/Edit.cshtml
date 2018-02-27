@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Edit";
 }
+@{
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+}
 @Html.Action("Header", "Revize", new { Id = Model.Revize.Id, Region = ViewBag.Region })
 <div class="col-lg-12 " style="border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
     @Html.Action("Details", "RevizeSC", new { Id = Model.Id })
@@ -13,91 +16,91 @@
     {
         @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>RevizeSC</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.RevizeId)
-        @Html.HiddenFor(model => model.SCProvozuId)
-        @Html.HiddenFor(model => model.UmisteniId)
+        <div class="form-horizontal">
+            <h4>RevizeSC</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.RevizeId)
+            @Html.HiddenFor(model => model.SCProvozuId)
+            @Html.HiddenFor(model => model.UmisteniId)
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Baterie, htmlAttributes: new { @class = "control-label col-md-4 " })
-            <div class="col-md-8">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Baterie)
-                    @Html.ValidationMessageFor(model => model.Baterie, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Baterie, htmlAttributes: new { @class = "control-label col-md-4 " })
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Baterie)
+                        @Html.ValidationMessageFor(model => model.Baterie, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Pyro, htmlAttributes: new { @class = "control-label col-md-4 " })
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Pyro)
+                        @Html.ValidationMessageFor(model => model.Pyro, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TlakovaZkouska, htmlAttributes: new { @class = "control-label col-md-4 " })
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.TlakovaZkouska)
+                        @Html.ValidationMessageFor(model => model.TlakovaZkouska, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.JineZavady, htmlAttributes: new { @class = "control-label col-md-4 " })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.JineZavady, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
+                    @Html.ValidationMessageFor(model => model.JineZavady, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StavKoroze, htmlAttributes: new { @class = "control-label col-md-4 " })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.StavKoroze, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
+                    @Html.ValidationMessageFor(model => model.StavKoroze, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StavZnecisteni, htmlAttributes: new { @class = "control-label col-md-4 " })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.StavZnecisteni, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
+                    @Html.ValidationMessageFor(model => model.StavZnecisteni, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Stav, htmlAttributes: new { @class = "control-label col-md-4 " })
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Stav)
+                        @Html.ValidationMessageFor(model => model.Stav, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Ulož" class="btn btn-success" />
+
+                    @Html.ActionLink("Zpět na detaily revize", "Details", "Revize", new { Id = Model.RevizeId }, new { @class = "btn btn-default" })
+
+
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pyro, htmlAttributes: new { @class = "control-label col-md-4 " })
-            <div class="col-md-8">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Pyro)
-                    @Html.ValidationMessageFor(model => model.Pyro, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TlakovaZkouska, htmlAttributes: new { @class = "control-label col-md-4 " })
-            <div class="col-md-8">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.TlakovaZkouska)
-                    @Html.ValidationMessageFor(model => model.TlakovaZkouska, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            Zjištěný stav
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.JineZavady, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
-                @Html.ValidationMessageFor(model => model.JineZavady, "", new { @class = "text-danger" })
-
-            </div>
-        </div>
-        <div class="form-group">
-            Provedené zásahy
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.StavKoroze, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
-                @Html.ValidationMessageFor(model => model.StavKoroze, "", new { @class = "text-danger" })
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            Opatření k odstranění
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.StavZnecisteni, new { htmlAttributes = new { @class = "form-control  datetimepicker" } })
-                @Html.ValidationMessageFor(model => model.StavZnecisteni, "", new { @class = "text-danger" })
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Stav, htmlAttributes: new { @class = "control-label col-md-4 " })
-            <div class="col-md-8">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Stav)
-                    @Html.ValidationMessageFor(model => model.Stav, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Ulož" class="btn btn-success" />
-
-                @Html.ActionLink("Zpět na detaily revize", "Details", "Revize", new { Id = Model.RevizeId }, new { @class = "btn btn-default" })
-
-
-            </div>
-        </div>
-    </div>
     }
 </div>
-    
+

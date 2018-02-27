@@ -157,13 +157,16 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             SCProvozu sCProvozu = db.SCProvozu.Find(id);
+            var provoz = sCProvozu.ProvozId;
+            var zakaznik = sCProvozu.Provoz.ZakaznikId;
+            var umisteni = sCProvozu.Umisteni;
             try
             {
                 db.SCProvozu.Remove(sCProvozu);
                 db.SaveChanges();
             }
             catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-            return RedirectToAction("Index");
+            return RedirectToAction("Details","Umistenis",new { Id = umisteni, Provoz = provoz, Zakaznik = zakaznik });
         }
 
         protected override void Dispose(bool disposing)

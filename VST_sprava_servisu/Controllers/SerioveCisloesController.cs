@@ -71,7 +71,7 @@ namespace VST_sprava_servisu
 
         // GET: SerioveCisloes/Edit/5
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int umisteni, int provoz, int zakaznik)
         {
             if (id == null)
             {
@@ -82,6 +82,9 @@ namespace VST_sprava_servisu
             {
                 return HttpNotFound();
             }
+            serioveCislo.provoz = provoz;
+            serioveCislo.umisteni = umisteni;
+            serioveCislo.zakaznik = zakaznik;
             ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", serioveCislo.ArtiklId);
             return View(serioveCislo);
         }
@@ -92,7 +95,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,ArtiklId,DatumVyroby,DatumPosledniTlakoveZkousky,SerioveCislo1")] SerioveCislo serioveCislo)
+        public ActionResult Edit([Bind(Include = "Id,ArtiklId,DatumVyroby,DatumPosledniTlakoveZkousky,SerioveCislo1")] SerioveCislo serioveCislo, int provoz, int umisteni, int zakaznik)
         {
             if (ModelState.IsValid)
             {
@@ -102,10 +105,10 @@ namespace VST_sprava_servisu
                     db.SaveChanges();
                 }
                 catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Umistenis", new { id = umisteni, provoz, zakaznik });
             }
             ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", serioveCislo.ArtiklId);
-            return View(serioveCislo);
+            return RedirectToAction("Details","Umistenis", new { id = umisteni, provoz, zakaznik });
         }
 
         // GET: SerioveCisloes/Delete/5

@@ -50,6 +50,7 @@ namespace VST_sprava_servisu
             for (var x = 0; x < revizelist.Count; x++)
             {
                 int revizeid = revizelist[x].Id;
+                UpdateRevizeHeader(revizeid);
                 Revize revize = revizelist[x];
                 revize.RevizeBaterie = revize.CalculateRevizeBaterie(revizeid);
                 revizelist[x] = revize;
