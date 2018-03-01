@@ -43,5 +43,10 @@ namespace VST_sprava_servisu
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<VymenyLahvi> VymenyLahvi { get; set; }
+        public virtual DbSet<Vozidlo> Vozidlo { get; set; }
+        public virtual DbSet<KategoriePoruchy> KategoriePoruchy { get; set; }
+        public virtual DbSet<Porucha> Porucha { get; set; }
+        public virtual DbSet<ServisniZasahPrvek> ServisniZasahPrvek { get; set; }
+        public virtual DbSet<ServisniZasah> ServisniZasah { get; set; }
     }
 }

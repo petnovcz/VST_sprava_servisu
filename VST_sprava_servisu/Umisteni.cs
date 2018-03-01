@@ -30,7 +30,9 @@ namespace VST_sprava_servisu
         public string NazevUmisteni { get; set; }
         [Display(Name = "Samostatné revize technologie")]
         public bool SamostatnaRevize { get; set; }
-    
+        [Display(Name = "Ukonèení záruky")]
+        public Nullable<System.DateTime> UkonceniZaruky { get; set; }
+
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SCProvozu> SCProvozu { get; set; }
@@ -38,5 +40,7 @@ namespace VST_sprava_servisu
         public virtual ICollection<RevizeSC> RevizeSC { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Revize> Revize { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServisniZasah> ServisniZasah { get; set; }
     }
 }

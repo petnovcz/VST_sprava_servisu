@@ -47,6 +47,20 @@
         <AssociationConnector Association="Model1.FK_VymenyLahvi_ToSCProvozuN" />
         <AssociationConnector Association="Model1.FK_VymenyLahvi_ToSCProvozuP" />
         <AssociationConnector Association="Model1.FK_VymenyLahvi_ToRevize" />
+        <EntityTypeShape EntityType="Model1.Vozidlo" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="Model1.KategoriePoruchy" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="Model1.Porucha" Width="1.5" PointX="3" PointY="16.875" />
+        <AssociationConnector Association="Model1.FK_Porucha_ToKategoriePoruchy" />
+        <EntityTypeShape EntityType="Model1.ServisniZasahPrvek" Width="1.5" PointX="13.625" PointY="11.375" />
+        <AssociationConnector Association="Model1.FK_ServisniZasahPrvek_ToArtikl" />
+        <AssociationConnector Association="Model1.FK_ServisniZasahPrvek_ToPorucha" />
+        <AssociationConnector Association="Model1.FK_ServisniZasahPrvek_ToSCProvozu" />
+        <EntityTypeShape EntityType="Model1.ServisniZasah" Width="1.5" PointX="14.375" PointY="0.75" />
+        <AssociationConnector Association="Model1.FK_ServisniZasah_ToProvoz" />
+        <AssociationConnector Association="Model1.FK_ServisniZasah_ToUmisteni" />
+        <AssociationConnector Association="Model1.FK_ServisniZasah_ToVozidlo" />
+        <AssociationConnector Association="Model1.FK_ServisniZasah_ToZakaznik" />
+        <AssociationConnector Association="Model1.FK_ServisniZasahPrvek_ToServisniZasah" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

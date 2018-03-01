@@ -55,5 +55,7 @@ namespace VST_sprava_servisu
         public virtual ICollection<SCProvozu> SCProvozu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KontakniOsoba> KontakniOsoba { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServisniZasah> ServisniZasah { get; set; }
     }
 }
