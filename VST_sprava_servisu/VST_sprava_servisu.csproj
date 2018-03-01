@@ -303,6 +303,7 @@
     <Compile Include="Controllers\pdfController.cs" />
     <Compile Include="Controllers\ProvedeniVymenyLahveController.cs" />
     <Compile Include="Controllers\SAPDIAPIController.cs" />
+    <Compile Include="Controllers\ServisniZasahController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -397,8 +398,8 @@
     </Compile>
     <Compile Include="Controllers\SAPImportController.cs" />
     <Compile Include="Controllers\RevizeSCController.cs" />
-    <Compile Include="RoleController.cs" />
-    <Compile Include="RoleUzivateleController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\RoleUzivateleController.cs" />
     <Compile Include="SCProvozu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -446,14 +447,14 @@
     <Compile Include="Controllers\oldZakazniciController.cs" />
     <Compile Include="Controllers\ZakazniciController.cs" />
     <Compile Include="Controllers\UmistenisController.cs" />
-    <Compile Include="UzivateleController.cs" />
+    <Compile Include="Controllers\UzivateleController.cs" />
     <Compile Include="Vozidlo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="VymenyLahvi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="VymenyLahviController.cs" />
+    <Compile Include="Controllers\VymenyLahviController.cs" />
     <Compile Include="Zakaznik.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1141,6 +1142,11 @@
     <Content Include="Views\VymenyLahvi\Details.cshtml" />
     <Content Include="Views\VymenyLahvi\Edit.cshtml" />
     <Content Include="Views\VymenyLahvi\Index.cshtml" />
+    <Content Include="Views\ServisniZasah\Create.cshtml" />
+    <Content Include="Views\ServisniZasah\Delete.cshtml" />
+    <Content Include="Views\ServisniZasah\Details.cshtml" />
+    <Content Include="Views\ServisniZasah\Edit.cshtml" />
+    <Content Include="Views\ServisniZasah\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

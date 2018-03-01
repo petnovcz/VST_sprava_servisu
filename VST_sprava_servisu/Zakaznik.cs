@@ -21,6 +21,7 @@ namespace VST_sprava_servisu
             this.DIC = "20";
             this.Provoz = new HashSet<Provoz>();
             this.KontakniOsoba = new HashSet<KontakniOsoba>();
+            this.ServisniZasah = new HashSet<ServisniZasah>();
         }
     
         public int Id { get; set; }

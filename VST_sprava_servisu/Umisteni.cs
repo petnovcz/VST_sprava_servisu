@@ -21,6 +21,7 @@ namespace VST_sprava_servisu
             this.SCProvozu = new HashSet<SCProvozu>();
             this.RevizeSC = new HashSet<RevizeSC>();
             this.Revize = new HashSet<Revize>();
+            this.ServisniZasah = new HashSet<ServisniZasah>();
         }
     
         public int Id { get; set; }

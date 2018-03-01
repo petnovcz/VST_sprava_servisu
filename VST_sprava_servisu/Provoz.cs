@@ -22,6 +22,7 @@ namespace VST_sprava_servisu
             this.Revize = new HashSet<Revize>();
             this.SCProvozu = new HashSet<SCProvozu>();
             this.KontakniOsoba = new HashSet<KontakniOsoba>();
+            this.ServisniZasah = new HashSet<ServisniZasah>();
         }
     
         public int Id { get; set; }
@@ -57,5 +58,6 @@ namespace VST_sprava_servisu
         public virtual ICollection<KontakniOsoba> KontakniOsoba { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServisniZasah> ServisniZasah { get; set; }
+        
     }
 }

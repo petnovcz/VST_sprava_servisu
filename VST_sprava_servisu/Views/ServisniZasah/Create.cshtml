@@ -1,0 +1,224 @@
+﻿@model VST_sprava_servisu.ServisniZasah
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ServisniZasah</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ZakaznikID)
+        @Html.HiddenFor(model => model.ProvozId)
+        @Html.HiddenFor(model => model.UmisteniId)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumVyzvy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumVyzvy, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DatumVyzvy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumVznikuPoruchy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumVznikuPoruchy, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DatumVznikuPoruchy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumZasahu, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumZasahu, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DatumZasahu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumOdstraneni, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumOdstraneni, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                @Html.ValidationMessageFor(model => model.DatumOdstraneni, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Odkud, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Odkud, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Odkud, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Kam, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Kam, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Kam, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Zpět, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Zpět, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Zpět, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Km, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Km, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Km, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VozidloId, "VozidloId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("VozidloId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VozidloId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       <div class="form-group">
+            @Html.LabelFor(model => model.PraceHod, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PraceHod, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.25" } })
+                @Html.ValidationMessageFor(model => model.PraceHod, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pracelidi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pracelidi, new { htmlAttributes = new { @class = "form-control", type = "number", step = "1" } })
+                @Html.ValidationMessageFor(model => model.Pracelidi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        //AIzaSyAxuVmX9-R3UU50YbSnTxKtFoCwBsLkt70 / googlemapsapi
+        $('.datetimepicker').datetimepicker(
+            {
+                format: 'DD.MM.YYYY HH:mm'
+                //daysOfWeekDisabled: [0, 6]
+                , locale: 'cs',
+                //inline: true,
+                sideBySide: true
+
+
+            });</script>
+
+
+    <script>
+               /*
+                function initMap() {
+                    var bounds = new google.maps.LatLngBounds;
+                    var markersArray = [];
+
+
+                    var origin2 = document.getElementById('Odkud').value;
+                    var destinationA = document.getElementById('Kam').value;
+
+
+                    var destinationIcon = 'https://chart.googleapis.com/chart?' +
+                        'chst=d_map_pin_letter&chld=D|FF0000|000000';
+                    var originIcon = 'https://chart.googleapis.com/chart?' +
+                        'chst=d_map_pin_letter&chld=O|FFFF00|000000';
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        center: { lat: 55.53, lng: 9.4 },
+                        zoom: 10
+                    });
+                    var geocoder = new google.maps.Geocoder;
+
+                    var service = new google.maps.DistanceMatrixService;
+                    service.getDistanceMatrix({
+                        origins: [origin2],
+                        destinations: [destinationA],
+                        travelMode: 'DRIVING',
+                        unitSystem: google.maps.UnitSystem.METRIC,
+                        avoidHighways: false,
+                        avoidTolls: false
+                    }, function (response, status) {
+                        if (status !== 'OK') {
+                            alert('Error was: ' + status);
+                        } else {
+                            var originList = response.originAddresses;
+                            var destinationList = response.destinationAddresses;
+                            var outputDiv = document.getElementById('km');
+
+
+                            var showGeocodedAddressOnMap = function (asDestination) {
+                                var icon = asDestination ? destinationIcon : originIcon;
+                                return function (results, status) {
+                                    if (status === 'OK') {
+                                        map.fitBounds(bounds.extend(results[0].geometry.location));
+                                        markersArray.push(new google.maps.Marker({
+                                            map: map,
+                                            position: results[0].geometry.location,
+                                            icon: icon
+                                        }));
+                                    } else {
+                                        alert('Geocode was not successful due to: ' + status);
+                                    }
+                                };
+                            };
+
+                            for (var i = 0; i < originList.length; i++) {
+                                var results = response.rows[i].elements;
+                                geocoder.geocode({ 'address': originList[i] },
+                                    showGeocodedAddressOnMap(false));
+                                for (var j = 0; j < results.length; j++) {
+                                    geocoder.geocode({ 'address': destinationList[j] },
+                                        showGeocodedAddressOnMap(true));
+                                    document.getElementById('Km').value = results[j].distance.text;
+                                }
+                            }
+                        }
+                    });
+                }
+
+                function deleteMarkers(markersArray) {
+                    for (var i = 0; i < markersArray.length; i++) {
+                        markersArray[i].setMap(null);
+                    }
+                    markersArray = [];
+                }
+               */
+    </script>
+    @*
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxuVmX9-R3UU50YbSnTxKtFoCwBsLkt70&callback=initMap">
+        </script>
+    *@
+}
+
+
+
+
+

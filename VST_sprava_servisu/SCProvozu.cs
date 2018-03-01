@@ -20,6 +20,7 @@ namespace VST_sprava_servisu
         public SCProvozu()
         {
             this.RevizeSC = new HashSet<RevizeSC>();
+            this.ServisniZasahPrvek = new HashSet<ServisniZasahPrvek>();
         }
     
         public int Id { get; set; }
@@ -70,5 +71,7 @@ namespace VST_sprava_servisu
         public virtual ICollection<VymenyLahvi> VymenyLahvi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VymenyLahvi> VymenyLahvi1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServisniZasahPrvek> ServisniZasahPrvek { get; set; }
     }
 }

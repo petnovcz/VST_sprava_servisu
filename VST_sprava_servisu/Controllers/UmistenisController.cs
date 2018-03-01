@@ -79,7 +79,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Create([Bind(Include = "Id,ProvozId,NazevUmisteni,SamostatnaRevize")] Umisteni umisteni)
+        public ActionResult Create([Bind(Include = "Id,ProvozId,NazevUmisteni,SamostatnaRevize,UkonceniZaruky")] Umisteni umisteni)
         {
             if (ModelState.IsValid)
             {
@@ -122,7 +122,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,ProvozId,NazevUmisteni, SamostatnaRevize")] Umisteni umisteni)
+        public ActionResult Edit([Bind(Include = "Id,ProvozId,NazevUmisteni, SamostatnaRevize,UkonceniZaruky")] Umisteni umisteni)
         {
             if (ModelState.IsValid)
             {
