@@ -12,7 +12,7 @@
             <p>@Html.ActionLink("Jazyky", "Index", "Jazyky", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
             <p>@Html.ActionLink("Statusy prvků", "Index", "StatusRevizes", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
             <p>@Html.ActionLink("Statusy revizí", "Index", "Status", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
-            
+
         </div>
         <div class="col-md-4 ">
             <h4>Import z SAP</h4>
@@ -34,9 +34,17 @@
 
         </div>
         <div class="col-md-4 ">
+            <h4>Servisní zásahy</h4>
+            <p>@Html.ActionLink("Nastavení vozidel", "Index", "Vozidlo", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>@Html.ActionLink("Poruchy", "Index", "Porucha", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>@Html.ActionLink("Kategorie poruch", "Index", "KategoriePoruchy", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+
+
+        </div>
+        <div class="col-md-4 ">
             <h4>Generování revizí</h4>
-            <p>@Html.ActionLink("2018", "RunGenerator", "GenerovaniRevizi", new { Year = 2018}, new { @class = "btn btn-xs btn-default btn-block" })</p>
-            
+            <p>@Html.ActionLink("2018", "RunGenerator", "GenerovaniRevizi", new { Year = 2018 }, new { @class = "btn btn-xs btn-default btn-block" })</p>
+
 
         </div>
     </div>

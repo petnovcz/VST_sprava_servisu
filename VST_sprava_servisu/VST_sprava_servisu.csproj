@@ -298,12 +298,15 @@
     <Compile Include="Controllers\GenerovaniReviziController.cs" />
     <Compile Include="Controllers\GenRevizeCustController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KategoriePoruchyController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NastaveniController.cs" />
     <Compile Include="Controllers\pdfController.cs" />
+    <Compile Include="Controllers\PoruchaController.cs" />
     <Compile Include="Controllers\ProvedeniVymenyLahveController.cs" />
     <Compile Include="Controllers\SAPDIAPIController.cs" />
     <Compile Include="Controllers\ServisniZasahController.cs" />
+    <Compile Include="Controllers\VozidloController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1147,6 +1150,21 @@
     <Content Include="Views\ServisniZasah\Details.cshtml" />
     <Content Include="Views\ServisniZasah\Edit.cshtml" />
     <Content Include="Views\ServisniZasah\Index.cshtml" />
+    <Content Include="Views\Vozidlo\Create.cshtml" />
+    <Content Include="Views\Vozidlo\Delete.cshtml" />
+    <Content Include="Views\Vozidlo\Details.cshtml" />
+    <Content Include="Views\Vozidlo\Edit.cshtml" />
+    <Content Include="Views\Vozidlo\Index.cshtml" />
+    <Content Include="Views\Porucha\Create.cshtml" />
+    <Content Include="Views\Porucha\Delete.cshtml" />
+    <Content Include="Views\Porucha\Details.cshtml" />
+    <Content Include="Views\Porucha\Edit.cshtml" />
+    <Content Include="Views\Porucha\Index.cshtml" />
+    <Content Include="Views\KategoriePoruchy\Create.cshtml" />
+    <Content Include="Views\KategoriePoruchy\Delete.cshtml" />
+    <Content Include="Views\KategoriePoruchy\Details.cshtml" />
+    <Content Include="Views\KategoriePoruchy\Edit.cshtml" />
+    <Content Include="Views\KategoriePoruchy\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

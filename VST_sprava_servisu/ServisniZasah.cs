@@ -31,7 +31,7 @@ namespace VST_sprava_servisu
         public string Odkud { get; set; }
         public string Kam { get; set; }
         public string Zpět { get; set; }
-        public Nullable<float> Km { get; set; }
+        public Nullable<double> Km { get; set; }
         public Nullable<int> VozidloId { get; set; }
         public Nullable<double> CestaCelkem { get; set; }
         public Nullable<double> PraceHod { get; set; }

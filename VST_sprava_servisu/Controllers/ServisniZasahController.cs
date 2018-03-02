@@ -126,9 +126,11 @@ namespace VST_sprava_servisu.Controllers
         {
             if (ModelState.IsValid)
             {
+                var kckm = db.Vozidlo.Where(t => t.Id == servisniZasah.VozidloId).Select(t => t.CenaZaKm).FirstOrDefault();
+                servisniZasah.CestaCelkem = servisniZasah.Km * kckm;
                 db.ServisniZasah.Add(servisniZasah);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","ServisniZasah",new { Id = servisniZasah.Id});
             }
 
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", servisniZasah.ProvozId);
