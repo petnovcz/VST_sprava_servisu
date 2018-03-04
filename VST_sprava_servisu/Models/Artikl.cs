@@ -41,5 +41,33 @@ namespace VST_sprava_servisu
 
             return true;
         }
+
+        public static Artikl GetArtiklById(int Id)
+        {
+            Artikl artikl = new Artikl();
+            using (var db = new Model1Container())
+            {
+                artikl = db.Artikl.Where(t => t.Id == Id).FirstOrDefault();
+
+
+            }
+
+
+            return artikl;
+        }
+
+        public static Artikl GetArtiklBySAP(string SAPKOD)
+        {
+            Artikl artikl = new Artikl();
+            using (var db = new Model1Container())
+            {
+                artikl = db.Artikl.Where(t => t.KodSAP == SAPKOD).FirstOrDefault();
+
+
+            }
+
+
+            return artikl;
+        }
     }
 }

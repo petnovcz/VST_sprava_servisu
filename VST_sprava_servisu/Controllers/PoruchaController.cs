@@ -40,6 +40,12 @@ namespace VST_sprava_servisu.Controllers
         public ActionResult Create()
         {
             ViewBag.KategoriePoruchyId = new SelectList(db.KategoriePoruchy, "Id", "NazevKategorie");
+            var skupina = db.SkupinaArtiklu.ToList();
+            SkupinaArtiklu sk = new SkupinaArtiklu();
+            sk.Id = 0;
+            sk.Skupina = "";
+            skupina.Insert(0, sk);
+            ViewBag.SkupinaArtikluId = new SelectList(skupina, "Id", "Skupina");
             return View();
         }
 
@@ -48,20 +54,23 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NazevPoruchy,KategoriePoruchyId,SIL")] Porucha porucha)
+        public ActionResult Create([Bind(Include = "Id,NazevPoruchy,KategoriePoruchyId,SkupinaArtikluId,SIL")] Porucha porucha)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    db.Porucha.Add(porucha);
-                    db.SaveChanges();
-                }
-                catch (Exception ex) { }
+                if (porucha.SkupinaArtikluId == 0) { porucha.SkupinaArtikluId = null; }
+                db.Porucha.Add(porucha);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.KategoriePoruchyId = new SelectList(db.KategoriePoruchy, "Id", "NazevKategorie", porucha.KategoriePoruchyId);
+            var skupina = db.SkupinaArtiklu.ToList();
+            SkupinaArtiklu sk = new SkupinaArtiklu();
+            sk.Id = 0;
+            sk.Skupina = "";
+            skupina.Insert(0, sk);
+            ViewBag.SkupinaArtikluId = new SelectList(skupina, "Id", "Skupina", porucha.SkupinaArtikluId);
             return View(porucha);
         }
 
@@ -78,6 +87,12 @@ namespace VST_sprava_servisu.Controllers
                 return HttpNotFound();
             }
             ViewBag.KategoriePoruchyId = new SelectList(db.KategoriePoruchy, "Id", "NazevKategorie", porucha.KategoriePoruchyId);
+            var skupina = db.SkupinaArtiklu.ToList();
+            SkupinaArtiklu sk = new SkupinaArtiklu();
+            sk.Id = 0;
+            sk.Skupina = "";
+            skupina.Insert(0, sk);
+            ViewBag.SkupinaArtikluId = new SelectList(skupina, "Id", "Skupina", porucha.SkupinaArtikluId);
             return View(porucha);
         }
 
@@ -86,15 +101,22 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NazevPoruchy,KategoriePoruchyId,SIL")] Porucha porucha)
+        public ActionResult Edit([Bind(Include = "Id,NazevPoruchy,KategoriePoruchyId,SkupinaArtikluId,SIL")] Porucha porucha)
         {
             if (ModelState.IsValid)
             {
+                if (porucha.SkupinaArtikluId == 0) { porucha.SkupinaArtikluId = null; }
                 db.Entry(porucha).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.KategoriePoruchyId = new SelectList(db.KategoriePoruchy, "Id", "NazevKategorie", porucha.KategoriePoruchyId);
+            var skupina = db.SkupinaArtiklu.ToList();
+            SkupinaArtiklu sk = new SkupinaArtiklu();
+            sk.Id = 0;
+            sk.Skupina = "";
+            skupina.Insert(0, sk);
+            ViewBag.SkupinaArtikluId = new SelectList(skupina, "Id", "Skupina", porucha.SkupinaArtikluId);
             return View(porucha);
         }
 

@@ -18,6 +18,7 @@ namespace VST_sprava_servisu
         public SkupinaArtiklu()
         {
             this.Artikl = new HashSet<Artikl>();
+            this.Porucha = new HashSet<Porucha>();
         }
     
         public int Id { get; set; }
@@ -36,5 +37,9 @@ namespace VST_sprava_servisu
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Artikl> Artikl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Porucha> Porucha { get; set; }
+
+
     }
 }

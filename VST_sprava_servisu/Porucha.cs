@@ -24,9 +24,11 @@ namespace VST_sprava_servisu
         public string NazevPoruchy { get; set; }
         public int KategoriePoruchyId { get; set; }
         public bool SIL { get; set; }
+        public Nullable<int> SkupinaArtikluId { get; set; }
     
         public virtual KategoriePoruchy KategoriePoruchy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServisniZasahPrvek> ServisniZasahPrvek { get; set; }
+        public virtual SkupinaArtiklu SkupinaArtiklu { get; set; }
     }
 }

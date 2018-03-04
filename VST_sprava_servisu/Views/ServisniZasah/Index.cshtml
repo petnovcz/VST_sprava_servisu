@@ -13,140 +13,89 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DatumVyzvy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumVznikuPoruchy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumZasahu)
-        </th>
-        <th>
+            @Html.DisplayNameFor(model => model.DatumVyzvy)<br>
+            @Html.DisplayNameFor(model => model.DatumVznikuPoruchy)<br>
+            @Html.DisplayNameFor(model => model.DatumZasahu)<br>
             @Html.DisplayNameFor(model => model.DatumOdstraneni)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Odkud)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Kam)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Zpět)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Km)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CestaCelkem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PraceHod)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PraceSazba)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pracelidi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PraceCelkem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Celkem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Reklamace)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PoruseniZarucnichPodminek)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mena)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)
-        </th>
-        <th>
+            @Html.DisplayNameFor(model => model.Odkud)<br>
+            @Html.DisplayNameFor(model => model.Kam)<br>
+            @Html.DisplayNameFor(model => model.Zpět)<br>
+            @Html.DisplayNameFor(model => model.Km)<br>
+            @Html.DisplayNameFor(model => model.CestaCelkem)<br>
             @Html.DisplayNameFor(model => model.Vozidlo.NazevVozidla)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Zakaznik.NazevZakaznika)
+            @Html.DisplayNameFor(model => model.PraceHod)<br>
+            @Html.DisplayNameFor(model => model.PraceSazba)<br>
+            @Html.DisplayNameFor(model => model.Pracelidi)<br>
+            @Html.DisplayNameFor(model => model.PraceCelkem)
         </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Celkem)<br>
+            @Html.DisplayNameFor(model => model.Mena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reklamace)<br>
+            @Html.DisplayNameFor(model => model.PoruseniZarucnichPodminek)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.Zakaznik.NazevZakaznika)<br>
+            @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)<br>
+            @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)
+        </th>
+        
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.DatumVyzvy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumVznikuPoruchy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumZasahu)
-        </td>
-        <td>
+            @Html.DisplayFor(modelItem => item.DatumVyzvy)<br>
+            @Html.DisplayFor(modelItem => item.DatumVznikuPoruchy)<br>
+            @Html.DisplayFor(modelItem => item.DatumZasahu)<br>
             @Html.DisplayFor(modelItem => item.DatumOdstraneni)
         </td>
+
         <td>
-            @Html.DisplayFor(modelItem => item.Odkud)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Kam)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zpět)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Km)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CestaCelkem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PraceHod)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PraceSazba)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pracelidi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PraceCelkem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Celkem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reklamace)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PoruseniZarucnichPodminek)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mena)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
-        </td>
-        <td>
+            @Html.DisplayFor(modelItem => item.Odkud)<br>
+            @Html.DisplayFor(modelItem => item.Kam)<br>
+            @Html.DisplayFor(modelItem => item.Zpět)<br>
+            @Html.DisplayFor(modelItem => item.Km)<br>
+            @Html.DisplayFor(modelItem => item.CestaCelkem)<br>
             @Html.DisplayFor(modelItem => item.Vozidlo.NazevVozidla)
         </td>
+
         <td>
-            @Html.DisplayFor(modelItem => item.Zakaznik.NazevZakaznika)
+            @Html.DisplayFor(modelItem => item.PraceHod)<br>
+            @Html.DisplayFor(modelItem => item.PraceSazba)<br>
+            @Html.DisplayFor(modelItem => item.Pracelidi)<br>
+            @Html.DisplayFor(modelItem => item.PraceCelkem)
         </td>
+
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.Celkem)<br>
+            @Html.DisplayFor(modelItem => item.Mena)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Reklamace)<br>
+            @Html.DisplayFor(modelItem => item.PoruseniZarucnichPodminek)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Zakaznik.NazevZakaznika)<br>
+            @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)<br>
+            @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

@@ -94,9 +94,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NazevPoruchy" Type="nchar" MaxLength="10" />
+          <Property Name="NazevPoruchy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="KategoriePoruchyId" Type="int" Nullable="false" />
           <Property Name="SIL" Type="bit" Nullable="false" />
+          <Property Name="SkupinaArtikluId" Type="int" />
         </EntityType>
         <EntityType Name="Provoz">
           <Key>
@@ -383,6 +384,18 @@
             </Principal>
             <Dependent Role="Porucha">
               <PropertyRef Name="KategoriePoruchyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Porucha_ToSkupinaArtiklu">
+          <End Role="SkupinaArtiklu" Type="Self.SkupinaArtiklu" Multiplicity="0..1" />
+          <End Role="Porucha" Type="Self.Porucha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkupinaArtiklu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Porucha">
+              <PropertyRef Name="SkupinaArtikluId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -766,6 +779,10 @@
             <End Role="KategoriePoruchy" EntitySet="KategoriePoruchy" />
             <End Role="Porucha" EntitySet="Porucha" />
           </AssociationSet>
+          <AssociationSet Name="FK_Porucha_ToSkupinaArtiklu" Association="Self.FK_Porucha_ToSkupinaArtiklu">
+            <End Role="SkupinaArtiklu" EntitySet="SkupinaArtiklu" />
+            <End Role="Porucha" EntitySet="Porucha" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProvozKontakniOsoba" Association="Self.FK_ProvozKontakniOsoba">
             <End Role="Provoz" EntitySet="Provoz" />
             <End Role="KontakniOsoba" EntitySet="KontakniOsoba" />
@@ -1038,6 +1055,10 @@
           <AssociationSet Name="FK_ServisniZasahPrvek_ToServisniZasah" Association="Model1.FK_ServisniZasahPrvek_ToServisniZasah">
             <End Role="ServisniZasah" EntitySet="ServisniZasah" />
             <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Porucha_ToSkupinaArtiklu" Association="Model1.FK_Porucha_ToSkupinaArtiklu">
+            <End Role="SkupinaArtiklu" EntitySet="SkupinaArtiklu" />
+            <End Role="Porucha" EntitySet="Porucha" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
@@ -1474,6 +1495,7 @@
           <Property Name="PeriodaPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ArtoklPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PoradiZobrazeni" Type="Int32" />
+          <NavigationProperty Name="Porucha" Relationship="Model1.FK_Porucha_ToSkupinaArtiklu" FromRole="SkupinaArtiklu" ToRole="Porucha" />
         </EntityType>
         <Association Name="FK_Artikl_SkupinaA">
           <End Type="Model1.SkupinaArtiklu" Role="SkupinaArtiklu" Multiplicity="0..1" />
@@ -1660,11 +1682,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NazevPoruchy" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NazevPoruchy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="KategoriePoruchyId" Type="Int32" Nullable="false" />
           <Property Name="SIL" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="KategoriePoruchy" Relationship="Model1.FK_Porucha_ToKategoriePoruchy" FromRole="Porucha" ToRole="KategoriePoruchy" />
           <NavigationProperty Name="ServisniZasahPrvek" Relationship="Model1.FK_ServisniZasahPrvek_ToPorucha" FromRole="Porucha" ToRole="ServisniZasahPrvek" />
+          <Property Name="SkupinaArtikluId" Type="Int32" />
+          <NavigationProperty Name="SkupinaArtiklu" Relationship="Model1.FK_Porucha_ToSkupinaArtiklu" FromRole="Porucha" ToRole="SkupinaArtiklu" />
         </EntityType>
         <Association Name="FK_Porucha_ToKategoriePoruchy">
           <End Type="Model1.KategoriePoruchy" Role="KategoriePoruchy" Multiplicity="1" />
@@ -1820,6 +1844,18 @@
             </Principal>
             <Dependent Role="ServisniZasahPrvek">
               <PropertyRef Name="ServisniZasahId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Porucha_ToSkupinaArtiklu">
+          <End Type="Model1.SkupinaArtiklu" Role="SkupinaArtiklu" Multiplicity="0..1" />
+          <End Type="Model1.Porucha" Role="Porucha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkupinaArtiklu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Porucha">
+              <PropertyRef Name="SkupinaArtikluId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2123,6 +2159,7 @@
           <EntitySetMapping Name="Porucha">
             <EntityTypeMapping TypeName="Model1.Porucha">
               <MappingFragment StoreEntitySet="Porucha">
+                <ScalarProperty Name="SkupinaArtikluId" ColumnName="SkupinaArtikluId" />
                 <ScalarProperty Name="SIL" ColumnName="SIL" />
                 <ScalarProperty Name="KategoriePoruchyId" ColumnName="KategoriePoruchyId" />
                 <ScalarProperty Name="NazevPoruchy" ColumnName="NazevPoruchy" />

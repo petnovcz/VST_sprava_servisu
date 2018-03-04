@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using VST_sprava_servisu;
+using VST_sprava_servisu.Models;
 
 namespace VST_sprava_servisu.Controllers
 {
@@ -45,9 +46,9 @@ namespace VST_sprava_servisu.Controllers
             sz.ZakaznikID = Zakaznik;
             sz.ProvozId = Provoz;
             sz.UmisteniId = Umisteni;
-            sz.Odkud = "Semtín 79, Pardubice";
+            sz.Odkud = "Semtín 79, Pardubice, Česká Republika";
             sz.Kam = db.Provoz.Where(t => t.Id == Provoz).Select(t => t.AdresaProvozu).FirstOrDefault();
-            sz.Zpět = "Semtín 79, Pardubice";
+            sz.Zpět = "Semtín 79, Pardubice, Česká Republika";
 
             var origin = sz.Odkud;
             var destination = sz.Kam;
@@ -106,7 +107,10 @@ namespace VST_sprava_servisu.Controllers
             sz.DatumVyzvy = DateTime.Now;
             sz.DatumVznikuPoruchy = DateTime.Now;
             sz.DatumZasahu = DateTime.Now;
-            
+            var km = CenaArtikluZakaznik.GetCena("SP05", sz.ZakaznikID);
+            decimal kmcena;
+            if (km.ZCCena != null) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
+            sz.CestaCelkem = sz.Km * kmcena;
 
 
 

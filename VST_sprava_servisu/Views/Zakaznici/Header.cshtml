@@ -76,7 +76,17 @@
                 </div>
                 <div class="">
                     @Html.ActionLink(" ", "Index", "Revize", new { Zakaznik = Model.Id }, new { @class = "btn btn-info btn-sm glyphicon glyphicon-home" })
-                    
+
+
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="vstcolor">
+                    Servisni zasahy
+                </div>
+                <div class="">
+                    @Html.ActionLink(" ", "Index", "Cenik", new { Id = Model.Id }, new { @class = "btn btn-info btn-sm glyphicon glyphicon-usd" })
+
 
                 </div>
             </div>

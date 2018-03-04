@@ -61,6 +61,7 @@
         <AssociationConnector Association="Model1.FK_ServisniZasah_ToVozidlo" />
         <AssociationConnector Association="Model1.FK_ServisniZasah_ToZakaznik" />
         <AssociationConnector Association="Model1.FK_ServisniZasahPrvek_ToServisniZasah" />
+        <AssociationConnector Association="Model1.FK_Porucha_ToSkupinaArtiklu" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

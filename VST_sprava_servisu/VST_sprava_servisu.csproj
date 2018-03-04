@@ -293,6 +293,7 @@
     <Compile Include="Controllers\ArtiklyController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BezRevizeController.cs" />
+    <Compile Include="Controllers\CenikController.cs" />
     <Compile Include="Controllers\CrystalController.cs" />
     <Compile Include="Controllers\GenerovaniRevizeTlakoveZkouskyController.cs" />
     <Compile Include="Controllers\GenerovaniReviziController.cs" />
@@ -340,6 +341,7 @@
     <Compile Include="Models\Artikl.cs" />
     <Compile Include="Models\BezRevize.cs" />
     <Compile Include="Models\CalculatedSCForRevision.cs" />
+    <Compile Include="Models\Cenik.cs" />
     <Compile Include="Models\DnyRevize.cs" />
     <Compile Include="Models\GenerovaniRevizeTlakoveZkousky.cs" />
     <Compile Include="Models\Jazyk.cs" />
@@ -1165,6 +1167,7 @@
     <Content Include="Views\KategoriePoruchy\Details.cshtml" />
     <Content Include="Views\KategoriePoruchy\Edit.cshtml" />
     <Content Include="Views\KategoriePoruchy\Index.cshtml" />
+    <Content Include="Views\Cenik\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
