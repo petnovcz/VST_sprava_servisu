@@ -31,14 +31,14 @@ namespace VST_sprava_servisu
         public string Odkud { get; set; }
         public string Kam { get; set; }
         public string Zpět { get; set; }
-        public Nullable<double> Km { get; set; }
+        public Nullable<decimal> Km { get; set; }
         public Nullable<int> VozidloId { get; set; }
-        public Nullable<double> CestaCelkem { get; set; }
-        public Nullable<double> PraceHod { get; set; }
-        public Nullable<double> PraceSazba { get; set; }
-        public Nullable<int> Pracelidi { get; set; }
-        public Nullable<double> PraceCelkem { get; set; }
-        public Nullable<double> Celkem { get; set; }
+        public Nullable<decimal> CestaCelkem { get; set; }
+        public Nullable<decimal> PraceHod { get; set; }
+        public Nullable<decimal> PraceSazba { get; set; }
+        public Nullable<decimal> Pracelidi { get; set; }
+        public Nullable<decimal> PraceCelkem { get; set; }
+        public Nullable<decimal> Celkem { get; set; }
         public bool Reklamace { get; set; }
         public bool PoruseniZarucnichPodminek { get; set; }
         public string Mena { get; set; }

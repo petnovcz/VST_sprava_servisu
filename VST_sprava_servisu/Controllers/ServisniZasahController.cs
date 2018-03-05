@@ -107,13 +107,8 @@ namespace VST_sprava_servisu.Controllers
             sz.DatumVyzvy = DateTime.Now;
             sz.DatumVznikuPoruchy = DateTime.Now;
             sz.DatumZasahu = DateTime.Now;
-            var km = CenaArtikluZakaznik.GetCena("SP05", sz.ZakaznikID);
-            decimal kmcena;
-            if (km.ZCCena != null) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
-            sz.CestaCelkem = sz.Km * kmcena;
-
-
-
+            
+            
             ViewBag.Provoz = db.Provoz.Where(t => t.Id == Provoz).Select(t => t.NazevProvozu).FirstOrDefault();
             ViewBag.Umisteni = db.Umisteni.Where(t => t.Id == Umisteni).Select(t => t.NazevUmisteni).FirstOrDefault();
             ViewBag.VozidloId = new SelectList(db.Vozidlo, "Id", "NazevVozidla",1);
@@ -130,8 +125,18 @@ namespace VST_sprava_servisu.Controllers
         {
             if (ModelState.IsValid)
             {
-                var kckm = db.Vozidlo.Where(t => t.Id == servisniZasah.VozidloId).Select(t => t.CenaZaKm).FirstOrDefault();
-                servisniZasah.CestaCelkem = servisniZasah.Km * kckm;
+                var km = CenaArtikluZakaznik.GetCena("SP05", servisniZasah.ZakaznikID);
+                decimal kmcena;
+                if (km.ZCCena != 0) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
+                servisniZasah.CestaCelkem = servisniZasah.Km * kmcena;
+                var prace = CenaArtikluZakaznik.GetCena("SP01", servisniZasah.ZakaznikID);
+                decimal pracecena;
+                if (prace.ZCCena != 0) { pracecena = prace.ZCCena; } else { pracecena = prace.CenikCena; }
+                servisniZasah.PraceSazba = pracecena;
+                servisniZasah.PraceCelkem = servisniZasah.Pracelidi * servisniZasah.PraceSazba * servisniZasah.PraceHod;
+
+
+
                 db.ServisniZasah.Add(servisniZasah);
                 db.SaveChanges();
                 return RedirectToAction("Details","ServisniZasah",new { Id = servisniZasah.Id});

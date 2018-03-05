@@ -217,14 +217,14 @@
           <Property Name="Odkud" Type="nvarchar" MaxLength="50" />
           <Property Name="Kam" Type="nvarchar" MaxLength="50" />
           <Property Name="Zpět" Type="nvarchar" MaxLength="50" />
-          <Property Name="Km" Type="float" />
+          <Property Name="Km" Type="decimal" Precision="18" Scale="0" />
           <Property Name="VozidloId" Type="int" />
-          <Property Name="CestaCelkem" Type="float" />
-          <Property Name="PraceHod" Type="float" />
-          <Property Name="PraceSazba" Type="float" />
-          <Property Name="Pracelidi" Type="int" />
-          <Property Name="PraceCelkem" Type="float" />
-          <Property Name="Celkem" Type="float" />
+          <Property Name="CestaCelkem" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PraceHod" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PraceSazba" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Pracelidi" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PraceCelkem" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Celkem" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Reklamace" Type="bit" Nullable="false" />
           <Property Name="PoruseniZarucnichPodminek" Type="bit" Nullable="false" />
           <Property Name="Mena" Type="nchar" MaxLength="10" />
@@ -1770,14 +1770,14 @@
           <Property Name="Odkud" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Kam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Zpět" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Km" Type="Double" />
+          <Property Name="Km" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="VozidloId" Type="Int32" />
-          <Property Name="CestaCelkem" Type="Double" />
-          <Property Name="PraceHod" Type="Double" />
-          <Property Name="PraceSazba" Type="Double" />
-          <Property Name="Pracelidi" Type="Int32" />
-          <Property Name="PraceCelkem" Type="Double" />
-          <Property Name="Celkem" Type="Double" />
+          <Property Name="CestaCelkem" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PraceHod" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PraceSazba" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Pracelidi" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PraceCelkem" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Celkem" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Reklamace" Type="Boolean" Nullable="false" />
           <Property Name="PoruseniZarucnichPodminek" Type="Boolean" Nullable="false" />
           <Property Name="Mena" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
