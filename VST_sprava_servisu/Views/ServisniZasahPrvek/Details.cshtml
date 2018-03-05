@@ -1,0 +1,74 @@
+﻿@model VST_sprava_servisu.ServisniZasahPrvek
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServisniZasahPrvek</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pocet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pocet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CenaZaKus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CenaZaKus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CenaCelkem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CenaCelkem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Artikl.Nazev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artikl.Nazev)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Porucha.NazevPoruchy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Porucha.NazevPoruchy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCProvozu.Lokace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCProvozu.Lokace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServisniZasah.Odkud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServisniZasah.Odkud)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

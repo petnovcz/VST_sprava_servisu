@@ -38,6 +38,13 @@
                 </div>
             </div>
             <div class="form-group">
+                @Html.LabelFor(model => model.UkonceniZaruky, htmlAttributes: new { @class = "control-label col-md-2 vstcolorwhite" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UkonceniZaruky, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                    @Html.ValidationMessageFor(model => model.UkonceniZaruky, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(model => model.SamostatnaRevize, htmlAttributes: new { @class = "control-label col-md-4 vstcolorwhite" })
                 <div class="col-md-8">
                     <div class="checkbox">
@@ -60,3 +67,18 @@
 
 
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+            //AIzaSyAxuVmX9-R3UU50YbSnTxKtFoCwBsLkt70 / googlemapsapi
+            $('.datetimepicker').datetimepicker(
+                {
+                    format: 'DD.MM.YYYY '
+                    //daysOfWeekDisabled: [0, 6]
+                    , locale: 'cs',
+                    //inline: true,
+
+
+
+                });</script>
+}

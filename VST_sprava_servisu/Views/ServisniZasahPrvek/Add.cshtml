@@ -1,0 +1,40 @@
+﻿@model VST_sprava_servisu.ServisniZasahPrvek
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+}
+
+
+
+@using (Html.BeginForm("Add","ServisniZasahPrvek"))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-control-sm form-inline">
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ServisniZasahId)
+
+
+    @Html.DropDownListFor(m => m.SCProvozuID, (SelectList)ViewBag.SCProvozuID, "Please select", new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.SCProvozuID, "", new { @class = "text-danger" })
+
+
+
+
+
+
+
+
+    <div class="form-group">
+        <div class="">
+            <input type="submit" value="Přidej" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+
+

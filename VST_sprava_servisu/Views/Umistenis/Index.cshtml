@@ -17,7 +17,7 @@
     </p>
     <table class="table">
         <tr class="vstcolor">
-            <th >
+            <th>
                 @Html.DisplayNameFor(model => model.NazevUmisteni)
             </th>
             <th>
@@ -26,19 +26,25 @@
             <th>
                 @Html.DisplayNameFor(model => model.SamostatnaRevize)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UkonceniZaruky)
+            </th>
             <th></th>
-        </tr >
+        </tr>
     
     @foreach (var item in Model) {
         <tr class="vstcolorwhite">
-            <td class="col-lg-4">
+            <td class="col-lg-3">
                 @Html.DisplayFor(modelItem => item.NazevUmisteni)
             </td>
             <td class="col-lg-3">
                 @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
             </td>
-            <td class="col-lg-3">
+            <td class="col-lg-2">
                 @Html.DisplayFor(modelItem => item.SamostatnaRevize)
+            </td>
+            <td class="col-lg-2">
+                @Html.DisplayFor(modelItem => item.UkonceniZaruky)
             </td>
             <td class="col-lg-2">
                 @Html.ActionLink(" ", "Edit", "Umistenis", new { id = item.Id, Provoz = ViewData["Provoz"], Zakaznik = ViewData["Zakaznik"] }, new { @class = "btn btn-warning btn-sm glyphicon glyphicon-edit" })

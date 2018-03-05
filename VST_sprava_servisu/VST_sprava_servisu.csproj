@@ -307,6 +307,7 @@
     <Compile Include="Controllers\ProvedeniVymenyLahveController.cs" />
     <Compile Include="Controllers\SAPDIAPIController.cs" />
     <Compile Include="Controllers\ServisniZasahController.cs" />
+    <Compile Include="Controllers\ServisniZasahPrvekController.cs" />
     <Compile Include="Controllers\VozidloController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -370,6 +371,7 @@
     <Compile Include="Models\SCProvozu.cs" />
     <Compile Include="Models\SCTest.cs" />
     <Compile Include="Models\SerioveCislo.cs" />
+    <Compile Include="Models\ServisniZasah.cs" />
     <Compile Include="Models\SessionReader.cs" />
     <Compile Include="Models\StatusRevize.cs" />
     <Compile Include="Models\Umisteni.cs" />
@@ -1168,6 +1170,13 @@
     <Content Include="Views\KategoriePoruchy\Edit.cshtml" />
     <Content Include="Views\KategoriePoruchy\Index.cshtml" />
     <Content Include="Views\Cenik\Index.cshtml" />
+    <Content Include="Views\ServisniZasahPrvek\Create.cshtml" />
+    <Content Include="Views\ServisniZasahPrvek\Delete.cshtml" />
+    <Content Include="Views\ServisniZasahPrvek\Details.cshtml" />
+    <Content Include="Views\ServisniZasahPrvek\Edit.cshtml" />
+    <Content Include="Views\ServisniZasahPrvek\Index.cshtml" />
+    <Content Include="Views\ServisniZasah\Header.cshtml" />
+    <Content Include="Views\ServisniZasahPrvek\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

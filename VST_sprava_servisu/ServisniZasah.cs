@@ -11,7 +11,8 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ServisniZasah
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,29 +20,51 @@ namespace VST_sprava_servisu
         {
             this.ServisniZasahPrvek = new HashSet<ServisniZasahPrvek>();
         }
-    
+
         public int Id { get; set; }
+        [Display(Name="Zákazník")]
         public int ZakaznikID { get; set; }
+        [Display(Name = "Provoz")]
         public int ProvozId { get; set; }
+        [Display(Name = "Umístění")]
         public int UmisteniId { get; set; }
+        [Display(Name = "Datum výzvy")]
         public System.DateTime DatumVyzvy { get; set; }
+        [Display(Name = "Datum vzniku poruchy")]
         public System.DateTime DatumVznikuPoruchy { get; set; }
+        [Display(Name = "Datum zásahu")]
         public System.DateTime DatumZasahu { get; set; }
+        [Display(Name = "Datum odstranění")]
         public System.DateTime DatumOdstraneni { get; set; }
+        [Display(Name = "Cesta z")]
         public string Odkud { get; set; }
+        [Display(Name = "Cesta kam")]
         public string Kam { get; set; }
+        [Display(Name = "Cesta zpět")]
         public string Zpět { get; set; }
+        [Display(Name = "Ujeté kilometry")]
         public Nullable<decimal> Km { get; set; }
         public Nullable<int> VozidloId { get; set; }
+        [Display(Name = "Celkové náklady za cestu")]
         public Nullable<decimal> CestaCelkem { get; set; }
+        [Display(Name = "Počet odpracovaných hodin")]
         public Nullable<decimal> PraceHod { get; set; }
+        [Display(Name = "Hodinová sazba dle ceníku")]
         public Nullable<decimal> PraceSazba { get; set; }
+        [Display(Name = "Počet techniků")]
         public Nullable<decimal> Pracelidi { get; set; }
+        [Display(Name = "Celkové náklady za techniky")]
         public Nullable<decimal> PraceCelkem { get; set; }
+        [Display(Name = "Celkové náklady")]
         public Nullable<decimal> Celkem { get; set; }
+        [Display(Name = "Reklamace?")]
         public bool Reklamace { get; set; }
+        [Display(Name = "Porušení záručních podmínek?")]
         public bool PoruseniZarucnichPodminek { get; set; }
+        [Display(Name = "Měna")]
         public string Mena { get; set; }
+        [Display(Name = "Uzavřeno")]
+        public bool Closed { get; set; }
     
         public virtual Provoz Provoz { get; set; }
         public virtual Umisteni Umisteni { get; set; }

@@ -16,7 +16,7 @@ namespace VST_sprava_servisu
     {
         public int Id { get; set; }
         public int ServisniZasahId { get; set; }
-        public int SCProvozuID { get; set; }
+        public int? SCProvozuID { get; set; }
         public int PoruchaID { get; set; }
         public Nullable<int> ArtiklID { get; set; }
         public Nullable<double> Pocet { get; set; }

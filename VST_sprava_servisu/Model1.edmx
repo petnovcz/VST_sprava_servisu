@@ -228,6 +228,7 @@
           <Property Name="Reklamace" Type="bit" Nullable="false" />
           <Property Name="PoruseniZarucnichPodminek" Type="bit" Nullable="false" />
           <Property Name="Mena" Type="nchar" MaxLength="10" />
+          <Property Name="Closed" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ServisniZasahPrvek">
           <Key>
@@ -1786,6 +1787,7 @@
           <NavigationProperty Name="Vozidlo" Relationship="Model1.FK_ServisniZasah_ToVozidlo" FromRole="ServisniZasah" ToRole="Vozidlo" />
           <NavigationProperty Name="Zakaznik" Relationship="Model1.FK_ServisniZasah_ToZakaznik" FromRole="ServisniZasah" ToRole="Zakaznik" />
           <NavigationProperty Name="ServisniZasahPrvek" Relationship="Model1.FK_ServisniZasahPrvek_ToServisniZasah" FromRole="ServisniZasah" ToRole="ServisniZasahPrvek" />
+          <Property Name="Closed" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_ServisniZasah_ToProvoz">
           <End Type="Model1.Provoz" Role="Provoz" Multiplicity="1" />
@@ -2184,6 +2186,7 @@
           <EntitySetMapping Name="ServisniZasah">
             <EntityTypeMapping TypeName="Model1.ServisniZasah">
               <MappingFragment StoreEntitySet="ServisniZasah">
+                <ScalarProperty Name="Closed" ColumnName="Closed" />
                 <ScalarProperty Name="Mena" ColumnName="Mena" />
                 <ScalarProperty Name="PoruseniZarucnichPodminek" ColumnName="PoruseniZarucnichPodminek" />
                 <ScalarProperty Name="Reklamace" ColumnName="Reklamace" />

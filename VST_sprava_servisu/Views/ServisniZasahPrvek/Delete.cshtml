@@ -1,0 +1,80 @@
+﻿@model VST_sprava_servisu.ServisniZasahPrvek
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ServisniZasahPrvek</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pocet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pocet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CenaZaKus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CenaZaKus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CenaCelkem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CenaCelkem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Artikl.Nazev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artikl.Nazev)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Porucha.NazevPoruchy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Porucha.NazevPoruchy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCProvozu.Lokace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCProvozu.Lokace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServisniZasah.Odkud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServisniZasah.Odkud)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

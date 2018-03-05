@@ -30,7 +30,10 @@
                 @Html.DisplayNameFor(model => model.DatumPyro)<br>
                 @Html.DisplayNameFor(model => model.DatumTlkZk)
             </th>
-            <th>@Html.DisplayNameFor(model => model.UpravenaPeriodaRevize)</th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpravenaPeriodaRevize)<br>
+                        @Html.DisplayNameFor(model => model.UkonceniZaruky)
+                    </th>
             <th></th>
         </tr>
     </thead>
@@ -61,7 +64,8 @@
                 @Html.DisplayFor(modelItem => item.DatumTlkZk)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UpravenaPeriodaRevize)
+                @Html.DisplayFor(modelItem => item.UpravenaPeriodaRevize)<br>
+                @Html.DisplayFor(modelItem => item.UkonceniZaruky)
             </td>
             <td>
                 

@@ -1,0 +1,189 @@
+﻿@model VST_sprava_servisu.ServisniZasah
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Zakaznik.NazevZakaznika), @Html.DisplayFor(model => model.Provoz.NazevProvozu),@Html.DisplayFor(model => model.Umisteni.NazevUmisteni) </h4>
+</div>
+
+<div class="row">
+    <div class="col-lg-3">
+        <div>
+            <b>@Html.DisplayNameFor(model => model.DatumVyzvy)<br></b>
+
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.DatumVyzvy)
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b> @Html.DisplayNameFor(model => model.DatumVznikuPoruchy)<br></b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.DatumVznikuPoruchy)
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b> @Html.DisplayNameFor(model => model.DatumZasahu)<br></b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.DatumZasahu)
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b>  @Html.DisplayNameFor(model => model.DatumOdstraneni)<br></b>
+
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.DatumOdstraneni)
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-3">
+        <div>
+            <b> @Html.DisplayNameFor(model => model.Odkud)<br></b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.Odkud)
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b> @Html.DisplayNameFor(model => model.Kam)<br></b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.Kam)
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b> @Html.DisplayNameFor(model => model.Zpět)<br></b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.Zpět)
+        </div>
+
+    </div>
+    <div class="col-lg-2">
+        <div>
+            <b>
+                Km
+
+            </b>
+        </div>
+        <div>
+
+            @Html.DisplayFor(model => model.Km)
+        </div>
+
+    </div>
+    <div class="col-lg-1">
+        <div>
+            <b>
+                Cena
+
+            </b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.CestaCelkem)
+            @Html.DisplayFor(model => model.Mena)
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-3">
+        <div>
+            <b> @Html.DisplayNameFor(model => model.PraceHod)</b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.PraceHod)
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b>@Html.DisplayNameFor(model => model.PraceSazba)</b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.PraceSazba) @Html.DisplayFor(model => model.Mena)
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b> @Html.DisplayNameFor(model => model.Pracelidi)</b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.Pracelidi)
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+
+            <b> @Html.DisplayNameFor(model => model.PraceCelkem)</b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.PraceCelkem) @Html.DisplayFor(model => model.Mena)
+        </div>
+
+    </div>
+</div>
+
+<hr>
+<div class="row">
+    <div class="col-lg-3">
+        <div>
+            <b> @Html.DisplayNameFor(model => model.Celkem)</b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.Celkem)
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b>@Html.DisplayNameFor(model => model.Reklamace)</b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.Reklamace)
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b> @Html.DisplayNameFor(model => model.PoruseniZarucnichPodminek)</b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.PoruseniZarucnichPodminek)
+
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+
+            <b>@Html.DisplayNameFor(model => model.Mena) </b>
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.Mena)
+        </div>
+
+    </div>
+</div>
+

@@ -40,69 +40,23 @@ namespace VST_sprava_servisu.Controllers
         }
 
         // GET: ServisniZasah/Create
-        public ActionResult Create(int Zakaznik, int Provoz, int Umisteni)
+        public ActionResult Create(int Zakaznik, int Provoz, int Umisteni,string Odkud, string Kam, string Zpet)
         {
             ServisniZasah sz = new ServisniZasah();
             sz.ZakaznikID = Zakaznik;
             sz.ProvozId = Provoz;
             sz.UmisteniId = Umisteni;
-            sz.Odkud = "Semtín 79, Pardubice, Česká Republika";
-            sz.Kam = db.Provoz.Where(t => t.Id == Provoz).Select(t => t.AdresaProvozu).FirstOrDefault();
-            sz.Zpět = "Semtín 79, Pardubice, Česká Republika";
 
-            var origin = sz.Odkud;
-            var destination = sz.Kam;
-            var destination2 = sz.Zpět;
+            if (!String.IsNullOrWhiteSpace(Odkud)) { sz.Odkud = Odkud; } else {  sz.Odkud = "Semtín 79, Pardubice, Česká Republika"; }
+            if (!String.IsNullOrWhiteSpace(Kam)) { sz.Kam = Kam; }
+             else { sz.Kam = db.Provoz.Where(t => t.Id == Provoz).Select(t => t.AdresaProvozu).FirstOrDefault(); }
+            if (!String.IsNullOrWhiteSpace(Zpet)) { sz.Zpět = Zpet; }
+            else 
+            { sz.Zpět = "Semtín 79, Pardubice, Česká Republika"; }
 
-            float km1 = 0;
-            float km2 = 0;
-            string url = @"http://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + origin + "&destinations=" + destination + "&sensor=false";
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                WebResponse response = request.GetResponse();
-                Stream dataStream = response.GetResponseStream();
-                StreamReader sreader = new StreamReader(dataStream);
-                string responsereader = sreader.ReadToEnd();
-                response.Close();
 
-                DataSet ds = new DataSet();
-                ds.ReadXml(new XmlTextReader(new StringReader(responsereader)));
-                if (ds.Tables.Count > 0)
-                {
-                    if (ds.Tables["element"].Rows[0]["status"].ToString() == "OK")
-                    {
-                    string x = ds.Tables["distance"].Rows[0]["text"].ToString();
-                    var cx = x.Substring(0,x.Length-3).Replace(".",",");
-                    
-                    km1 = float.Parse(cx);
-
-                }
-                }
-
-            string url2 = @"http://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + destination + "&destinations=" + destination2 + "&sensor=false";
-
-            HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(url2);
-            WebResponse response2 = request2.GetResponse();
-            Stream dataStream2 = response2.GetResponseStream();
-            StreamReader sreader2 = new StreamReader(dataStream2);
-            string responsereader2 = sreader2.ReadToEnd();
-            response2.Close();
-
-            DataSet ds2 = new DataSet();
-            ds2.ReadXml(new XmlTextReader(new StringReader(responsereader)));
-            if (ds2.Tables.Count > 0)
-            {
-                if (ds2.Tables["element"].Rows[0]["status"].ToString() == "OK")
-                {
-
-                    string x = ds2.Tables["distance"].Rows[0]["text"].ToString();
-                    var cx = x.Substring(0, x.Length - 3).Replace(".", ",");
-                    km2 = float.Parse(cx);
-                }
-            }
-            var celkem = km1 + km2;
-            var doubl = Math.Round(celkem);
-            sz.Km = Int32.Parse(doubl.ToString());
+            sz.Km = ServisniZasah.GetDistance(sz.Odkud, sz.Kam, sz.Zpět);
             sz.DatumOdstraneni = DateTime.Now;
             sz.DatumVyzvy = DateTime.Now;
             sz.DatumVznikuPoruchy = DateTime.Now;
@@ -121,32 +75,47 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena")] ServisniZasah servisniZasah)
+        public ActionResult Create([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed")] ServisniZasah servisniZasah, string action)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !String.IsNullOrWhiteSpace(action))
             {
-                var km = CenaArtikluZakaznik.GetCena("SP05", servisniZasah.ZakaznikID);
-                decimal kmcena;
-                if (km.ZCCena != 0) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
-                servisniZasah.CestaCelkem = servisniZasah.Km * kmcena;
-                var prace = CenaArtikluZakaznik.GetCena("SP01", servisniZasah.ZakaznikID);
-                decimal pracecena;
-                if (prace.ZCCena != 0) { pracecena = prace.ZCCena; } else { pracecena = prace.CenikCena; }
-                servisniZasah.PraceSazba = pracecena;
-                servisniZasah.PraceCelkem = servisniZasah.Pracelidi * servisniZasah.PraceSazba * servisniZasah.PraceHod;
+
+                switch (action)
+                {
+                    case "Refresh":
+                        servisniZasah.Km = ServisniZasah.GetDistance(servisniZasah.Odkud, servisniZasah.Kam, servisniZasah.Zpět);
+                        ModelState.Clear();
+                        break;
+                    case "Create":
+                        var km = CenaArtikluZakaznik.GetCena("SP05", servisniZasah.ZakaznikID);
+                        decimal kmcena;
+                        if (km.ZCCena != 0) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
+                        servisniZasah.CestaCelkem = servisniZasah.Km * kmcena;
+                        var prace = CenaArtikluZakaznik.GetCena("SP01", servisniZasah.ZakaznikID);
+                        decimal pracecena;
+                        if (prace.ZCCena != 0) { pracecena = prace.ZCCena; } else { pracecena = prace.CenikCena; }
+                        servisniZasah.PraceSazba = pracecena;
+                        servisniZasah.PraceCelkem = servisniZasah.Pracelidi * servisniZasah.PraceSazba * servisniZasah.PraceHod;
 
 
 
-                db.ServisniZasah.Add(servisniZasah);
-                db.SaveChanges();
-                return RedirectToAction("Details","ServisniZasah",new { Id = servisniZasah.Id});
+                        db.ServisniZasah.Add(servisniZasah);
+                        db.SaveChanges();
+                        return RedirectToAction("Details", "ServisniZasah", new { Id = servisniZasah.Id });
+                        
+                    
+                    default: 
+                        break; }
+                
+                
             }
 
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", servisniZasah.ProvozId);
             ViewBag.UmisteniId = new SelectList(db.Umisteni, "Id", "NazevUmisteni", servisniZasah.UmisteniId);
             ViewBag.VozidloId = new SelectList(db.Vozidlo, "Id", "NazevVozidla", servisniZasah.VozidloId);
             ViewBag.ZakaznikID = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", servisniZasah.ZakaznikID);
-            return View(servisniZasah);
+            //return RedirectToAction("Create", "ServisniZasah", new { Zakaznik = servisniZasah.ZakaznikID, Provoz = servisniZasah.ProvozId, Umisteni = servisniZasah.UmisteniId, Odkud = servisniZasah.Odkud, Kam = servisniZasah.Kam, Zpet = servisniZasah.Zpět }); 
+            return View("Create", servisniZasah);
         }
 
         // GET: ServisniZasah/Edit/5
@@ -173,7 +142,7 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena")] ServisniZasah servisniZasah)
+        public ActionResult Edit([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed")] ServisniZasah servisniZasah)
         {
             if (ModelState.IsValid)
             {
