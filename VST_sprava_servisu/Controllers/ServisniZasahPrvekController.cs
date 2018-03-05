@@ -16,10 +16,10 @@ namespace VST_sprava_servisu.Controllers
         private Model1Container db = new Model1Container();
 
         // GET: ServisniZasahPrvek
-        public ActionResult Index()
+        public ActionResult Index(int Id)
         {
-            var servisniZasahPrvek = db.ServisniZasahPrvek.Include(s => s.Artikl).Include(s => s.Porucha).Include(s => s.ServisniZasah);
-            return View(servisniZasahPrvek.ToList());
+            var servisniZasahPrvek = ServisniZasahPrvek.GetPrvkyById(Id);
+            return View(servisniZasahPrvek);
         }
 
         // GET: ServisniZasahPrvek/Details/5
@@ -72,15 +72,19 @@ namespace VST_sprava_servisu.Controllers
         {
             if (ModelState.IsValid)
             {
-                ServisniZasah sz = new ServisniZasah();
-                sz = db.ServisniZasah.Where(t => t.Id == servisniZasahPrvek.ServisniZasahId).FirstOrDefault();
-                CenaArtikluZakaznik caz = new CenaArtikluZakaznik();
-                caz = CenaArtikluZakaznik.GetCena(servisniZasahPrvek.ArtiklID.Value, sz.ZakaznikID);
+                
                 decimal cena;
-                if (caz.ZCCena != null) { cena = caz.ZCCena; } else { cena = caz.CenikCena; }
+                cena = ServisniZasah.GetCenaForprvek(servisniZasahPrvek);
                 servisniZasahPrvek.CenaZaKus = cena;
+                servisniZasahPrvek.CenaCelkem = cena * servisniZasahPrvek.Pocet;
                 db.ServisniZasahPrvek.Add(servisniZasahPrvek);
                 db.SaveChanges();
+                ServisniZasah.UpdateHeader(servisniZasahPrvek.ServisniZasahId);
+
+
+
+
+
                 return RedirectToAction("Details","ServisniZasah", new { Id = servisniZasahPrvek.ServisniZasahId});
             }
 

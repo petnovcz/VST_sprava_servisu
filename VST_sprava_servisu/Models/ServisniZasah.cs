@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Xml;
+using VST_sprava_servisu.Models;
 
 namespace VST_sprava_servisu
 {
@@ -69,7 +71,36 @@ namespace VST_sprava_servisu
             return total;
         }
 
+        internal protected static decimal GetCenaForprvek(ServisniZasahPrvek szp)
+        {
+            decimal cena;
+            ServisniZasah sz = new ServisniZasah();
 
+            using (var db = new Model1Container())
+            {
+                sz = db.ServisniZasah.Where(t => t.Id == szp.ServisniZasahId).FirstOrDefault();
+            }
+            CenaArtikluZakaznik caz = new CenaArtikluZakaznik();
+            caz = CenaArtikluZakaznik.GetCena(szp.ArtiklID.Value, sz.ZakaznikID);
+            if (caz.ZCCena != null) { cena = caz.ZCCena; } else { cena = caz.CenikCena; }
+            return cena;
+        }
+
+        internal protected static void UpdateHeader(int Id)
+        {
+            ServisniZasah sz = new ServisniZasah();
+            using (var db = new Model1Container())
+            {
+                sz = db.ServisniZasah.Where(t => t.Id == Id).FirstOrDefault();
+                var x = db.ServisniZasahPrvek.Where(t => t.ServisniZasahId == Id).Select(t => t.CenaCelkem).Sum();
+                sz.Celkem = sz.CestaCelkem + sz.PraceCelkem + x;
+                db.Entry(sz).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+
+        }
 
     }
 }

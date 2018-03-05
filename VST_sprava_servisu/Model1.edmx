@@ -236,12 +236,12 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ServisniZasahId" Type="int" Nullable="false" />
-          <Property Name="SCProvozuID" Type="int" Nullable="false" />
+          <Property Name="SCProvozuID" Type="int" />
           <Property Name="PoruchaID" Type="int" Nullable="false" />
           <Property Name="ArtiklID" Type="int" />
-          <Property Name="Pocet" Type="float" />
-          <Property Name="CenaZaKus" Type="float" />
-          <Property Name="CenaCelkem" Type="float" />
+          <Property Name="Pocet" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CenaZaKus" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CenaCelkem" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="SkupinaArtiklu">
           <Key>
@@ -629,7 +629,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ServisniZasahPrvek_ToSCProvozu">
-          <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="1" />
+          <End Role="SCProvozu" Type="Self.SCProvozu" Multiplicity="0..1" />
           <End Role="ServisniZasahPrvek" Type="Self.ServisniZasahPrvek" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SCProvozu">
@@ -1709,12 +1709,12 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ServisniZasahId" Type="Int32" Nullable="false" />
-          <Property Name="SCProvozuID" Type="Int32" Nullable="false" />
+          <Property Name="SCProvozuID" Type="Int32" />
           <Property Name="PoruchaID" Type="Int32" Nullable="false" />
           <Property Name="ArtiklID" Type="Int32" />
-          <Property Name="Pocet" Type="Double" />
-          <Property Name="CenaZaKus" Type="Double" />
-          <Property Name="CenaCelkem" Type="Double" />
+          <Property Name="Pocet" Type="Decimal" Nullable="false" />
+          <Property Name="CenaZaKus" Type="Decimal" />
+          <Property Name="CenaCelkem" Type="Decimal" />
           <NavigationProperty Name="Artikl" Relationship="Model1.FK_ServisniZasahPrvek_ToArtikl" FromRole="ServisniZasahPrvek" ToRole="Artikl" />
           <NavigationProperty Name="Porucha" Relationship="Model1.FK_ServisniZasahPrvek_ToPorucha" FromRole="ServisniZasahPrvek" ToRole="Porucha" />
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_ServisniZasahPrvek_ToSCProvozu" FromRole="ServisniZasahPrvek" ToRole="SCProvozu" />
@@ -1745,7 +1745,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ServisniZasahPrvek_ToSCProvozu">
-          <End Type="Model1.SCProvozu" Role="SCProvozu" Multiplicity="1" />
+          <End Type="Model1.SCProvozu" Role="SCProvozu" Multiplicity="0..1" />
           <End Type="Model1.ServisniZasahPrvek" Role="ServisniZasahPrvek" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SCProvozu">

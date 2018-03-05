@@ -286,7 +286,7 @@ namespace VST_sprava_servisu.Models
             sql.Append(" SPP1 tx1 on tx0.ItemCode = tx1.ItemCode and tx0.CardCode = tx1.CardCode");
             sql.Append(" where ((tx1.FromDate <= GETDATE() or tx1.FromDate is null)");
             sql.Append(" and (tx1.ToDate >= GETDATE() or tx1.ToDate is NULL))");
-            sql.Append($" and tx0.cardcode = '{cena.Zakaznik.KodSAP}' ) t3 on t0.ItemCode = t3.ItemCode--and t0.CardCode = t3.CardCode");
+            sql.Append($" and tx0.cardcode = '{cena.Zakaznik.KodSAP}' ) t3 on t0.ItemCode = t3.ItemCode");
             sql.Append($" where PriceList = {cena.Cenik} and t0.ItmsGrpCod = 129 and t0.ItemCode = '{cena.Artikl.KodSAP}'");
             
             SqlConnection cnn = new SqlConnection(connectionString);
@@ -305,36 +305,36 @@ namespace VST_sprava_servisu.Models
                     CenikRow cenikrow = new CenikRow();
                     try
                     {
-                        cenikrow.ArtiklID = dr.GetInt32(dr.GetOrdinal("ArtiklID"));
+                        cena.ArtiklID = dr.GetInt32(dr.GetOrdinal("ArtiklID"));
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
-                        cenikrow.CenikCena = dr.GetDecimal(dr.GetOrdinal("CenikCena"));
+                        cena.CenikCena = dr.GetDecimal(dr.GetOrdinal("CenikCena"));
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
-                        cenikrow.CenikMena = dr.GetString(dr.GetOrdinal("CenikMena"));
+                        cena.CenikMena = dr.GetString(dr.GetOrdinal("CenikMena"));
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
-                        cenikrow.ZCCena = dr.GetDecimal(dr.GetOrdinal("ZCCena"));
+                        cena.ZCCena = dr.GetDecimal(dr.GetOrdinal("ZCCena"));
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
-                        cenikrow.ZCMena = dr.GetString(dr.GetOrdinal("ZCMena"));
+                        cena.ZCMena = dr.GetString(dr.GetOrdinal("ZCMena"));
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                     try
                     {
-                        cenikrow.ZvlastniCena = false;
+                        cena.ZvlastniCena = false;
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
-                    list.Add(cenikrow);
+                    
                 }
             }
             cnn.Close();

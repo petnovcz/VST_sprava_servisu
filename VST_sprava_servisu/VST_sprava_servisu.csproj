@@ -372,6 +372,7 @@
     <Compile Include="Models\SCTest.cs" />
     <Compile Include="Models\SerioveCislo.cs" />
     <Compile Include="Models\ServisniZasah.cs" />
+    <Compile Include="Models\ServisniZasahPrvek.cs" />
     <Compile Include="Models\SessionReader.cs" />
     <Compile Include="Models\StatusRevize.cs" />
     <Compile Include="Models\Umisteni.cs" />

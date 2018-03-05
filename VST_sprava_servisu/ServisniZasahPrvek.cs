@@ -16,12 +16,12 @@ namespace VST_sprava_servisu
     {
         public int Id { get; set; }
         public int ServisniZasahId { get; set; }
-        public int? SCProvozuID { get; set; }
+        public Nullable<int> SCProvozuID { get; set; }
         public int PoruchaID { get; set; }
         public Nullable<int> ArtiklID { get; set; }
-        public Nullable<double> Pocet { get; set; }
-        public Nullable<double> CenaZaKus { get; set; }
-        public Nullable<double> CenaCelkem { get; set; }
+        public decimal Pocet { get; set; }
+        public Nullable<decimal> CenaZaKus { get; set; }
+        public Nullable<decimal> CenaCelkem { get; set; }
     
         public virtual Artikl Artikl { get; set; }
         public virtual Porucha Porucha { get; set; }
