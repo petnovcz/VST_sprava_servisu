@@ -22,6 +22,8 @@ namespace VST_sprava_servisu
         public decimal Pocet { get; set; }
         public Nullable<decimal> CenaZaKus { get; set; }
         public Nullable<decimal> CenaCelkem { get; set; }
+        public bool Reklamace { get; set; }
+        public bool PoruseniZarucnichPodminek { get; set; }
     
         public virtual Artikl Artikl { get; set; }
         public virtual Porucha Porucha { get; set; }

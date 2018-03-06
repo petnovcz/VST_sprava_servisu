@@ -145,14 +145,14 @@
     </div>
 </div>
 
-<hr>
+
 <div class="row">
     <div class="col-lg-3">
         <div>
             <b> @Html.DisplayNameFor(model => model.Celkem)</b>
         </div>
         <div>
-            @Html.DisplayFor(model => model.Celkem)
+            @Html.DisplayFor(model => model.Celkem) @Html.DisplayFor(model => model.Mena)
         </div>
 
     </div>
@@ -186,4 +186,47 @@
 
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-3">
+        <div>
+            <b> Projekt</b>
+        </div>
+        <div>
+            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-asterisk" })
+        </div>
 
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b>Nabidka</b>
+        </div>
+        <div>
+            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-asterisk" })
+            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-triangle-right" })
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+            <b> Zakazka</b>
+        </div>
+        <div>
+            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-asterisk" })
+            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-triangle-right" })
+
+        </div>
+
+    </div>
+    <div class="col-lg-3">
+        <div>
+
+            <b>Dodaci list </b>
+        </div>
+        <div>
+            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-asterisk" })
+        </div>
+
+    </div>
+</div>
+
+<hr>

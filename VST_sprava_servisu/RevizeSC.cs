@@ -36,6 +36,8 @@ namespace VST_sprava_servisu
         public bool TlakovaZkouska { get; set; }
         [Display(Name = "Zpùsobilý k provozu")]
         public bool Stav { get; set; }
+
+        public Nullable<DateTime> DobaProvozu { get; set; }
     
         public virtual Revize Revize { get; set; }
         public virtual SCProvozu SCProvozu { get; set; }

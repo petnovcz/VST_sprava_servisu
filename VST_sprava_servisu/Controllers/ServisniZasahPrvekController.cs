@@ -22,6 +22,26 @@ namespace VST_sprava_servisu.Controllers
             return View(servisniZasahPrvek);
         }
 
+        public ActionResult Reklamace(int Id)
+        {
+            var servisniZasahPrvek = ServisniZasahPrvek.GetPrvekById(Id);
+            if (servisniZasahPrvek.Reklamace == true) { servisniZasahPrvek.Reklamace = false; } else { servisniZasahPrvek.Reklamace = true; }
+            db.Entry(servisniZasahPrvek).State = EntityState.Modified;
+            db.SaveChanges();
+            ServisniZasah.UpdateHeader(servisniZasahPrvek.ServisniZasahId);
+            return RedirectToAction("Details", "ServisniZasah", new { Id = servisniZasahPrvek.ServisniZasahId });
+        }
+
+        public ActionResult Poruseni(int Id)
+        {
+            var servisniZasahPrvek = ServisniZasahPrvek.GetPrvekById(Id);
+            if (servisniZasahPrvek.PoruseniZarucnichPodminek == true) { servisniZasahPrvek.PoruseniZarucnichPodminek = false; } else { servisniZasahPrvek.PoruseniZarucnichPodminek = true; }
+            db.Entry(servisniZasahPrvek).State = EntityState.Modified;
+            db.SaveChanges();
+            ServisniZasah.UpdateHeader(servisniZasahPrvek.ServisniZasahId);
+            return RedirectToAction("Details", "ServisniZasah", new { Id = servisniZasahPrvek.ServisniZasahId });
+        }
+
         // GET: ServisniZasahPrvek/Details/5
         public ActionResult Details(int? id)
         {
@@ -29,6 +49,7 @@ namespace VST_sprava_servisu.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             ServisniZasahPrvek servisniZasahPrvek = db.ServisniZasahPrvek.Find(id);
             if (servisniZasahPrvek == null)
             {
@@ -56,9 +77,28 @@ namespace VST_sprava_servisu.Controllers
             ServisniZasahPrvek szp = new ServisniZasahPrvek();
             szp.ServisniZasahId = ServisniZasahId;
             szp.SCProvozuID = SCProvozuID;
+            SCProvozu scprovozu = new SCProvozu();
+            try
+            {
+                 scprovozu = SCProvozu.GetSCProvozuById(szp.SCProvozuID.Value);
+            }
+            catch (Exception ex) { }
+            int? skupina = 0;
+            try
+            {
+                skupina = scprovozu.Artikl.SkupinaArtiklu;
+            }
+            catch (Exception ex) { }
+
             ViewBag.ArtiklID = new SelectList(db.Artikl.Where(t=>t.SkupinaArtiklu == 129), "Id", "Nazev");
-            ViewBag.PoruchaID = new SelectList(db.Porucha, "Id", "NazevPoruchy");
-            
+            if (skupina != null && skupina !=0)
+            {
+                ViewBag.PoruchaID = new SelectList(Porucha.GetPoruchyProSkupinu(scprovozu.Artikl.SkupinaArtiklu.Value), "Id", "NazevPoruchy");
+            }
+            else
+            {
+                ViewBag.PoruchaID = new SelectList(Porucha.GetPoruchyProSkupinu(0), "Id", "NazevPoruchy");
+            }
             
             return View("Create",szp);
         }
@@ -77,7 +117,56 @@ namespace VST_sprava_servisu.Controllers
                 cena = ServisniZasah.GetCenaForprvek(servisniZasahPrvek);
                 servisniZasahPrvek.CenaZaKus = cena;
                 servisniZasahPrvek.CenaCelkem = cena * servisniZasahPrvek.Pocet;
+
+                ServisniZasah sz = new ServisniZasah();
+                sz = ServisniZasah.GetZasah(servisniZasahPrvek.ServisniZasahId);
+                
+                //datum ukonceni platnosti zaruky umisteni
+                var umisteni = Umisteni.GetDatumZaruky(sz.UmisteniId);
+                //datum ukonceni platnosti zaruky SCProvozu
+                DateTime? scprovozu = null;
+                try
+                {
+                    scprovozu = SCProvozu.GetDatumZaruky(servisniZasahPrvek.SCProvozuID.Value);
+                }
+                catch(Exception ex)
+                {
+                    scprovozu = null;
+                }
+                
+                DateTime? datum = DateTime.Now;
+                //v zaruce?
+                if (scprovozu != null)
+                {
+                    datum = scprovozu;
+                }
+                else
+                {
+                    if (umisteni != null)
+                    {
+                        if (scprovozu != null) { 
+                        if (scprovozu >= umisteni) { datum = scprovozu; }
+                        if (scprovozu < umisteni) { datum = umisteni; }
+                        }
+                        else { datum = umisteni; }
+                    }
+                }
+                if (datum >= sz.DatumVyzvy)
+                {
+                    var porucha = Porucha.ReklamaceById(servisniZasahPrvek.PoruchaID);
+                    if (porucha == true)
+                    {
+                        servisniZasahPrvek.Reklamace = true;
+                    }
+                }
+
                 db.ServisniZasahPrvek.Add(servisniZasahPrvek);
+                
+                
+
+
+
+
                 db.SaveChanges();
                 ServisniZasah.UpdateHeader(servisniZasahPrvek.ServisniZasahId);
 
@@ -123,8 +212,47 @@ namespace VST_sprava_servisu.Controllers
         {
             if (ModelState.IsValid)
             {
+                decimal cena;
+                cena = ServisniZasah.GetCenaForprvek(servisniZasahPrvek);
+                servisniZasahPrvek.CenaZaKus = cena;
+                servisniZasahPrvek.CenaCelkem = cena * servisniZasahPrvek.Pocet;
+
+                ServisniZasah sz = new ServisniZasah();
+                sz = ServisniZasah.GetZasah(servisniZasahPrvek.ServisniZasahId);
+
+                //datum ukonceni platnosti zaruky umisteni
+                var umisteni = Umisteni.GetDatumZaruky(sz.UmisteniId);
+                //datum ukonceni platnosti zaruky SCProvozu
+                var scprovozu = SCProvozu.GetDatumZaruky(servisniZasahPrvek.SCProvozuID.Value);
+                DateTime? datum = DateTime.Now;
+                //v zaruce?
+                if (scprovozu != null)
+                {
+                    datum = scprovozu;
+                }
+                else
+                {
+                    if (umisteni != null)
+                    {
+                        if (scprovozu != null)
+                        {
+                            if (scprovozu >= umisteni) { datum = scprovozu; }
+                            if (scprovozu < umisteni) { datum = umisteni; }
+                        }
+                        else { datum = umisteni; }
+                    }
+                }
+                if (datum >= sz.DatumVyzvy)
+                {
+                    var porucha = Porucha.ReklamaceById(servisniZasahPrvek.PoruchaID);
+                    if (porucha == true)
+                    {
+                        servisniZasahPrvek.Reklamace = true;
+                    }
+                }
                 db.Entry(servisniZasahPrvek).State = EntityState.Modified;
                 db.SaveChanges();
+                ServisniZasah.UpdateHeader(servisniZasahPrvek.ServisniZasahId);
                 return RedirectToAction("Details","ServisniZasah",new { Id = servisniZasahPrvek.ServisniZasahId});
             }
             ViewBag.ArtiklID = new SelectList(db.Artikl, "Id", "Nazev", servisniZasahPrvek.ArtiklID);

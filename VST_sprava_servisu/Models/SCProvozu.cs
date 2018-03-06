@@ -25,6 +25,19 @@ namespace VST_sprava_servisu
 
         }
 
+        internal protected static DateTime? GetDatumZaruky(int Id)
+        {
+            DateTime? datum;
+            using (var dbCtx = new Model1Container())
+            {
+                datum = dbCtx.SCProvozu.Where(r => r.Id == Id).Select(r => r.UkonceniZaruky).FirstOrDefault();
+            }
+            return datum;
+        }
+
+
+
+
         internal protected static void ZneaktivniSCProvozu(SCProvozu oldSCProvozu, DateTime DatumRevize)
         {
             SCProvozu sc = new SCProvozu();
@@ -53,7 +66,8 @@ namespace VST_sprava_servisu
             SCProvozu sCProvozu = new SCProvozu();
             using (var dbCtx = new Model1Container())
             {
-                sCProvozu = dbCtx.SCProvozu.Where(r => r.Id == SCProvozuId).FirstOrDefault();
+                sCProvozu = dbCtx.SCProvozu.Where(r => r.Id == SCProvozuId).Include(r=>r.SerioveCislo).FirstOrDefault();
+                sCProvozu.Artikl = dbCtx.Artikl.Where(a => a.Id == sCProvozu.SerioveCislo.ArtiklId).FirstOrDefault();
             }
 
             return sCProvozu;

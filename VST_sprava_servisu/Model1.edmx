@@ -167,6 +167,7 @@
           <Property Name="Pyro" Type="bit" Nullable="false" />
           <Property Name="TlakovaZkouska" Type="bit" Nullable="false" />
           <Property Name="Stav" Type="bit" Nullable="false" />
+          <Property Name="DobaProvozu" Type="datetime" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -242,6 +243,8 @@
           <Property Name="Pocet" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="CenaZaKus" Type="decimal" Precision="18" Scale="0" />
           <Property Name="CenaCelkem" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Reklamace" Type="bit" Nullable="false" />
+          <Property Name="PoruseniZarucnichPodminek" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SkupinaArtiklu">
           <Key>
@@ -1263,6 +1266,7 @@
           <Property Name="Pyro" Type="Boolean" Nullable="false" />
           <Property Name="TlakovaZkouska" Type="Boolean" Nullable="false" />
           <Property Name="Stav" Type="Boolean" Nullable="false" />
+          <Property Name="DobaProvozu" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -1712,13 +1716,15 @@
           <Property Name="SCProvozuID" Type="Int32" />
           <Property Name="PoruchaID" Type="Int32" Nullable="false" />
           <Property Name="ArtiklID" Type="Int32" />
-          <Property Name="Pocet" Type="Decimal" Nullable="false" />
-          <Property Name="CenaZaKus" Type="Decimal" />
-          <Property Name="CenaCelkem" Type="Decimal" />
+          <Property Name="Pocet" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CenaZaKus" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CenaCelkem" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="Artikl" Relationship="Model1.FK_ServisniZasahPrvek_ToArtikl" FromRole="ServisniZasahPrvek" ToRole="Artikl" />
           <NavigationProperty Name="Porucha" Relationship="Model1.FK_ServisniZasahPrvek_ToPorucha" FromRole="ServisniZasahPrvek" ToRole="Porucha" />
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_ServisniZasahPrvek_ToSCProvozu" FromRole="ServisniZasahPrvek" ToRole="SCProvozu" />
           <NavigationProperty Name="ServisniZasah" Relationship="Model1.FK_ServisniZasahPrvek_ToServisniZasah" FromRole="ServisniZasahPrvek" ToRole="ServisniZasah" />
+          <Property Name="Reklamace" Type="Boolean" Nullable="false" />
+          <Property Name="PoruseniZarucnichPodminek" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_ServisniZasahPrvek_ToArtikl">
           <End Type="Model1.Artikl" Role="Artikl" Multiplicity="0..1" />
@@ -1985,7 +1991,8 @@
     <EntitySetMapping Name="RevizeSC">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.RevizeSC)">
         <MappingFragment StoreEntitySet="RevizeSC">
-          <ScalarProperty Name="Stav" ColumnName="Stav" />
+          <ScalarProperty Name="DobaProvozu" ColumnName="DobaProvozu" />
+                <ScalarProperty Name="Stav" ColumnName="Stav" />
                 <ScalarProperty Name="TlakovaZkouska" ColumnName="TlakovaZkouska" />
                 <ScalarProperty Name="Pyro" ColumnName="Pyro" />
                 <ScalarProperty Name="Baterie" ColumnName="Baterie" />
@@ -2172,6 +2179,8 @@
           <EntitySetMapping Name="ServisniZasahPrvek">
             <EntityTypeMapping TypeName="Model1.ServisniZasahPrvek">
               <MappingFragment StoreEntitySet="ServisniZasahPrvek">
+                <ScalarProperty Name="PoruseniZarucnichPodminek" ColumnName="PoruseniZarucnichPodminek" />
+                <ScalarProperty Name="Reklamace" ColumnName="Reklamace" />
                 <ScalarProperty Name="CenaCelkem" ColumnName="CenaCelkem" />
                 <ScalarProperty Name="CenaZaKus" ColumnName="CenaZaKus" />
                 <ScalarProperty Name="Pocet" ColumnName="Pocet" />

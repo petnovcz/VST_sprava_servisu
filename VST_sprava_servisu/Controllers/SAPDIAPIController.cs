@@ -10,46 +10,7 @@ namespace VST_sprava_servisu
     {
         readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         // GET: SAPDIAPI
-        [Authorize(Roles = "Administrator,Manager")]
-        public SAPbobsCOM.Company Connect()
-        {
-            try
-            {
-                SAPbobsCOM.Company oCompany = new SAPbobsCOM.Company();
-                oCompany.CompanyDB = "SBO_SKOLENI";
-                oCompany.Server = "SQL";
-                oCompany.LicenseServer = "SQL:30000";
-                oCompany.DbUserName = "sa";
-                oCompany.DbPassword = "*2012Versino";
-                oCompany.UserName = "novakp";
-                oCompany.Password = "Celtic.13";
-                oCompany.DbServerType = SAPbobsCOM.BoDataServerTypes.dst_MSSQL2008;
-                oCompany.UseTrusted = true;
-                int ret = oCompany.Connect();
-                string ErrMsg = oCompany.GetLastErrorDescription();
-                int ErrNo = oCompany.GetLastErrorCode();
-                if (ErrNo != 0)
-                {
-                    ViewBag.ErrMsg = ErrMsg;
-                }
-                else
-                {
-                    ViewBag.ErrMsg = "Connected succesfully to SAP Business One";
-                }
-                
-                return oCompany;
-            }
-            catch (Exception Errmsg) { throw Errmsg; }
-
-
-            
-        }
-        [Authorize(Roles = "Administrator,Manager")]
-        public bool Disconnect(SAPbobsCOM.Company oCompany)
-        {
-            if (oCompany.Connected == true) { oCompany.Disconnect(); }
-            return true;
-        }
+        
 
         [Authorize(Roles = "Administrator,Manager")]
         public bool UpdateContactName(string bpCardCode, string ctnPrevName, string CtnNewName)
@@ -59,7 +20,7 @@ namespace VST_sprava_servisu
             string sErrMsg; int lErrCode;
 
             SAPbobsCOM.Company oCompany = new SAPbobsCOM.Company();
-            oCompany = Connect();
+            oCompany = SAPDIAPI.Connect();
             
             //Check connection before updating          
 
@@ -124,7 +85,7 @@ namespace VST_sprava_servisu
         }
 
 
-
+        
 
 
 

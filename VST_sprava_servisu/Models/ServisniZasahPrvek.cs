@@ -29,6 +29,26 @@ namespace VST_sprava_servisu
             return list;
         }
 
+        internal protected static ServisniZasahPrvek GetPrvekById(int Id)
+        {
+            ServisniZasahPrvek list = new ServisniZasahPrvek();
+            using (var db = new Model1Container())
+            {
+                list = db.ServisniZasahPrvek.Where(t => t.Id == Id)
+                    .Include(s => s.Artikl)
+                    .Include(s => s.Porucha)
+                    .Include(s => s.ServisniZasah)
+                    .Include(s => s.SCProvozu)
+                    .FirstOrDefault();
+
+
+            }
+
+
+
+            return list;
+        }
+
 
 
 

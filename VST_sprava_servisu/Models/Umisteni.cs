@@ -34,5 +34,15 @@ namespace VST_sprava_servisu
             }
             return umistenil;
         }
+
+        internal protected static DateTime? GetDatumZaruky(int Id)
+        {
+            DateTime? datum;
+            using (var dbCtx = new Model1Container())
+            {
+                datum = dbCtx.Umisteni.Where(r => r.Id == Id).Select(r=>r.UkonceniZaruky).FirstOrDefault();
+            }
+            return datum;
+        }
     }
 }

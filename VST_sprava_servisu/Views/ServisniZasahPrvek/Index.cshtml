@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = null;
 }
 
 
@@ -25,7 +26,11 @@
         <th>
             @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)
         </th>
-        
+        <th>
+            @Html.DisplayNameFor(model => model.Reklamace)
+            <br>
+            @Html.DisplayNameFor(model => model.PoruseniZarucnichPodminek)
+        </th>
         <th></th>
     </tr>
 
@@ -49,11 +54,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.SCProvozu.Znaceni)
         </td>
-       
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
-            
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.Reklamace)<br>
+            @Html.DisplayFor(modelItem => item.PoruseniZarucnichPodminek)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id })
+            @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

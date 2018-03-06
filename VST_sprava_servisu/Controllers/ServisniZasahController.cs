@@ -24,6 +24,13 @@ namespace VST_sprava_servisu.Controllers
             return View(servisniZasah.ToList());
         }
 
+        public ActionResult GenerateDL(int Id)
+        {
+            bool retval = SAPDIAPI.GenerateDL(Id);
+            return View();
+        }
+
+
         // GET: ServisniZasah/Details/5
         public ActionResult Details(int? id)
         {
@@ -31,6 +38,7 @@ namespace VST_sprava_servisu.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ServisniZasah.UpdateHeader(id.Value);
             ServisniZasah servisniZasah = db.ServisniZasah.Find(id);
             if (servisniZasah == null)
             {
@@ -61,7 +69,7 @@ namespace VST_sprava_servisu.Controllers
             sz.DatumVyzvy = DateTime.Now;
             sz.DatumVznikuPoruchy = DateTime.Now;
             sz.DatumZasahu = DateTime.Now;
-            
+            sz.Mena = ServisniZasah.GetCurrency(sz.ZakaznikID);
             
             ViewBag.Provoz = db.Provoz.Where(t => t.Id == Provoz).Select(t => t.NazevProvozu).FirstOrDefault();
             ViewBag.Umisteni = db.Umisteni.Where(t => t.Id == Umisteni).Select(t => t.NazevUmisteni).FirstOrDefault();

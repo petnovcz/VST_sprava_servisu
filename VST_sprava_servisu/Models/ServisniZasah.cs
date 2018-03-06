@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Xml;
 using VST_sprava_servisu.Models;
@@ -13,6 +16,57 @@ namespace VST_sprava_servisu
 {
     public partial class ServisniZasah
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasah");
+
+
+        internal protected static string GetCurrency(int ZakaznikId)
+        {
+            
+            string currency = "";
+            string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            StringBuilder sql = new StringBuilder();
+            var zakaznik = Zakaznik.GetById(ZakaznikId);
+            sql.Append(" select Currency from ocrd where ");
+            sql.Append($" CardCode = '{zakaznik.KodSAP}' ");
+
+            log.Debug($"Nacteni meny {sql.ToString()}");
+            SqlConnection cnn = new SqlConnection(connectionString);
+            //SqlConnection con = new SqlConnection(cnn);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql.ToString();
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+
+                    try
+                    {
+                        currency = dr.GetString(dr.GetOrdinal("Currency"));
+                    }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
+                }
+            }
+            cnn.Close();
+            if (currency == "##")
+            {
+
+
+            }
+
+
+            return currency;
+
+
+            
+        }
+
 
         internal protected static decimal GetDistance(string Origin, string Kam, string Zpet)
         {
@@ -82,8 +136,23 @@ namespace VST_sprava_servisu
             }
             CenaArtikluZakaznik caz = new CenaArtikluZakaznik();
             caz = CenaArtikluZakaznik.GetCena(szp.ArtiklID.Value, sz.ZakaznikID);
-            if (caz.ZCCena != null) { cena = caz.ZCCena; } else { cena = caz.CenikCena; }
+            if (caz.ZCCena != 0) { cena = caz.ZCCena; } else { cena = caz.CenikCena; }
             return cena;
+        }
+
+        internal protected static string GetCurrencyForprvek(int szp)
+        {
+            string currency;
+            ServisniZasah sz = new ServisniZasah();
+
+            using (var db = new Model1Container())
+            {
+                sz = db.ServisniZasah.Where(t => t.Id == szp).FirstOrDefault();
+            }
+            CenaArtikluZakaznik caz = new CenaArtikluZakaznik();
+            caz = CenaArtikluZakaznik.GetCena(215, sz.ZakaznikID);
+            if (caz.ZCMena == "") { currency = caz.ZCMena; } else { currency = caz.CenikMena; }
+            return currency;
         }
 
         internal protected static void UpdateHeader(int Id)
@@ -92,14 +161,86 @@ namespace VST_sprava_servisu
             using (var db = new Model1Container())
             {
                 sz = db.ServisniZasah.Where(t => t.Id == Id).FirstOrDefault();
-                var x = db.ServisniZasahPrvek.Where(t => t.ServisniZasahId == Id).Select(t => t.CenaCelkem).Sum();
-                sz.Celkem = sz.CestaCelkem + sz.PraceCelkem + x;
-                db.Entry(sz).State = EntityState.Modified;
-                db.SaveChanges();
+
+                var km = CenaArtikluZakaznik.GetCena("SP05", sz.ZakaznikID);
+                decimal kmcena;
+                if (km.ZCCena != 0) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
+                sz.CestaCelkem = sz.Km * kmcena;
+                var prace = CenaArtikluZakaznik.GetCena("SP01", sz.ZakaznikID);
+                decimal pracecena;
+                if (prace.ZCCena != 0) { pracecena = prace.ZCCena; } else { pracecena = prace.CenikCena; }
+                sz.PraceSazba = pracecena;
+                sz.PraceCelkem = sz.Pracelidi * sz.PraceSazba * sz.PraceHod;
+
+
+                var prvku = db.ServisniZasahPrvek.Count();
+
+                var reklamace = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == false).Count();
+
+                if (prvku == reklamace)
+                {
+                    sz.Reklamace = true;
+                }
+                else
+                {
+                    sz.Reklamace = false;
+                }
+
+                var reklamprvku = db.ServisniZasahPrvek.Where(t => t.Reklamace == true).Count();
+
+                var poruseni = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == true).Count();
+
+                if (reklamprvku == poruseni && reklamprvku !=0 && poruseni !=0)
+                {
+                    sz.PoruseniZarucnichPodminek = true;
+                } 
+                else
+                {
+                    sz.PoruseniZarucnichPodminek = false;
+                }
+                var x = db.ServisniZasahPrvek.Where(t => t.ServisniZasahId == Id)
+                    .Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == true || t.Reklamace == false)
+                    .Select(t => t.CenaCelkem)
+                    .Sum();
+
+                if (x == null) { x = 0; }
+                if (sz.Reklamace == false || (sz.Reklamace == true && sz.PoruseniZarucnichPodminek == true))
+                {
+                    sz.Celkem = sz.CestaCelkem + sz.PraceCelkem + x;
+                }
+                else
+                {
+                    sz.Celkem = x;
+                }
+
+                sz.Mena = GetCurrencyForprvek(sz.Id);
+                try
+                {
+                    db.Entry(sz).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { };
             }
 
 
 
+        }
+
+        internal protected static ServisniZasah GetZasah(int Id)
+        {
+            ServisniZasah sz = new ServisniZasah();
+
+            using (var db = new Model1Container())
+            {
+                sz = db.ServisniZasah.Where(t => t.Id == Id)
+                    .Include(t=>t.ServisniZasahPrvek)
+                    .Include(t=>t.Zakaznik)
+                    
+                    .FirstOrDefault();
+
+            }
+
+            return sz;
         }
 
     }
