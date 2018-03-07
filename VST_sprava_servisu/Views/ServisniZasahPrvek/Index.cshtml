@@ -5,35 +5,41 @@
     Layout = null;
 }
 
+<div style="background-color:rgba(0, 0, 0, 0.1);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+<table class="table table-hover">
+   
+    
+    <thead>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Pocet)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CenaZaKus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CenaCelkem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Artikl.Nazev)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Porucha.NazevPoruchy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Reklamace)
-            <br>
-            @Html.DisplayNameFor(model => model.PoruseniZarucnichPodminek)
-        </th>
-        <th></th>
-    </tr>
 
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pocet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CenaZaKus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CenaCelkem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artikl.Nazev)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Porucha.NazevPoruchy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reklamace)
+                <br>
+                @Html.DisplayNameFor(model => model.PoruseniZarucnichPodminek)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -60,12 +66,18 @@
         </td>
 
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-            @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id })
-            @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id })
+            @if (item.ServisniZasah.NabidkaDocNum  == "" || item.ServisniZasah.NabidkaDocNum == null)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+
+        @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id })
+        @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id })
+
             @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            }
         </td>
     </tr>
 }
-
+</tbody>
 </table>
+    </div>

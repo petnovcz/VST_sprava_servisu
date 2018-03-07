@@ -73,7 +73,12 @@ namespace VST_sprava_servisu
         public string Zakazka { get; set; }
         [Display(Name = "Dodací List")]
         public string DodaciList { get; set; }
-    
+
+        public string ProjektStatus { get; set; }
+        public string NabidkaDocNum { get; set; }
+        public string ZakazkaDocNUm { get; set; }
+        public string DodaciListDocNum { get; set; }
+
         public virtual Provoz Provoz { get; set; }
         public virtual Umisteni Umisteni { get; set; }
         public virtual Vozidlo Vozidlo { get; set; }

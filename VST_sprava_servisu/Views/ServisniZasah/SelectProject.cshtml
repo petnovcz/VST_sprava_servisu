@@ -10,19 +10,20 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.Hidden("Code",item.Code)
-            @Html.Hidden("Name", item.Name)
-            @Html.Hidden("ServisniZasahId", item.ServisniZasahId)
- 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="@item.Name" class="btn btn-default" />
-                </div>
-            </div>
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.Hidden("Code", item.Code)
+    @Html.Hidden("Name", item.Name)
+    @Html.Hidden("Status", item.Status)
+    @Html.Hidden("ServisniZasahId", item.ServisniZasahId)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="@item.Name" class="btn btn-default" />
         </div>
+    </div>
+</div>
     }
 }

@@ -65,7 +65,7 @@ namespace VST_sprava_servisu
 
                     try
                     {
-                        sapItem.Status = dr.GetString(dr.GetOrdinal("Status"));
+                        sapItem.Status = dr.GetString(dr.GetOrdinal("Name"));
                     }
                     catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 

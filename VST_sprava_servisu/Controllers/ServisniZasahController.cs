@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -32,12 +33,15 @@ namespace VST_sprava_servisu.Controllers
         public ActionResult GenerateQuotation(int Id)
         {
             string retval = SAPDIAPI.GenerateQuotation(Id);
+            ServisniZasah.UpdateQuotation(retval, Id);
 
-            return View();
+            return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
         }
         public ActionResult GenerateOrder(int Id)
         {
-            bool retval = SAPDIAPI.GenerateDL(Id);
+            string retval = SAPDIAPI.GenerateOrder(Id);
+            ServisniZasah.UpdateOrder(retval, Id);
+
             return View();
         }
 
@@ -50,13 +54,14 @@ namespace VST_sprava_servisu.Controllers
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult SelectProject([Bind(Include = "Code,Name,ServisniZasahId")] Projekt projekt)
+        public ActionResult SelectProject([Bind(Include = "Code,Name,ServisniZasahId,Status")] Projekt projekt)
         {
             if (ModelState.IsValid)
             {
                 ServisniZasah sz = new ServisniZasah();
                 sz = ServisniZasah.GetZasah(projekt.ServisniZasahId);
                 sz.Projekt = projekt.Code;
+                sz.ProjektStatus = projekt.Status;
                 db.Entry(sz).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -248,6 +253,76 @@ namespace VST_sprava_servisu.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        [Authorize(Roles = "Administrator,Manager")]
+        public void PrintQuotation(int Id)
+        {
+            ReportDocument Rel = new ReportDocument();
+            string path = $"C:\\Logs\\Crystal\\Quotation.rpt";
+            ServisniZasah sz = ServisniZasah.GetZasah(Id);
+
+
+            //log.Error($"adresa {path}");
+
+            try
+            {
+
+                Rel.Load(path);
+                Rel.SetParameterValue("DocKey@", sz.Nabidka);
+                Rel.SetParameterValue("ObjectId@", "23");
+                Rel.SetDatabaseLogon("sa", "*2012Versino",
+                                   "SQL", "SBO_TEST", false);
+
+                BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+                Rel.Close();
+                Rel.Dispose();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.ContentType = "application/pdf";
+                Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+                Response.Flush();
+                Response.Close();
+            }
+            catch(Exception ex) { //log.Error($"Nena4tena adresa {path}"); 
+            }
+
+        }
+
+        [Authorize(Roles = "Administrator,Manager")]
+        public void PrintOrder(int Id)
+        {
+            ReportDocument Rel = new ReportDocument();
+            string path = $"C:\\Logs\\Crystal\\Order.rpt";
+            ServisniZasah sz = ServisniZasah.GetZasah(Id);
+
+
+            //log.Error($"adresa {path}");
+
+            try
+            {
+
+                Rel.Load(path);
+                Rel.SetParameterValue("DocKey@", sz.Zakazka);
+                Rel.SetParameterValue("ObjectId@", "17");
+                Rel.SetDatabaseLogon("sa", "*2012Versino",
+                                   "SQL", "SBO_TEST", false);
+
+                BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+                Rel.Close();
+                Rel.Dispose();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.ContentType = "application/pdf";
+                Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+                Response.Flush();
+                Response.Close();
+            }
+            catch (Exception ex)
+            { //log.Error($"Nena4tena adresa {path}"); 
+            }
+
         }
     }
 }

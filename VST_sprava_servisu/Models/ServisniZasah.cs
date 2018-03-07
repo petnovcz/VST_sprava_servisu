@@ -185,9 +185,9 @@ namespace VST_sprava_servisu
                 sz.PraceCelkem = sz.Pracelidi * sz.PraceSazba * sz.PraceHod;
 
 
-                var prvku = db.ServisniZasahPrvek.Count();
+                var prvku = db.ServisniZasahPrvek.Where(t=>t.ServisniZasahId == sz.Id).Count();
 
-                var reklamace = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == false).Count();
+                var reklamace = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == false && t.ServisniZasahId == sz.Id).Count();
 
                 if (prvku == reklamace)
                 {
@@ -198,9 +198,9 @@ namespace VST_sprava_servisu
                     sz.Reklamace = false;
                 }
 
-                var reklamprvku = db.ServisniZasahPrvek.Where(t => t.Reklamace == true).Count();
+                var reklamprvku = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.ServisniZasahId == sz.Id).Count();
 
-                var poruseni = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == true).Count();
+                var poruseni = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == true && t.ServisniZasahId == sz.Id).Count();
 
                 if (reklamprvku == poruseni && reklamprvku !=0 && poruseni !=0)
                 {
@@ -253,6 +253,112 @@ namespace VST_sprava_servisu
             }
 
             return sz;
+        }
+
+        internal protected static void UpdateQuotation(string DocEntry, int ServisniZasahId)
+        {
+
+            int currency = 0 ;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            StringBuilder sql = new StringBuilder();
+            
+            sql.Append(" select DocEntry, Docnum from oqut where ");
+            sql.Append($" DocEntry = '{DocEntry}' ");
+
+            log.Debug($"Nacteni meny {sql.ToString()}");
+            SqlConnection cnn = new SqlConnection(connectionString);
+            //SqlConnection con = new SqlConnection(cnn);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql.ToString();
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+
+                    try
+                    {
+                        currency = dr.GetInt32(dr.GetOrdinal("DocNum"));
+                    }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
+                }
+            }
+            cnn.Close();
+
+            ServisniZasah sz = new ServisniZasah();
+            sz = ServisniZasah.GetZasah(ServisniZasahId);
+            sz.Nabidka = DocEntry;
+            sz.NabidkaDocNum = currency.ToString();
+
+            using (var db = new Model1Container())
+            {
+                db.Entry(sz).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            
+
+
+        }
+
+        internal protected static void UpdateOrder(string DocEntry, int ServisniZasahId)
+        {
+
+            int currency = 0;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            StringBuilder sql = new StringBuilder();
+
+            sql.Append(" select DocEntry, Docnum from ordr where ");
+            sql.Append($" DocEntry = '{DocEntry}' ");
+
+            log.Debug($"Nacteni meny {sql.ToString()}");
+            SqlConnection cnn = new SqlConnection(connectionString);
+            //SqlConnection con = new SqlConnection(cnn);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql.ToString();
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+
+                    try
+                    {
+                        currency = dr.GetInt32(dr.GetOrdinal("DocNum"));
+                    }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
+                }
+            }
+            cnn.Close();
+
+            ServisniZasah sz = new ServisniZasah();
+            sz = ServisniZasah.GetZasah(ServisniZasahId);
+            sz.Zakazka = DocEntry;
+            sz.ZakazkaDocNUm = currency.ToString();
+
+            using (var db = new Model1Container())
+            {
+                db.Entry(sz).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+
+
         }
 
     }

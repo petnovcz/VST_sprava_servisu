@@ -234,6 +234,10 @@
           <Property Name="Nabidka" Type="nvarchar" MaxLength="50" />
           <Property Name="Zakazka" Type="nvarchar" MaxLength="50" />
           <Property Name="DodaciList" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjektStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="NabidkaDocNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZakazkaDocNUm" Type="nvarchar" MaxLength="50" />
+          <Property Name="DodaciListDocNum" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ServisniZasahPrvek">
           <Key>
@@ -1802,6 +1806,10 @@
           <Property Name="Nabidka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Zakazka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DodaciList" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjektStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NabidkaDocNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZakazkaDocNUm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DodaciListDocNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ServisniZasah_ToProvoz">
           <End Type="Model1.Provoz" Role="Provoz" Multiplicity="1" />
@@ -2203,6 +2211,10 @@
           <EntitySetMapping Name="ServisniZasah">
             <EntityTypeMapping TypeName="Model1.ServisniZasah">
               <MappingFragment StoreEntitySet="ServisniZasah">
+                <ScalarProperty Name="DodaciListDocNum" ColumnName="DodaciListDocNum" />
+                <ScalarProperty Name="ZakazkaDocNUm" ColumnName="ZakazkaDocNUm" />
+                <ScalarProperty Name="NabidkaDocNum" ColumnName="NabidkaDocNum" />
+                <ScalarProperty Name="ProjektStatus" ColumnName="ProjektStatus" />
                 <ScalarProperty Name="DodaciList" ColumnName="DodaciList" />
                 <ScalarProperty Name="Zakazka" ColumnName="Zakazka" />
                 <ScalarProperty Name="Nabidka" ColumnName="Nabidka" />
