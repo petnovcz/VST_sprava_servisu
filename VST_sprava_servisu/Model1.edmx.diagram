@@ -62,6 +62,8 @@
         <AssociationConnector Association="Model1.FK_ServisniZasah_ToZakaznik" />
         <AssociationConnector Association="Model1.FK_ServisniZasahPrvek_ToServisniZasah" />
         <AssociationConnector Association="Model1.FK_Porucha_ToSkupinaArtiklu" />
+        <EntityTypeShape EntityType="Model1.ServisniZasahPrvekSarze" Width="1.5" PointX="15.875" PointY="12" />
+        <AssociationConnector Association="Model1.FK_ServisniZasahPrvekSarze_ToServisniZasahPrvek" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

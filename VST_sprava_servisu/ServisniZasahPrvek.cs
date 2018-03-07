@@ -14,6 +14,12 @@ namespace VST_sprava_servisu
     
     public partial class ServisniZasahPrvek
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ServisniZasahPrvek()
+        {
+            this.ServisniZasahPrvekSarze = new HashSet<ServisniZasahPrvekSarze>();
+        }
+    
         public int Id { get; set; }
         public int ServisniZasahId { get; set; }
         public Nullable<int> SCProvozuID { get; set; }
@@ -29,5 +35,7 @@ namespace VST_sprava_servisu
         public virtual Porucha Porucha { get; set; }
         public virtual SCProvozu SCProvozu { get; set; }
         public virtual ServisniZasah ServisniZasah { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServisniZasahPrvekSarze> ServisniZasahPrvekSarze { get; set; }
     }
 }
