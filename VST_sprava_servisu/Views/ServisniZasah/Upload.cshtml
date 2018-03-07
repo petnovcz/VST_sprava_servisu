@@ -1,0 +1,9 @@
+﻿@model int?
+
+@using (Html.BeginForm("Uploadx", "ServisniZasah", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("Id",Model)
+    <input type="file" name="file" />
+    <input type="submit" name="Submit" id="Submit" value="Upload" />
+}

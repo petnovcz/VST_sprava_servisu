@@ -13,6 +13,10 @@ namespace VST_sprava_servisu
         [Authorize(Roles = "Administrator,Manager")]
         internal protected static Company Connect()
         {
+            //Company oCompany = new Company();
+            //SAPbobsCOM.Attachments2 oATT = oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oAttachments2) as SAPbobsCOM.Attachments2;
+
+
             try
             {
                 Company oCompany = new Company();
@@ -327,6 +331,36 @@ namespace VST_sprava_servisu
             return docEntry;
 
         }
+
+
+        internal protected static string GenerateOrder(int Id, string Path)
+        {
+            var result = "";
+
+            ServisniZasah sz = new ServisniZasah();
+            sz = ServisniZasah.GetZasah(Id);
+                        
+            Company oCompany = new Company();
+            oCompany = SAPDIAPI.Connect();
+
+            // Get the quotation
+            Documents oOrder = (Documents)oCompany.GetBusinessObject(BoObjectTypes.oOrders);
+            oOrder.GetByKey(Convert.ToInt32(sz.Zakazka));
+
+            //Check connection before updating          
+
+            if (oCompany.Connected)
+
+            {
+                
+                
+            }
+
+            oCompany.Disconnect();
+            return result;
+        }
+
+
     }
 
     

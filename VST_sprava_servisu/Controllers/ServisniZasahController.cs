@@ -25,6 +25,40 @@ namespace VST_sprava_servisu.Controllers
             return View(servisniZasah.ToList());
         }
 
+
+        public ActionResult Upload(int Id)
+        {
+
+            return View(Id);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Uploadx(int Id)
+        {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files[0];
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var x = Path.GetDirectoryName(file.FileName);
+                    //var path = Path.GetFullPath(file.FileName);
+                    //var path = Path.Combine((@"C:\Logs\Upload\"), fileName);
+                    //file.SaveAs(path);
+                }
+
+
+
+
+
+            }
+            return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
+        }
+
+
         public ActionResult GenerateDL(int Id)
         {
             bool retval = SAPDIAPI.GenerateDL(Id);

@@ -217,7 +217,7 @@
             @if (Model.NabidkaDocNum != "" && Model.NabidkaDocNum != null)
     {
         @Html.ActionLink(" ", "PrintQuotation", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
-                if ((Model.NabidkaDocNum == null || Model.NabidkaDocNum == "") && (Model.ZakazkaDocNUm == null || Model.ZakazkaDocNUm == "") && (Model.DodaciListDocNum == null || Model.DodaciListDocNum == ""))
+                if ((Model.ZakazkaDocNUm == null || Model.ZakazkaDocNUm == "") && (Model.DodaciListDocNum == null || Model.DodaciListDocNum == ""))
                 {
         @Html.ActionLink(" ", "GenerateOrder", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon btn-xs glyphicon-triangle-right" })
                     }
@@ -233,12 +233,15 @@
         <div>
             <b> Zakazka</b>
             @if (Model.ZakazkaDocNUm != "" && Model.ZakazkaDocNUm != null)
-    {
-        @Html.ActionLink(" ", "PrintOrder", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
-}
+        {
+            @Html.ActionLink(" ", "PrintOrder", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
+    }
         </div>
         <div>
             @Model.ZakazkaDocNUm
+        </div>
+        <div>
+            @Html.Partial("Upload",Model.Id)
         </div>
 
     </div>
