@@ -29,6 +29,41 @@ namespace VST_sprava_servisu.Controllers
             bool retval = SAPDIAPI.GenerateDL(Id);
             return View();
         }
+        public ActionResult GenerateQuotation(int Id)
+        {
+            string retval = SAPDIAPI.GenerateQuotation(Id);
+
+            return View();
+        }
+        public ActionResult GenerateOrder(int Id)
+        {
+            bool retval = SAPDIAPI.GenerateDL(Id);
+            return View();
+        }
+
+        public ActionResult SelectProject(int Id)
+        {
+            ServisniZasah sz = new ServisniZasah();
+            sz = ServisniZasah.GetZasah(Id);
+            List<Projekt> list = Projekt.ProjectList(sz.Zakaznik.KodSAP, Id);
+            return View(list);
+        }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult SelectProject([Bind(Include = "Code,Name,ServisniZasahId")] Projekt projekt)
+        {
+            if (ModelState.IsValid)
+            {
+                ServisniZasah sz = new ServisniZasah();
+                sz = ServisniZasah.GetZasah(projekt.ServisniZasahId);
+                sz.Projekt = projekt.Code;
+                db.Entry(sz).State = EntityState.Modified;
+                db.SaveChanges();
+
+            }
+
+                return RedirectToAction("Details", "ServisniZasah", new { Id = projekt.ServisniZasahId });
+        }
 
 
         // GET: ServisniZasah/Details/5
@@ -39,6 +74,21 @@ namespace VST_sprava_servisu.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ServisniZasah.UpdateHeader(id.Value);
+            ServisniZasah servisniZasah = db.ServisniZasah.Find(id);
+            if (servisniZasah == null)
+            {
+                return HttpNotFound();
+            }
+            return View(servisniZasah);
+        }
+
+        public ActionResult Header(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //ServisniZasah.UpdateHeader(id.Value);
             ServisniZasah servisniZasah = db.ServisniZasah.Find(id);
             if (servisniZasah == null)
             {
@@ -83,7 +133,7 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed")] ServisniZasah servisniZasah, string action)
+        public ActionResult Create([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed,Porjekt,Nabidka,Zakazka,DodaciList")] ServisniZasah servisniZasah, string action)
         {
             if (ModelState.IsValid && !String.IsNullOrWhiteSpace(action))
             {
@@ -150,7 +200,7 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed")] ServisniZasah servisniZasah)
+        public ActionResult Edit([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed,Porjekt,Nabidka,Zakazka,DodaciList")] ServisniZasah servisniZasah)
         {
             if (ModelState.IsValid)
             {

@@ -230,6 +230,10 @@
           <Property Name="PoruseniZarucnichPodminek" Type="bit" Nullable="false" />
           <Property Name="Mena" Type="nchar" MaxLength="10" />
           <Property Name="Closed" Type="bit" Nullable="false" />
+          <Property Name="Projekt" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nabidka" Type="nvarchar" MaxLength="50" />
+          <Property Name="Zakazka" Type="nvarchar" MaxLength="50" />
+          <Property Name="DodaciList" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ServisniZasahPrvek">
           <Key>
@@ -1794,6 +1798,10 @@
           <NavigationProperty Name="Zakaznik" Relationship="Model1.FK_ServisniZasah_ToZakaznik" FromRole="ServisniZasah" ToRole="Zakaznik" />
           <NavigationProperty Name="ServisniZasahPrvek" Relationship="Model1.FK_ServisniZasahPrvek_ToServisniZasah" FromRole="ServisniZasah" ToRole="ServisniZasahPrvek" />
           <Property Name="Closed" Type="Boolean" Nullable="false" />
+          <Property Name="Projekt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nabidka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zakazka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DodaciList" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ServisniZasah_ToProvoz">
           <End Type="Model1.Provoz" Role="Provoz" Multiplicity="1" />
@@ -2195,6 +2203,10 @@
           <EntitySetMapping Name="ServisniZasah">
             <EntityTypeMapping TypeName="Model1.ServisniZasah">
               <MappingFragment StoreEntitySet="ServisniZasah">
+                <ScalarProperty Name="DodaciList" ColumnName="DodaciList" />
+                <ScalarProperty Name="Zakazka" ColumnName="Zakazka" />
+                <ScalarProperty Name="Nabidka" ColumnName="Nabidka" />
+                <ScalarProperty Name="Projekt" ColumnName="Projekt" />
                 <ScalarProperty Name="Closed" ColumnName="Closed" />
                 <ScalarProperty Name="Mena" ColumnName="Mena" />
                 <ScalarProperty Name="PoruseniZarucnichPodminek" ColumnName="PoruseniZarucnichPodminek" />

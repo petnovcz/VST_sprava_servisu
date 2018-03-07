@@ -18,6 +18,18 @@ namespace VST_sprava_servisu
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasah");
 
+        internal protected static string GetProjekt(int ZakaznikId)
+        {
+            string projekt = "";
+
+
+            return projekt;
+        }
+
+
+
+
+
 
         internal protected static string GetCurrency(int ZakaznikId)
         {

@@ -20,9 +20,9 @@ namespace VST_sprava_servisu
         {
             this.ServisniZasahPrvek = new HashSet<ServisniZasahPrvek>();
         }
-
+    
         public int Id { get; set; }
-        [Display(Name="Zákazník")]
+        [Display(Name = "Zákazník")]
         public int ZakaznikID { get; set; }
         [Display(Name = "Provoz")]
         public int ProvozId { get; set; }
@@ -65,6 +65,14 @@ namespace VST_sprava_servisu
         public string Mena { get; set; }
         [Display(Name = "Uzavřeno")]
         public bool Closed { get; set; }
+        [Display(Name = "Projekt")]
+        public string Projekt { get; set; }
+        [Display(Name = "Nabídka")]
+        public string Nabidka { get; set; }
+        [Display(Name = "Zakázka")]
+        public string Zakazka { get; set; }
+        [Display(Name = "Dodací List")]
+        public string DodaciList { get; set; }
     
         public virtual Provoz Provoz { get; set; }
         public virtual Umisteni Umisteni { get; set; }

@@ -18,6 +18,10 @@
     @Html.HiddenFor(model => model.ProvozId)
     @Html.HiddenFor(model => model.UmisteniId)
     @Html.HiddenFor(model => model.Closed)
+    @Html.HiddenFor(model => model.Projekt)
+    @Html.HiddenFor(model => model.Nabidka)
+    @Html.HiddenFor(model => model.Zakazka)
+    @Html.HiddenFor(model => model.DodaciList)
 
 
     <div class="form-group">
@@ -80,41 +84,41 @@
             <input type="submit" value="Refresh" name="action" class="btn btn-success" />
         </div>
     </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Km, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Km, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Km, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PraceHod, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PraceHod, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.25" } })
-                @Html.ValidationMessageFor(model => model.PraceHod, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pracelidi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pracelidi, new { htmlAttributes = new { @class = "form-control", type = "number", step = "1" } })
-                @Html.ValidationMessageFor(model => model.Pracelidi, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" name="action" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Km, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Km, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Km, "", new { @class = "text-danger" })
         </div>
     </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PraceHod, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PraceHod, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.25" } })
+            @Html.ValidationMessageFor(model => model.PraceHod, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pracelidi, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Pracelidi, new { htmlAttributes = new { @class = "form-control", type = "number", step = "1" } })
+            @Html.ValidationMessageFor(model => model.Pracelidi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" name="action" class="btn btn-default" />
+        </div>
+    </div>
+</div>
     }
 
     <div>

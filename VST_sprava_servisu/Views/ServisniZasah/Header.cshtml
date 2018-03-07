@@ -178,10 +178,10 @@
     <div class="col-lg-3">
         <div>
 
-            <b>@Html.DisplayNameFor(model => model.Mena) </b>
+            <b>@Html.DisplayNameFor(model => model.Closed) </b>
         </div>
         <div>
-            @Html.DisplayFor(model => model.Mena)
+            @Html.DisplayFor(model => model.Closed)
         </div>
 
     </div>
@@ -192,7 +192,9 @@
             <b> Projekt</b>
         </div>
         <div>
-            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-asterisk" })
+            @Model.Projekt
+            @Html.ActionLink(" ", "SelectProject", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-glyphicon glyphicon-search" })
+            @Html.ActionLink(" ", "GenerateProject", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-glyphicon glyphicon-asterisk" })
         </div>
 
     </div>
@@ -201,8 +203,8 @@
             <b>Nabidka</b>
         </div>
         <div>
-            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-asterisk" })
-            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-triangle-right" })
+            @Html.ActionLink(" ", "GenerateQuotation", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-asterisk" })
+            @Html.ActionLink(" ", "CopyToOrder", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-triangle-right" })
         </div>
 
     </div>
@@ -211,8 +213,8 @@
             <b> Zakazka</b>
         </div>
         <div>
-            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-asterisk" })
-            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-triangle-right" })
+            @Html.ActionLink(" ", "GenerateOrder", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-asterisk" })
+            @Html.ActionLink(" ", "CopyToDl", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon glyphicon-triangle-right" })
 
         </div>
 
