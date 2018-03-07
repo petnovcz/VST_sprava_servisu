@@ -18,6 +18,7 @@ namespace VST_sprava_servisu
         public ServisniZasahPrvek()
         {
             this.ServisniZasahPrvekSarze = new HashSet<ServisniZasahPrvekSarze>();
+            this.ServisniZasahPrvekSerioveCislo = new HashSet<ServisniZasahPrvekSerioveCislo>();
         }
     
         public int Id { get; set; }
@@ -37,5 +38,7 @@ namespace VST_sprava_servisu
         public virtual ServisniZasah ServisniZasah { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServisniZasahPrvekSarze> ServisniZasahPrvekSarze { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServisniZasahPrvekSerioveCislo> ServisniZasahPrvekSerioveCislo { get; set; }
     }
 }

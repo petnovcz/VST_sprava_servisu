@@ -440,6 +440,9 @@
     <Compile Include="ServisniZasahPrvekSarze.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ServisniZasahPrvekSerioveCislo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="SkupinaArtiklu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

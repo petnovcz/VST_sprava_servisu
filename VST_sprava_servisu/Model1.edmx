@@ -265,6 +265,16 @@
           <Property Name="Sklad" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Mnozstvi" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
+        <EntityType Name="ServisniZasahPrvekSerioveCislo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServisniZasahPrvekId" Type="int" Nullable="false" />
+          <Property Name="SerioveCislo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SAPKod" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sklad" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="SkupinaArtiklu">
           <Key>
             <PropertyRef Name="Id" />
@@ -686,6 +696,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek">
+          <End Role="ServisniZasahPrvek" Type="Self.ServisniZasahPrvek" Multiplicity="1" />
+          <End Role="ServisniZasahPrvekSerioveCislo" Type="Self.ServisniZasahPrvekSerioveCislo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServisniZasahPrvek">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServisniZasahPrvekSerioveCislo">
+              <PropertyRef Name="ServisniZasahPrvekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StatusRevizeRevize">
           <End Role="StatusRevize" Type="Self.StatusRevize" Multiplicity="1" />
           <End Role="Revize" Type="Self.Revize" Multiplicity="*" />
@@ -788,6 +810,7 @@
           <EntitySet Name="ServisniZasah" EntityType="Self.ServisniZasah" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServisniZasahPrvek" EntityType="Self.ServisniZasahPrvek" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServisniZasahPrvekSarze" EntityType="Self.ServisniZasahPrvekSarze" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServisniZasahPrvekSerioveCislo" EntityType="Self.ServisniZasahPrvekSerioveCislo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkupinaArtiklu" EntityType="Self.SkupinaArtiklu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusRevize" EntityType="Self.StatusRevize" Schema="dbo" store:Type="Tables" />
@@ -906,6 +929,10 @@
           <AssociationSet Name="FK_ServisniZasahPrvekSarze_ToServisniZasahPrvek" Association="Self.FK_ServisniZasahPrvekSarze_ToServisniZasahPrvek">
             <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
             <End Role="ServisniZasahPrvekSarze" EntitySet="ServisniZasahPrvekSarze" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek" Association="Self.FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek">
+            <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
+            <End Role="ServisniZasahPrvekSerioveCislo" EntitySet="ServisniZasahPrvekSerioveCislo" />
           </AssociationSet>
           <AssociationSet Name="FK_StatusRevizeRevize" Association="Self.FK_StatusRevizeRevize">
             <End Role="StatusRevize" EntitySet="StatusRevize" />
@@ -1104,6 +1131,11 @@
           <AssociationSet Name="FK_ServisniZasahPrvekSarze_ToServisniZasahPrvek" Association="Model1.FK_ServisniZasahPrvekSarze_ToServisniZasahPrvek">
             <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
             <End Role="ServisniZasahPrvekSarze" EntitySet="ServisniZasahPrvekSarze" />
+          </AssociationSet>
+          <EntitySet Name="ServisniZasahPrvekSerioveCislo" EntityType="Model1.ServisniZasahPrvekSerioveCislo" />
+          <AssociationSet Name="FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek" Association="Model1.FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek">
+            <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
+            <End Role="ServisniZasahPrvekSerioveCislo" EntitySet="ServisniZasahPrvekSerioveCislo" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
@@ -1767,6 +1799,7 @@
           <Property Name="Reklamace" Type="Boolean" Nullable="false" />
           <Property Name="PoruseniZarucnichPodminek" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ServisniZasahPrvekSarze" Relationship="Model1.FK_ServisniZasahPrvekSarze_ToServisniZasahPrvek" FromRole="ServisniZasahPrvek" ToRole="ServisniZasahPrvekSarze" />
+          <NavigationProperty Name="ServisniZasahPrvekSerioveCislo" Relationship="Model1.FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek" FromRole="ServisniZasahPrvek" ToRole="ServisniZasahPrvekSerioveCislo" />
         </EntityType>
         <Association Name="FK_ServisniZasahPrvek_ToArtikl">
           <End Type="Model1.Artikl" Role="Artikl" Multiplicity="0..1" />
@@ -1937,6 +1970,29 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ServisniZasahPrvekSarze">
+              <PropertyRef Name="ServisniZasahPrvekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ServisniZasahPrvekSerioveCislo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServisniZasahPrvekId" Type="Int32" Nullable="false" />
+          <Property Name="SerioveCislo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SAPKod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sklad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ServisniZasahPrvek" Relationship="Model1.FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek" FromRole="ServisniZasahPrvekSerioveCislo" ToRole="ServisniZasahPrvek" />
+        </EntityType>
+        <Association Name="FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek">
+          <End Type="Model1.ServisniZasahPrvek" Role="ServisniZasahPrvek" Multiplicity="1" />
+          <End Type="Model1.ServisniZasahPrvekSerioveCislo" Role="ServisniZasahPrvekSerioveCislo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServisniZasahPrvek">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServisniZasahPrvekSerioveCislo">
               <PropertyRef Name="ServisniZasahPrvekId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2310,6 +2366,17 @@
                 <ScalarProperty Name="Sklad" ColumnName="Sklad" />
                 <ScalarProperty Name="SAPKod" ColumnName="SAPKod" />
                 <ScalarProperty Name="Sarze" ColumnName="Sarze" />
+                <ScalarProperty Name="ServisniZasahPrvekId" ColumnName="ServisniZasahPrvekId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServisniZasahPrvekSerioveCislo">
+            <EntityTypeMapping TypeName="Model1.ServisniZasahPrvekSerioveCislo">
+              <MappingFragment StoreEntitySet="ServisniZasahPrvekSerioveCislo">
+                <ScalarProperty Name="Sklad" ColumnName="Sklad" />
+                <ScalarProperty Name="SAPKod" ColumnName="SAPKod" />
+                <ScalarProperty Name="SerioveCislo" ColumnName="SerioveCislo" />
                 <ScalarProperty Name="ServisniZasahPrvekId" ColumnName="ServisniZasahPrvekId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
