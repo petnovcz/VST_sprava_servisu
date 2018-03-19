@@ -1,0 +1,50 @@
+﻿@model VST_sprava_servisu.ServisniZasahPrvekSerioveCislo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServisniZasahPrvekSerioveCislo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SerioveCislo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SerioveCislo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SAPKod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SAPKod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sklad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sklad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServisniZasahPrvek.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServisniZasahPrvek.Id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

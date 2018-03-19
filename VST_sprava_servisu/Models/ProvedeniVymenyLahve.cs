@@ -26,7 +26,7 @@ namespace VST_sprava_servisu
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
             StringBuilder sql = new StringBuilder();
 
-            sql.Append(" select coalesce(t0.IntrSerial, t0.SysSerial) as 'Serial'  ");
+            sql.Append(" select t0.IntrSerial as 'Serial'  ");
             sql.Append($"  from OSRI t0 ");
             sql.Append($"  inner join SRI1 t1 on t0.SysSerial = t1.SysSerial and t0.ItemCode = t1.ItemCode ");
             sql.Append($"  left join OIGE t2 on t1.BaseNum = t2.DocNum");
@@ -55,7 +55,7 @@ namespace VST_sprava_servisu
                 //MAKES IT HERE   
                 while (dr.Read())
                 {
-                    var x  = dr.GetInt32(0);
+                    var x  = dr.GetString(0);
                     sclahve = x.ToString();
                 }
             }

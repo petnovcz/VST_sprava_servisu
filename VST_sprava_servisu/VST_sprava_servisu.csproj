@@ -306,8 +306,10 @@
     <Compile Include="Controllers\PoruchaController.cs" />
     <Compile Include="Controllers\ProvedeniVymenyLahveController.cs" />
     <Compile Include="Controllers\SAPDIAPIController.cs" />
+    <Compile Include="Controllers\SarzeController.cs" />
     <Compile Include="Controllers\ServisniZasahController.cs" />
     <Compile Include="Controllers\ServisniZasahPrvekController.cs" />
+    <Compile Include="Controllers\SZSerioveCisloeController.cs" />
     <Compile Include="Controllers\VozidloController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1187,6 +1189,17 @@
     <Content Include="Views\ServisniZasahPrvek\Add.cshtml" />
     <Content Include="Views\ServisniZasah\SelectProject.cshtml" />
     <Content Include="Views\ServisniZasah\Upload.cshtml" />
+    <Content Include="Views\Sarze\Create.cshtml" />
+    <Content Include="Views\Sarze\Delete.cshtml" />
+    <Content Include="Views\Sarze\Details.cshtml" />
+    <Content Include="Views\Sarze\Edit.cshtml" />
+    <Content Include="Views\Sarze\Index.cshtml" />
+    <Content Include="Views\SZSerioveCisloe\Create.cshtml" />
+    <Content Include="Views\SZSerioveCisloe\Delete.cshtml" />
+    <Content Include="Views\SZSerioveCisloe\Details.cshtml" />
+    <Content Include="Views\SZSerioveCisloe\Edit.cshtml" />
+    <Content Include="Views\SZSerioveCisloe\Index.cshtml" />
+    <Content Include="Views\ServisniZasahPrvek\_Kusovnik.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

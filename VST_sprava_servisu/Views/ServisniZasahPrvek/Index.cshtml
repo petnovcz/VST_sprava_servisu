@@ -8,77 +8,93 @@
 <div style="background-color:rgba(0, 0, 0, 0.1);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
 <table class="table table-hover">
    
-    
+    <colgroup>
+        <col class="col-lg-2">
+        <col class="col-lg-2">
+
+        <col class="col-lg-2">
+
+        <col class="col-lg-5">
+        <col class="col-lg-1">
+    </colgroup>
     <thead>
 
 
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Pocet)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CenaZaKus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CenaCelkem)
-            </th>
-            <th>
+                @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)<br>
+                @Html.DisplayNameFor(model => model.Porucha.NazevPoruchy)<br>
                 @Html.DisplayNameFor(model => model.Artikl.Nazev)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Porucha.NazevPoruchy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)
+                @Html.DisplayNameFor(model => model.Pocet)<br>
+                @Html.DisplayNameFor(model => model.CenaZaKus)<br>
+                @Html.DisplayNameFor(model => model.CenaCelkem)<br>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Reklamace)
                 <br>
                 @Html.DisplayNameFor(model => model.PoruseniZarucnichPodminek)
             </th>
+            <th>
+                Seriova cisla / sarze
+            </th>
+
+
+
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pocet)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CenaZaKus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CenaCelkem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Artikl.Nazev)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Porucha.NazevPoruchy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SCProvozu.Znaceni)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reklamace)<br>
-            @Html.DisplayFor(modelItem => item.PoruseniZarucnichPodminek)
-        </td>
-
-        <td>
-            @if (item.ServisniZasah.NabidkaDocNum  == "" || item.ServisniZasah.NabidkaDocNum == null)
+        @foreach (var item in Model)
     {
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SCProvozu.Znaceni)
+                <br>
+                @Html.DisplayFor(modelItem => item.Porucha.NazevPoruchy)<br>
+                @Html.DisplayFor(modelItem => item.Artikl.KodSAP)<br>
+                @Html.DisplayFor(modelItem => item.Artikl.Nazev)
+            </td>
+           
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Pocet) <br>
+                @Html.DisplayFor(modelItem => item.CenaZaKus) <br>
+                @Html.DisplayFor(modelItem => item.CenaCelkem)<br>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reklamace)<br>
+                @Html.DisplayFor(modelItem => item.PoruseniZarucnichPodminek)
+            </td>
+            <td>
+                @Html.Partial("_Kusovnik",item.RadkyKusovniku)
 
-        @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id })
-        @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id })
+                @**@
+        @Html.Action("Index", "SZSerioveCisloe", new { Id = item.Id })
+                @**@
+            </td>
 
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            }
-        </td>
-    </tr>
-}
+
+
+
+
+                    <td>
+                        @if (item.ServisniZasah.NabidkaDocNum == "" || item.ServisniZasah.NabidkaDocNum == null)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+
+                    @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id })
+                    @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id })
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        }
+                    </td>
+                </tr>
+                
+                }
 </tbody>
 </table>
-
+    
     </div>

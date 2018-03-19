@@ -1,0 +1,56 @@
+﻿@model IEnumerable<VST_sprava_servisu.Kusovnik>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+<table style="width:100%">
+    <tr>
+        
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Mnozstvi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MnozstviRadekKusovniku)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.RadekKusovnikuSAPKod)
+            <br>
+            @Html.DisplayNameFor(model => model.NazevArtikluRadekKusovniku)
+        </th>
+        
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Mnozstvi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MnozstviRadekKusovniku)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RadekKusovnikuSAPKod)
+            <br>
+            @Html.DisplayFor(modelItem => item.NazevArtikluRadekKusovniku)
+        </td>
+        
+        
+
+
+    </tr>
+    }
+
+</table>
+
