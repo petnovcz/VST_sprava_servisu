@@ -8,21 +8,23 @@
 
 <table style="width:100%">
     <tr>
-        
-        
+
+
         <th>
-            @Html.DisplayNameFor(model => model.Mnozstvi)
+            @Html.DisplayNameFor(model => model.PozadovaneMnozstvi)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MnozstviRadekKusovniku)
-        </th>
-       
+
+
         <th>
             @Html.DisplayNameFor(model => model.RadekKusovnikuSAPKod)
             <br>
             @Html.DisplayNameFor(model => model.NazevArtikluRadekKusovniku)
         </th>
-        
+        <th>
+        </th>
+        <th>
+        </th>
+
 
 
 
@@ -32,21 +34,24 @@
     @foreach (var item in Model)
     {
     <tr>
-        
-        
+
+
         <td>
-            @Html.DisplayFor(modelItem => item.Mnozstvi)
+            @Html.DisplayFor(modelItem => item.PozadovaneMnozstvi)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MnozstviRadekKusovniku)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.RadekKusovnikuSAPKod)
             <br>
             @Html.DisplayFor(modelItem => item.NazevArtikluRadekKusovniku)
         </td>
-        
-        
+        <td>
+            @Html.Action("Create", "SZSerioveCisloe", new { Id = item.Id })
+        </td>
+        <td>
+            @Html.Action("Index", "SZSerioveCisloe", new { Id = item.Id })
+        </td>
+
 
 
     </tr>

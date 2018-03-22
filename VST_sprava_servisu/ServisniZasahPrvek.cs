@@ -11,7 +11,8 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ServisniZasahPrvek
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,16 +21,25 @@ namespace VST_sprava_servisu
             this.ServisniZasahPrvekSarze = new HashSet<ServisniZasahPrvekSarze>();
             this.ServisniZasahPrvekSerioveCislo = new HashSet<ServisniZasahPrvekSerioveCislo>();
         }
-    
+        [Display(Name = "Id")]
         public int Id { get; set; }
+        [Display(Name = "Servisní Zásah")]
         public int ServisniZasahId { get; set; }
+        [Display(Name = "Sériové èíslo provozu")]
         public Nullable<int> SCProvozuID { get; set; }
+        [Display(Name = "Porucha")]
         public int PoruchaID { get; set; }
+        [Display(Name = "Artikl")]
         public Nullable<int> ArtiklID { get; set; }
+        [Display(Name = "Množství")]
         public decimal Pocet { get; set; }
+        [Display(Name = "Cena za kus")]
         public Nullable<decimal> CenaZaKus { get; set; }
+        [Display(Name = "Cena celkem")]
         public Nullable<decimal> CenaCelkem { get; set; }
+        [Display(Name = "Reklamace?")]
         public bool Reklamace { get; set; }
+        [Display(Name = "Porušení záruèních podmínek")]
         public bool PoruseniZarucnichPodminek { get; set; }
     
         public virtual Artikl Artikl { get; set; }

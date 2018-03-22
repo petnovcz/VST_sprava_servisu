@@ -11,13 +11,19 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ServisniZasahPrvekSerioveCislo
     {
+        [Display(Name = "Id")]
         public int Id { get; set; }
+        [Display(Name = "Prvek Servisního Zásahu")]
         public int ServisniZasahPrvekId { get; set; }
+        [Display(Name = "Sériové èíslo")]
         public string SerioveCislo { get; set; }
+        [Display(Name = "SAP kód artiklu")]
         public string SAPKod { get; set; }
+        [Display(Name = "Sklad")]
         public string Sklad { get; set; }
     
         public virtual ServisniZasahPrvek ServisniZasahPrvek { get; set; }

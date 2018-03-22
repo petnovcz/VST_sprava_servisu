@@ -217,6 +217,13 @@ namespace VST_sprava_servisu
         public string RadekKusovnikuSAPKod { get; set; }
         public decimal MnozstviRadekKusovniku { get; set; }
         public string NazevArtikluRadekKusovniku { get; set; }
+        public decimal PozadovaneMnozstvi { get
+            {
+                return Mnozstvi * MnozstviRadekKusovniku;
+
+            } }
+        public decimal VybraneMnozstvi { get; set; }
+        public decimal OtevreneMnozstvi { get; set; }
 
     }
 }
