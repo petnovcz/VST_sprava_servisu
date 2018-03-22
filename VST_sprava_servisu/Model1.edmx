@@ -343,6 +343,7 @@
           <Property Name="Revize" Type="int" Nullable="false" />
           <Property Name="Popis" Type="nvarchar(max)" />
           <Property Name="Umisteni" Type="int" />
+          <Property Name="Repase" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Zakaznik">
           <Key>
@@ -1698,6 +1699,7 @@
           <NavigationProperty Name="Revize1" Relationship="Model1.FK_VymenyLahvi_ToRevize" FromRole="VymenyLahvi" ToRole="Revize" />
           <Property Name="Popis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Umisteni" Type="Int32" />
+          <Property Name="Repase" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_VymenyLahvi_ToSCProvozuN">
           <End Type="Model1.SCProvozu" Role="SCProvozu" Multiplicity="1" />
@@ -2264,6 +2266,7 @@
           <EntitySetMapping Name="VymenyLahvi">
             <EntityTypeMapping TypeName="Model1.VymenyLahvi">
               <MappingFragment StoreEntitySet="VymenyLahvi">
+                <ScalarProperty Name="Repase" ColumnName="Repase" />
                 <ScalarProperty Name="Umisteni" ColumnName="Umisteni" />
                 <ScalarProperty Name="Popis" ColumnName="Popis" />
                 <ScalarProperty Name="Revize" ColumnName="Revize" />

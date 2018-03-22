@@ -19,6 +19,17 @@ namespace VST_sprava_servisu
                 vl.Revize = RevizeId;
                 vl.Umisteni = oldSCProvozu.Umisteni;
                 vl.SCLahve = SClahve;
+                if (SClahve.Trim().StartsWith("R"))
+                {
+                    vl.Repase = true;
+                    vl.Popis = "viz. přiložený atest";
+                }
+                else
+                {
+                    vl.Repase = false;
+                    vl.Popis = "viz. přiložené prohlášení o shodě";
+                }
+                
                 try
                 {
                     dbCtx.VymenyLahvi.Add(vl);

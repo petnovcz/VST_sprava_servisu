@@ -54,13 +54,13 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SCProvozuPuvodni,SCProvozuNova,SCLahve,DatumVymeny,Revize")] VymenyLahvi vymenyLahvi)
+        public ActionResult Create([Bind(Include = "Id,SCProvozuPuvodni,SCProvozuNova,SCLahve,DatumVymeny,Revize,Popis,Umisteni,Repase")] VymenyLahvi vymenyLahvi)
         {
             if (ModelState.IsValid)
             {
                 db.VymenyLahvi.Add(vymenyLahvi);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Revize",new { id = vymenyLahvi.Revize});
             }
 
             ViewBag.SCProvozuNova = new SelectList(db.SCProvozu, "Id", "Lokace", vymenyLahvi.SCProvozuNova);
@@ -92,13 +92,15 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SCProvozuPuvodni,SCProvozuNova,SCLahve,DatumVymeny,Revize,Popis,Umisteni")] VymenyLahvi vymenyLahvi)
+        public ActionResult Edit([Bind(Include = "Id,SCProvozuPuvodni,SCProvozuNova,SCLahve,DatumVymeny,Revize,Popis,Umisteni,Repase")] VymenyLahvi vymenyLahvi)
         {
             if (ModelState.IsValid)
             {
+                if (vymenyLahvi.Repase == true) { vymenyLahvi.Popis = "viz. přiložený atest"; }
+                else { vymenyLahvi.Popis = "viz. přiložené prohlášení o shodě"; }
                 db.Entry(vymenyLahvi).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Revize", new { id = vymenyLahvi.Revize });
             }
             ViewBag.SCProvozuNova = new SelectList(db.SCProvozu, "Id", "Lokace", vymenyLahvi.SCProvozuNova);
             ViewBag.SCProvozuPuvodni = new SelectList(db.SCProvozu, "Id", "Lokace", vymenyLahvi.SCProvozuPuvodni);

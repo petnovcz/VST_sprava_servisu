@@ -32,6 +32,7 @@ namespace VST_sprava_servisu
         public string Popis { get; set; }
         [Display(Name = "Umístìní")]
         public Nullable<int> Umisteni { get; set; }
+        public bool Repase { get; set; }
         public virtual SCProvozu SCProvozu { get; set; }
         public virtual SCProvozu SCProvozu1 { get; set; }
         public virtual Revize Revize1 { get; set; }

@@ -37,6 +37,9 @@
                 @Html.DisplayNameFor(model => model.Popis)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Repase)
+            </th>
+            <th>
 
             </th>
 
@@ -70,10 +73,13 @@
                 @Html.DisplayFor(modelItem => item.Popis)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Repase)
+            </td>
+            <td>
                 @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
-    {
+        {
             @Html.ActionLink("Edit", "Edit", "VymenyLahvi", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-md btn-block " })
-            
+
 }
 
             </td>
