@@ -30,7 +30,7 @@ namespace VST_sprava_servisu
         
         
         // GET: Zakaznici
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Index(int? Region, string Search)
         {
             int? session_region = null;
@@ -62,7 +62,7 @@ namespace VST_sprava_servisu
             return View(zakaznik.ToList());
         }
 
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Search(int? Skupina, string Search)
         {
             int? List_Skupina = null;
@@ -119,7 +119,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Zakaznici/Details/5
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -133,7 +133,7 @@ namespace VST_sprava_servisu
             }
             return View(zakaznik);
         }
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Header(int? id)
         {
             if (id == null)

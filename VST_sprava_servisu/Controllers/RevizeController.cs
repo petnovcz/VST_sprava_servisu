@@ -288,8 +288,8 @@ namespace VST_sprava_servisu
             if ((Mesic == null) && (session_mesic != null)) { Mesic = session_mesic; }
 
             DateTime date1 = new DateTime(Rok.Value, Mesic.Value, 1);
-            var x = (int)date1.DayOfWeek - 1;
-
+            var x = (int)date1.DayOfWeek -1;
+            if (x < 0) { x = x + 7; }
             var startOfMonth = new DateTime(date1.Year, date1.Month, 1);
             var DaysInMonth = DateTime.DaysInMonth(date1.Year, date1.Month);
 

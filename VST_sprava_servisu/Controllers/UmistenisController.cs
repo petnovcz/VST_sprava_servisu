@@ -15,7 +15,7 @@ namespace VST_sprava_servisu
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("UmistenisController");
 
         // GET: Umistenis
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Index()
         {
             var umisteni = db.Umisteni
@@ -24,7 +24,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Umistenis/Details/5
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Details(int? id, int Provoz, int Zakaznik)
         {
             if (id == null)
@@ -47,7 +47,7 @@ namespace VST_sprava_servisu
             return View(umisteni);
         }
 
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Header(int? id)
         {
             if (id == null)

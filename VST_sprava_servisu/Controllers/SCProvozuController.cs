@@ -15,7 +15,7 @@ namespace VST_sprava_servisu
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SCProvozuController");
 
         // GET: SCProvozu
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Index()
         {
             var sCProvozu = db.SCProvozu

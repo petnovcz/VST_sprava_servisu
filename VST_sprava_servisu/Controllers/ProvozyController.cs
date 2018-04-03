@@ -16,7 +16,7 @@ namespace VST_sprava_servisu
         readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: Provozy
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public PartialViewResult Index(int Zakaznik)
         {
             var provoz = db.Provoz.Include(p => p.Zakaznik).Where(p=>p.ZakaznikId == Zakaznik);
@@ -25,7 +25,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: Provozy/Details/5
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,7 +39,7 @@ namespace VST_sprava_servisu
             }
             return View(provoz);
         }
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Header(int? id)
         {
             if (id == null)

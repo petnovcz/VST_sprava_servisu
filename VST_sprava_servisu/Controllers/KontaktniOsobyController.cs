@@ -16,7 +16,7 @@ namespace VST_sprava_servisu
         readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // GET: KontaktniOsoby
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Index(int Zakaznik)
         {
             var kontakniOsoba = db.KontakniOsoba.Include(k => k.Provoz).Include(k => k.Zakaznik).Where(k=>k.ZakaznikId == Zakaznik);
@@ -27,7 +27,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: KontaktniOsoby/Details/5
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -44,7 +44,7 @@ namespace VST_sprava_servisu
         }
 
         // GET: KontaktniOsoby/Create
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Create(int Zakaznik)
         {
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m=>m.ZakaznikId == Zakaznik), "Id", "NazevProvozu");
@@ -60,7 +60,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Create([Bind(Include = "Id,ZakaznikId,JmenoPrijmeni,Pozice,Telefon,Email,SAPId,ProvozId")] KontakniOsoba kontakniOsoba)
         {
             if (ModelState.IsValid)
@@ -84,7 +84,7 @@ namespace VST_sprava_servisu
 
 
         // GET: KontaktniOsoby/Edit/5
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -108,7 +108,7 @@ namespace VST_sprava_servisu
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult Edit([Bind(Include = "Id,ZakaznikId,JmenoPrijmeni,Pozice,Telefon,Email,SAPId,ProvozId")] KontakniOsoba kontakniOsoba)
         {
             if (ModelState.IsValid)

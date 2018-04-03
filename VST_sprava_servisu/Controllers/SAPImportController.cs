@@ -88,7 +88,7 @@ namespace VST_sprava_servisu
 
 
         
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult ImportSAPCP(string CardCode, int Zakaznik)
 
         {
@@ -101,7 +101,7 @@ namespace VST_sprava_servisu
             }
             return RedirectToAction("Index", "KontaktniOsoby", new { Zakaznik });
         }
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult CPListByOP(string CardCode)
         {
             List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
@@ -190,7 +190,7 @@ namespace VST_sprava_servisu
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator,Manager")]
+        [Authorize(Roles = "Administrator,Manager,Uživatel")]
         public ActionResult TestSC(int Zakaznik, int Provoz, int Umisteni)
         {
 
