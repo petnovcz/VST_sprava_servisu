@@ -12,16 +12,22 @@
     @foreach (var item in Model)
 
     {
-        if (item.StatusRevize.Planovana == true)
-        { color = "danger";
+        if (item.StatusRevizeId == 1)
+        {
+            color = "danger";
             disabled = "";
         }
-        if (item.StatusRevize.Potvrzena == true)
-        { color = "warning";
-            disabled = "";
-        }
-        if (item.StatusRevize.Realizovana == true)
+
+        if (item.StatusRevizeId == 2)
         { color = "success";
+            disabled = "";
+        }
+        if (item.StatusRevizeId == 3)
+        { color = "primary";
+            disabled = "";
+        }
+        if (item.StatusRevizeId == 5)
+        { color = "warning";
             disabled = "disabled";
         }
 

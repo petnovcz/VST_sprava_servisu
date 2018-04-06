@@ -13,20 +13,27 @@
     if (Model.KontrolaProvedenaDne != null)
     { disabledelete = "disabled"; }
 
-    if (Model.StatusRevize.Planovana == true)
+
+    if (Model.StatusRevizeId == 1)
     {
         color = "danger";
         color2 = "#d9534f";
     }
-    if (Model.StatusRevize.Potvrzena == true)
+    if (Model.StatusRevizeId == 2)
+    {
+        color = "success";
+        color2 = "#5cb85c";
+
+    }
+    if (Model.StatusRevizeId == 5)
     {
         color = "warning";
         color2 = "#FF8800";
     }
-    if (Model.StatusRevize.Realizovana == true)
+    if (Model.StatusRevizeId == 3)
     {
-        color = "success";
-        color2 = "#5cb85c";
+        color = "primary";
+        color2 = "#428BCA";
         disabled = "disabled";
     }
 }
@@ -39,7 +46,7 @@
                 @Html.DisplayFor(model => model.Provoz.Zakaznik.NazevZakaznika)
             </h3>
             <h4 class="vstcolor">@Html.DisplayFor(model => model.Provoz.NazevProvozu) / @Html.DisplayFor(model => model.Umisteni.NazevUmisteni)</h4>
-            <h4 class="" style="color:@color2">@Html.DisplayFor(model => model.StatusRevize.NazevStatusuRevize)</h4>
+            <h3 class="" style="color:@color2;">@Html.DisplayFor(model => model.StatusRevize.NazevStatusuRevize)</h3>
             <h4 class="vstcolor">@Html.DisplayFor(model => model.DatumRevize)</h4>
 
             <table style="width:100%; color:#fdc800 !important;margin:0px;padding:0px">

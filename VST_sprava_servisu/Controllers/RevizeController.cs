@@ -176,7 +176,7 @@ namespace VST_sprava_servisu
                 return HttpNotFound();
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
             ViewBag.Region = Region;
             return View(revize);
         }
@@ -200,7 +200,7 @@ namespace VST_sprava_servisu
                 return RedirectToAction("Details","Revize",new { revize.Id, Region});
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
             return View(revize);
         }
 
@@ -581,7 +581,7 @@ namespace VST_sprava_servisu
                 return HttpNotFound();
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
             ViewBag.Region = Region;
             return View(revize);
         }
