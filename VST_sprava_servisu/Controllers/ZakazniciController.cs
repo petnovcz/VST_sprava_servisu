@@ -110,7 +110,7 @@ namespace VST_sprava_servisu
             {
                 x = x.Where(r => r.NazevZakaznika.ToLower().Contains(Search.ToLower())).ToList();
             }
-            zf.ZakaznikList = x;
+            zf.ZakaznikList = x.OrderBy(r=>r.NazevZakaznika);
             zf.Search = Search;
             
 

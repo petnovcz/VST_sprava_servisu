@@ -72,6 +72,8 @@ namespace VST_sprava_servisu
                 {
                     gen.Dnyrevize.PrvnidenobdobiR1 = Prvnidenobdobi(Rok, 1);
                     gen.Dnyrevize.PoslednidenobdobiR1 = Poslednidenobdobi(Rok, 1);
+                    gen.Dnyrevize.PrvnidenobdobiR2 = Prvnidenobdobi(Rok, 2);
+                    gen.Dnyrevize.PoslednidenobdobiR2 = Poslednidenobdobi(Rok, 2);
 
 
 
@@ -121,6 +123,8 @@ namespace VST_sprava_servisu
                 {
                     gen.Dnyrevize.PrvnidenobdobiR1 = Prvnidenobdobi(Rok, 1);
                     gen.Dnyrevize.PoslednidenobdobiR1 = Poslednidenobdobi(Rok, 1);
+                    gen.Dnyrevize.PrvnidenobdobiR2 = Prvnidenobdobi(Rok, 2);
+                    gen.Dnyrevize.PoslednidenobdobiR2 = Poslednidenobdobi(Rok, 2);
 
                     // Prvni revize v obdobi
                     if (
@@ -233,8 +237,16 @@ namespace VST_sprava_servisu
 
             List<CalculatedSCForRevision> list = Calculatescfrorevision(ZakaznikId, ProvozId, UmisteniId);
             InsertSCtoRevision(gen, list);
-            Revize.UpdateRevizeHeader(gen.Revize1.Id);
-            Revize.UpdateRevizeHeader(gen.Revize2.Id);
+            try
+            {
+                Revize.UpdateRevizeHeader(gen.Revize1.Id);
+            }
+            catch { }
+            try
+            {
+                Revize.UpdateRevizeHeader(gen.Revize2.Id);
+            }
+            catch { }
             // na zaklade prvku provozu spocitat kdy by mela byt dalsi revize 
             // - pokud v obdobi - spoctene datum ()
             // - pokud starsi vygenerovat k 1.1.daneho roku

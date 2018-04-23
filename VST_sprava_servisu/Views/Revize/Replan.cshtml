@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 @Html.Action("Header", "Revize", new { Id = Model.Id })
 <div class="col-lg-12 " style="border-top: 1px !important; border: 2px !important; border-style: solid !important; border-color: #f5f5f5 !important;background-color: #dcdcdc">
@@ -70,24 +71,23 @@
 <div class="col-lg-12 " style="border-top: 1px !important; border: 2px !important; border-style: solid !important; border-color: #f5f5f5 !important;background-color: #dcdcdc">
     <center><h4>Kontakty zákazníka</h4></center>
     <hr />
-    <div class="col-lg-6 ">
-        <div class="col-lg-12"><div class="col-lg-6">Kontakt zákazníka</div><div class="col-lg-6 ">@Model.Provoz.Zakaznik.Kontakt</div></div>
-        <div class="col-lg-12"><div class="col-lg-6">Telefon zákazníka</div><div class="col-lg-6 ">@Model.Provoz.Zakaznik.Telefon</div></div>
-        <div class="col-lg-12"><div class="col-lg-6">Email zákazníka</div><div class="col-lg-6 ">@Model.Provoz.Zakaznik.Email</div></div>
-    </div>
-    <div class="col-lg-6 ">
-        @foreach (var item in Model.Provoz.KontakniOsoba)
-        {
-            <div class="col-lg-12" >
+
+
+
+
+    @foreach (var item in Model.Provoz.Zakaznik.KontakniOsoba)
+    {
+        <div class="col-lg-3 ">
+            <div class="col-lg-12">
                 <div class="col-lg-6 "><b>@item.JmenoPrijmeni</b></div>
                 <div class="col-lg-12 ">@item.Pozice</div>
                 <div class="col-lg-12 ">@item.Telefon</div>
                 <div class="col-lg-12 ">@item.Email</div>
             </div>
 
+        </div>
+    }
 
-        }
-    </div>
 </div>
     @section Scripts {
         <script type="text/javascript">

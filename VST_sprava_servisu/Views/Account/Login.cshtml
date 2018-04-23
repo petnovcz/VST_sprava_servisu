@@ -44,16 +44,16 @@
                 <p>
                     @Html.ActionLink("Zaregistrujte se jako nový uživatel", "Register")
                 </p>
-                @* Povolit, jakmile je povoleno potvrzení účtu pro funkci resetování hesla
+                 
                     <p>
                         @Html.ActionLink("Zapomněli jste heslo?", "ForgotPassword")
-                    </p>*@
+                    </p>
             }
         </section>
     </div>
     <div class="col-md-4">
         <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            @*  @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@
         </section>
     </div>
 </div>
