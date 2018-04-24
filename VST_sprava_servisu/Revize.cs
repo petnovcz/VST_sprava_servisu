@@ -21,7 +21,7 @@ namespace VST_sprava_servisu
         public Revize()
         {
             this.RevizeSC = new HashSet<RevizeSC>();
-            this.RevizeBaterie = new HashSet<RevizeBaterie>();
+            //this.RevizeBaterie = new HashSet<RevizeBaterie>();
         }
     
         public int Id { get; set; }

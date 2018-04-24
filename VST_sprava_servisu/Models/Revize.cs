@@ -34,7 +34,7 @@ namespace VST_sprava_servisu
         [NotMapped]
         public int Region { get; set; }
         [NotMapped]
-        public virtual ICollection<RevizeBaterie> RevizeBaterie { get; set; }
+        public virtual ICollection<RevizeBaterie> RevizeBaterie { get { return CalculateRevizeBaterie(Id); } }
 
         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
@@ -52,7 +52,7 @@ namespace VST_sprava_servisu
                 int revizeid = revizelist[x].Id;
                 UpdateRevizeHeader(revizeid);
                 Revize revize = revizelist[x];
-                revize.RevizeBaterie = revize.CalculateRevizeBaterie(revizeid);
+                //revize.RevizeBaterie = revize.CalculateRevizeBaterie(revizeid);
                 revizelist[x] = revize;
                 
 
@@ -146,6 +146,7 @@ namespace VST_sprava_servisu
                 revize.V = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id >= 132 && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id <= 133).Count();
                 revize.F = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id >= 134 && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id <= 135).Count();
                 revize.M = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 136 ).Count();
+                //revize.RevizeBaterie = revize.CalculateRevizeBaterie(id);
                 try
                 {
                     dbCtx.Entry(revize).State = EntityState.Modified;

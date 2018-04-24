@@ -69,7 +69,7 @@ namespace VST_sprava_servisu
                 ViewBag.ListStatusRevize = Session["List_StatusRevize"].ToString();
             }
             catch (Exception ex) { log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-
+            //revize.RevizeBaterie = revize.CalculateRevizeBaterie(revize.Id);
             ViewBag.Region = Region;
             return View(revize);
         }
