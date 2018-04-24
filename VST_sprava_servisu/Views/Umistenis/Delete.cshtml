@@ -4,6 +4,7 @@
 @{
     int index = Convert.ToInt32(ViewData["Zakaznik"]);
     int index2 = Convert.ToInt32(ViewData["Provoz"]);
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 @Html.Action("Header", "Zakaznici", new { Id = index })
 @Html.Action("Header", "Provozy", new { Id = index2 })

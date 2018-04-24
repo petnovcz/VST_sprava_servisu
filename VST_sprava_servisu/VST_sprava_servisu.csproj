@@ -311,6 +311,7 @@
     <Compile Include="Controllers\SarzeController.cs" />
     <Compile Include="Controllers\ServisniZasahController.cs" />
     <Compile Include="Controllers\ServisniZasahPrvekController.cs" />
+    <Compile Include="Controllers\ServisniZasahyController.cs" />
     <Compile Include="Controllers\SZSerioveCisloeController.cs" />
     <Compile Include="Controllers\VozidloController.cs" />
     <Compile Include="Global.asax.cs">
@@ -379,6 +380,7 @@
     <Compile Include="Models\ServisniZasah.cs" />
     <Compile Include="Models\ServisniZasahPrvek.cs" />
     <Compile Include="Models\ServisniZasahPrvekSerioveCislo.cs" />
+    <Compile Include="Models\ServisniZasahy.cs" />
     <Compile Include="Models\SessionReader.cs" />
     <Compile Include="Models\StatusRevize.cs" />
     <Compile Include="Models\Umisteni.cs" />
@@ -1203,6 +1205,8 @@
     <Content Include="Views\SZSerioveCisloe\Edit.cshtml" />
     <Content Include="Views\SZSerioveCisloe\Index.cshtml" />
     <Content Include="Views\ServisniZasahPrvek\_Kusovnik.cshtml" />
+    <Content Include="Views\ServisniZasahy\Index.cshtml" />
+    <Content Include="Views\ServisniZasahy\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

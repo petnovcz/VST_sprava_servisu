@@ -8,10 +8,12 @@
 @Html.Partial("Header", Model)
 
 <div>
-    @if (Model.NabidkaDocNum == "" || Model.NabidkaDocNum == null)
-    {
-    @Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id })
-    }
+    @*
+        @if (Model.NabidkaDocNum == "" || Model.NabidkaDocNum == null)
+        {
+        @Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id })
+        }
+    *@
     @Html.Action("Index", "ServisniZasahPrvek", new { Id = Model.Id })
 
 

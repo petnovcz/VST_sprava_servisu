@@ -5,7 +5,11 @@
 }
 
 <div style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
-    <h4 class="vstcolor">@Html.DisplayFor(model => model.Zakaznik.NazevZakaznika), @Html.DisplayFor(model => model.Provoz.NazevProvozu),@Html.DisplayFor(model => model.Umisteni.NazevUmisteni) </h4>
+    
+    <h4 class="vstcolor">
+        @Html.ActionLink(" ", "Redirect", "Zakaznici", new { Model.Provoz.ZakaznikId, Model.ProvozId, Model.UmisteniId }, new { @class = "btn btn-info btn-xs glyphicon glyphicon-arrow-right " })
+        @Html.DisplayFor(model => model.Zakaznik.NazevZakaznika), @Html.DisplayFor(model => model.Provoz.NazevProvozu),@Html.DisplayFor(model => model.Umisteni.NazevUmisteni)
+    </h4>
 </div>
 
 <div class="row" style="background-color:rgba(0, 0, 0, 0.2);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
@@ -192,18 +196,18 @@
             <b> Projekt</b>
             @if (Model.NabidkaDocNum == null || Model.NabidkaDocNum == "")
             {
-        @Html.ActionLink(" ", "SelectProject", new { Id = Model.Id }, new { @class = "btn btn-xs btn-success glyphicon glyphicon-glyphicon glyphicon-search" })
+                @Html.ActionLink(" ", "SelectProject", new { Id = Model.Id }, new { @class = "btn btn-xs btn-success glyphicon glyphicon-glyphicon glyphicon-search" })
             }
-        @if (Model.Projekt == "")
-{
-        @Html.ActionLink(" ", "GenerateProject", new { Id = Model.Id }, new { @class = "btn btn-xs btn-success glyphicon glyphicon-glyphicon glyphicon-asterisk" })
-}
+            @if (Model.Projekt == "" || Model.Projekt == null)
+            {
+                @Html.ActionLink(" ", "GenerateProject", new { Id = Model.Id }, new { @class = "btn btn-xs btn-success glyphicon glyphicon-glyphicon glyphicon-asterisk" })
+            }
         </div>
         <div>
             @Model.Projekt
-            
-        
-        @Model.ProjektStatus
+
+
+            @Model.ProjektStatus
         </div>
 
     </div>
@@ -212,20 +216,20 @@
             <b>Nabidka</b>
             @if ((Model.NabidkaDocNum == null || Model.NabidkaDocNum == "") && (Model.ZakazkaDocNUm == null || Model.ZakazkaDocNUm == "") && (Model.DodaciListDocNum == null || Model.DodaciListDocNum == ""))
             {
-        @Html.ActionLink(" ", "GenerateQuotation", new { Id = Model.Id }, new { @class = "btn btn-success btn-xs glyphicon glyphicon-asterisk" })
-}
+                @Html.ActionLink(" ", "GenerateQuotation", new { Id = Model.Id }, new { @class = "btn btn-success btn-xs glyphicon glyphicon-asterisk" })
+            }
             @if (Model.NabidkaDocNum != "" && Model.NabidkaDocNum != null)
-    {
-        @Html.ActionLink(" ", "PrintQuotation", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
+            {
+                @Html.ActionLink(" ", "PrintQuotation", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
                 if ((Model.ZakazkaDocNUm == null || Model.ZakazkaDocNUm == "") && (Model.DodaciListDocNum == null || Model.DodaciListDocNum == ""))
                 {
-        @Html.ActionLink(" ", "GenerateOrder", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon btn-xs glyphicon-triangle-right" })
-                    }
+                    @Html.ActionLink(" ", "GenerateOrder", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon btn-xs glyphicon-triangle-right" })
                 }
+            }
         </div>
         <div>
             @Model.NabidkaDocNum
-            
+
         </div>
 
     </div>
@@ -233,15 +237,15 @@
         <div>
             <b> Zakazka</b>
             @if (Model.ZakazkaDocNUm != "" && Model.ZakazkaDocNUm != null)
-        {
-            @Html.ActionLink(" ", "PrintOrder", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
-    }
+            {
+                @Html.ActionLink(" ", "PrintOrder", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
+            }
         </div>
         <div>
             @Model.ZakazkaDocNUm
         </div>
         <div>
-            @Html.Partial("Upload",Model.Id)
+            @Html.Partial("Upload", Model.Id)
         </div>
 
     </div>
@@ -250,9 +254,9 @@
 
             <b>Dodaci list </b>
             @if (Model.DodaciListDocNum == "")
-    {
-        @Html.ActionLink(" ", "PrintDelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
-}
+            {
+                @Html.ActionLink(" ", "PrintDelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
+            }
         </div>
         <div>
             @Model.DodaciListDocNum
@@ -262,3 +266,4 @@
 </div>
 
 <hr>
+@Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id })
