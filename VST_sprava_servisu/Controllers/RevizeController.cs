@@ -176,7 +176,11 @@ namespace VST_sprava_servisu
                 return HttpNotFound();
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            if (User.IsInRole("Uživatel"))
+            { ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Id == 2 || s.Id == 5).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId); }
+            if (User.IsInRole("Manager") || User.IsInRole("Administrator"))
+            { ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId); }
+
             ViewBag.Region = Region;
             return View(revize);
         }
@@ -200,7 +204,11 @@ namespace VST_sprava_servisu
                 return RedirectToAction("Details","Revize",new { revize.Id, Region});
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            if (User.IsInRole("Uživatel"))
+            { ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Id == 2 || s.Id == 5).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId); }
+            if (User.IsInRole("Manager") || User.IsInRole("Administrator"))
+            { ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId); }
+
             return View(revize);
         }
 
@@ -581,7 +589,12 @@ namespace VST_sprava_servisu
                 return HttpNotFound();
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            //var roles = GetListOfRoles(); //Get all list of roles, for example from db
+            if (User.IsInRole("Uživatel"))
+            { ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Id == 2 || s.Id == 5).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId);  }
+            if (User.IsInRole("Manager") || User.IsInRole("Administrator"))
+            { ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId);  }
+            
             ViewBag.Region = Region;
             return View(revize);
         }
@@ -603,7 +616,11 @@ namespace VST_sprava_servisu
                 return RedirectToAction("Nahled", "Revize", new { Rok = revize.DatumRevize.Year, Mesic = revize.DatumRevize.Month, Region = region });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
-            ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true), "Id", "NazevStatusuRevize", revize.StatusRevizeId);
+            if (User.IsInRole("Uživatel"))
+            { ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Id == 2 || s.Id == 5).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId); }
+            if (User.IsInRole("Manager") || User.IsInRole("Administrator"))
+            { ViewBag.StatusRevizeId = new SelectList(db.StatusRevize.Where(s => s.Realizovana != true).OrderBy(s => s.NazevStatusuRevize), "Id", "NazevStatusuRevize", revize.StatusRevizeId); }
+
             return View(revize);
         }
 
