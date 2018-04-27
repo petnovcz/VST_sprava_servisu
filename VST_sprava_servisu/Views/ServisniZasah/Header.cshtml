@@ -253,10 +253,11 @@
         <div>
 
             <b>Dodaci list </b>
-            @if (Model.DodaciListDocNum == "")
-            {
-                @Html.ActionLink(" ", "PrintDelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
-            }
+            
+        @Html.ActionLink(" ", "Predelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon-triangle-right" })
+        @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon btn-xs glyphicon-triangle-right" })
+
+@Html.ActionLink(" ", "PrintDelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
         </div>
         <div>
             @Model.DodaciListDocNum

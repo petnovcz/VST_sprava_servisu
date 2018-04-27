@@ -675,7 +675,7 @@ namespace VST_sprava_servisu
                 Response.ContentType = "application/pdf";
                 Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
                 Response.Flush();
-                Response.Close();
+                //Response.Close();
             }
             catch { log.Error($"Nena4tena adresa {path}"); }
 
@@ -707,7 +707,7 @@ namespace VST_sprava_servisu
                 Response.ContentType = "application/pdf";
                 Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
                 Response.Flush();
-                Response.Close();
+                //Response.Close();
             }
             catch { log.Error($"Nena4tena adresa {path}"); }
 
@@ -736,7 +736,7 @@ namespace VST_sprava_servisu
                 Response.ContentType = "application/pdf";
                 Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
                 Response.Flush();
-                Response.Close();
+               // Response.Close();
             }
             catch { log.Error($"Nena4tena adresa {path}"); }
             

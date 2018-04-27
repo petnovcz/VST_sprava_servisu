@@ -1,0 +1,22 @@
+﻿@model VST_sprava_servisu.ServisniZasah
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+}
+
+@Html.Partial("Header", Model)
+
+<div>
+    @*
+        @if (Model.NabidkaDocNum == "" || Model.NabidkaDocNum == null)
+        {
+        @Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id })
+        }
+    *@
+    @Html.Action("Index2", "ServisniZasahPrvek", new { Id = Model.Id })
+
+
+</div>
+
+

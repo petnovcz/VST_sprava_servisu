@@ -294,6 +294,7 @@
     </Compile>
     <Compile Include="Controllers\ArtiklyController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AvailableSerialNumberController.cs" />
     <Compile Include="Controllers\BezRevizeController.cs" />
     <Compile Include="Controllers\CenikController.cs" />
     <Compile Include="Controllers\CrystalController.cs" />
@@ -345,6 +346,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Artikl.cs" />
+    <Compile Include="Models\AvailableSerialNumber.cs" />
     <Compile Include="Models\BezRevize.cs" />
     <Compile Include="Models\CalculatedSCForRevision.cs" />
     <Compile Include="Models\Cenik.cs" />
@@ -1207,6 +1209,9 @@
     <Content Include="Views\ServisniZasahPrvek\_Kusovnik.cshtml" />
     <Content Include="Views\ServisniZasahy\Index.cshtml" />
     <Content Include="Views\ServisniZasahy\List.cshtml" />
+    <Content Include="Views\ServisniZasah\Predelivery.cshtml" />
+    <Content Include="Views\ServisniZasahPrvek\Index2.cshtml" />
+    <Content Include="Views\AvailableSerialNumber\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

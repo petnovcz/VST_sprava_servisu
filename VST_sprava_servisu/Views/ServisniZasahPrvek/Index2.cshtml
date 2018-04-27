@@ -1,0 +1,68 @@
+﻿@model IEnumerable<VST_sprava_servisu.ServisniZasahPrvek>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<div style="background-color:rgba(0, 0, 0, 0.1);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    <table class="table table-hover">
+
+        <colgroup>
+            <col class="col-lg-2">
+            <col class="col-lg-2">
+
+            <col class="col-lg-8">
+
+
+           
+        </colgroup>
+        <thead>
+
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)<br>
+                    @Html.DisplayNameFor(model => model.Porucha.NazevPoruchy)<br>
+                    @Html.DisplayNameFor(model => model.Artikl.Nazev)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pocet)<br>
+                    @Html.DisplayNameFor(model => model.CenaZaKus)<br>
+                    @Html.DisplayNameFor(model => model.CenaCelkem)<br>
+                </th>
+               
+
+
+
+
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SCProvozu.Znaceni)                        
+                        <br>
+                        @Html.DisplayFor(modelItem => item.Artikl.KodSAP)<br>
+                        @Html.DisplayFor(modelItem => item.Artikl.Nazev)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pocet) <br>
+                        @Html.DisplayFor(modelItem => item.CenaZaKus) <br>
+                        @Html.DisplayFor(modelItem => item.CenaCelkem)<br>
+                    </td>
+                    <td>
+                        
+                        @Html.Partial("_kusovnik", item.RadkyKusovniku)
+                                    
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>

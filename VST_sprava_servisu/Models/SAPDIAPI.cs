@@ -54,16 +54,35 @@ namespace VST_sprava_servisu
         }
 
         [Authorize(Roles = "Administrator,Manager")]
-        internal protected static bool GenerateDL(int Id)
+        internal protected static string GenerateDL(int Id)
 
         {
             ServisniZasah sz = new ServisniZasah();
             sz = ServisniZasah.GetZasah(Id);
-            bool bRetVal = false;
-            string sErrMsg; int lErrCode;
+            var index = 0;
+            var xx = sz.ServisniZasahPrvek.ToList();
+            for (int i = 0; i < xx.Count; i++)
+            {
+                xx[i].startindex = index;
+                xx[i].kusovnik_count = xx[i].RadkyKusovniku.Count;
+                xx[i].endindex = index + xx[i].RadkyKusovniku.Count;
+                index = xx[i].endindex + 1;
+            }
 
+
+            //var xx = sz.ServisniZasahPrvek.ToList();
+            //var z = xx[0];
+
+            bool bRetVal = false;
+            string docEntry = "";
+            int retVal = -1;
+            string OrdDocEntry = sz.ZakazkaDocNUm;
             Company oCompany = new Company();
             oCompany = SAPDIAPI.Connect();
+
+            // Get the quotation
+            Documents oOrder = (Documents)oCompany.GetBusinessObject(BoObjectTypes.oOrders);
+            oOrder.GetByKey(Convert.ToInt32(sz.Zakazka));
 
             //Check connection before updating          
 
@@ -71,42 +90,86 @@ namespace VST_sprava_servisu
 
             {
                 Documents oDelivery = (Documents)oCompany.GetBusinessObject(BoObjectTypes.oDeliveryNotes);
-                oDelivery.CardCode = sz.Zakaznik.KodSAP;
+                oDelivery.CardCode = oOrder.CardCode;
                 oDelivery.DocDate = DateTime.Now;
                 oDelivery.DocDueDate = DateTime.Now;
                 oDelivery.TaxDate = DateTime.Now;
                 oDelivery.VatDate = DateTime.Now;
+                oDelivery.DocumentsOwner = 61;
+                oDelivery.SalesPersonCode = 47;
                 oDelivery.DocType = BoDocumentTypes.dDocument_Items;
                 oDelivery.DocumentSubType = BoDocumentSubType.bod_None;
-                oDelivery.DocObjectCode = BoObjectTypes.oDeliveryNotes;
-                //oDelivery.DocObjectCodeEx = SAPbobsCOM.BoObjectTypes.oDeliveryNotes;
-                //oDelivery.DocCurrency = sz.Mena;
+                oDelivery.DocObjectCode = BoObjectTypes.oOrders;
+                oDelivery.Project = sz.Projekt;
+                var snindex = 0;
+                for (int i = 0; i < oOrder.Lines.Count; i++)
 
-                oDelivery.Project = "RP00001";
-
-                foreach (var item in sz.ServisniZasahPrvek)
                 {
-                    
-                    var artikl = Artikl.GetArtiklById(item.ArtiklID.Value);                    
-                    oDelivery.Lines.ItemCode = "SP01";
-                    oDelivery.Lines.Quantity = Convert.ToDouble(item.Pocet);                    
-                    oDelivery.Lines.Price = Convert.ToDouble(item.CenaZaKus);
-                    oDelivery.Lines.WarehouseCode = "HLAVNI";
-                    oDelivery.Lines.CostingCode = "OB";
-                    oDelivery.Lines.COGSCostingCode = "OB";
-                    oDelivery.Lines.Currency = "CZK";
-                    oDelivery.Lines.LineTotal = 10000;
-                    oDelivery.Lines.ProjectCode = "RP00001";
-                    oDelivery.Lines.Rate = 1;
-                    oDelivery.Lines.UnitsOfMeasurment = 1;
-                    oDelivery.Lines.TaxCode = "E21T";
+                    oOrder.Lines.SetCurrentLine(i);
+                    oDelivery.Lines.BaseEntry = oOrder.DocEntry;
+                    oDelivery.Lines.BaseLine = oOrder.Lines.LineNum;
+                    oDelivery.Lines.BaseType = 17;
+                    oDelivery.Lines.ItemCode = oOrder.Lines.ItemCode;
+                    oDelivery.Lines.Quantity = oOrder.Lines.Quantity;
+                    oDelivery.Lines.Price = oOrder.Lines.Price;
+                    oDelivery.Lines.WarehouseCode = oOrder.Lines.WarehouseCode;
+                    oDelivery.Lines.CostingCode = oOrder.Lines.CostingCode;
+                    oDelivery.Lines.COGSCostingCode = oOrder.Lines.COGSCostingCode;
+                    //oDelivery.Lines.Currency = sz.Mena;
+                    oDelivery.Lines.LineTotal = oOrder.Lines.LineTotal;
+                    oDelivery.Lines.ProjectCode = sz.Projekt;
+                    //oDelivery.Lines.Rate = 1;
+                    oDelivery.Lines.UnitsOfMeasurment = oOrder.Lines.UnitsOfMeasurment;
+                    //oDelivery.Lines.TaxCode = "E21T";
+
+                    foreach (var item in xx)
+                    {
+                        if (oOrder.Lines.LineNum > item.startindex && oOrder.Lines.LineNum <= item.endindex)
+                        {
+                            var z = item.RadkyKusovniku.ToList();
+                            var ind = oOrder.Lines.LineNum - item.startindex;
+                            var polozka = z[ind-1];
+
+                            using (var db = new Model1Container())
+                            {
+                                var itemid = item.Id;
+                                var kusovniksapkod = z[ind-1].KusovnikSAPKod;
+                                var xxx = db.ServisniZasahPrvekSerioveCislo.Where(t => t.ServisniZasahPrvekId == itemid).Where(t=>t.SAPKod == oOrder.Lines.ItemCode).ToList();
+                                foreach (var itemx in xxx)
+                                {
+                                    //oDelivery.Lines.SerialNumbers.SetCurrentLine(snindex);
+                                    //snindex++;
+                                    oDelivery.Lines.SerialNumbers.Quantity = 1;
+                                    //oDelivery.Lines.SerialNumbers.BaseLineNumber = oOrder.Lines.LineNum;
+                                    oDelivery.Lines.SerialNumbers.SystemSerialNumber = Convert.ToInt16(itemx.SerioveCislo);
+                                    //oDelivery.Lines.SerialNumbers.
+                                    oDelivery.Lines.SerialNumbers.Add();
+                                }
+                            }
+
+                        }
+                    }
+
+
+
                     oDelivery.Lines.Add();
+
+
                 }
+
+
                 try
                 {
-                    int retVal = oDelivery.Add();
+                    retVal = oDelivery.Add();
                 }
                 catch (Exception ex) { }
+
+                if (retVal == 0)
+                {
+
+                    oCompany.GetNewObjectCode(out docEntry);
+                }
+
                 var x = oCompany.GetLastErrorCode();
                 var y = oCompany.GetLastErrorDescription();
                 //oCompany.GetLastError(out ErrCode, out ErrMsg);
@@ -115,7 +178,7 @@ namespace VST_sprava_servisu
 
             oCompany.Disconnect();
 
-            return bRetVal;
+            return docEntry;
 
         }
 
@@ -156,6 +219,27 @@ namespace VST_sprava_servisu
 
                 oDelivery.Project = sz.Projekt;
 
+                
+
+
+                foreach (var item in sz.ServisniZasahPrvek)
+                {
+
+                    var artikl = Artikl.GetArtiklById(item.ArtiklID.Value);
+                    oDelivery.Lines.ItemCode = artikl.KodSAP;
+                    oDelivery.Lines.Quantity = Convert.ToDouble(item.Pocet);
+                    oDelivery.Lines.Price = Convert.ToDouble(item.CenaZaKus);
+                    oDelivery.Lines.WarehouseCode = "Servis";
+                    oDelivery.Lines.CostingCode = "OB";
+                    oDelivery.Lines.COGSCostingCode = "OB";
+                    //oDelivery.Lines.Currency = sz.Mena;
+                    oDelivery.Lines.LineTotal = Convert.ToDouble(item.CenaCelkem);
+                    oDelivery.Lines.ProjectCode = sz.Projekt;
+                    //oDelivery.Lines.Rate = 1;
+                    oDelivery.Lines.UnitsOfMeasurment = 1;
+                    //oDelivery.Lines.TaxCode = "E21T";
+                    oDelivery.Lines.Add();
+                }
                 /*KM*/
                 if (sz.CestaCelkem > 0)
                 {
@@ -184,26 +268,6 @@ namespace VST_sprava_servisu
                     oDelivery.Lines.COGSCostingCode = "OB";
                     //oDelivery.Lines.Currency = sz.Mena;
                     oDelivery.Lines.LineTotal = Convert.ToDouble(sz.PraceCelkem);
-                    oDelivery.Lines.ProjectCode = sz.Projekt;
-                    //oDelivery.Lines.Rate = 1;
-                    oDelivery.Lines.UnitsOfMeasurment = 1;
-                    //oDelivery.Lines.TaxCode = "E21T";
-                    oDelivery.Lines.Add();
-                }
-
-
-                foreach (var item in sz.ServisniZasahPrvek)
-                {
-
-                    var artikl = Artikl.GetArtiklById(item.ArtiklID.Value);
-                    oDelivery.Lines.ItemCode = artikl.KodSAP;
-                    oDelivery.Lines.Quantity = Convert.ToDouble(item.Pocet);
-                    oDelivery.Lines.Price = Convert.ToDouble(item.CenaZaKus);
-                    oDelivery.Lines.WarehouseCode = "Servis";
-                    oDelivery.Lines.CostingCode = "OB";
-                    oDelivery.Lines.COGSCostingCode = "OB";
-                    //oDelivery.Lines.Currency = sz.Mena;
-                    oDelivery.Lines.LineTotal = Convert.ToDouble(item.CenaCelkem);
                     oDelivery.Lines.ProjectCode = sz.Projekt;
                     //oDelivery.Lines.Rate = 1;
                     oDelivery.Lines.UnitsOfMeasurment = 1;
@@ -292,7 +356,7 @@ namespace VST_sprava_servisu
                     oDelivery.Lines.COGSCostingCode = oQuotation.Lines.COGSCostingCode;
                     //oDelivery.Lines.Currency = sz.Mena;
                     oDelivery.Lines.LineTotal = oQuotation.Lines.LineTotal;
-                    oDelivery.Lines.ProjectCode = oQuotation.Lines.ProjectCode;
+                    oDelivery.Lines.ProjectCode = sz.Projekt;
                     //oDelivery.Lines.Rate = 1;
                     oDelivery.Lines.UnitsOfMeasurment = oQuotation.Lines.UnitsOfMeasurment;
                     //oDelivery.Lines.TaxCode = "E21T";

@@ -14,6 +14,10 @@ namespace VST_sprava_servisu
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasahPrvek");
 
+        public int startindex { get; set; }
+        public int endindex { get; set; }
+        public int kusovnik_count { get; set; }
+
         public List<Kusovnik> RadkyKusovniku  {
             get
             {
@@ -207,6 +211,7 @@ namespace VST_sprava_servisu
 
     public partial class Kusovnik
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("Kusovnik");
         [Key]
         public int Id { get; set; }
         public int ServisniZasahId { get; set; }
@@ -224,6 +229,118 @@ namespace VST_sprava_servisu
             } }
         public decimal VybraneMnozstvi { get; set; }
         public decimal OtevreneMnozstvi { get; set; }
+        public int Index { get; set; }
+        public bool SpravaSeriovychCisel
+        {
+            get
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+                StringBuilder sql = new StringBuilder();
+
+                sql.Append($" select ManSerNum from oitm where ItemCode = '{RadekKusovnikuSAPKod}'");
+
+                string read = "N";
+
+                SqlConnection cnn = new SqlConnection(connectionString);
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cnn;
+                cmd.CommandText = sql.ToString();
+                cnn.Open();
+                cmd.ExecuteNonQuery();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    //MAKES IT HERE   
+                    while (dr.Read())
+                    {
+                        try
+                        {
+                            read = dr.GetString(dr.GetOrdinal("ManSerNum"));
+                        }
+                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    }
+                }
+                cnn.Close();
+                bool result = false;
+                if (read.Equals("Y")) { result = true; } else { result = false; }
+                return result;
+            }
+
+
+        }
+        public bool SpravaSarzi
+        {
+            get
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+                StringBuilder sql = new StringBuilder();
+
+                sql.Append($" select ManBtchNum from oitm where ItemCode = '{RadekKusovnikuSAPKod}'");
+
+                string read = "N";
+
+                SqlConnection cnn = new SqlConnection(connectionString);
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cnn;
+                cmd.CommandText = sql.ToString();
+                cnn.Open();
+                cmd.ExecuteNonQuery();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    //MAKES IT HERE   
+                    while (dr.Read())
+                    {
+                        try
+                        {
+                            read = dr.GetString(dr.GetOrdinal("ManBtchNum"));
+                        }
+                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    }
+                }
+                cnn.Close();
+                bool result = false;
+                if (read.Equals("Y")) { result = true; } else { result = false; }
+                return result;
+            }
+        }
+        public decimal OnHand {
+            get
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+                StringBuilder sql = new StringBuilder();
+
+                sql.Append($" select OnHand from OITW where ItemCode = '{RadekKusovnikuSAPKod}' and WhsCode = 'Servis' ");
+
+                decimal onhand = 0;
+
+                SqlConnection cnn = new SqlConnection(connectionString);
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cnn;
+                cmd.CommandText = sql.ToString();
+                cnn.Open();
+                cmd.ExecuteNonQuery();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    //MAKES IT HERE   
+                    while (dr.Read())
+                    {
+                        try
+                        {
+                            onhand = dr.GetDecimal(dr.GetOrdinal("OnHand"));
+                        }
+                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    }
+                }
+                cnn.Close();
+                
+                return onhand;
+            }
+        }
 
     }
 }

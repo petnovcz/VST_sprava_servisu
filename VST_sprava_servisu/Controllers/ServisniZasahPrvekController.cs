@@ -21,6 +21,11 @@ namespace VST_sprava_servisu.Controllers
             var servisniZasahPrvek = ServisniZasahPrvek.GetPrvkyById(Id);
             return View(servisniZasahPrvek);
         }
+        public ActionResult Index2(int Id)
+        {
+            var servisniZasahPrvek = ServisniZasahPrvek.GetPrvkyById(Id);
+            return View(servisniZasahPrvek);
+        }
 
         public ActionResult Reklamace(int Id)
         {

@@ -61,8 +61,9 @@ namespace VST_sprava_servisu.Controllers
 
         public ActionResult GenerateDL(int Id)
         {
-            bool retval = SAPDIAPI.GenerateDL(Id);
-            return View();
+            string retval = SAPDIAPI.GenerateDL(Id);
+            ServisniZasah.UpdateDelivery(retval, Id);
+            return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
         }
         public ActionResult GenerateQuotation(int Id)
         {
@@ -76,7 +77,7 @@ namespace VST_sprava_servisu.Controllers
             string retval = SAPDIAPI.GenerateOrder(Id);
             ServisniZasah.UpdateOrder(retval, Id);
 
-            return View();
+            return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
         }
 
         public ActionResult SelectProject(int Id)
@@ -107,6 +108,20 @@ namespace VST_sprava_servisu.Controllers
 
         // GET: ServisniZasah/Details/5
         public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServisniZasah.UpdateHeader(id.Value);
+            ServisniZasah servisniZasah = db.ServisniZasah.Find(id);
+            if (servisniZasah == null)
+            {
+                return HttpNotFound();
+            }
+            return View(servisniZasah);
+        }
+        public ActionResult Predelivery(int? id)
         {
             if (id == null)
             {
@@ -340,6 +355,39 @@ namespace VST_sprava_servisu.Controllers
                 Rel.Load(path);
                 Rel.SetParameterValue("DocKey@", sz.Zakazka);
                 Rel.SetParameterValue("ObjectId@", "17");
+                Rel.SetDatabaseLogon("sa", "*2012Versino",
+                                   "SQL", "SBO_TEST", false);
+
+                BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+                Rel.Close();
+                Rel.Dispose();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.ContentType = "application/pdf";
+                Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+                Response.Flush();
+                Response.Close();
+            }
+            catch (Exception ex)
+            { //log.Error($"Nena4tena adresa {path}"); 
+            }
+
+        }
+        public void PrintDelivery(int Id)
+        {
+            ReportDocument Rel = new ReportDocument();
+            string path = $"C:\\Logs\\Crystal\\Delivery.rpt";
+            ServisniZasah sz = ServisniZasah.GetZasah(Id);
+
+
+            //log.Error($"adresa {path}");
+
+            try
+            {
+
+                Rel.Load(path);
+                Rel.SetParameterValue("DocKey@", sz.DodaciList);
+                Rel.SetParameterValue("ObjectId@", "15");
                 Rel.SetDatabaseLogon("sa", "*2012Versino",
                                    "SQL", "SBO_TEST", false);
 

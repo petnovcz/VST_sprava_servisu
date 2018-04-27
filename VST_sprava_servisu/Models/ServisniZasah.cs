@@ -245,7 +245,10 @@ namespace VST_sprava_servisu
             using (var db = new Model1Container())
             {
                 sz = db.ServisniZasah.Where(t => t.Id == Id)
-                    .Include(t=>t.ServisniZasahPrvek)
+                    .Include(t => t.ServisniZasahPrvek)
+                    .Include(x => x.ServisniZasahPrvek.Select(y => y.ServisniZasahPrvekSerioveCislo))
+                    .Include(x => x.ServisniZasahPrvek.Select(y=>y.Artikl))
+                    //.Include(x => x.ServisniZasahPrvek.Select(y => y.RadkyKusovniku))
                     .Include(t=>t.Zakaznik)
                     
                     .FirstOrDefault();
@@ -361,5 +364,57 @@ namespace VST_sprava_servisu
 
         }
 
+        internal protected static void UpdateDelivery(string DocEntry, int ServisniZasahId)
+        {
+
+            int currency = 0;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            StringBuilder sql = new StringBuilder();
+
+            sql.Append(" select DocEntry, Docnum from odln where ");
+            sql.Append($" DocEntry = '{DocEntry}' ");
+
+            log.Debug($"Nacteni meny {sql.ToString()}");
+            SqlConnection cnn = new SqlConnection(connectionString);
+            //SqlConnection con = new SqlConnection(cnn);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            cmd.CommandText = sql.ToString();
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                //MAKES IT HERE   
+                while (dr.Read())
+                {
+
+                    try
+                    {
+                        currency = dr.GetInt32(dr.GetOrdinal("DocNum"));
+                    }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
+                }
+            }
+            cnn.Close();
+
+            ServisniZasah sz = new ServisniZasah();
+            sz = ServisniZasah.GetZasah(ServisniZasahId);
+            sz.DodaciList = DocEntry;
+            sz.DodaciListDocNum = currency.ToString();
+
+            using (var db = new Model1Container())
+            {
+                db.Entry(sz).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+
+
+        }
     }
 }

@@ -19,6 +19,8 @@
             @Html.DisplayNameFor(model => model.RadekKusovnikuSAPKod)
             <br>
             @Html.DisplayNameFor(model => model.NazevArtikluRadekKusovniku)
+            <br>
+            na skladě
         </th>
         <th>
         </th>
@@ -44,12 +46,20 @@
             @Html.DisplayFor(modelItem => item.RadekKusovnikuSAPKod)
             <br>
             @Html.DisplayFor(modelItem => item.NazevArtikluRadekKusovniku)
+            <br>
+            @Html.DisplayFor(modelItem => item.OnHand)
         </td>
         <td>
-            @Html.Action("Create", "SZSerioveCisloe", new { Id = item.Id })
+            @if (item.SpravaSeriovychCisel == true)
+            {
+                @Html.ActionLink("Vyber sériové číslo","List", "AvailableSerialNumber", new { SZId = item.ServisniZasahId, SZPrvekId = item.ServisniZasahPrvekId, ArtiklKusovnikSAPKod = item.RadekKusovnikuSAPKod },null)
+            }
         </td>
         <td>
-            @Html.Action("Index", "SZSerioveCisloe", new { Id = item.Id })
+            @if (item.SpravaSeriovychCisel == true)
+            {
+        @Html.Action("Index", "SZSerioveCisloe", new { Id = item.ServisniZasahPrvekId })
+            }
         </td>
 
 

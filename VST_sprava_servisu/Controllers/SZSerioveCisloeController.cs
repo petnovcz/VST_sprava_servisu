@@ -54,7 +54,9 @@ namespace VST_sprava_servisu.Controllers
             {
                 db.ServisniZasahPrvekSerioveCislo.Add(servisniZasahPrvekSerioveCislo);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ServisniZasahPrvek szp = new ServisniZasahPrvek();
+                szp = db.ServisniZasahPrvek.Find(servisniZasahPrvekSerioveCislo.ServisniZasahPrvekId);
+                return RedirectToAction("Predelivery","ServisniZasah", new { Id = szp.ServisniZasahId});
             }
 
             ViewBag.ServisniZasahPrvekId = new SelectList(db.ServisniZasahPrvek, "Id", "Id", servisniZasahPrvekSerioveCislo.ServisniZasahPrvekId);
@@ -114,10 +116,13 @@ namespace VST_sprava_servisu.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             ServisniZasahPrvekSerioveCislo servisniZasahPrvekSerioveCislo = db.ServisniZasahPrvekSerioveCislo.Find(id);
+            ServisniZasahPrvek szp = new ServisniZasahPrvek();
+            szp = db.ServisniZasahPrvek.Find(servisniZasahPrvekSerioveCislo.ServisniZasahPrvekId);
             db.ServisniZasahPrvekSerioveCislo.Remove(servisniZasahPrvekSerioveCislo);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Predelivery", "ServisniZasah", new { Id = szp.ServisniZasahId });
         }
 
         protected override void Dispose(bool disposing)
