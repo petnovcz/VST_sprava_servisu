@@ -17,6 +17,7 @@ namespace VST_sprava_servisu.Controllers
     public class ServisniZasahController : Controller
     {
         private Model1Container db = new Model1Container();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasahController");
 
         // GET: ServisniZasah
         public ActionResult Index()
@@ -67,10 +68,23 @@ namespace VST_sprava_servisu.Controllers
         }
         public ActionResult GenerateQuotation(int Id)
         {
-            string retval = SAPDIAPI.GenerateQuotation(Id);
-            ServisniZasah.UpdateQuotation(retval, Id);
+            string retval = "";
+            try
+            {
+                retval = SAPDIAPI.GenerateQuotation(Id);
+            }
+            catch(Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            }
+            try
+            {
+                ServisniZasah.UpdateQuotation(retval, Id);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            }
 
-            return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
+                return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
         }
         public ActionResult GenerateOrder(int Id)
         {

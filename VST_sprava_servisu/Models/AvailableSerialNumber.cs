@@ -62,7 +62,7 @@ namespace VST_sprava_servisu
                         catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                         try
                         {
-                            availablesn.SysSerial = dr.GetInt16(dr.GetOrdinal("SysSerial"));
+                            availablesn.SysSerial = dr.GetInt32(dr.GetOrdinal("SysSerial"));
                         }
                         catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                         try

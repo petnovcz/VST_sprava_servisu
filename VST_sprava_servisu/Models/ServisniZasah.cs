@@ -302,8 +302,15 @@ namespace VST_sprava_servisu
 
             using (var db = new Model1Container())
             {
-                db.Entry(sz).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(sz).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
             }
 
             

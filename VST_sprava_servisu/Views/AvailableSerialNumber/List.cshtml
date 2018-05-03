@@ -24,13 +24,14 @@
         @Html.AntiForgeryToken()
 
             <div class="">
-                
+
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.Hidden("IntrSerial", item.IntrSerial)
-                @Html.Hidden("SerioveCislo", item.SuppSerial)                
-                @Html.Hidden("Sklad", item.WhsCode)                
+                @Html.Hidden("SerioveCislo", item.SuppSerial)
+                @Html.Hidden("Sklad", item.WhsCode)
                 @Html.Hidden("ServisniZasahPrvekId", Model.SZPrvekId)
                 @Html.Hidden("SAPKod", Model.ArtiklKusovnikSAPKod)
+                @Html.Hidden("SysSerial", item.SysSerial)
 
 
 

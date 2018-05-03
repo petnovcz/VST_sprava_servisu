@@ -9,13 +9,14 @@ namespace VST_sprava_servisu
 {
     public class SAPDIAPI
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SAPDIAPI");
 
         [Authorize(Roles = "Administrator,Manager")]
         internal protected static Company Connect()
         {
             //Company oCompany = new Company();
             //SAPbobsCOM.Attachments2 oATT = oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oAttachments2) as SAPbobsCOM.Attachments2;
-
+            
 
             try
             {
@@ -28,7 +29,7 @@ namespace VST_sprava_servisu
                 oCompany.UserName = "novakp";
                 oCompany.Password = "Celtic.13";
                 oCompany.DbServerType = BoDataServerTypes.dst_MSSQL2008;
-                oCompany.UseTrusted = true;
+                oCompany.UseTrusted = false;
                 int ret = oCompany.Connect();
                 string ErrMsg = oCompany.GetLastErrorDescription();
                 int ErrNo = oCompany.GetLastErrorCode();
@@ -40,10 +41,15 @@ namespace VST_sprava_servisu
                 {
 
                 }
-
+                log.Error("connected - ErrMsg" + ErrMsg);
                 return oCompany;
+                
             }
-            catch (Exception Errmsg) { throw Errmsg; }
+            catch (Exception Errmsg) {
+                log.Error("not connected to SAP via DI API");
+                log.Error("Error number: " + Errmsg);
+                throw Errmsg;
+            }
         }
 
         [Authorize(Roles = "Administrator,Manager")]
@@ -141,7 +147,7 @@ namespace VST_sprava_servisu
                                     //snindex++;
                                     oDelivery.Lines.SerialNumbers.Quantity = 1;
                                     //oDelivery.Lines.SerialNumbers.BaseLineNumber = oOrder.Lines.LineNum;
-                                    oDelivery.Lines.SerialNumbers.SystemSerialNumber = Convert.ToInt16(itemx.SerioveCislo);
+                                    oDelivery.Lines.SerialNumbers.SystemSerialNumber = Convert.ToInt16(itemx.SysSerial);
                                     //oDelivery.Lines.SerialNumbers.
                                     oDelivery.Lines.SerialNumbers.Add();
                                 }
@@ -186,41 +192,58 @@ namespace VST_sprava_servisu
         internal protected static string GenerateQuotation(int Id)
 
         {
+            log.Error("1");
             ServisniZasah sz = new ServisniZasah();
             sz = ServisniZasah.GetZasah(Id);
             bool bRetVal = false;
             string sErrMsg; int lErrCode;
             string docEntry = "";
             int retVal = -1;
+            log.Error("2");
             Company oCompany = new Company();
             oCompany = SAPDIAPI.Connect();
-
+            log.Error("3");
             //Check connection before updating          
 
             if (oCompany.Connected)
 
             {
+                log.Error("3aa");
                 Documents oDelivery = (Documents)oCompany.GetBusinessObject(BoObjectTypes.oQuotations);
+                log.Error("3a");
                 oDelivery.CardCode = sz.Zakaznik.KodSAP;
+                log.Error("3b");
                 oDelivery.DocDate = DateTime.Now;
+                log.Error("3c");
                 oDelivery.DocDueDate = DateTime.Now;
+                log.Error("3d");
                 oDelivery.TaxDate = DateTime.Now;
+                log.Error("3e");
                 oDelivery.VatDate = DateTime.Now;
+                log.Error("3f");
                 oDelivery.UserFields.Fields.Item("U_VCZ_R014").Value = "SC";
+                log.Error("3g");
                 oDelivery.UserFields.Fields.Item("U_VCZ_P343").Value = "S";
+                log.Error("3h");
                 oDelivery.UserFields.Fields.Item("U_VST_Oppor").Value = "100";
+                log.Error("3j");
                 oDelivery.DocumentsOwner = 61;
+                log.Error("3k");
                 oDelivery.SalesPersonCode = 47;
+                log.Error("3l");
                 oDelivery.DocType = BoDocumentTypes.dDocument_Items;
+                log.Error("3m");
                 oDelivery.DocumentSubType = BoDocumentSubType.bod_None;
+                log.Error("3n");
                 oDelivery.DocObjectCode = BoObjectTypes.oQuotations;
+                log.Error("3o");
                 //oDelivery.DocObjectCodeEx = SAPbobsCOM.BoObjectTypes.oDeliveryNotes;
                 //oDelivery.DocCurrency = sz.Mena;
 
                 oDelivery.Project = sz.Projekt;
+                log.Error("3p");
 
-                
-
+                log.Error("4");
 
                 foreach (var item in sz.ServisniZasahPrvek)
                 {
@@ -276,30 +299,36 @@ namespace VST_sprava_servisu
                 }
                 try
                 {
+                    log.Error("5");
                     retVal = oDelivery.Add();
                 }
-                catch (Exception ex) { }
-
-                if(retVal == 0)
+                catch (Exception ex)
                 {
-                    
+                    log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+
+                if (retVal == 0)
+                {
+
                     oCompany.GetNewObjectCode(out docEntry);
                 }
 
-     
 
-     
 
-    
+
+
+                log.Error("6");
 
                 var x = oCompany.GetLastErrorCode();
                 var y = oCompany.GetLastErrorDescription();
                 //oCompany.GetLastError(out ErrCode, out ErrMsg);
 
             }
-
+            else
+            { log.Error("else on connected to sap"); }
+            log.Error("7");
             oCompany.Disconnect();
-
+            log.Error("8");
             return docEntry;
 
         }

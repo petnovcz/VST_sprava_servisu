@@ -1,0 +1,362 @@
+﻿@model VST_sprava_servisu.Projekty
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+    var success = "";
+}
+
+
+<table style="width:100%;">
+    <tr>
+        @{ var width = 100 / Model.RokyList.Count(); }
+        @foreach (var item in Model.RokyList)
+        {
+            <td style="width: @width %;padding:2px !important; margin:2px !important;">
+                @if (Model.VybraneRokyList.Select(t => t.Id).Contains(item.Id))
+                {
+                    success = "btn-success";
+                }
+                else
+                {
+                    success = "btn-default";
+                }
+                @Html.ActionLink(item.Id.ToString(), "Index", "Projekty", new { Rok = item.Id, send = true }, new { @class = $"btn btn-xs btn-block {success} " })
+            </td>
+        }
+    </tr>
+</table>
+
+
+
+@{ success = "btn-default";}
+<table style="width:100%;">
+    <tr>
+        @{ width = 100 / (Model.CiselnaRadaList.Count() + 2); }
+        @foreach (var item in Model.CiselnaRadaList)
+        {
+            <td style="width: @width %;padding:2px !important; margin:2px !important;">
+                @if (Model.VybranaCiselnaRadaList != null)
+                {
+                    if (Model.VybranaCiselnaRadaList.Select(t => t.Kod).Contains(item.Kod))
+                    {
+                        success = "btn-success";
+                    }
+                    else
+                    {
+                        success = "btn-default";
+                    }
+                }
+                @Html.ActionLink(item.Nazev, "Index", "Projekty", new { ciselnarada = item.Kod, send = true }, new { @class = $"btn btn-xs btn-block {success}" })
+            </td>
+        }
+        <td style="width: @width %; padding:2px !important; margin:2px !important;">
+            @Html.ActionLink(" Vše", "Index", "Projekty", new { cr = true, send = true }, new { @class = "btn btn-xs btn-info btn-block" })
+        </td>
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink(" Žádné", "Index", "Projekty", new { cr = false, send = true }, new { @class = "btn btn-xs btn-warning btn-block" })
+        </td>
+    </tr>
+</table>
+
+
+
+
+@{ success = "btn-default";}
+<table style="width:100%;">
+    <tr>
+        @{ width = 100 / (Model.TypProjektuList.Count() + 2); }
+        @foreach (var item in Model.TypProjektuList)
+        {
+            <td style="width: @width %;padding:2px !important; margin:2px !important;">
+                @if (Model.VybraneTypyProjektuList != null)
+                {
+                    if (Model.VybraneTypyProjektuList.Select(t => t.Kod).Contains(item.Kod))
+                    {
+                        success = "btn-success";
+                    }
+                    else
+                    {
+                        success = "btn-default";
+                    }
+                }
+                @Html.ActionLink(item.Nazev, "Index", "Projekty", new { typprojektu = item.Kod, send = true }, new { @class = $"btn btn-block btn-xs {success}" })
+            </td>
+        }
+        <td style="width: @width %; padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Vše", "Index", "Projekty", new { tp = true, send = true }, new { @class = $"btn  btn-block btn-xs btn-info" })
+        </td>
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Žádné", "Index", "Projekty", new { tp = false, send = true }, new { @class = $"btn  btn-block btn-xs btn-warning" })
+        </td>
+    </tr>
+</table>
+
+
+
+
+@{ success = "btn-default";}
+<table style="width:100%;">
+    <tr>
+        @{ width = 100 / (Model.StavyProjektuList.Count() + 2); }
+
+
+        @foreach (var item in Model.StavyProjektuList)
+        {
+            <td style="width: @width %;padding:2px !important; margin:2px !important;">
+                @if (Model.VybraneStavyProjektuList != null)
+                {
+                    if (Model.VybraneStavyProjektuList.Select(t => t.Kod).Contains(item.Kod))
+                    {
+                        success = "btn-success";
+                    }
+                    else
+                    {
+                        success = "btn-default";
+                    }
+                }
+                @Html.ActionLink(item.Nazev, "Index", "Projekty", new { stavyprojektu = item.Kod, send = true }, new { @class = $"btn btn-block btn-xs {success}" })
+            </td>
+        }
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Vše", "Index", "Projekty", new { sp = true, send = true }, new { @class = $"btn btn-xs btn-block btn-info  " })
+        </td>
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Žádné", "Index", "Projekty", new { sp = false, send = true }, new { @class = $"btn  btn-xs btn-block btn-warning " })
+        </td>
+    </tr>
+</table>
+@{ success = "btn-default";}
+<table style="width:100%;">
+    <tr>
+        @{ width = 100 / (Model.RegionyList.Count() + 2); }
+        @foreach (var item in Model.RegionyList)
+        {
+            <td style="width: @width %;padding:2px !important; margin:2px !important;">
+                @if (Model.VybraneRegionyList != null)
+                {
+                    if (Model.VybraneRegionyList.Select(t => t.TerritryID).Contains(item.TerritryID)) { success = "btn-success"; } else { success = "btn-default"; }
+                }
+                @Html.ActionLink(item.Descript, "Index", "Projekty", new { region = item.TerritryID, send = true }, new { @class = $"btn btn-block btn-xs {success}" })
+            </td>
+        }
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Vše", "Index", "Projekty", new { r = true, send = true }, new { @class = $"btn btn-info btn-block btn-xs " })
+        </td>
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Žádné", "Index", "Projekty", new { r = false, send = true }, new { @class = $"btn btn-warning btn-block btn-xs " })
+        </td>
+    </tr>
+</table>
+@{ success = "btn-default";}
+<table style="width:100%;">
+    <tr>
+        @{ width = 100 / (Model.PracovniciList.Count() + 2); }
+        @foreach (var item in Model.PracovniciList)
+        {
+            <td style="width: @width %;padding:2px !important; margin:2px !important;">
+                @if (Model.VybraniPracovniciList != null)
+                {
+                    if (Model.VybraniPracovniciList.Select(t => t.Kod).Contains(item.Kod)) { success = "btn-success"; } else { success = "btn-default"; }
+                }
+                @Html.ActionLink(item.Nazev, "Index", "Projekty", new { pracovnik = item.Kod, send = true }, new { @class = $"btn btn-block btn-xs {success}" })
+            </td>
+        }
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Vše", "Index", "Projekty", new { pr = true, send = true }, new { @class = $"btn btn-block btn-info btn-xs " })
+        </td>
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Žádné", "Index", "Projekty", new { pr = false, send = true }, new { @class = $"btn btn-block btn-warning btn-xs " })
+        </td>
+    </tr>
+</table>
+@{ success = "btn-default";}
+<table style="width:100%;">
+    <tr>
+        @{ width = 100 / (Model.SkupinaArtikluList.Count() + 2); }
+        @foreach (var item in Model.SkupinaArtikluList)
+        {
+            <td style="width: @width %;padding:2px !important; margin:2px !important;">
+                @if (Model.VybranaSkupinaArtikluList != null)
+                {
+                    if (Model.VybranaSkupinaArtikluList.Select(t => t.Id).Contains(item.Id)) { success = "btn-success"; } else { success = "btn-default"; }
+                }
+                @Html.ActionLink(item.Nazev, "Index", "Projekty", new { skupinaartiklu = item.Id, send = true }, new { @class = $"btn btn-block btn-xs {success}" })
+            </td>
+        }
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Vše", "Index", "Projekty", new { sa = true, send = true }, new { @class = $"btn btn-block btn-info btn-xs " })
+        </td>
+        <td style="width: @width %;padding:2px !important; margin:2px !important;">
+            @Html.ActionLink("Žádné", "Index", "Projekty", new { sa = false, send = true }, new { @class = $"btn btn-block btn-warning btn-xs " })
+        </td>
+    </tr>
+</table>
+
+<hr>
+
+<table class="table table-condensed table-responsive">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Celkový zisk / % zisku</th>
+            <th>Celkovové výnosy</th>
+            <th>Celkové náklady</th>
+            <th>Celkový zisk - plán / % zisku</th>
+            <th>Celkovové výnosy - plán</th>
+            <th>Celkové náklady - plán</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CZK</td>
+            @{ 
+                decimal x = 0; decimal y = 0;
+                if (@Model.projektyList.Select(t => t.U_ActRev).Sum() != 0)
+                {
+                    x = @Model.projektyList.Select(t => t.Zisk).Sum() / @Model.projektyList.Select(t => t.U_ActRev).Sum() * 100;
+                }
+                else { x = 0; }
+                if (@Model.projektyList.Select(t => t.U_ActRev).Sum() != 0)
+                {
+                    y = @Model.projektyList.Select(t => t.ZiskPl).Sum() / @Model.projektyList.Select(t => t.U_PlaRev).Sum() * 100;
+                }
+                else { y = 0; }
+                }
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.Zisk).Sum()) / @String.Format("{0:n0}", @x) [%]</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_ActRev).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_ActExp).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.ZiskPl).Sum()) / @String.Format("{0:n0}", @y) [%]</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_PlaRev).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_PlaExp).Sum())</td>
+        </tr>
+        <tr>
+            <td>EUR</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.ZiskSC).Sum()) </td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_ActRevSC).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_ActExpSC).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.ZiskPlSC).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_PlaRevSC).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_PlaExpSC).Sum())</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table class="table table-condensed table-hover">
+
+    <thead>
+        <tr>
+            <th>
+                Projekt
+            </th>
+            <th>
+                Obchodní partner
+            </th>
+            <th>
+                Detaily projektu
+            </th>
+            <th>
+                Výnosy (Skutečnost / Plán)
+            </th>
+            <th>
+                Náklady (Skutečnost / Plán)
+            </th>
+            <th>
+                Zisk (Skutečnost / Plán)
+            </th>
+            <th>
+                % zisku (Skutečnost / Plán)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.projektyList)
+        {
+            <tr style="font-size: 11px;">
+                <td>
+                    @item.Code
+                    @Html.ActionLink(" Detail zakázky", "Details", "Projekty", item, new { @class = "img-btn-addnote modal-link" })
+                    @Html.ActionLink(" Detail faktury", "DetailsOinv", "Projekty", item, new { @class = "img-btn-addnote modal-link" })
+                    @Html.ActionLink(" Detail nákupnívh faktur", "DetailsOpch", "Projekty", item, new { @class = "img-btn-addnote modal-link" })<br>
+                    @item.Name<br>
+                    @item.Status_descript
+                </td>
+                <td>
+                    @item.CardCode<br>
+                    @item.CardName<br>
+                    @item.TeritoryName
+                </td>
+                <td>
+                    @item.EmpName<br>
+                    @item.Series<br>
+                    @item.TypeName
+
+                </td>
+                <td>
+
+                    <b>@String.Format("{0:n0}", item.U_ActRev)</b> / @String.Format("{0:n0}", item.U_PlaRev) [CZK] <br>
+                    @String.Format("{0:n0}", item.U_ActRevFC) / @String.Format("{0:n0}", item.U_PlaRevFC) [@item.DocCurr] <br>
+                    @String.Format("{0:n0}", item.U_ActRevSC) / @String.Format("{0:n0}", item.U_PlaRevSC) [EUR]
+                </td>
+                <td>
+                    <b>
+                        @String.Format("{0:n0}", item.U_ActExp)
+                    </b>  / @String.Format("{0:n0}", item.U_PlaExp) [CZK] <br>
+                    @String.Format("{0:n0}", item.U_ActExpFC) / @String.Format("{0:n0}", item.U_PlaExpFC) [@item.DocCurr] <br>
+                    @String.Format("{0:n0}", item.U_ActExpSC) / @String.Format("{0:n0}", item.U_PlaExpSC) [EUR]
+                </td>
+                <td>
+                    <b>
+                        @String.Format("{0:n0}", item.Zisk)
+                    </b> /  @String.Format("{0:n0}", item.ZiskPl) [CZK] <br>
+                    @String.Format("{0:n0}", item.ZiskFC) /  @String.Format("{0:n0}", item.ZiskPlFC) [@item.DocCurr] <br>
+                    @String.Format("{0:n0}", item.ZiskSC) /  @String.Format("{0:n0}", item.ZiskPlSC) [EUR]
+                </td>
+                <td>
+                    @String.Format("{0:n0}", item.ZiskPrc) /  @String.Format("{0:n0}", item.ZiskPlPrc) [%]
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+<div id="modal-container" class="modal fade"
+     tabindex="-1" role="dialog"><a href="#close" title="close" class="modal-close-btn">X</a>
+    <div class="modal-content" style="width:80% !important; margin:10px auto !important; max-height: calc(100% - 120px);overflow-y: scroll;">
+        
+    </div>
+</div>
+
+@section Scripts {
+    
+<script type="text/javascript">
+        $(function () {
+            // Initialize numeric spinner input boxes
+            //$(".numeric-spinner").spinedit();
+            // Initialize modal dialog
+            // attach modal-container bootstrap attributes to links with .modal-link class.
+            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+            /*$('#CancelModal').on('click', function () {
+                return false;
+            });*/
+        });
+</script>
+    
+    }

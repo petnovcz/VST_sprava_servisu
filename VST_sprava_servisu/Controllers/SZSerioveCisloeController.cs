@@ -48,12 +48,16 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ServisniZasahPrvekId,SerioveCislo,SAPKod,Sklad")] ServisniZasahPrvekSerioveCislo servisniZasahPrvekSerioveCislo)
+        public ActionResult Create([Bind(Include = "Id,ServisniZasahPrvekId,SerioveCislo,SAPKod,Sklad,SysSerial")] ServisniZasahPrvekSerioveCislo servisniZasahPrvekSerioveCislo)
         {
             if (ModelState.IsValid)
             {
                 db.ServisniZasahPrvekSerioveCislo.Add(servisniZasahPrvekSerioveCislo);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex) { }
                 ServisniZasahPrvek szp = new ServisniZasahPrvek();
                 szp = db.ServisniZasahPrvek.Find(servisniZasahPrvekSerioveCislo.ServisniZasahPrvekId);
                 return RedirectToAction("Predelivery","ServisniZasah", new { Id = szp.ServisniZasahId});
@@ -84,7 +88,7 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ServisniZasahPrvekId,SerioveCislo,SAPKod,Sklad")] ServisniZasahPrvekSerioveCislo servisniZasahPrvekSerioveCislo)
+        public ActionResult Edit([Bind(Include = "Id,ServisniZasahPrvekId,SerioveCislo,SAPKod,Sklad,SysSerial")] ServisniZasahPrvekSerioveCislo servisniZasahPrvekSerioveCislo)
         {
             if (ModelState.IsValid)
             {

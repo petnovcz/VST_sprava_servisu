@@ -1,0 +1,138 @@
+﻿@model VST_sprava_servisu.ORDRforProject
+
+@{ Layout = null;}
+
+<div class="">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">@Model.Projekt - @Model.ProjektName</h4>
+    </div>
+    <div class="modal-body" style="max-height: calc(100% - 120px);">
+        @foreach (var item in Model.ORDRList)
+        {
+            <table class="table table-condensed" style="width:100%;font-size:11px;">
+                <thead>
+                    <tr>
+                        <th>Obchodní partner</th>
+                        <th></th>
+                        <th>Číslo dokladu</th>
+                        <th>Doklad Celkem s daní</th>
+                        <th>Doklad Celkem bez daně</th>
+                        <th>Hrubý zisk</th>
+                        <th>Daň</th>
+                        <th>Procento zisku</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@item.CardCode </td>
+                        <td> @item.CardName</td>
+                        <td>@item.Docnum</td>
+
+                        <td>
+                            @if (item.DocTotalFC != 0)
+        {
+                    @String.Format("{0:n0}", item.DocTotalFC) @item.DocCur
+                    <br>
+}
+                            @String.Format("{0:n0}", item.DocTotal)  CZK
+                        </td>
+                        <td>
+                            @if (item.CelkemBezDaneFC != 0)
+        {
+                    @String.Format("{0:n0}", item.CelkemBezDaneFC) @item.DocCur
+                    <br>
+}
+                            @String.Format("{0:n0}", item.CelkemBezDane)  CZK
+                        </td>
+                        <td>
+                            @if (item.GrosProfFC != 0)
+        {
+                    @String.Format("{0:n0}", item.GrosProfFC) @item.DocCur
+                    <br>
+}
+                            @String.Format("{0:n0}", item.GrosProfit) CZK
+                        </td>
+                        <td>
+                            @if (item.VatSumFC != 0)
+        {
+                    @String.Format("{0:n0}", item.VatSumFC) @item.DocCur
+                    <br>
+}
+                            @String.Format("{0:n0}", item.VatSum) CZK
+                        </td>
+                        <td>
+                            @String.Format("{0:n0}", item.PrcZisku) [%]
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-condensed" style="width:90%;font-size:9px;float:right">
+                <thead>
+                    <tr>
+                        <th>Artikl</th>
+                        <th></th>
+                        <th>Cena</th>
+                        <th>Sleva</th>
+                        <th>Množství</th>
+                        <th>Celkem</th>
+                        <th>Hrubý zisk</th>
+                        <th>Procento zisku</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var itemx in item.RDR1)
+                    {
+
+                    <tr>
+                        <td>@itemx.ItemCode </td>
+                        <td> @itemx.Dscription</td>
+
+                        <td>@String.Format("{0:n0}", itemx.Price) @itemx.Currency</td>
+                        <td>@String.Format("{0:n0}", itemx.DiscPrcnt) %</td>
+                        <td>@String.Format("{0:n0}", @itemx.Quantity) </td>
+                        <td>
+                            @if (itemx.TotalFrgn != 0)
+                            {
+                        @String.Format("{0:n0}", @itemx.TotalFrgn) @itemx.Currency
+                        <br>}
+                        @String.Format("{0:n0}", @itemx.LineTotal) CZK
+                        </td>
+                        <td>
+                            @if (itemx.GrssProfFC != 0)
+                            {
+                        @String.Format("{0:n0}", @itemx.GrssProfFC) @itemx.Currency
+                        <br>}
+                        @String.Format("{0:n0}", @itemx.GrssProfit) CZK
+                        </td>
+                        <td>@String.Format("{0:n0}", @itemx.PrcZisku) %</td>
+                    </tr>
+
+
+                    }
+                </tbody>
+            </table>
+            <hr>
+        }
+    </div>
+    @* <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>*@
+</div>
+
+
+    @section Scripts {
+        <script type="text/javascript">
+
+            $(function () {
+                $('#btnSave').click(function () {
+                    $('#modal-container').modal('hide');
+                });
+
+            });
+
+        </script>
+
+
+    }

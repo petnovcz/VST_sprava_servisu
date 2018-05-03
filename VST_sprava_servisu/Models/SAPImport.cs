@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,6 +16,105 @@ namespace VST_sprava_servisu
         public string Code { get; set; }
         public string Name { get; set; }
         public string Status { get; set; }
+        public string Status_descript { get; set; }
+        public int EmpNo { get; set; }
+        public string EmpName { get; set; }
+        public string Type { get; set; }
+        public string TypeName { get; set; }
+        public string Series { get; set; }
+        public int Territory { get; set; }
+        public string TeritoryName { get; set; }
+        public string CardCode { get; set; }
+        public string CardName { get; set; }
+        public string DocCurr { get; set; }
+        public ORDRforProject ordrforproject { get; set; }
+        public OINVforProject oinvforproject
+        {
+            get; set;
+        }
+        public OPCHforProject opchforproject
+        {
+            get; set;
+        }
+
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_PlaRev { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_PlaRevFC { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_PlaRevSC { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_ActRev { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_ActRevFC { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_ActRevSC { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_PlaExp { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_PlaExpFC { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_PlaExpSC { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_ActExp { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_ActExpFC { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal U_ActExpSC { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal Zisk { get { var x = U_ActRev - U_ActExp; return x; } }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal ZiskPl { get { var x = U_PlaRev - U_PlaExp; return x; } }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal ZiskFC { get { var x = U_ActRevFC - U_ActExpFC; return x; } }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal ZiskPlFC { get { var x = U_PlaRevFC - U_PlaExpFC; return x; } }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal ZiskSC { get { var x = U_ActRevSC - U_ActExpSC; return x; } }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal ZiskPlSC { get { var x = U_PlaRevSC - U_PlaExpSC; return x; } }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal ZiskPrc {
+            get
+            {
+                decimal x = 0;
+                if (U_ActRev != 0) { x = Zisk / U_ActRev * 100; } else { x = 0; }
+               
+
+                return x;
+            }
+        }
+
+        [DisplayFormat(DataFormatString = "{0:#.##}")]
+        public decimal ZiskPlPrc
+        {
+            get
+            {
+                decimal x = 0;
+                if (U_PlaRev != 0) { x = ZiskPl / U_PlaRev * 100; } else { x = 0; }
+                return x;
+            }
+        }
+
         public int ServisniZasahId { get; set; }
 
 
