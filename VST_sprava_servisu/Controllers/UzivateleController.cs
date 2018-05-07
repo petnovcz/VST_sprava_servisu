@@ -83,8 +83,15 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUsers aspNetUsers)
+        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,FileIn")] AspNetUsers aspNetUsers)
         {
+            var success = false;
+            aspNetUsers.FilenName = aspNetUsers.FileIn.FileName;
+            aspNetUsers.ImageSize = aspNetUsers.FileIn.ContentLength;
+
+            byte[] data = new byte[aspNetUsers.FileIn.ContentLength];
+            aspNetUsers.FileIn.InputStream.Read(data, 0, aspNetUsers.FileIn.ContentLength);
+            aspNetUsers.Razitko = data;
             if (ModelState.IsValid)
             {
                 db.Entry(aspNetUsers).State = EntityState.Modified;
