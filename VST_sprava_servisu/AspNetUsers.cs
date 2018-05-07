@@ -21,7 +21,7 @@ namespace VST_sprava_servisu
         public AspNetUsers()
         {
             this.AspNetUserRoles = new HashSet<AspNetUserRoles>();
-            this.Revize = new HashSet<Revize>();
+            
         }
     
         public string Id { get; set; }
@@ -36,17 +36,12 @@ namespace VST_sprava_servisu
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
-        public byte[] Razitko { get; set; }
-        public string FilenName { get; set; }
-        public Nullable<int> ImageSize { get; set; }
+       
 
-        [NotMapped]
-        [Display(Name = "Soubor")]
-        public HttpPostedFileBase FileIn { get; set; }
+       
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Revize> Revize { get; set; }
+        
     }
 }

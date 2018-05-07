@@ -146,7 +146,7 @@ namespace VST_sprava_servisu
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create([
-        Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V, Projekt, Nabidka,ReviziProvedl")] Revize revize)
+        Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V, Projekt, Nabidka")] Revize revize)
         {
             if (ModelState.IsValid)
             {
@@ -193,7 +193,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager,Uživatel")]
-        public ActionResult Edit([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V, Projekt, Nabidka,ReviziProvedl")] Revize revize, int Region)
+        public ActionResult Edit([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V, Projekt, Nabidka")] Revize revize, int Region)
         {
             if (ModelState.IsValid)
             {
@@ -604,7 +604,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager,Uživatel")]
-        public ActionResult Replan([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V, Projekt, Nabidka,ReviziProvedl")] Revize revize, int Region)
+        public ActionResult Replan([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V, Projekt, Nabidka")] Revize revize, int Region)
         {
             if (ModelState.IsValid)
             {
@@ -760,7 +760,7 @@ namespace VST_sprava_servisu
             ViewBag.Region = Region;
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
-            ViewBag.ReviziProvedl = new SelectList(db.AspNetUsers, "Id", "UserName", revize.ReviziProvedl);
+            
             return View(revize);
         }
 
@@ -770,7 +770,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Fill([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V, Projekt, Nabidka,ReviziProvedl")] Revize revize, int Region)
+        public ActionResult Fill([Bind(Include = "Id,ProvozId,DatumRevize,StatusRevizeId,DatumVystaveni,ZjistenyStav,ProvedeneZasahy,OpatreniKOdstraneni,KontrolaProvedenaDne,PristiKontrola,Rok,Pololeti,UmisteniId, Baterie, Pyro, TlkZk, AP, S, RJ, M, V, Projekt, Nabidka")] Revize revize, int Region)
         {
             if (ModelState.IsValid)
             {
@@ -784,7 +784,7 @@ namespace VST_sprava_servisu
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
-            ViewBag.ReviziProvedl = new SelectList(db.AspNetUsers, "Id", "UserName", revize.ReviziProvedl);
+            
             revize.Region = Region;
             ViewBag.Region = Region;
             return View(revize);

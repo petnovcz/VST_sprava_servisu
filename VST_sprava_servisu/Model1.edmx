@@ -58,9 +58,6 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="Razitko" Type="varbinary(max)" />
-          <Property Name="FilenName" Type="nvarchar(max)" />
-          <Property Name="ImageSize" Type="int" />
         </EntityType>
         <EntityType Name="Jazyk">
           <Key>
@@ -160,7 +157,6 @@
           <Property Name="Projekt" Type="nchar" MaxLength="25" />
           <Property Name="Nabidka" Type="nchar" MaxLength="25" />
           <Property Name="F" Type="int" />
-          <Property Name="ReviziProvedl" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -477,18 +473,6 @@
             </Principal>
             <Dependent Role="Zakaznik">
               <PropertyRef Name="RegionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Revize_Users">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-          <End Role="Revize" Type="Self.Revize" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Revize">
-              <PropertyRef Name="ReviziProvedl" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -854,10 +838,6 @@
             <End Role="Region" EntitySet="Region" />
             <End Role="Zakaznik" EntitySet="Zakaznik" />
           </AssociationSet>
-          <AssociationSet Name="FK_Revize_Users" Association="Self.FK_Revize_Users">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Revize" EntitySet="Revize" />
-          </AssociationSet>
           <AssociationSet Name="FK_RevizeSCRevize" Association="Self.FK_RevizeSCRevize">
             <End Role="Revize" EntitySet="Revize" />
             <End Role="RevizeSC" EntitySet="RevizeSC" />
@@ -1133,10 +1113,6 @@
             <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
             <End Role="ServisniZasahPrvekSerioveCislo" EntitySet="ServisniZasahPrvekSerioveCislo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Revize_Users" Association="Model1.FK_Revize_Users">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Revize" EntitySet="Revize" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
           <Key>
@@ -1320,8 +1296,6 @@
           <Property Name="Nabidka" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="VymenyLahvi" Relationship="Model1.FK_VymenyLahvi_ToRevize" FromRole="Revize" ToRole="VymenyLahvi" />
           <Property Name="F" Type="Int32" />
-          <Property Name="ReviziProvedl" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Model1.FK_Revize_Users" FromRole="Revize" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -1660,10 +1634,6 @@
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUserRoles" Relationship="Model1.AspNetUsersAspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetUserRoles" />
-          <Property Name="Razitko" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="FilenName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ImageSize" Type="Int32" />
-          <NavigationProperty Name="Revize" Relationship="Model1.FK_Revize_Users" FromRole="AspNetUsers" ToRole="Revize" />
         </EntityType>
         <Association Name="AspNetUsersAspNetUserRoles">
           <End Type="Model1.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -2011,18 +1981,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Revize_Users">
-          <End Type="Model1.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="Model1.Revize" Role="Revize" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Revize">
-              <PropertyRef Name="ReviziProvedl" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2117,7 +2075,6 @@
     <EntitySetMapping Name="Revize">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Revize)">
         <MappingFragment StoreEntitySet="Revize">
-          <ScalarProperty Name="ReviziProvedl" ColumnName="ReviziProvedl" />
                 <ScalarProperty Name="F" ColumnName="F" />
                 <ScalarProperty Name="Nabidka" ColumnName="Nabidka" />
                 <ScalarProperty Name="Projekt" ColumnName="Projekt" />
@@ -2273,9 +2230,6 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="Model1.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="ImageSize" ColumnName="ImageSize" />
-                <ScalarProperty Name="FilenName" ColumnName="FilenName" />
-                <ScalarProperty Name="Razitko" ColumnName="Razitko" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
