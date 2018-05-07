@@ -2021,7 +2021,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="PrijmeniJmeno" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PrijmeniJmeno" Type="String" MaxLength="256" FixedLength="true" Unicode="true" />
           <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ImageSize" Type="Int32" />
           <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />

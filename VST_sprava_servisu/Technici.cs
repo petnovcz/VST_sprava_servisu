@@ -11,7 +11,10 @@ namespace VST_sprava_servisu
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
+
     public partial class Technici
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,7 +28,11 @@ namespace VST_sprava_servisu
         public byte[] File { get; set; }
         public Nullable<int> ImageSize { get; set; }
         public string FileName { get; set; }
-    
+
+        [NotMapped]
+        [Display(Name = "Soubor")]
+        public HttpPostedFileBase FileIn { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Revize> Revize { get; set; }
     }

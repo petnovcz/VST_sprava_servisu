@@ -38,7 +38,9 @@ namespace VST_sprava_servisu.Controllers
         // GET: Technicis/Create
         public ActionResult Create()
         {
-            return View();
+            Technici technici = new Technici();
+
+            return View(technici);
         }
 
         // POST: Technicis/Create
@@ -46,8 +48,19 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,PrijmeniJmeno,File,ImageSize,FileName")] Technici technici)
+        public ActionResult Create([Bind(Include = "Id,PrijmeniJmeno,File,ImageSize,FileName,FileIn")] Technici technici)
         {
+            var success = false;
+            if (technici.FileIn != null)
+            {
+                technici.FileName = technici.FileIn.FileName;
+                technici.ImageSize = technici.FileIn.ContentLength;
+
+                byte[] data = new byte[technici.FileIn.ContentLength];
+                technici.FileIn.InputStream.Read(data, 0, technici.FileIn.ContentLength);
+                technici.File = data;
+            }
+            
             if (ModelState.IsValid)
             {
                 db.Technici.Add(technici);
@@ -78,8 +91,18 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PrijmeniJmeno,File,ImageSize,FileName")] Technici technici)
+        public ActionResult Edit([Bind(Include = "Id,PrijmeniJmeno,File,ImageSize,FileName,FileIn")] Technici technici)
         {
+            if (technici.FileIn != null)
+            {
+                technici.FileName = technici.FileIn.FileName;
+                technici.ImageSize = technici.FileIn.ContentLength;
+
+                byte[] data = new byte[technici.FileIn.ContentLength];
+                technici.FileIn.InputStream.Read(data, 0, technici.FileIn.ContentLength);
+                technici.File = data;
+            }
+            
             if (ModelState.IsValid)
             {
                 db.Entry(technici).State = EntityState.Modified;
