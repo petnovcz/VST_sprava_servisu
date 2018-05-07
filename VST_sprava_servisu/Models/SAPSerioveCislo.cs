@@ -37,6 +37,9 @@ namespace VST_sprava_servisu
         public static IEnumerable<SAPSerioveCislo> LoadSCFromSAP(string SC, int Artikl)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+
             List<SAPSerioveCislo> SAPSCList = new List<SAPSerioveCislo>();
             StringBuilder sql = new StringBuilder();
             sql.Append(" SELECT t2.id as 'ArticlId', t2.KodSAP, t2.Nazev, ");
@@ -45,13 +48,13 @@ namespace VST_sprava_servisu
             sql.Append("  ,t3.CardCode, t3.CardName, t1.BaseType, t1.BaseNum, t6.PrjCode, t6.PrjName ");
             sql.Append(" FROM OSRI  T0 ");
             sql.Append(" INNER JOIN SRI1 T1 ON T0.ItemCode = T1.ItemCode and T0.SysSerial = T1.SysSerial");
-            sql.Append(" left join [Servis].[dbo].[Artikl] t2 on t1.ItemCode COLLATE DATABASE_DEFAULT = t2.KodSAP COLLATE DATABASE_DEFAULT");
+            sql.Append($" left join [{RS_dtb}].[dbo].[Artikl] t2 on t1.ItemCode COLLATE DATABASE_DEFAULT = t2.KodSAP COLLATE DATABASE_DEFAULT");
             sql.Append(" inner join ocrd t3 on t3.CardCode = t1.CardCode");
             sql.Append(" left join ODLN t4 on t4.ObjType = t1.BaseType and t4.DocEntry = t1.BaseEntry ");
             sql.Append(" left join OINV t5 on t5.ObjType = t1.BaseType and t5.DocEntry = t1.BaseEntry ");
             sql.Append(" left join OPRJ t6 on (t4.Project = t6.PrjCode) or (t5.Project = t6.PrjCode)");
             sql.Append(" where t1.Direction = 1 and t1.CardCode is not null and ");
-            sql.Append(" ((select count (*) from [Servis].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = t1.ItemCode) > 0)");
+            sql.Append($" ((select count (*) from [{RS_dtb}].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = t1.ItemCode) > 0)");
             sql.Append($" and T0.[IntrSerial] = '{SC}'");
             //sql = sql + @" group by T0.[IntrSerial], t2.id, t2.kodSAp, t2.nazev";
             SqlConnection cnn = new SqlConnection(connectionString);
@@ -146,13 +149,15 @@ namespace VST_sprava_servisu
         {
             List<SAPSerioveCislo> SAPSCList = new List<SAPSerioveCislo>();
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
             StringBuilder sql = new StringBuilder();
 
             sql.Append(" SELECT t2.id as 'ArticlId', t2.KodSAP, t2.Nazev, T0.[IntrSerial] as 'SerioveCislo' ,MIN(t0.InDate) as 'Vyrobeno', MAX(t1.docdate) as 'Dodano' FROM OSRI  T0 INNER JOIN SRI1 T1 ON T0.ItemCode = T1.ItemCode and T0.SysSerial = T1.SysSerial");
-            sql.Append(" left join[Servis].[dbo].[Artikl] t2 on t1.ItemCode COLLATE DATABASE_DEFAULT = t2.KodSAP COLLATE DATABASE_DEFAULT");
+            sql.Append($" left join[{RS_dtb}].[dbo].[Artikl] t2 on t1.ItemCode COLLATE DATABASE_DEFAULT = t2.KodSAP COLLATE DATABASE_DEFAULT");
             sql.Append(" where t1.Direction = 1 and");
-            sql.Append(" ((select count (*) from [Servis].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = t1.ItemCode) > 0)");
-            sql.Append(" and((select count (*) from [Servis].[dbo].[Zakaznik] where KodSAP COLLATE DATABASE_DEFAULT = t1.CardCode) > 0)");
+            sql.Append($" ((select count (*) from [{RS_dtb}].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = t1.ItemCode) > 0)");
+            sql.Append($" and((select count (*) from [{RS_dtb}].[dbo].[Zakaznik] where KodSAP COLLATE DATABASE_DEFAULT = t1.CardCode) > 0)");
             sql.Append($" and T1.CardCode = '{OPSAPkod}'");
             sql.Append(" group by T0.[IntrSerial], t2.id, t2.kodSAp, t2.nazev");
 

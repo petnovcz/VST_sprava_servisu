@@ -77,11 +77,13 @@ namespace VST_sprava_servisu
         public static List<SAPItem> SAPItemList()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
 
             List<SAPItem> SAPItemsList = new List<SAPItem>();
             StringBuilder sql = new StringBuilder();
             sql.Append("select ItemCode, ItemName, t1.ItmsGrpCod, t1.ItmsGrpNam from oitm t0 left join OITB t1 on t0.ItmsGrpCod = t1.ItmsGrpCod  where /*ManSerNum = 'Y'*/");
-            sql.Append("/*and*/ ((select count(*) from [Servis].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = ItemCode COLLATE DATABASE_DEFAULT) = 0)");
+            sql.Append($"/*and*/ ((select count(*) from [{RS_dtb}].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = ItemCode COLLATE DATABASE_DEFAULT) = 0)");
 
             SqlConnection cnn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand();

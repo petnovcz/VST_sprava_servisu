@@ -104,16 +104,19 @@ namespace VST_sprava_servisu.Models
             get
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
-                List<CenikRow> list = new List<CenikRow>();              
+                
+             string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+             string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+            List<CenikRow> list = new List<CenikRow>();              
                 StringBuilder sql = new StringBuilder();
-                sql.Append(" select (select Id from[Servis_test].[dbo].[Artikl] x where x.KodSAP COLLATE DATABASE_DEFAULT = T0.ItemCode COLLATE DATABASE_DEFAULT) as 'ArtiklID',");
+                sql.Append($" select (select Id from [{RS_dtb}].[dbo].[Artikl] x where x.KodSAP COLLATE DATABASE_DEFAULT = T0.ItemCode COLLATE DATABASE_DEFAULT) as 'ArtiklID',");
                 sql.Append(" t1.ItemCode, t1.Price as 'CenikCena' , t1.Currency as 'CenikMena', t3.Price as 'ZCCena', t3.Currency as 'ZCMena' from itm1 t1");
                 sql.Append(" left join OITM t0 on t0.ItemCode = t1.itemcode left join (");
                 sql.Append(" select coalesce(tx1.price, tx0.price) as 'Price', coalesce(tx1.currency, tx0.currency) as 'Currency', tx0.ItemCode, tx0.CardCode from OSPP tx0 left join");
                 sql.Append(" SPP1 tx1 on tx0.ItemCode = tx1.ItemCode and tx0.CardCode = tx1.CardCode");
                 sql.Append($" where ((tx1.FromDate <= GETDATE() or tx1.FromDate is null) and (tx1.ToDate >= GETDATE() or tx1.ToDate is NULL)) and tx0.CardCode = '{Zakaznik.KodSAP}' ) t3 on t0.ItemCode = t3.ItemCode ");
                 sql.Append($" where PriceList = {SAPCenik} and t0.ItmsGrpCod = 129");
-                sql.Append(" and(select COUNT(*) from[Servis_test].[dbo].[Artikl] x where x.KodSAP COLLATE DATABASE_DEFAULT = T0.ItemCode COLLATE DATABASE_DEFAULT) > 0");
+                sql.Append($" and(select COUNT(*) from [{RS_dtb}].[dbo].[Artikl] x where x.KodSAP COLLATE DATABASE_DEFAULT = T0.ItemCode COLLATE DATABASE_DEFAULT) > 0");
 
                 SqlConnection cnn = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand();
@@ -227,6 +230,8 @@ namespace VST_sprava_servisu.Models
             {
                 int pricelist = 0;
                 string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+                
+
                 StringBuilder sql = new StringBuilder();
 
                 sql.Append(" select ListNum from ocrd where ");
@@ -277,9 +282,12 @@ namespace VST_sprava_servisu.Models
             cena.ZakaznikId = ZakaznikId;
 
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+
             List<CenikRow> list = new List<CenikRow>();
             StringBuilder sql = new StringBuilder();
-            sql.Append(" select (select Id from[Servis_test].[dbo].[Artikl] x where x.KodSAP COLLATE DATABASE_DEFAULT = T0.ItemCode COLLATE DATABASE_DEFAULT) as 'ArtiklID',");
+            sql.Append($" select (select Id from [{RS_dtb}].[dbo].[Artikl] x where x.KodSAP COLLATE DATABASE_DEFAULT = T0.ItemCode COLLATE DATABASE_DEFAULT) as 'ArtiklID',");
             sql.Append(" t1.ItemCode, t1.Price as 'CenikCena' , t1.Currency as 'CenikMena', t3.Price as 'ZCCena', t3.Currency as 'ZCMena' from itm1 t1");
             sql.Append("  left join OITM t0 on t0.ItemCode = t1.itemcode left join (");
             sql.Append("  select coalesce(tx1.price, tx0.price) as 'Price', coalesce(tx1.currency, tx0.currency) as 'Currency', tx0.ItemCode, tx0.CardCode from OSPP tx0 left join");
@@ -352,9 +360,12 @@ namespace VST_sprava_servisu.Models
             cena.ZakaznikId = ZakaznikId;
 
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+
             List<CenikRow> list = new List<CenikRow>();
             StringBuilder sql = new StringBuilder();
-            sql.Append(" select (select Id from[Servis_test].[dbo].[Artikl] x where x.KodSAP COLLATE DATABASE_DEFAULT = T0.ItemCode COLLATE DATABASE_DEFAULT) as 'ArtiklID',");
+            sql.Append($" select (select Id from[{RS_dtb}].[dbo].[Artikl] x where x.KodSAP COLLATE DATABASE_DEFAULT = T0.ItemCode COLLATE DATABASE_DEFAULT) as 'ArtiklID',");
             sql.Append(" t1.ItemCode, t1.Price as 'CenikCena' , t1.Currency as 'CenikMena', t3.Price as 'ZCCena', t3.Currency as 'ZCMena' from itm1 t1");
             sql.Append("  left join OITM t0 on t0.ItemCode = t1.itemcode left join (");
             sql.Append("  select coalesce(tx1.price, tx0.price) as 'Price', coalesce(tx1.currency, tx0.currency) as 'Currency', tx0.ItemCode, tx0.CardCode from OSPP tx0 left join");

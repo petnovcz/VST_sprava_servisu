@@ -28,11 +28,13 @@ namespace VST_sprava_servisu
         {
             List<SAPDeliveryAddress> SAPDAList = new List<SAPDeliveryAddress>();
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
             StringBuilder sql = new StringBuilder();
 
             sql.Append(" Select Address, CardCode, Street, ZipCode, City, Country from CRD1");
             sql.Append($" where CardCode = '{CardCode}' and AdresType = 'S' and ");
-            sql.Append($" (select count(*) from [Servis].[dbo].[Provoz] X where X.ZakaznikId = '{Zakaznik}' and X.SAPAddress COLLATE DATABASE_DEFAULT = Address COLLATE DATABASE_DEFAULT) = 0 ");
+            sql.Append($" (select count(*) from [{RS_dtb}].[dbo].[Provoz] X where X.ZakaznikId = '{Zakaznik}' and X.SAPAddress COLLATE DATABASE_DEFAULT = Address COLLATE DATABASE_DEFAULT) = 0 ");
 
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);

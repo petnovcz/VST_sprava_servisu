@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,9 @@ namespace VST_sprava_servisu
         /// <returns></returns>
         private static List<VypocetPlanuRevizi> Calculate(string conn, int year)
         {
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+
             List<VypocetPlanuRevizi> listplanrev = new List<VypocetPlanuRevizi>();
             StringBuilder sql = new StringBuilder();
             sql.Append(" select x.ZakaznikId , x.Zakaznik,x.ProvozId ,x.Provoz, ");
@@ -64,13 +68,13 @@ namespace VST_sprava_servisu
             sql.Append(" DATEADD(month, convert(int, t6.periodabaterie), coalesce(t4.datumbaterie, t4.datumprirazeni)) as 'NextBaterie',");
             sql.Append(" DATEADD(month, convert(int, t6.periodapyro), coalesce(t4.datumpyro, t4.datumprirazeni)) as 'NextPyro',");
             sql.Append(" DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni)) as 'NextTlkZk'");
-            sql.Append(" from[Servis].[dbo].[Region] t0");
-            sql.Append(" left join[Servis].[dbo].[Zakaznik] t1 on t0.id = t1.regionid");
-            sql.Append(" left join[Servis].[dbo].[provoz] t2 on t2.zakaznikid = t1.id");
-            sql.Append(" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'false'");
-            sql.Append(" left join[Servis].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id");
-            sql.Append(" left join[Servis].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId");
-            sql.Append(" left join[Servis].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id");
+            sql.Append($" from [{RS_dtb}].[dbo].[Region] t0");
+            sql.Append($" left join [{RS_dtb}].[dbo].[Zakaznik] t1 on t0.id = t1.regionid");
+            sql.Append($" left join [{RS_dtb}].[dbo].[provoz] t2 on t2.zakaznikid = t1.id");
+            sql.Append($" left join [{RS_dtb}].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'false'");
+            sql.Append($" left join [{RS_dtb}].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id");
+            sql.Append($" left join [{RS_dtb}].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId");
+            sql.Append($" left join [{RS_dtb}].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id");
             sql.Append(" where  t3.id is not null and t4.id is not null");
             sql.Append(" ) x");
             sql.Append(" group by x.ZakaznikId, x.Zakaznik,x.ProvozId, x.Provoz");

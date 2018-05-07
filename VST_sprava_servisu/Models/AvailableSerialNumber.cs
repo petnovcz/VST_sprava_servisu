@@ -11,6 +11,10 @@ namespace VST_sprava_servisu
     public partial class AvailableSN
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("AvailableSN");
+        private string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+        private string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+        private string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+
         public string ItemCode { get; set; }
         public int SysSerial { get; set; }
         public string SuppSerial { get; set; }

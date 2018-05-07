@@ -1,6 +1,7 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -18,6 +19,10 @@ namespace VST_sprava_servisu.Controllers
     {
         private Model1Container db = new Model1Container();
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasahController");
+        private string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+        private string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+        private string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+
 
         // GET: ServisniZasah
         public ActionResult Index()
@@ -336,7 +341,7 @@ namespace VST_sprava_servisu.Controllers
                 Rel.SetParameterValue("DocKey@", sz.Nabidka);
                 Rel.SetParameterValue("ObjectId@", "23");
                 Rel.SetDatabaseLogon("sa", "*2012Versino",
-                                   "SQL", "SBO_TEST", false);
+                                   "SQL", SAP_dtb, false);
 
                 BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
                 Rel.Close();
@@ -370,7 +375,7 @@ namespace VST_sprava_servisu.Controllers
                 Rel.SetParameterValue("DocKey@", sz.Zakazka);
                 Rel.SetParameterValue("ObjectId@", "17");
                 Rel.SetDatabaseLogon("sa", "*2012Versino",
-                                   "SQL", "SBO_TEST", false);
+                                   "SQL", SAP_dtb, false);
 
                 BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
                 Rel.Close();
@@ -403,7 +408,7 @@ namespace VST_sprava_servisu.Controllers
                 Rel.SetParameterValue("DocKey@", sz.DodaciList);
                 Rel.SetParameterValue("ObjectId@", "15");
                 Rel.SetDatabaseLogon("sa", "*2012Versino",
-                                   "SQL", "SBO_TEST", false);
+                                   "SQL", SAP_dtb, false);
 
                 BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
                 Rel.Close();

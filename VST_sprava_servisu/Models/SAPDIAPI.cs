@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,12 +17,13 @@ namespace VST_sprava_servisu
         {
             //Company oCompany = new Company();
             //SAPbobsCOM.Attachments2 oATT = oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oAttachments2) as SAPbobsCOM.Attachments2;
-            
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
 
             try
             {
                 Company oCompany = new Company();
-                oCompany.CompanyDB = "SBO_TEST";
+                oCompany.CompanyDB = SAP_dtb;
                 oCompany.Server = "SQL";
                 oCompany.LicenseServer = "SQL:30000";
                 oCompany.DbUserName = "sa";

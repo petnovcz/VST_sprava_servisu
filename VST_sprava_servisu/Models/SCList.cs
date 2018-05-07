@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace VST_sprava_servisu
 
         public static List<SCList> FindScForRevision(string conn, int Provoz, int? Umisteni, int Rok, int Polol)
         {
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
             List<SCList> listplanrev = new List<SCList>();
             StringBuilder sql = new StringBuilder();
             sql.Append(" select t4.id, ");
@@ -41,20 +44,20 @@ namespace VST_sprava_servisu
             sql.Append($" and((Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) <= 6  and  '{Polol}' = '1')");
             sql.Append($" or(Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) > 6  and  '{Polol}' = '2')");
             sql.Append(" )) then 1 else 0 end as 'TlKZK'");
-            sql.Append(" from[Servis].[dbo].[Region] t0");
-            sql.Append(" left join[Servis].[dbo].[Zakaznik] t1 on t0.id = t1.regionid");
-            sql.Append(" left join[Servis].[dbo].[provoz] t2 on t2.zakaznikid = t1.id");
+            sql.Append($" from [{RS_dtb}].[dbo].[Region] t0");
+            sql.Append($" left join [{RS_dtb}].[dbo].[Zakaznik] t1 on t0.id = t1.regionid");
+            sql.Append($" left join [{RS_dtb}].[dbo].[provoz] t2 on t2.zakaznikid = t1.id");
             if (Umisteni == null)
             {
-                sql.Append(" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'false' ");
+                sql.Append($" left join [{RS_dtb}].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'false' ");
             }
             else
             {
-                sql.Append(" left join[Servis].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'true'");
+                sql.Append($" left join[{RS_dtb}].[dbo].[umisteni] t3 on t3.provozid = t2.id and t3.SamostatnaRevize = 'true'");
             }
-            sql.Append(" left join[Servis].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id");
-            sql.Append(" left join[Servis].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId");
-            sql.Append(" left join[Servis].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id");
+            sql.Append($" left join [{RS_dtb}].[dbo].[scprovozu] t4 on t4.provozid = t2.id and t4.umisteni = t3.id");
+            sql.Append($" left join [{RS_dtb}].[dbo].[SerioveCislo] t5 on t5.Id = t4.SerioveCisloId");
+            sql.Append($" left join [{RS_dtb}].[dbo].[Artikl] t6 on t5.ArtiklId = T6.Id");
             sql.Append(" where  t3.id is not null and t4.id is not null");
             sql.Append($" and T2.Id = {Provoz}");
             if (Umisteni != null)

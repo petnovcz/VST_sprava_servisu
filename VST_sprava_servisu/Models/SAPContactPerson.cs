@@ -22,6 +22,7 @@ namespace VST_sprava_servisu
         public string E_MaiL { get; set; }
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SAPContactPerson");
+        
 
 
         // KONTAKTNÍ OSOBY
@@ -29,13 +30,15 @@ namespace VST_sprava_servisu
         public static List<SAPContactPerson> SAPContactPersonList(string SAPOP)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
             List<SAPContactPerson> SAPCP = new List<SAPContactPerson>();
 
             StringBuilder sql = new StringBuilder();
 
             sql.Append(" Select CntctCode, CardCode, Name, Position, Tel1, Cellolar, E_MailL from OCPR");
             sql.Append($" Where CardCode = '{SAPOP}' and");
-            sql.Append(" (select count(*) from [Servis].[dbo].[KontakniOsoba] where SapId = CntctCode ) = 0");
+            sql.Append($" (select count(*) from [{RS_dtb}].[dbo].[KontakniOsoba] where SapId = CntctCode ) = 0");
 
 
             //(select COUNT(*) from[Servis].[dbo].[Zakaznik] Z where Z.KodSAP COLLATE DATABASE_DEFAULT = CardCode COLLATE DATABASE_DEFAULT) = 0)";

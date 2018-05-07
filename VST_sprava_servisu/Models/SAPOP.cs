@@ -52,6 +52,8 @@ namespace VST_sprava_servisu
         {
             List<SAPOP> listocrd = new List<SAPOP>();
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+            string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+            string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
             StringBuilder sql = new StringBuilder();
 
             sql.Append(" Select CardCode,CardName,Address,City, ZipCode,Country,LicTradNum,VatIdUnCmp,");
@@ -73,7 +75,7 @@ namespace VST_sprava_servisu
             }
             sql.Append(" CardType = 'C' and");
             sql.Append(" ((Select count(*) from OINV Z where Z.CardCode = CardCode ) > 0) and");
-            sql.Append(" ((select COUNT(*) from[Servis].[dbo].[Zakaznik] Z where Z.KodSAP COLLATE DATABASE_DEFAULT = CardCode COLLATE DATABASE_DEFAULT) = 0)");
+            sql.Append($" ((select COUNT(*) from [{RS_dtb}].[dbo].[Zakaznik] Z where Z.KodSAP COLLATE DATABASE_DEFAULT = CardCode COLLATE DATABASE_DEFAULT) = 0)");
 
             sql.Append(" order by");
             sql.Append(" ((select COUNT(*) from [@VCZ_CT_PRJ] X where x.U_CardCode = CardCode and x.U_Type = 'R' and X.U_Status not in ('7','8')) ");
