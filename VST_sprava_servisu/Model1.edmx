@@ -157,6 +157,7 @@
           <Property Name="Projekt" Type="nchar" MaxLength="25" />
           <Property Name="Nabidka" Type="nchar" MaxLength="25" />
           <Property Name="F" Type="int" />
+          <Property Name="ReviziProvedl" Type="int" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -320,6 +321,16 @@
           <Property Name="Realizovana" Type="bit" Nullable="false" />
           <Property Name="Stornovana" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Technici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrijmeniJmeno" Type="nchar" MaxLength="10" />
+          <Property Name="File" Type="varbinary(max)" />
+          <Property Name="ImageSize" Type="int" />
+          <Property Name="FileName" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="Umisteni">
           <Key>
             <PropertyRef Name="Id" />
@@ -473,6 +484,18 @@
             </Principal>
             <Dependent Role="Zakaznik">
               <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Revize_ToTechnici">
+          <End Role="Technici" Type="Self.Technici" Multiplicity="0..1" />
+          <End Role="Revize" Type="Self.Revize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technici">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Revize">
+              <PropertyRef Name="ReviziProvedl" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -798,6 +821,7 @@
           <EntitySet Name="SkupinaArtiklu" EntityType="Self.SkupinaArtiklu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusRevize" EntityType="Self.StatusRevize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Technici" EntityType="Self.Technici" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Umisteni" EntityType="Self.Umisteni" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vozidlo" EntityType="Self.Vozidlo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VymenyLahvi" EntityType="Self.VymenyLahvi" Schema="dbo" store:Type="Tables" />
@@ -837,6 +861,10 @@
           <AssociationSet Name="FK_RegionZakaznik" Association="Self.FK_RegionZakaznik">
             <End Role="Region" EntitySet="Region" />
             <End Role="Zakaznik" EntitySet="Zakaznik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Revize_ToTechnici" Association="Self.FK_Revize_ToTechnici">
+            <End Role="Technici" EntitySet="Technici" />
+            <End Role="Revize" EntitySet="Revize" />
           </AssociationSet>
           <AssociationSet Name="FK_RevizeSCRevize" Association="Self.FK_RevizeSCRevize">
             <End Role="Revize" EntitySet="Revize" />
@@ -1113,6 +1141,11 @@
             <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
             <End Role="ServisniZasahPrvekSerioveCislo" EntitySet="ServisniZasahPrvekSerioveCislo" />
           </AssociationSet>
+          <EntitySet Name="Technici" EntityType="Model1.Technici" />
+          <AssociationSet Name="FK_Revize_ToTechnici" Association="Model1.FK_Revize_ToTechnici">
+            <End Role="Technici" EntitySet="Technici" />
+            <End Role="Revize" EntitySet="Revize" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
           <Key>
@@ -1296,6 +1329,8 @@
           <Property Name="Nabidka" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="VymenyLahvi" Relationship="Model1.FK_VymenyLahvi_ToRevize" FromRole="Revize" ToRole="VymenyLahvi" />
           <Property Name="F" Type="Int32" />
+          <Property Name="ReviziProvedl" Type="Int32" />
+          <NavigationProperty Name="Technici" Relationship="Model1.FK_Revize_ToTechnici" FromRole="Revize" ToRole="Technici" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -1981,6 +2016,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Technici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PrijmeniJmeno" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageSize" Type="Int32" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Revize" Relationship="Model1.FK_Revize_ToTechnici" FromRole="Technici" ToRole="Revize" />
+        </EntityType>
+        <Association Name="FK_Revize_ToTechnici">
+          <End Type="Model1.Technici" Role="Technici" Multiplicity="0..1" />
+          <End Type="Model1.Revize" Role="Revize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technici">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Revize">
+              <PropertyRef Name="ReviziProvedl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2075,6 +2133,7 @@
     <EntitySetMapping Name="Revize">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Revize)">
         <MappingFragment StoreEntitySet="Revize">
+                <ScalarProperty Name="ReviziProvedl" ColumnName="ReviziProvedl" />
                 <ScalarProperty Name="F" ColumnName="F" />
                 <ScalarProperty Name="Nabidka" ColumnName="Nabidka" />
                 <ScalarProperty Name="Projekt" ColumnName="Projekt" />
@@ -2370,6 +2429,17 @@
                 <ScalarProperty Name="SAPKod" ColumnName="SAPKod" />
                 <ScalarProperty Name="SerioveCislo" ColumnName="SerioveCislo" />
                 <ScalarProperty Name="ServisniZasahPrvekId" ColumnName="ServisniZasahPrvekId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Technici">
+            <EntityTypeMapping TypeName="Model1.Technici">
+              <MappingFragment StoreEntitySet="Technici">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ImageSize" ColumnName="ImageSize" />
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="PrijmeniJmeno" ColumnName="PrijmeniJmeno" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

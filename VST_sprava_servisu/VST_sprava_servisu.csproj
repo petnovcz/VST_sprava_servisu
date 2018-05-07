@@ -315,6 +315,7 @@
     <Compile Include="Controllers\ServisniZasahPrvekController.cs" />
     <Compile Include="Controllers\ServisniZasahyController.cs" />
     <Compile Include="Controllers\SZSerioveCisloeController.cs" />
+    <Compile Include="Controllers\TechniciController.cs" />
     <Compile Include="Controllers\VozidloController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -467,6 +468,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\StatusRevizesController.cs" />
+    <Compile Include="Technici.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Umisteni.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1224,6 +1228,11 @@
     <Content Include="Views\Projekty\Details.cshtml" />
     <Content Include="Views\Projekty\DetailsOinv.cshtml" />
     <Content Include="Views\Projekty\DetailsOpch.cshtml" />
+    <Content Include="Views\Technici\Create.cshtml" />
+    <Content Include="Views\Technici\Delete.cshtml" />
+    <Content Include="Views\Technici\Details.cshtml" />
+    <Content Include="Views\Technici\Edit.cshtml" />
+    <Content Include="Views\Technici\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

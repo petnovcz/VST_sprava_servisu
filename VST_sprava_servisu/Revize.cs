@@ -74,6 +74,7 @@ namespace VST_sprava_servisu
         public virtual Umisteni Umisteni { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VymenyLahvi> VymenyLahvi { get; set; }
-        
+        public Nullable<int> ReviziProvedl { get; set; }
+        public virtual Technici Technici { get; set; }
     }
 }
