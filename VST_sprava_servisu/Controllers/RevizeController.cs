@@ -679,7 +679,7 @@ namespace VST_sprava_servisu
                 Response.Flush();
                 //Response.Close();
             }
-            catch { log.Error($"Nena4tena adresa {path}"); }
+            catch (Exception ex) { log.Error($"Nena4tena adresa {path}"); }
 
         }
 
@@ -711,7 +711,7 @@ namespace VST_sprava_servisu
                 Response.Flush();
                 //Response.Close();
             }
-            catch { log.Error($"Nena4tena adresa {path}"); }
+            catch (Exception ex) { log.Error($"Nena4tena adresa {path}"); }
 
         }
 
@@ -740,7 +740,7 @@ namespace VST_sprava_servisu
                 Response.Flush();
                // Response.Close();
             }
-            catch { log.Error($"Nena4tena adresa {path}"); }
+            catch(Exception ex) { log.Error($"Nena4tena adresa {path}"); }
             
         }
 
@@ -760,7 +760,7 @@ namespace VST_sprava_servisu
             ViewBag.Region = Region;
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
-            //ViewBag.ReviziProvedl = new SelectList(db.AspNetUsers, "Id", "UserName", revize.ReviziProvedl);
+            ViewBag.ReviziProvedl = new SelectList(db.AspNetUsers, "Id", "UserName", revize.ReviziProvedl);
             return View(revize);
         }
 
@@ -784,7 +784,7 @@ namespace VST_sprava_servisu
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
             ViewBag.StatusRevizeId = new SelectList(db.StatusRevize, "Id", "NazevStatusuRevize", revize.StatusRevizeId);
-            //ViewBag.ReviziProvedl = new SelectList(db.AspNetUsers, "Id", "UserName", revize.ReviziProvedl);
+            ViewBag.ReviziProvedl = new SelectList(db.AspNetUsers, "Id", "UserName", revize.ReviziProvedl);
             revize.Region = Region;
             ViewBag.Region = Region;
             return View(revize);
