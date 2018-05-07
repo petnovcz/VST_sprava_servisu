@@ -266,7 +266,7 @@ namespace VST_sprava_servisu
                 /*KM*/
                 if (sz.CestaCelkem > 0)
                 {
-                    oDelivery.Lines.ItemCode = "SP05";
+                    oDelivery.Lines.ItemCode = "SP02";
                     oDelivery.Lines.Quantity = Convert.ToDouble(sz.Km);
                     oDelivery.Lines.Price = Convert.ToDouble(sz.CestaCelkem / sz.Km);
                     oDelivery.Lines.WarehouseCode = "Servis";

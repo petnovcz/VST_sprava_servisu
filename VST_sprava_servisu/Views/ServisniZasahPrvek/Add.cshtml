@@ -18,7 +18,7 @@
     @Html.HiddenFor(model => model.ServisniZasahId)
 
 
-    @Html.DropDownListFor(m => m.SCProvozuID, (SelectList)ViewBag.SCProvozuID, "Please select", new { @class = "form-control" })
+    @Html.DropDownListFor(m => m.SCProvozuID, (SelectList)ViewBag.SCProvozuID, "Bez vybraného prvku", new { @class = "form-control" })
     @Html.ValidationMessageFor(model => model.SCProvozuID, "", new { @class = "text-danger" })
 
 

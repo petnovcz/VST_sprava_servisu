@@ -23,8 +23,14 @@ namespace VST_sprava_servisu
         public int Id { get; set; }
         public string NazevPoruchy { get; set; }
         public int KategoriePoruchyId { get; set; }
-        public bool SIL { get; set; }
+        public Nullable<bool> SIL { get; set; }
         public Nullable<int> SkupinaArtikluId { get; set; }
+        public Nullable<bool> Aktivace { get; set; }
+        public Nullable<bool> OpravnenaAktivace { get; set; }
+        public Nullable<bool> FalesnaAktivace { get; set; }
+        public Nullable<bool> VZaruce { get; set; }
+        public Nullable<bool> UznanaReklamace { get; set; }
+        public Nullable<bool> PozarucniServis { get; set; }
     
         public virtual KategoriePoruchy KategoriePoruchy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

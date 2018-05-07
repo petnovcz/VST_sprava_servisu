@@ -54,7 +54,7 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NazevPoruchy,KategoriePoruchyId,SkupinaArtikluId,SIL")] Porucha porucha)
+        public ActionResult Create([Bind(Include = "Id,NazevPoruchy,KategoriePoruchyId,SkupinaArtikluId,SIL,Aktivace,OpravnenaAktivace,FalesnaAktivace,VZaruce,UznanaReklamace,PozarucniServis")] Porucha porucha)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,7 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NazevPoruchy,KategoriePoruchyId,SkupinaArtikluId,SIL")] Porucha porucha)
+        public ActionResult Edit([Bind(Include = "Id,NazevPoruchy,KategoriePoruchyId,SkupinaArtikluId,SIL,Aktivace,OpravnenaAktivace,FalesnaAktivace,VZaruce,UznanaReklamace,PozarucniServis")] Porucha porucha)
         {
             if (ModelState.IsValid)
             {

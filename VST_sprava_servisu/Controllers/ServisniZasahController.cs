@@ -213,7 +213,7 @@ namespace VST_sprava_servisu.Controllers
                         ModelState.Clear();
                         break;
                     case "Create":
-                        var km = CenaArtikluZakaznik.GetCena("SP05", servisniZasah.ZakaznikID);
+                        var km = CenaArtikluZakaznik.GetCena("SP02", servisniZasah.ZakaznikID);
                         decimal kmcena;
                         if (km.ZCCena != 0) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
                         servisniZasah.CestaCelkem = servisniZasah.Km * kmcena;

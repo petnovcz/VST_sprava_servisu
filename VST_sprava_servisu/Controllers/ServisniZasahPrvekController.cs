@@ -95,7 +95,7 @@ namespace VST_sprava_servisu.Controllers
             }
             catch (Exception ex) { }
 
-            ViewBag.ArtiklID = new SelectList(db.Artikl.Where(t=>t.SkupinaArtiklu == 129), "Id", "Nazev");
+            ViewBag.ArtiklID = new SelectList(db.Artikl.Where(t=>t.SkupinaArtiklu == 129 && t.KodSAP !="SP02" && t.KodSAP != "SP01"), "Id", "Nazev");
             if (skupina != null && skupina !=0)
             {
                 ViewBag.PoruchaID = new SelectList(Porucha.GetPoruchyProSkupinu(scprovozu.Artikl.SkupinaArtiklu.Value), "Id", "NazevPoruchy");
@@ -119,10 +119,12 @@ namespace VST_sprava_servisu.Controllers
             {
                 
                 decimal cena;
-                cena = ServisniZasah.GetCenaForprvek(servisniZasahPrvek);
-                servisniZasahPrvek.CenaZaKus = cena;
-                servisniZasahPrvek.CenaCelkem = cena * servisniZasahPrvek.Pocet;
-
+                if (servisniZasahPrvek.ArtiklID != null)
+                {
+                    cena = ServisniZasah.GetCenaForprvek(servisniZasahPrvek);
+                    servisniZasahPrvek.CenaZaKus = cena;
+                    servisniZasahPrvek.CenaCelkem = cena * servisniZasahPrvek.Pocet;
+                }
                 ServisniZasah sz = new ServisniZasah();
                 sz = ServisniZasah.GetZasah(servisniZasahPrvek.ServisniZasahId);
                 

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 
 <h2>Index</h2>
@@ -14,14 +15,31 @@
         <th>
             @Html.DisplayNameFor(model => model.NazevPoruchy)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SIL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KategoriePoruchy.NazevKategorie)
-        </th>
+
+
         <th>
             @Html.DisplayNameFor(model => model.SkupinaArtiklu.Skupina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aktivace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpravnenaAktivace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FalesnaAktivace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VZaruce)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UznanaReklamace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PozarucniServis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SIL)
         </th>
         <th></th>
     </tr>
@@ -31,14 +49,31 @@
         <td>
             @Html.DisplayFor(modelItem => item.NazevPoruchy)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SIL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KategoriePoruchy.NazevKategorie)
-        </td>
+
+
         <td>
             @Html.DisplayFor(modelItem => item.SkupinaArtiklu.Skupina)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Aktivace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpravnenaAktivace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FalesnaAktivace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VZaruce)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UznanaReklamace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PozarucniServis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SIL)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

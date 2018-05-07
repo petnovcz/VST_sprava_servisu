@@ -174,7 +174,7 @@ namespace VST_sprava_servisu
             {
                 sz = db.ServisniZasah.Where(t => t.Id == Id).FirstOrDefault();
 
-                var km = CenaArtikluZakaznik.GetCena("SP05", sz.ZakaznikID);
+                var km = CenaArtikluZakaznik.GetCena("SP02", sz.ZakaznikID);
                 decimal kmcena;
                 if (km.ZCCena != 0) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
                 sz.CestaCelkem = sz.Km * kmcena;

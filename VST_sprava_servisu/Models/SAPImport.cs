@@ -133,7 +133,7 @@ namespace VST_sprava_servisu
             sql.Append(" select t0.Code, t0.U_Descript, t1.Name   from [@VCZ_CT_PRJ]  t0 left join[@VCZ_CT_STATUS] t1 on t0.U_Status = t1.Code");
             sql.Append($" where U_CardCode = '{SAPKod}'");
             sql.Append(" and coalesce(U_ActStart, U_StartDat) <= GETDATE() and coalesce(U_ActEndDt, U_EndDate) >= GETDATE()");
-            sql.Append(" and U_Status not in ('7', '8', '2') or t0.Code = 'RP00085'");
+            sql.Append(" and U_Status not in ('7', '8', '2') or t0.Code = 'RP00078'");
             
             log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
             SqlConnection cnn = new SqlConnection(connectionString);
