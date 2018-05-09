@@ -326,10 +326,17 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PrijmeniJmeno" Type="nchar" MaxLength="10" />
+          <Property Name="PrijmeniJmeno" Type="nchar" MaxLength="256" />
           <Property Name="File" Type="varbinary(max)" />
           <Property Name="ImageSize" Type="int" />
           <Property Name="FileName" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TypPBZ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazevPBZ" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Umisteni">
           <Key>
@@ -340,6 +347,14 @@
           <Property Name="NazevUmisteni" Type="nvarchar(max)" Nullable="false" />
           <Property Name="SamostatnaRevize" Type="bit" Nullable="false" />
           <Property Name="UkonceniZaruky" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UmisteniTypPBZ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypPBZId" Type="int" Nullable="false" />
+          <Property Name="UmisteniId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Vozidlo">
           <Key>
@@ -751,6 +766,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UmisteniTypPBZ_ToTypPBZ">
+          <End Role="TypPBZ" Type="Self.TypPBZ" Multiplicity="1" />
+          <End Role="UmisteniTypPBZ" Type="Self.UmisteniTypPBZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypPBZ">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UmisteniTypPBZ">
+              <PropertyRef Name="TypPBZId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UmisteniTypPBZ_ToUmisteni">
+          <End Role="Umisteni" Type="Self.Umisteni" Multiplicity="1" />
+          <End Role="UmisteniTypPBZ" Type="Self.UmisteniTypPBZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Umisteni">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UmisteniTypPBZ">
+              <PropertyRef Name="UmisteniId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VymenyLahvi_ToRevize">
           <End Role="Revize" Type="Self.Revize" Multiplicity="1" />
           <End Role="VymenyLahvi" Type="Self.VymenyLahvi" Multiplicity="*" />
@@ -822,7 +861,9 @@
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusRevize" EntityType="Self.StatusRevize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Technici" EntityType="Self.Technici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypPBZ" EntityType="Self.TypPBZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Umisteni" EntityType="Self.Umisteni" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UmisteniTypPBZ" EntityType="Self.UmisteniTypPBZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vozidlo" EntityType="Self.Vozidlo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VymenyLahvi" EntityType="Self.VymenyLahvi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zakaznik" EntityType="Self.Zakaznik" Schema="dbo" store:Type="Tables" />
@@ -949,6 +990,14 @@
           <AssociationSet Name="FK_UmisteniProvoz" Association="Self.FK_UmisteniProvoz">
             <End Role="Provoz" EntitySet="Provoz" />
             <End Role="Umisteni" EntitySet="Umisteni" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UmisteniTypPBZ_ToTypPBZ" Association="Self.FK_UmisteniTypPBZ_ToTypPBZ">
+            <End Role="TypPBZ" EntitySet="TypPBZ" />
+            <End Role="UmisteniTypPBZ" EntitySet="UmisteniTypPBZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UmisteniTypPBZ_ToUmisteni" Association="Self.FK_UmisteniTypPBZ_ToUmisteni">
+            <End Role="Umisteni" EntitySet="Umisteni" />
+            <End Role="UmisteniTypPBZ" EntitySet="UmisteniTypPBZ" />
           </AssociationSet>
           <AssociationSet Name="FK_VymenyLahvi_ToRevize" Association="Self.FK_VymenyLahvi_ToRevize">
             <End Role="Revize" EntitySet="Revize" />
@@ -1146,6 +1195,16 @@
             <End Role="Technici" EntitySet="Technici" />
             <End Role="Revize" EntitySet="Revize" />
           </AssociationSet>
+          <EntitySet Name="TypPBZ" EntityType="Model1.TypPBZ" />
+          <EntitySet Name="UmisteniTypPBZ" EntityType="Model1.UmisteniTypPBZ" />
+          <AssociationSet Name="FK_UmisteniTypPBZ_ToTypPBZ" Association="Model1.FK_UmisteniTypPBZ_ToTypPBZ">
+            <End Role="TypPBZ" EntitySet="TypPBZ" />
+            <End Role="UmisteniTypPBZ" EntitySet="UmisteniTypPBZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UmisteniTypPBZ_ToUmisteni" Association="Model1.FK_UmisteniTypPBZ_ToUmisteni">
+            <End Role="Umisteni" EntitySet="Umisteni" />
+            <End Role="UmisteniTypPBZ" EntitySet="UmisteniTypPBZ" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
           <Key>
@@ -1257,6 +1316,7 @@
           <NavigationProperty Name="Revize" Relationship="Model1.FK_RevizeUmisteni" FromRole="Umisteni" ToRole="Revize" />
           <Property Name="UkonceniZaruky" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ServisniZasah" Relationship="Model1.FK_ServisniZasah_ToUmisteni" FromRole="Umisteni" ToRole="ServisniZasah" />
+          <NavigationProperty Name="UmisteniTypPBZ" Relationship="Model1.FK_UmisteniTypPBZ_ToUmisteni" FromRole="Umisteni" ToRole="UmisteniTypPBZ" />
         </EntityType>
         <Association Name="UmisteniProvoz">
           <End Type="Model1.Umisteni" Role="Umisteni" Multiplicity="*" />
@@ -2039,6 +2099,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TypPBZ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="NazevPBZ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UmisteniTypPBZ" Relationship="Model1.FK_UmisteniTypPBZ_ToTypPBZ" FromRole="TypPBZ" ToRole="UmisteniTypPBZ" />
+        </EntityType>
+        <EntityType Name="UmisteniTypPBZ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="TypPBZId" Type="Int32" Nullable="false" />
+          <Property Name="UmisteniId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TypPBZ" Relationship="Model1.FK_UmisteniTypPBZ_ToTypPBZ" FromRole="UmisteniTypPBZ" ToRole="TypPBZ" />
+          <NavigationProperty Name="Umisteni" Relationship="Model1.FK_UmisteniTypPBZ_ToUmisteni" FromRole="UmisteniTypPBZ" ToRole="Umisteni" />
+        </EntityType>
+        <Association Name="FK_UmisteniTypPBZ_ToTypPBZ">
+          <End Type="Model1.TypPBZ" Role="TypPBZ" Multiplicity="1" />
+          <End Type="Model1.UmisteniTypPBZ" Role="UmisteniTypPBZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypPBZ">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UmisteniTypPBZ">
+              <PropertyRef Name="TypPBZId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UmisteniTypPBZ_ToUmisteni">
+          <End Type="Model1.Umisteni" Role="Umisteni" Multiplicity="1" />
+          <End Type="Model1.UmisteniTypPBZ" Role="UmisteniTypPBZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Umisteni">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UmisteniTypPBZ">
+              <PropertyRef Name="UmisteniId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2440,6 +2542,23 @@
                 <ScalarProperty Name="ImageSize" ColumnName="ImageSize" />
                 <ScalarProperty Name="File" ColumnName="File" />
                 <ScalarProperty Name="PrijmeniJmeno" ColumnName="PrijmeniJmeno" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypPBZ">
+            <EntityTypeMapping TypeName="Model1.TypPBZ">
+              <MappingFragment StoreEntitySet="TypPBZ">
+                <ScalarProperty Name="NazevPBZ" ColumnName="NazevPBZ" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UmisteniTypPBZ">
+            <EntityTypeMapping TypeName="Model1.UmisteniTypPBZ">
+              <MappingFragment StoreEntitySet="UmisteniTypPBZ">
+                <ScalarProperty Name="UmisteniId" ColumnName="UmisteniId" />
+                <ScalarProperty Name="TypPBZId" ColumnName="TypPBZId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

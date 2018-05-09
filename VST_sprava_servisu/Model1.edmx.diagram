@@ -68,6 +68,10 @@
         <AssociationConnector Association="Model1.FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek" />
         <EntityTypeShape EntityType="Model1.Technici" Width="1.5" PointX="9.375" PointY="13.875" />
         <AssociationConnector Association="Model1.FK_Revize_ToTechnici" />
+        <EntityTypeShape EntityType="Model1.TypPBZ" Width="1.5" PointX="7.125" PointY="17.125" />
+        <EntityTypeShape EntityType="Model1.UmisteniTypPBZ" Width="1.5" PointX="9.375" PointY="0.75" />
+        <AssociationConnector Association="Model1.FK_UmisteniTypPBZ_ToTypPBZ" />
+        <AssociationConnector Association="Model1.FK_UmisteniTypPBZ_ToUmisteni" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

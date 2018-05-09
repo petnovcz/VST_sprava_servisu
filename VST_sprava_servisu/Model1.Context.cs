@@ -51,5 +51,7 @@ namespace VST_sprava_servisu
         public virtual DbSet<ServisniZasahPrvekSarze> ServisniZasahPrvekSarze { get; set; }
         public virtual DbSet<ServisniZasahPrvekSerioveCislo> ServisniZasahPrvekSerioveCislo { get; set; }
         public virtual DbSet<Technici> Technici { get; set; }
+        public virtual DbSet<TypPBZ> TypPBZ { get; set; }
+        public virtual DbSet<UmisteniTypPBZ> UmisteniTypPBZ { get; set; }
     }
 }

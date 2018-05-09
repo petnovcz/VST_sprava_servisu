@@ -44,6 +44,7 @@ namespace VST_sprava_servisu
             ViewBag.SCProvozu = x    .ToList();
             ViewBag.Provoz = Provoz;
             ViewBag.Zakaznik = Zakaznik;
+            
             return View(umisteni);
         }
 

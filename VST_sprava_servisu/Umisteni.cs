@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     public partial class Umisteni
     {
@@ -43,5 +44,22 @@ namespace VST_sprava_servisu
         public virtual ICollection<Revize> Revize { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServisniZasah> ServisniZasah { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UmisteniTypPBZ> UmisteniTypPBZ { get; set; }
+
+        public virtual List<TypPBZ> TypPBZList
+        {
+            get
+            {
+                List<TypPBZ> list = new List<TypPBZ>();
+
+                using (var dbCtx = new Model1Container())
+                {
+                    list = dbCtx.TypPBZ.ToList();
+
+                }
+                return list;
+            }
+        }
     }
 }
