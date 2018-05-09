@@ -40,7 +40,7 @@
                     Zjištěný stav<br>
                     Provedené zásahy<br>
                     Opatření k odstranění<br>
-
+                    Hodiny Provozu
                 </th>
                 <th>
 
@@ -83,11 +83,12 @@
                     @Html.DisplayFor(modelItem => item.JineZavady)<br>
                     @Html.DisplayFor(modelItem => item.StavKoroze)<br>
                     @Html.DisplayFor(modelItem => item.StavZnecisteni)<br>
+                    @Html.DisplayFor(modelItem => item.HodinyProvozu)
                 </td>
                 <td>
                     @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
                     {
-                        @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-xs btn-block {disabled}" })
+                        @Html.ActionLink("Edit", "Edit", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-xs btn-block " })
                         @Html.ActionLink("Smaž", "Delete", "RevizeSC", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-danger btn-xs btn-block {disabled}" })
                             if (item.TlakovaZkouska==true)
                             {

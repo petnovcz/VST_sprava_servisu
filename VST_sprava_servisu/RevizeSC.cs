@@ -37,8 +37,10 @@ namespace VST_sprava_servisu
         [Display(Name = "Zpùsobilý k provozu")]
         public bool Stav { get; set; }
 
-        public Nullable<DateTime> DobaProvozu { get; set; }
-    
+        public Nullable<System.DateTime> DobaProvozu { get; set; }
+        public string DobaProvozuString { get; set; }
+        public Nullable<long> HodinyProvozu { get; set; }
+
         public virtual Revize Revize { get; set; }
         public virtual SCProvozu SCProvozu { get; set; }
         public virtual Umisteni Umisteni { get; set; }

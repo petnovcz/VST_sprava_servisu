@@ -12,6 +12,18 @@ namespace VST_sprava_servisu
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("RevizeSC");
 
+        internal protected static RevizeSC CalculateDobuProvozu(RevizeSC revizeSC)
+        {
+            revizeSC.HodinyProvozu = 1000;
+
+
+            return revizeSC;
+        }
+
+
+
+
+
         internal protected static void DeleteRevizeSCFromRevize(int RevizeID)
         {
             using (var dbCtx = new Model1Container())

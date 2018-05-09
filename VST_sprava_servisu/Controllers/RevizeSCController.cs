@@ -141,9 +141,10 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska,Stav")] RevizeSC revizeSC)
+        public ActionResult Edit([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska,Stav,DobaProvozu,HodinyProvozu,DobaProvozuString")] RevizeSC revizeSC)
         {
             int RevizeId = 0;
+            //revizeSC = RevizeSC.CalculateDobuProvozu(revizeSC);
             if (ModelState.IsValid)
             {
                 try

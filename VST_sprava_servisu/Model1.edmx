@@ -175,6 +175,8 @@
           <Property Name="TlakovaZkouska" Type="bit" Nullable="false" />
           <Property Name="Stav" Type="bit" Nullable="false" />
           <Property Name="DobaProvozu" Type="datetime" />
+          <Property Name="DobaProvozuString" Type="nvarchar" MaxLength="50" />
+          <Property Name="HodinyProvozu" Type="bigint" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -1411,6 +1413,8 @@
           <Property Name="TlakovaZkouska" Type="Boolean" Nullable="false" />
           <Property Name="Stav" Type="Boolean" Nullable="false" />
           <Property Name="DobaProvozu" Type="DateTime" Precision="3" />
+          <Property Name="DobaProvozuString" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HodinyProvozu" Type="Int64" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -2266,7 +2270,9 @@
     <EntitySetMapping Name="RevizeSC">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.RevizeSC)">
         <MappingFragment StoreEntitySet="RevizeSC">
-          <ScalarProperty Name="DobaProvozu" ColumnName="DobaProvozu" />
+          <ScalarProperty Name="HodinyProvozu" ColumnName="HodinyProvozu" />
+                <ScalarProperty Name="DobaProvozuString" ColumnName="DobaProvozuString" />
+                <ScalarProperty Name="DobaProvozu" ColumnName="DobaProvozu" />
                 <ScalarProperty Name="Stav" ColumnName="Stav" />
                 <ScalarProperty Name="TlakovaZkouska" ColumnName="TlakovaZkouska" />
                 <ScalarProperty Name="Pyro" ColumnName="Pyro" />
