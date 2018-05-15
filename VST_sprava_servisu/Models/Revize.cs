@@ -78,8 +78,8 @@ namespace VST_sprava_servisu
             sql.Append(" group by t1.BaterieArtikl, t3.Nazev, t3.KodSAP");
 
             //  LOGOVANI
-            log.Debug($"CalculateRevizeBaterie pro revizi č.{revize.ToString()}");
-            log.Debug(sql.ToString());
+            //log.Debug($"CalculateRevizeBaterie pro revizi č.{revize.ToString()}");
+            //log.Debug(sql.ToString());
 
             SqlConnection cnn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand();
@@ -99,25 +99,25 @@ namespace VST_sprava_servisu
                     {
                         item.BaterieArtikl = dr.GetInt32(dr.GetOrdinal("BaterieArtikl"));
                     }
-                    catch(Exception ex) { log.Info($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch(Exception ex) { //log.Info($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
                         item.BaterieSAPKod = dr.GetString(dr.GetOrdinal("BaterieSAPKod"));
                     }
-                    catch (Exception ex) { log.Info($"Baterie SAPKod prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch (Exception ex) { //log.Info($"Baterie SAPKod prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
                         item.BaterieName = dr.GetString(dr.GetOrdinal("BaterieName"));
                     }
-                    catch (Exception ex) { log.Info($"Baterie nazev prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch (Exception ex) {// log.Info($"Baterie nazev prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
                         item.Pocet = dr.GetInt32(dr.GetOrdinal("Pocet"));
                     }
-                    catch (Exception ex) { log.Info($"pocet prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch (Exception ex) { //log.Info($"pocet prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     
 

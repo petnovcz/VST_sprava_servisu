@@ -54,19 +54,22 @@ namespace VST_sprava_servisu
                     {
                         sapItem.ItemName = dr.GetString(1);
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapItem.ItmsGrpNam = dr.GetString(3);
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         
                         int codeint = dr.GetInt16(2);
                         sapItem.ItmsGrpCod = codeint;
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
 
                 }
             }
@@ -103,22 +106,26 @@ namespace VST_sprava_servisu
                     {
                         sapitem.ItemCode = dr.GetString(dr.GetOrdinal("ItemCode"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapitem.ItemName = dr.GetString(dr.GetOrdinal("ItemName"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapitem.ItmsGrpNam = dr.GetString(dr.GetOrdinal("ItmsGrpNam"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapitem.ItmsGrpCod = dr.GetInt16(dr.GetOrdinal("ItmsGrpCod"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
 
                     SAPItemsList.Add(sapitem);
                 }

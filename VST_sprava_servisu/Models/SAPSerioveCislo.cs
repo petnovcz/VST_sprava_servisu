@@ -75,62 +75,74 @@ namespace VST_sprava_servisu
                     {
                         sapitem.SerioveCislo = dr.GetString(dr.GetOrdinal("SerioveCislo"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapitem.ArticlId = dr.GetInt32(dr.GetOrdinal("ArticlId"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                     try
                     {
                         sapitem.NazevArtiklu = dr.GetString(dr.GetOrdinal("Nazev"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                            }
                     try
                     {
                         sapitem.DatumDodani = dr.GetDateTime(dr.GetOrdinal("Dodano"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                                }
                     try
                     {
                         sapitem.DatumVyroby = dr.GetDateTime(dr.GetOrdinal("Vyrobeno"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                                    }
                     try
                     {
                         sapitem.KodSAP = dr.GetString(dr.GetOrdinal("KodSAP"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                                        }
                     try
                     {
                         sapitem.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                                            }
                     try
                     {
                         sapitem.CardName = dr.GetString(dr.GetOrdinal("CardName"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                                                }
                     try
                     {
                         sapitem.BaseType = dr.GetInt32(dr.GetOrdinal("BaseType"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                                                    }
                     try
                     {
                         sapitem.BaseNum = dr.GetInt32(dr.GetOrdinal("BaseNum"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                                                        }
                     try
                     {
                         sapitem.PrjCode = dr.GetString(dr.GetOrdinal("PrjCode"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                                                            }
                     try
                     {
                         sapitem.PrjName = dr.GetString(dr.GetOrdinal("PrjName"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                                                                }
 
                     using (var dbCtx = new Model1Container())
                     {
@@ -179,32 +191,38 @@ namespace VST_sprava_servisu
                     {
                         sapitem.SerioveCislo = dr.GetString(dr.GetOrdinal("SerioveCislo"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapitem.ArticlId = dr.GetInt32(dr.GetOrdinal("ArticlId"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapitem.NazevArtiklu = dr.GetString(dr.GetOrdinal("Nazev"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapitem.DatumDodani = dr.GetDateTime(dr.GetOrdinal("Dodano"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         sapitem.DatumVyroby = dr.GetDateTime(dr.GetOrdinal("Vyrobeno"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapitem.KodSAP = dr.GetString(dr.GetOrdinal("KodSAP"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
 
                     sapitem.Zakaznik = Zakaznik;
                     sapitem.ZakaznikSAPKod = OPSAPkod;

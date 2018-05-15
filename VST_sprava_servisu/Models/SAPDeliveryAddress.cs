@@ -62,27 +62,32 @@ namespace VST_sprava_servisu
                     {
                         sapda.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         sapda.Street = dr.GetString(dr.GetOrdinal("Street"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         sapda.ZipCode = dr.GetString(dr.GetOrdinal("ZipCode"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapda.City = dr.GetString(dr.GetOrdinal("City"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         sapda.Country = dr.GetString(dr.GetOrdinal("Country"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
 
 
                     SAPDAList.Add(sapda);

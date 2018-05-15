@@ -55,22 +55,26 @@ namespace VST_sprava_servisu
             {
                 ViewBag.ListRegion = Session["List_Skupina"].ToString();
             }
-            catch (Exception ex) { log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
             try
             {
                 ViewBag.ListDateFrom = Session["List_DateFrom"].ToString();
             }
-            catch (Exception ex) { log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
             try
             {
                 ViewBag.ListDateTo = Session["List_DateTo"].ToString();
             }
-            catch (Exception ex) { log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            }
             try
             {
                 ViewBag.ListStatusRevize = Session["List_StatusRevize"].ToString();
             }
-            catch (Exception ex) { log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
             //revize.RevizeBaterie = revize.CalculateRevizeBaterie(revize.Id);
             ViewBag.Region = Region;
             return View(revize);
@@ -93,7 +97,8 @@ namespace VST_sprava_servisu
             {
                 ViewBag.ListRegion = Session["List_Skupina"].ToString();
             }
-            catch (Exception ex) { log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            }
 
             try
             {
@@ -101,19 +106,22 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(ListDateFrom);
                 ViewBag.ListDateFrom = xx;
             }
-            catch (Exception ex) { log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
             try
             {
                 var ListDateTo = Session["List_DateTo"].ToString();
                 DateTime xx = Convert.ToDateTime(ListDateTo);
                 ViewBag.ListDateTo = xx;
             }
-            catch (Exception ex) { log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
             try
             {
                 ViewBag.ListStatus = Session["List_Status"].ToString();
             }
-            catch (Exception ex) { log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
             if (Region == null)
             {
 
@@ -276,17 +284,20 @@ namespace VST_sprava_servisu
             {
                 session_rok = Convert.ToInt32(Session["Rok"].ToString());
             }
-            catch (Exception ex) { log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
             try
             {
                 session_mesic = Convert.ToInt32(Session["Mesic"].ToString());
             }
-            catch (Exception ex) { log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
             try
             {
                 session_region = Convert.ToInt32(Session["List_Skupina"].ToString());
             }
-            catch (Exception ex) { log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
             if (Rok != null) { Session["Rok"] = Rok; }
             if (Mesic != null) { Session["Mesic"] = Mesic; }
             if (Region != null) { Session["List_Skupina"] = Region; }
@@ -325,7 +336,8 @@ namespace VST_sprava_servisu
             {
                 ListRegion = Session["List_Skupina"].ToString();
             }
-            catch (Exception ex) { log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
 
             try
             {
@@ -333,19 +345,22 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(xListDateFrom);
                 ListDateFrom = xx;
             }
-            catch (Exception ex) { log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
             try
             {
                 var ListDateTox = Session["List_DateTo"].ToString();
                 DateTime xx = Convert.ToDateTime(ListDateTox);
                 ListDateTo = xx;
             }
-            catch (Exception ex) { log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) {// log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
             try
             {
                 ListStatus = Session["List_Status"].ToString();
             }
-            catch (Exception ex) { log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
 
             ViewBag.ListDateFrom = ListDateFrom;
             ViewBag.ListDateTo = ListDateTo;
@@ -377,7 +392,8 @@ namespace VST_sprava_servisu
             {
                 ListRegion = Session["List_Skupina"].ToString();
             }
-            catch (Exception ex) { log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
 
 
             try
@@ -386,7 +402,8 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(xListDateFrom);
                 ListDateFrom = xx;
             }
-            catch (Exception ex) { log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            }
 
             try
             {
@@ -394,13 +411,15 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(ListDateTox);
                 ListDateTo = xx;
             }
-            catch (Exception ex) { log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            }
 
             try
             {
                 ListStatus = Session["List_Status"].ToString();
             }
-            catch (Exception ex) { log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+            catch (Exception ex) { //log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            }
 
 
 

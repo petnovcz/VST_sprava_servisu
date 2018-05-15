@@ -314,6 +314,7 @@
     <Compile Include="Controllers\ServisniZasahController.cs" />
     <Compile Include="Controllers\ServisniZasahPrvekController.cs" />
     <Compile Include="Controllers\ServisniZasahyController.cs" />
+    <Compile Include="Controllers\SILController.cs" />
     <Compile Include="Controllers\SZSerioveCisloeController.cs" />
     <Compile Include="Controllers\TechniciController.cs" />
     <Compile Include="Controllers\TypPBZController.cs" />
@@ -389,6 +390,7 @@
     <Compile Include="Models\ServisniZasahPrvekSerioveCislo.cs" />
     <Compile Include="Models\ServisniZasahy.cs" />
     <Compile Include="Models\SessionReader.cs" />
+    <Compile Include="Models\SIL.cs" />
     <Compile Include="Models\StatusRevize.cs" />
     <Compile Include="Models\Umisteni.cs" />
     <Compile Include="Models\VymenyLahvi.cs" />
@@ -1251,6 +1253,7 @@
     <Content Include="Views\UmisteniTypPBZ\Details.cshtml" />
     <Content Include="Views\UmisteniTypPBZ\Edit.cshtml" />
     <Content Include="Views\UmisteniTypPBZ\Index.cshtml" />
+    <Content Include="Views\SIL\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

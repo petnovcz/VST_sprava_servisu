@@ -1,0 +1,192 @@
+﻿@model VST_sprava_servisu.SIL
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+}
+
+<h3>Vyhodnocení SIL - @Model.Rok </h3>
+
+<h4>Výpočet průměrných hodnot</h4>
+<table class="table table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Průměr doby provozu I.revize
+            </th>
+            <th>
+                Průměr doby provozu II. revize
+            </th>
+            <th>
+                Průměrný počet dnů mezi revizemi
+            </th>
+            <th>
+                Průměr hodin [den]
+            </th>
+            <th>
+                Průměr hodin [rok]
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @String.Format("{0:n2}", @Model.PrumerDobyProvozu.DobaprovozuI)
+
+
+            </td>
+            <td>
+                @String.Format("{0:n2}", @Model.PrumerDobyProvozu.DobaprovozuII)
+
+            </td>
+            <td>
+                @String.Format("{0:n2}", @Model.PrumerDobyProvozu.DniMeziRevizemi)
+
+            </td>
+            <td>
+                @String.Format("{0:n2}", @Model.PrumerDobyProvozu.TAKU)
+
+            </td>
+            <td>
+                @String.Format("{0:n2}", @Model.PrumerDobyProvozu.TAKUII)
+
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+<h4>Přehled všech jednotek - chybějící data nahrazena průměrem</h4>
+<table class="table table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Zákazník <br>
+                Provoz <br>
+                Technologie
+            </th>
+            <th>
+                Artikl <br>
+                Sériové číslo
+            </th>
+            <th>
+                I
+            </th>
+            <th>
+                II
+            </th>
+            <th>
+                doba mezi revizemi
+            </th>
+            <th>
+                TAKU
+            </th>
+            <th>
+                TAKU II
+            </th>
+            <th>
+                počet revizí v roce
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SIL_DobaProvozu)
+        {
+            <tr>
+                <td>
+                    @item.Zakaznik.NazevZakaznika <br>
+                    @item.Provoz.NazevProvozu <br>
+                    @item.Umisteni.NazevUmisteni<br>
+                </td>
+                <td>
+                    @item.Artikl.Nazev <br>
+                    @item.SerioveCislo.SerioveCislo1
+                </td>
+                <td>
+                    @String.Format("{0:n2}", @item.DobaprovozuI)
+
+                </td>
+                <td>
+                    @String.Format("{0:n2}", @item.DobaprovozuII)
+
+                </td>
+                <td>
+                    @String.Format("{0:n2}", @item.DniMeziRevizemi)
+
+                </td>
+                <td>
+                    @String.Format("{0:n2}", @item.TAKU)
+
+                </td>
+                <td>
+                    @String.Format("{0:n2}", @item.TAKUII)
+
+                </td>
+                <td>
+                    @item.PocetReviziVRoce
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<h4>Sumarizace všech jendotek - chybějící data nahrazena průměrem</h4>
+<table class="table table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Počet prvků (řídících jednotek)
+            </th>
+            <th>
+                Suma doby provozu 1. revize
+            </th>
+            <th>
+                Suma provozu 2. revize
+            </th>
+            <th>
+                Průměr dní mezi revizemi
+            </th>
+            <th>
+                Průměrné TAKU na 24 hodin
+            </th>
+            <th>
+                Součet Celkové doby provozu
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                @Model.SIL_DobaProvozu.Count()
+            </td>
+            <td>
+                @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Sum(i => i.DobaprovozuI))
+
+
+            </td>
+            <td>
+                @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Sum(i => i.DobaprovozuII))
+
+            </td>
+            <td>
+                @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Average(i => i.DniMeziRevizemi))
+
+            </td>
+            <td>
+                @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Average(i => i.TAKU))
+
+            </td>
+            <td>
+                @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Sum(i => i.TAKUII))
+
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>

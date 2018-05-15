@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using System.Data.Entity;
 
 namespace VST_sprava_servisu
 {
@@ -36,8 +38,8 @@ namespace VST_sprava_servisu
             SerioveCislo serioveCislo = new SerioveCislo();
             using (var dbCtx = new Model1Container())
             {
-                serioveCislo = dbCtx.SerioveCislo.Where(r => r.Id == SC).FirstOrDefault();
-                serioveCislo.Artikl = dbCtx.Artikl.Where(r => r.Id == serioveCislo.ArtiklId).FirstOrDefault();
+                serioveCislo = dbCtx.SerioveCislo.Where(r => r.Id == SC).Include(t=>t.Artikl).FirstOrDefault();
+                //serioveCislo.Artikl = dbCtx.Artikl.Where(r => r.Id == serioveCislo.ArtiklId).FirstOrDefault();
 
             }
 

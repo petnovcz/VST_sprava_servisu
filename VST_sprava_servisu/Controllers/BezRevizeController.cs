@@ -32,7 +32,8 @@ namespace VST_sprava_servisu
                     var x = Session["List_Skupina"].ToString();
                     Skupina = Convert.ToInt32(x);
                 }
-                catch(Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);  }
+                catch(Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);  
+                }
                 if (Skupina == null)
                 {
                     Skupina = 0;

@@ -50,7 +50,7 @@ namespace VST_sprava_servisu
                 sql.Append(" SELECT TOP 1000 [Code],[Name] FROM [dbo].[@VCZ_CT_TYPES]");
                 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -70,12 +70,14 @@ namespace VST_sprava_servisu
                         {
                             tp.Kod = dr.GetString(dr.GetOrdinal("Code"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             tp.Nazev = dr.GetString(dr.GetOrdinal("Name"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         list.Add(tp);
                     }
                 }
@@ -96,7 +98,7 @@ namespace VST_sprava_servisu
                 sql.Append(" SELECT Name, U_VCZ_5020 FROM[SBO].[dbo].[@VCZ_DOKL_SETP] where[U_VCZ_5024] = 1005");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -116,12 +118,14 @@ namespace VST_sprava_servisu
                         {
                             tp.Kod = dr.GetString(dr.GetOrdinal("U_VCZ_5020"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             tp.Nazev = dr.GetString(dr.GetOrdinal("Name"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         list.Add(tp);
                     }
                 }
@@ -142,7 +146,7 @@ namespace VST_sprava_servisu
                 sql.Append(" SELECT Code, Name FROM [dbo].[@VCZ_CT_STATUS] where Code not in ('2','6','8') order by Code asc");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -162,12 +166,14 @@ namespace VST_sprava_servisu
                         {
                             tp.Kod = dr.GetString(dr.GetOrdinal("Code"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             tp.Nazev = dr.GetString(dr.GetOrdinal("Name"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         list.Add(tp);
                     }
                 }
@@ -188,7 +194,7 @@ namespace VST_sprava_servisu
                 sql.Append(" SELECT territryID , descript FROM [dbo].[OTER] where inactive = 'N' order by descript asc");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -208,12 +214,14 @@ namespace VST_sprava_servisu
                         {
                             tp.TerritryID = dr.GetInt32(dr.GetOrdinal("TerritryID"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             tp.Descript = dr.GetString(dr.GetOrdinal("Descript"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         list.Add(tp);
                     }
                 }
@@ -244,7 +252,7 @@ namespace VST_sprava_servisu
                     "order by lastName asc");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -264,12 +272,14 @@ namespace VST_sprava_servisu
                         {
                             tp.Kod = dr.GetInt32(dr.GetOrdinal("empID"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             tp.Nazev = dr.GetString(dr.GetOrdinal("Name"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         list.Add(tp);
                     }
                 }
@@ -291,7 +301,7 @@ namespace VST_sprava_servisu
                 sql.Append(" select ItmsGrpCod, ItmsGrpNam from OITB where itmsgrpcod not in ('142','100','137','138','139','142','144','145','146') order by ItmsGrpNam asc ");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -311,12 +321,14 @@ namespace VST_sprava_servisu
                         {
                             tp.Id = dr.GetInt16(dr.GetOrdinal("ItmsGrpCod"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             tp.Nazev = dr.GetString(dr.GetOrdinal("ItmsGrpNam"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         list.Add(tp);
                     }
                 }
@@ -439,7 +451,7 @@ namespace VST_sprava_servisu
 
 
 
-            log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+            //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -459,140 +471,167 @@ namespace VST_sprava_servisu
                         {
                             tp.Code = dr.GetString(dr.GetOrdinal("Code"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                         try
                         {
                             tp.Name = dr.GetString(dr.GetOrdinal("U_Descript"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                         try
                         {
                             tp.Status = dr.GetString(dr.GetOrdinal("U_Status"));
                         }
-                        catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.Status_descript = dr.GetString(dr.GetOrdinal("Status_descript"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.Series = dr.GetString(dr.GetOrdinal("U_Series"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.Type = dr.GetString(dr.GetOrdinal("U_Type"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.TypeName = dr.GetString(dr.GetOrdinal("TypeName"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.Territory = dr.GetInt32(dr.GetOrdinal("territryID"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.TeritoryName = dr.GetString(dr.GetOrdinal("descript"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.EmpNo = dr.GetInt32(dr.GetOrdinal("EmpId"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.EmpName = dr.GetString(dr.GetOrdinal("EmpName"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         tp.CardName = dr.GetString(dr.GetOrdinal("CardName"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) {// log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
 
                     try
                     {
                         tp.U_PlaRev = dr.GetDecimal(dr.GetOrdinal("U_PlaRev"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
 
                     try
                     {
                         tp.U_PlaRevFC = dr.GetDecimal(dr.GetOrdinal("U_PlaRevFC"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
 
                     try
                     {
                         tp.U_PlaRevSC = dr.GetDecimal(dr.GetOrdinal("U_PlaRevSC"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) {// log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.U_ActRev = dr.GetDecimal(dr.GetOrdinal("U_ActRev"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.U_ActRevFC = dr.GetDecimal(dr.GetOrdinal("U_ActRevFC"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) {// log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                             tp.U_ActRevSC = dr.GetDecimal(dr.GetOrdinal("U_ActRevSC"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.U_PlaExp = dr.GetDecimal(dr.GetOrdinal("U_PlaExp"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                             {
                                 tp.U_PlaExpFC = dr.GetDecimal(dr.GetOrdinal("U_PlaExpFC"));
                             }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                             {
                                 tp.U_PlaExpFC = dr.GetDecimal(dr.GetOrdinal("U_PlaExpFC"));
                             }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.U_PlaExpSC = dr.GetDecimal(dr.GetOrdinal("U_PlaExpSC"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.U_ActExp = dr.GetDecimal(dr.GetOrdinal("U_ActExp"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         tp.U_ActExpFC = dr.GetDecimal(dr.GetOrdinal("U_ActExpFC"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) {// log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     try
                     {
                         tp.U_ActExpSC = dr.GetDecimal(dr.GetOrdinal("U_ActExpSC"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         tp.DocCurr = dr.GetString(dr.GetOrdinal("U_DocCurr"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
 
                     list.Add(tp);
                     }
@@ -663,7 +702,7 @@ namespace VST_sprava_servisu
                 sql.Append($" select * from ORDR where project = '{Projekt}' and Canceled = 'N'");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -683,77 +722,92 @@ namespace VST_sprava_servisu
                         {
                             item.DocEntry = dr.GetInt32(dr.GetOrdinal("DocEntry"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocEntry" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocEntry" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.Docnum = dr.GetInt32(dr.GetOrdinal("Docnum"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Docnum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: Docnum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.Canceled = dr.GetString(dr.GetOrdinal("Canceled"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Cancelled" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Cancelled" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.DocStatus = dr.GetString(dr.GetOrdinal("DocStatus"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocStatus" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocStatus" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
                         }
-                        catch (Exception ex) { log.Error("Error number: CardCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: CardCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.CardName = dr.GetString(dr.GetOrdinal("CardName"));
                         }
-                        catch (Exception ex) { log.Error("Error number: CardName " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: CardName " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.VatSum = dr.GetDecimal(dr.GetOrdinal("VatSum"));
                         }
-                        catch (Exception ex) { log.Error("Error number: VatSum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: VatSum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.VatSumFC = dr.GetDecimal(dr.GetOrdinal("VatSumFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: VatSumFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: VatSumFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocCur = dr.GetString(dr.GetOrdinal("DocCur"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocCur" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocCur" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocRate = dr.GetDecimal(dr.GetOrdinal("DocRate"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocRate" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: DocRate" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.DocTotal = dr.GetDecimal(dr.GetOrdinal("DocTotal"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.DocTotalFC = dr.GetDecimal(dr.GetOrdinal("DocTotalFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocTotalFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocTotalFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrosProfit = dr.GetDecimal(dr.GetOrdinal("GrosProfit"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrosProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrosProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.GrosProfFC = dr.GetDecimal(dr.GetOrdinal("GrosProfFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrosProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrosProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.SlpCode = dr.GetInt16(dr.GetOrdinal("SlpCode"));
                         }
-                        catch (Exception ex) { log.Error("Error number: SlpCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: SlpCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         /*try
                         {
                             item.SLpName = dr.GetString(dr.GetOrdinal("SLpName"));
@@ -791,7 +845,7 @@ namespace VST_sprava_servisu
                 sql.Append($" select * from OINV where project = '{Projekt}' and Canceled = 'N'");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -811,77 +865,92 @@ namespace VST_sprava_servisu
                         {
                             item.DocEntry = dr.GetInt32(dr.GetOrdinal("DocEntry"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocEntry" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocEntry" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Docnum = dr.GetInt32(dr.GetOrdinal("Docnum"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Docnum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Docnum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.Canceled = dr.GetString(dr.GetOrdinal("Canceled"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Cancelled" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Cancelled" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.DocStatus = dr.GetString(dr.GetOrdinal("DocStatus"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocStatus" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: DocStatus" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
                         }
-                        catch (Exception ex) { log.Error("Error number: CardCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: CardCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.CardName = dr.GetString(dr.GetOrdinal("CardName"));
                         }
-                        catch (Exception ex) { log.Error("Error number: CardName " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: CardName " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.VatSum = dr.GetDecimal(dr.GetOrdinal("VatSum"));
                         }
-                        catch (Exception ex) { log.Error("Error number: VatSum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: VatSum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.VatSumFC = dr.GetDecimal(dr.GetOrdinal("VatSumFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: VatSumFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: VatSumFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocCur = dr.GetString(dr.GetOrdinal("DocCur"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocCur" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocCur" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.DocRate = dr.GetDecimal(dr.GetOrdinal("DocRate"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocRate" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocRate" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocTotal = dr.GetDecimal(dr.GetOrdinal("DocTotal"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocTotalFC = dr.GetDecimal(dr.GetOrdinal("DocTotalFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocTotalFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocTotalFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrosProfit = dr.GetDecimal(dr.GetOrdinal("GrosProfit"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrosProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrosProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrosProfFC = dr.GetDecimal(dr.GetOrdinal("GrosProfFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrosProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrosProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.SlpCode = dr.GetInt16(dr.GetOrdinal("SlpCode"));
                         }
-                        catch (Exception ex) { log.Error("Error number: SlpCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: SlpCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         /*try
                         {
                             item.SLpName = dr.GetString(dr.GetOrdinal("SLpName"));
@@ -919,7 +988,7 @@ namespace VST_sprava_servisu
                 sql.Append($" select * from OPCH where project = '{Projekt}' and Canceled = 'N'");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -939,77 +1008,92 @@ namespace VST_sprava_servisu
                         {
                             item.DocEntry = dr.GetInt32(dr.GetOrdinal("DocEntry"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocEntry" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocEntry" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Docnum = dr.GetInt32(dr.GetOrdinal("Docnum"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Docnum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Docnum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Canceled = dr.GetString(dr.GetOrdinal("Canceled"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Cancelled" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Cancelled" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocStatus = dr.GetString(dr.GetOrdinal("DocStatus"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocStatus" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocStatus" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
                         }
-                        catch (Exception ex) { log.Error("Error number: CardCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: CardCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.CardName = dr.GetString(dr.GetOrdinal("CardName"));
                         }
-                        catch (Exception ex) { log.Error("Error number: CardName " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: CardName " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.VatSum = dr.GetDecimal(dr.GetOrdinal("VatSum"));
                         }
-                        catch (Exception ex) { log.Error("Error number: VatSum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: VatSum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.VatSumFC = dr.GetDecimal(dr.GetOrdinal("VatSumFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: VatSumFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: VatSumFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocCur = dr.GetString(dr.GetOrdinal("DocCur"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocCur" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DocCur" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocRate = dr.GetDecimal(dr.GetOrdinal("DocRate"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocRate" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: DocRate" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocTotal = dr.GetDecimal(dr.GetOrdinal("DocTotal"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: DocTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.DocTotalFC = dr.GetDecimal(dr.GetOrdinal("DocTotalFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DocTotalFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: DocTotalFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrosProfit = dr.GetDecimal(dr.GetOrdinal("GrosProfit"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrosProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: GrosProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrosProfFC = dr.GetDecimal(dr.GetOrdinal("GrosProfFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrosProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: GrosProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.SlpCode = dr.GetInt16(dr.GetOrdinal("SlpCode"));
                         }
-                        catch (Exception ex) { log.Error("Error number: SlpCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: SlpCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         /*try
                         {
                             item.SLpName = dr.GetString(dr.GetOrdinal("SLpName"));
@@ -1065,7 +1149,7 @@ namespace VST_sprava_servisu
                 sql.Append($" select * from RDR1 where DocEntry = '{this.DocEntry}'");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -1085,62 +1169,74 @@ namespace VST_sprava_servisu
                         {
                             item.ItemCode = dr.GetString(dr.GetOrdinal("ItemCode"));
                         }
-                        catch (Exception ex) { log.Error("Error number: ItemCode " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: ItemCode " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Dscription = dr.GetString(dr.GetOrdinal("Dscription"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Dscription" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Dscription" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Quantity = dr.GetDecimal(dr.GetOrdinal("Quantity"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Quantity" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Quantity" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Price = dr.GetDecimal(dr.GetOrdinal("Price"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Price" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Price" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Currency = dr.GetString(dr.GetOrdinal("Currency"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Currency" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Currency" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.DiscPrcnt = dr.GetDecimal(dr.GetOrdinal("DiscPrcnt"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DiscPrcnt" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DiscPrcnt" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.LineTotal = dr.GetDecimal(dr.GetOrdinal("LineTotal"));
                         }
-                        catch (Exception ex) { log.Error("Error number: LineTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: LineTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.TotalFrgn = dr.GetDecimal(dr.GetOrdinal("TotalFrgn"));
                         }
-                        catch (Exception ex) { log.Error("Error number: TotalFrgn" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: TotalFrgn" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrossBuyPr = dr.GetDecimal(dr.GetOrdinal("GrossBuyPr"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrossBuyPr" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrossBuyPr" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrssProfit = dr.GetDecimal(dr.GetOrdinal("GrssProfit"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrssProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrssProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrssProfFC = dr.GetDecimal(dr.GetOrdinal("GrssProfFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrssProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrssProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.GrssProfSC = dr.GetDecimal(dr.GetOrdinal("GrssProfSC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrssProfSC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrssProfSC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
 
 
                         list.Add(item);
@@ -1195,7 +1291,7 @@ namespace VST_sprava_servisu
                 sql.Append($" select * from INV1 where DocEntry = '{this.DocEntry}'");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -1215,62 +1311,74 @@ namespace VST_sprava_servisu
                         {
                             item.ItemCode = dr.GetString(dr.GetOrdinal("ItemCode"));
                         }
-                        catch (Exception ex) { log.Error("Error number: ItemCode " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: ItemCode " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Dscription = dr.GetString(dr.GetOrdinal("Dscription"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Dscription" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Dscription" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Quantity = dr.GetDecimal(dr.GetOrdinal("Quantity"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Quantity" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Quantity" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.Price = dr.GetDecimal(dr.GetOrdinal("Price"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Price" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Price" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.Currency = dr.GetString(dr.GetOrdinal("Currency"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Currency" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: Currency" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.DiscPrcnt = dr.GetDecimal(dr.GetOrdinal("DiscPrcnt"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DiscPrcnt" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: DiscPrcnt" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.LineTotal = dr.GetDecimal(dr.GetOrdinal("LineTotal"));
                         }
-                        catch (Exception ex) { log.Error("Error number: LineTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: LineTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.TotalFrgn = dr.GetDecimal(dr.GetOrdinal("TotalFrgn"));
                         }
-                        catch (Exception ex) { log.Error("Error number: TotalFrgn" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: TotalFrgn" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.GrossBuyPr = dr.GetDecimal(dr.GetOrdinal("GrossBuyPr"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrossBuyPr" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrossBuyPr" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrssProfit = dr.GetDecimal(dr.GetOrdinal("GrssProfit"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrssProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: GrssProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.GrssProfFC = dr.GetDecimal(dr.GetOrdinal("GrssProfFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrssProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: GrssProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.GrssProfSC = dr.GetDecimal(dr.GetOrdinal("GrssProfSC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrssProfSC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrssProfSC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
 
 
                         list.Add(item);
@@ -1317,7 +1425,7 @@ namespace VST_sprava_servisu
                 sql.Append($" select * from PCH1 where DocEntry = '{this.DocEntry}'");
 
 
-                log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
@@ -1337,62 +1445,74 @@ namespace VST_sprava_servisu
                         {
                             item.ItemCode = dr.GetString(dr.GetOrdinal("ItemCode"));
                         }
-                        catch (Exception ex) { log.Error("Error number: ItemCode " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: ItemCode " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Dscription = dr.GetString(dr.GetOrdinal("Dscription"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Dscription" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: Dscription" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.Quantity = dr.GetDecimal(dr.GetOrdinal("Quantity"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Quantity" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: Quantity" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.Price = dr.GetDecimal(dr.GetOrdinal("Price"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Price" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: Price" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.Currency = dr.GetString(dr.GetOrdinal("Currency"));
                         }
-                        catch (Exception ex) { log.Error("Error number: Currency" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: Currency" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.DiscPrcnt = dr.GetDecimal(dr.GetOrdinal("DiscPrcnt"));
                         }
-                        catch (Exception ex) { log.Error("Error number: DiscPrcnt" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: DiscPrcnt" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.LineTotal = dr.GetDecimal(dr.GetOrdinal("LineTotal"));
                         }
-                        catch (Exception ex) { log.Error("Error number: LineTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: LineTotal" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.TotalFrgn = dr.GetDecimal(dr.GetOrdinal("TotalFrgn"));
                         }
-                        catch (Exception ex) { log.Error("Error number: TotalFrgn" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: TotalFrgn" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrossBuyPr = dr.GetDecimal(dr.GetOrdinal("GrossBuyPr"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrossBuyPr" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: GrossBuyPr" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrssProfit = dr.GetDecimal(dr.GetOrdinal("GrssProfit"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrssProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrssProfit" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
                         try
                         {
                             item.GrssProfFC = dr.GetDecimal(dr.GetOrdinal("GrssProfFC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrssProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) { //log.Error("Error number: GrssProfFC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
                         try
                         {
                             item.GrssProfSC = dr.GetDecimal(dr.GetOrdinal("GrssProfSC"));
                         }
-                        catch (Exception ex) { log.Error("Error number: GrssProfSC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                        catch (Exception ex) {// log.Error("Error number: GrssProfSC" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
 
 
                         list.Add(item);

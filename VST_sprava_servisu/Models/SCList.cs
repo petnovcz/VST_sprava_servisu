@@ -88,7 +88,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        log.Info($"id prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        //log.Info($"id prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
@@ -96,7 +96,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        log.Info($"Revize prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        //log.Info($"Revize prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
@@ -104,7 +104,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        log.Info($"Pyro prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        //log.Info($"Pyro prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
@@ -112,7 +112,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        log.Info($"Baterie prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        //log.Info($"Baterie prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
@@ -120,7 +120,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        log.Info($"TlkZk prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        //log.Info($"TlkZk prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
 
                     listplanrev.Add(item);

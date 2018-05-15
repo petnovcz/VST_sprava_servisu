@@ -3,7 +3,9 @@
 @{
     ViewBag.Title = "Edit";
 }
-
+@{
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+}
 @Html.Action("Header", "Zakaznici", new { id = ViewBag.Zakaznik })
 
 <div class="form-horizontal vstcolor" style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
@@ -15,7 +17,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal col-lg-12" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
-        
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 

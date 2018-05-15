@@ -48,8 +48,8 @@ namespace VST_sprava_servisu
             sql.Append($" and (select COUNT(*) from Revize where provozid = t1.id and (UmisteniId = t2.id or UmisteniID is null) and rok = '{Rok}') = 0");
 
             // LOGOVANI
-            log.Debug($"GetCustomerListWithoutRevision pro revizi pro rok: {Rok}, skupina: {Skupina},Search: {Search}");
-            log.Debug(sql.ToString());
+            //log.Debug($"GetCustomerListWithoutRevision pro revizi pro rok: {Rok}, skupina: {Skupina},Search: {Search}");
+            //log.Debug(sql.ToString());
 
             SqlConnection cnn = new SqlConnection(con);
             SqlCommand cmd = new SqlCommand();
@@ -69,37 +69,37 @@ namespace VST_sprava_servisu
                     {
                         item.ZakaznikId = dr.GetInt32(dr.GetOrdinal("ZakaznikId"));
                     }
-                    catch(Exception ex) { log.Error($"Nenalazeno ZakaznikId {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex) { //log.Error($"Nenalazeno ZakaznikId {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
                     }
                     try
                     {
                         item.Zakaznik = dr.GetString(dr.GetOrdinal("Zakaznik"));
                     }
-                    catch(Exception ex) { log.Error($"Nenalazeno Zakaznik {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex) { //log.Error($"Nenalazeno Zakaznik {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
                     }
                     try
                     {
                         item.ProvozId = dr.GetInt32(dr.GetOrdinal("ProvozId"));
                     }
-                    catch(Exception ex) { log.Error($"Nenalazeno ProvozId {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex) { //log.Error($"Nenalazeno ProvozId {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
                     }
                     try
                     {
                         item.Provoz = dr.GetString(dr.GetOrdinal("Provoz"));
                     }
-                    catch(Exception ex) { log.Error($"Nenalazeno Provoz {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex) { //log.Error($"Nenalazeno Provoz {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
                     }
                     try
                     {
                         item.UmisteniId = dr.GetInt32(dr.GetOrdinal("UmisteniId"));
                     }
-                    catch(Exception ex) { log.Error($"Nenalazeno UmisteniId {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex) { //log.Error($"Nenalazeno UmisteniId {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
                     }
                     try
                     {
                         item.NazevUmisteni = dr.GetString(dr.GetOrdinal("NazevUmisteni"));
                     }
-                    catch(Exception ex) { log.Error($"Nenalazeno NazevUmisteni {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex) { //log.Error($"Nenalazeno NazevUmisteni {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
                     }
 
 

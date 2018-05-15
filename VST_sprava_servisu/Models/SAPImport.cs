@@ -156,18 +156,24 @@ namespace VST_sprava_servisu
                     {
                         sapItem.Code = dr.GetString(dr.GetOrdinal("Code"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    { 
+                        //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         sapItem.Name = dr.GetString(dr.GetOrdinal("U_Descript"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {// log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
 
                     try
                     {
                         sapItem.Status = dr.GetString(dr.GetOrdinal("Name"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
 
                     list.Add(sapItem);
                 }

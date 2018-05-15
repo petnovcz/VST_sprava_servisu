@@ -4,6 +4,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
+using System.Data.Entity;
 
 namespace VST_sprava_servisu
 {
@@ -25,8 +27,8 @@ namespace VST_sprava_servisu
             var provoz = new Provoz();
             using (var dbCtx = new Model1Container())
             {
-                provoz = dbCtx.Provoz.Where(r => r.Id == Id).FirstOrDefault();
-                provoz.Zakaznik = dbCtx.Zakaznik.Where(r => r.Id == provoz.ZakaznikId).FirstOrDefault();
+                provoz = dbCtx.Provoz.Where(r => r.Id == Id).Include(t=>t.Zakaznik).FirstOrDefault();
+                //provoz.Zakaznik = dbCtx.Zakaznik.Where(r => r.Id == provoz.ZakaznikId).FirstOrDefault();
             }
             return provoz;
         }

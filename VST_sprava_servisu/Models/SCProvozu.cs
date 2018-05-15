@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 namespace VST_sprava_servisu
 {
@@ -66,8 +67,8 @@ namespace VST_sprava_servisu
             SCProvozu sCProvozu = new SCProvozu();
             using (var dbCtx = new Model1Container())
             {
-                sCProvozu = dbCtx.SCProvozu.Where(r => r.Id == SCProvozuId).Include(r=>r.SerioveCislo).FirstOrDefault();
-                sCProvozu.Artikl = dbCtx.Artikl.Where(a => a.Id == sCProvozu.SerioveCislo.ArtiklId).FirstOrDefault();
+                sCProvozu = dbCtx.SCProvozu.Where(r => r.Id == SCProvozuId).Include(r=>r.SerioveCislo).Include(r=>r.Artikl).FirstOrDefault();
+                //sCProvozu.Artikl = dbCtx.Artikl.Where(a => a.Id == sCProvozu.SerioveCislo.ArtiklId).FirstOrDefault();
             }
 
             return sCProvozu;
