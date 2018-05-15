@@ -65,7 +65,8 @@ namespace VST_sprava_servisu
         public string Projekt { get; set; }
         [Display(Name = "Nabídka")]
         public string Nabidka { get; set; }
-        
+        [Display(Name = "Poznámka pro další revizi")]
+        public string Poznamka { get; set; }
 
         public virtual Provoz Provoz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
