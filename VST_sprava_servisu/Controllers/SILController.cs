@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     public class SILController : Controller
     {
         // GET: SIL
+        [Authorize(Roles = "Administrator,SIL")]
         public ActionResult Index(int? Rok)
         {
             SIL sil = new SIL();

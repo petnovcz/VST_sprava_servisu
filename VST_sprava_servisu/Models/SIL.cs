@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Data.Entity;
+
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -311,6 +313,43 @@ namespace VST_sprava_servisu
             [DisplayFormat(DataFormatString = "{0:#.##}")]
             public decimal TAKUII { get; set; }
         }
+
+        public int PocetNebezpecnychPoruch
+        {
+            get
+            {
+                int count = 0;
+                using (var db = new Model1Container())
+                {
+                    count = db.ServisniZasahPrvek
+                        .Include(t => t.Porucha)
+                        .Include(t=>t.ServisniZasah)
+                        .Where(t => t.Porucha.SIL == true && t.ServisniZasah.DatumOdstraneni.Year == Rok).Count();
+
+                }
+                return count;
+            }
+
+        }
+        public List<ServisniZasahPrvek> SeznamZavaznychPoruch {
+            get
+            {
+                List<ServisniZasahPrvek> list = new List<ServisniZasahPrvek>();
+                using (var db = new Model1Container())
+                {
+                    list = db.ServisniZasahPrvek
+                        .Include(t => t.Porucha)
+                        .Include(t => t.ServisniZasah)
+                        .Include(t => t.ServisniZasah.Zakaznik)
+                        .Where(t => t.Porucha.SIL == true && t.ServisniZasah.DatumOdstraneni.Year == Rok).ToList();
+
+                }
+                return list;
+            }
+
+        }
+
+
     }
 
     

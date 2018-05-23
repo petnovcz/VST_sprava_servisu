@@ -278,7 +278,8 @@
                     @item.Code
                     @Html.ActionLink(" Detail zakázky", "Details", "Projekty", item, new { @class = "img-btn-addnote modal-link" })
                     @Html.ActionLink(" Detail faktury", "DetailsOinv", "Projekty", item, new { @class = "img-btn-addnote modal-link" })
-                    @Html.ActionLink(" Detail nákupnívh faktur", "DetailsOpch", "Projekty", item, new { @class = "img-btn-addnote modal-link" })<br>
+                    @Html.ActionLink(" Detail nákupních faktur", "DetailsOpch", "Projekty", item, new { @class = "img-btn-addnote modal-link" })<br>
+                    @Html.ActionLink(" Vývoj bilance projektu", "GrafForProject", "Projekty", item, new { @class = "img-btn-addnote modal-link" })<br>
                     @item.Name<br>
                     @item.Status_descript
                 </td>
@@ -332,7 +333,7 @@
 </div>
 
 @section Scripts {
-    
+<script src="~/Scripts/Chart.js"></script>
 <script type="text/javascript">
         $(function () {
             // Initialize numeric spinner input boxes
@@ -351,6 +352,7 @@
             });
             //clear modal cache, so that new content can be loaded
             $('#modal-container').on('hidden.bs.modal', function () {
+                $(".modal-body").html("");
                 $(this).removeData('bs.modal');
             });
             /*$('#CancelModal').on('click', function () {

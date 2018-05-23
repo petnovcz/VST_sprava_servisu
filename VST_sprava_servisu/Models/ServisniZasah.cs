@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.Entity;
@@ -17,6 +18,29 @@ namespace VST_sprava_servisu
     public partial class ServisniZasah
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasah");
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime? DatumVyprseniZaruky {
+            get
+            {
+                DateTime? ukonceniZaruky = null;
+                using (var db = new Model1Container())
+                {
+                    ukonceniZaruky = db.Umisteni
+                        .Where(t=>t.Id == UmisteniId)
+                        .Select(t=>t.UkonceniZaruky)
+                        .FirstOrDefault();
+
+
+                }
+
+
+
+                    return ukonceniZaruky;
+            }
+
+
+
+        }
 
         internal protected static string GetProjekt(int ZakaznikId)
         {
@@ -25,10 +49,6 @@ namespace VST_sprava_servisu
 
             return projekt;
         }
-
-
-
-
 
 
         internal protected static string GetCurrency(int ZakaznikId)
@@ -78,7 +98,6 @@ namespace VST_sprava_servisu
 
             
         }
-
 
         internal protected static decimal GetDistance(string Origin, string Kam, string Zpet)
         {

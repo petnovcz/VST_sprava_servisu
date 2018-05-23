@@ -58,16 +58,22 @@
 
 </table>
 <h4>Přehled všech jednotek - chybějící data nahrazena průměrem</h4>
-<table class="table table-condensed table-bordered">
+<table id="myTable" class="table table-condensed table-bordered">
     <thead>
         <tr>
             <th>
-                Zákazník <br>
-                Provoz <br>
+                Zákazník
+            </th>
+            <th>
+                Provoz
+            </th>
+            <th>
                 Technologie
             </th>
             <th>
-                Artikl <br>
+                Artikl
+            </th>
+            <th>
                 Sériové číslo
             </th>
             <th>
@@ -93,46 +99,53 @@
     <tbody>
         @foreach (var item in Model.SIL_DobaProvozu)
         {
-            <tr>
-                <td>
-                    @item.Zakaznik.NazevZakaznika <br>
-                    @item.Provoz.NazevProvozu <br>
-                    @item.Umisteni.NazevUmisteni<br>
-                </td>
-                <td>
-                    @item.Artikl.Nazev <br>
-                    @item.SerioveCislo.SerioveCislo1
-                </td>
-                <td>
-                    @String.Format("{0:n2}", @item.DobaprovozuI)
+        <tr>
+            <td>
+                @item.Zakaznik.NazevZakaznika
+            </td>
+            <td>
+                @item.Provoz.NazevProvozu
+            </td>
+            <td>
+                @item.Umisteni.NazevUmisteni
+            </td>
 
-                </td>
-                <td>
-                    @String.Format("{0:n2}", @item.DobaprovozuII)
+            <td>
+                @item.Artikl.Nazev
+            </td>
+            <td>
+                @item.SerioveCislo.SerioveCislo1
+            </td>
+            <td>
+                @String.Format("{0:n2}", @item.DobaprovozuI)
 
-                </td>
-                <td>
-                    @String.Format("{0:n2}", @item.DniMeziRevizemi)
+            </td>
+            <td>
+                @String.Format("{0:n2}", @item.DobaprovozuII)
 
-                </td>
-                <td>
-                    @String.Format("{0:n2}", @item.TAKU)
+            </td>
+            <td>
+                @String.Format("{0:n2}", @item.DniMeziRevizemi)
 
-                </td>
-                <td>
-                    @String.Format("{0:n2}", @item.TAKUII)
+            </td>
+            <td>
+                @String.Format("{0:n2}", @item.TAKU)
 
-                </td>
-                <td>
-                    @item.PocetReviziVRoce
-                </td>
-            </tr>
+            </td>
+            <td>
+                @String.Format("{0:n2}", @item.TAKUII)
+
+            </td>
+            <td>
+                @item.PocetReviziVRoce
+            </td>
+        </tr>
         }
     </tbody>
 
 </table>
 
-<h4>Sumarizace všech jendotek - chybějící data nahrazena průměrem</h4>
+<h4>Sumarizace všech jednotek - chybějící data nahrazena průměrem</h4>
 <table class="table table-condensed table-bordered">
     <thead>
         <tr>
@@ -190,3 +203,140 @@
     </tbody>
 
 </table>
+
+<hr>
+<h3>Počet nebezpečných poruch - @Model.PocetNebezpecnychPoruch</h3>
+
+<table id="myTable2" class="table table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Datum výzvy
+            </th>
+            <th>
+                Datum vzniku poruchy
+            </th>
+            <th>
+                Datum zásahu
+            </th>
+            <th>
+                Datum odstranění
+            </th>
+            <th>
+                Název zákazníka
+            </th>
+            <th>
+                Název poruchy
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SeznamZavaznychPoruch)
+        {
+            <tr>
+                <td>
+                    @item.ServisniZasah.DatumVyzvy
+                </td>
+                <td>
+                    @item.ServisniZasah.DatumVznikuPoruchy
+                </td>
+                <td>
+                    @item.ServisniZasah.DatumZasahu
+                </td>
+
+                <td>
+                    @item.ServisniZasah.DatumOdstraneni
+                </td>
+                <td>
+                    @item.ServisniZasah.Zakaznik.NazevZakaznika
+                </td>
+                <td>
+                    @item.Porucha.NazevPoruchy
+
+                </td>
+               
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section Scripts{
+
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    @*<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+
+    <link href="~/Content/DataTables/css/buttons.dataTables.min.css" rel="stylesheet" />
+    @*<link href="https://cdn.datatables.net/buttons/1.5.0/css/buttons.dataTables.min.css" rel="stylesheet" />*@
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    @*<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>*@
+
+    <script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    @*<script src="https://cdn.datatables.net/buttons/1.5.0/js/dataTables.buttons.min.js"></script>*@
+
+    <script src="~/Scripts/DataTables/buttons.flash.min.js"></script>
+    @*<script src="https://cdn.datatables.net/buttons/1.5.0/js/buttons.flash.min.js"></script>*@
+
+    <script src="~/Scripts/jszip.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>*@
+
+    <script src="~/Libraries/pdfmake/js/pdfmake.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>*@
+
+    <script src="~/Libraries/pdfmake/js/vfs_fonts.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>*@
+
+    <script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+    @*<script src="https://cdn.datatables.net/buttons/1.5.0/js/buttons.html5.min.js"></script>*@
+
+    <script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+    @*<script src="https://cdn.datatables.net/buttons/1.5.0/js/buttons.print.min.js"></script>*@
+   
+        <script>
+
+
+            $(document).ready(function () {
+
+
+
+
+                $('#myTable').DataTable({
+
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'excel', 'print'
+                    ],
+                    pageLength: 50,
+                    "initComplete": function () {
+                        $("#myTable").show();
+                    }
+
+
+                });
+                $('#myTable2').DataTable({
+
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'excel', 'print'
+                    ],
+                    pageLength: 50,
+                    "initComplete": function () {
+                        $("#myTable").show();
+                    }
+
+
+                });
+
+
+
+            });
+
+
+
+
+    </script>
+
+
+}

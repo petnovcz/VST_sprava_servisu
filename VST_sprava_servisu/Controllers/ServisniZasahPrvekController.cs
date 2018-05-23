@@ -160,7 +160,8 @@ namespace VST_sprava_servisu.Controllers
                 }
                 if (datum >= sz.DatumVyzvy)
                 {
-                    var porucha = Porucha.ReklamaceById(servisniZasahPrvek.PoruchaID);
+                    //var porucha = Porucha.ReklamaceById(servisniZasahPrvek.PoruchaID);
+                    var porucha = false;
                     if (porucha == true)
                     {
                         servisniZasahPrvek.Reklamace = true;
@@ -230,7 +231,11 @@ namespace VST_sprava_servisu.Controllers
                 //datum ukonceni platnosti zaruky umisteni
                 var umisteni = Umisteni.GetDatumZaruky(sz.UmisteniId);
                 //datum ukonceni platnosti zaruky SCProvozu
-                var scprovozu = SCProvozu.GetDatumZaruky(servisniZasahPrvek.SCProvozuID.Value);
+                DateTime? scprovozu = DateTime.MinValue;
+                if (servisniZasahPrvek.SCProvozuID != null)
+                {
+                    scprovozu = SCProvozu.GetDatumZaruky(servisniZasahPrvek.SCProvozuID.Value);
+                }
                 DateTime? datum = DateTime.Now;
                 //v zaruce?
                 if (scprovozu != null)
@@ -290,9 +295,10 @@ namespace VST_sprava_servisu.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ServisniZasahPrvek servisniZasahPrvek = db.ServisniZasahPrvek.Find(id);
+            int servisnizasahid = servisniZasahPrvek.ServisniZasahId;
             db.ServisniZasahPrvek.Remove(servisniZasahPrvek);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "ServisniZasah", new { Id = servisnizasahid });
         }
 
         protected override void Dispose(bool disposing)

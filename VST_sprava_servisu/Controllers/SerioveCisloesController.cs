@@ -85,7 +85,7 @@ namespace VST_sprava_servisu
             serioveCislo.provoz = provoz;
             serioveCislo.umisteni = umisteni;
             serioveCislo.zakaznik = zakaznik;
-            ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", serioveCislo.ArtiklId);
+            ViewBag.ArtiklId = new SelectList(db.Artikl.Where(r => r.SkupinaArtiklu1.Id != 129), "Id", "Nazev", serioveCislo.ArtiklId);
             return View(serioveCislo);
         }
 
@@ -107,7 +107,7 @@ namespace VST_sprava_servisu
                 catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 return RedirectToAction("Details", "Umistenis", new { id = umisteni, provoz, zakaznik });
             }
-            ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", serioveCislo.ArtiklId);
+            ViewBag.ArtiklId = new SelectList(db.Artikl.Where(r => r.SkupinaArtiklu1.Id != 129), "Id", "Nazev", serioveCislo.ArtiklId);
             return RedirectToAction("Details","Umistenis", new { id = umisteni, provoz, zakaznik });
         }
 

@@ -1114,6 +1114,217 @@ namespace VST_sprava_servisu
     }
 
 
+    public class CashFlowforProject
+    {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("CashFlowforProject");
+        public string Projekt { get; set; }
+        public string ProjektName { get; set; }
+        public virtual List<CashList> CashList
+        {
+            get
+            {
+
+                List<CashList> list = new List<CashList>();
+
+                string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+                StringBuilder sql = new StringBuilder();
+
+                sql.Append(" create table #TempTabPoptavky ([Week] nvarchar(10) COLLATE DATABASE_DEFAULT,[PlanovaneVynosy] numeric(19,6) ,[PlanovaneNaklady] numeric(19,6),[SkutecneVynosy] numeric(19,6),[SkutecneNaklady] numeric(19,6),[ZISK] numeric(19,6))");
+                sql.Append(" insert #TempTabPoptavky ");
+                sql.Append($" select x.Week, (Select coalesce(sum(tx.DocTotal - tx.VatSum), 0) from ORDR tx where tx.Project = '{Projekt}' ) as 'PlanovaneVynosy',(Select coalesce(sum(tx.DocTotal - tx.VatSum - tx.GrosProfit), 0) from ORDR tx where tx.Project = '{Projekt}' ) as 'PlanovaneNaklady' ,SUM(x.[Výnosy období]) as 'SkutecneVynosy', SUM(X.[Náklady období]) as 'SkutecneNaklady'");
+                sql.Append(" ,SUM(x.[Výnosy období]) - SUM(X.[Náklady období]) as 'ZISK' from(");
+                sql.Append(" SELECT  CAST(YEAR(DueDate) AS varchar(5)) + ' - ' + RIGHT(Replicate('0', 2) + CAST(DATEPART(wk, DueDate) AS varchar(5)), 2) as 'Week',");
+                sql.Append(" case WHEN T0.Account like '6%' OR T0.Account = '799600' then (T0.Credit -  T0.Debit) WHEN T0.Account like '8%' and ContraAct like '6%' then(t0.Credit - t0.Debit) ELSE 0 END 'Výnosy období' ,");
+                sql.Append(" CASE WHEN T0.Account like '5%'  OR T0.Account = '799500' then (T0.Debit - T0.Credit) WHEN T0.Account like '8%' and ContraAct like '6%'  then(t0.Credit - t0.Debit) ELSE 0 END 'Náklady období'");
+                sql.Append(" FROM JDT1 T0 left OUTER JOIN OPRJ T1 ON T0.Project = T1.PrjCode WHERE(T0.Account like '6%' OR T0.Account like '5%' OR T0.Account = '799500' OR T0.Account = '799600' OR T0.Account like '813%')");
+                sql.Append($" AND(isnull(T0.Project, '') >= '{Projekt}' OR '{Projekt}' = '') AND(isnull(T0.Project, '') <= '{Projekt}' OR '{Projekt}' = '') AND T0.TransType NOT IN('-2', '-3')" +
+                    $" union all" +
+                    $" select CAST(YEAR(t0.docDate) AS varchar(5)) +' - ' + RIGHT(Replicate('0', 2) + CAST(DATEPART(wk, t0.docDate) AS varchar(5)), 2) as 'Week', 0,0" +
+                    $" from ORCT T0 left join rct1 T1 on T0.DocNum = T1.DocNum left join ocrd T2 on T2.CardCode = T0.CardCode left outer join ODSC T3 on T3.BankCode = T0.BankCode left join RCT2 T4 on T0.DocNum = T4.DocNum left join OINV T5 on T4.DocEntry = T5.DocEntry" +
+                    $" where T5.Project = '{Projekt}' and(CASE when T0.CheckSum = 0 and T0.TrsfrSum = 0 and T0.CashSum = 0 then T0.CreditSum when T0.CheckSum = 0 and T0.TrsfrSum = 0 and T0.CreditSum = 0 then T0.CashSum when T0.CheckSum = 0 and T0.CreditSum = 0 and T0.CashSum = 0 then T0.TrsfrSum when T0.CreditSum = 0 and T0.TrsfrSum = 0 and T0.CashSum = 0 then T0.CheckSum end) > 0" +
+                    $"" +
+                    $"" +
+                    $") X group by x.Week order by x.Week asc");
+                sql.Append(" Select y.Week, y.PlanovaneNaklady,y.PlanovaneVynosy ,(select SUM(SkutecneNaklady) from #TempTabPoptavky x where x.Week <= y.week) as 'SkutecneNaklady',(select SUM(SkutecneVynosy) from #TempTabPoptavky x where x.Week <= y.week) as 'SkutecneVynosy' " +
+                    " ,( select SUM(z.[AmountPaid]) from( select" +
+                    " CASE when T0.CheckSum = 0 and T0.TrsfrSum = 0 and T0.CashSum = 0 then T0.CreditSum when T0.CheckSum = 0 and T0.TrsfrSum = 0 and T0.CreditSum = 0 then T0.CashSum when T0.CheckSum = 0 and T0.CreditSum = 0 and T0.CashSum = 0 then T0.TrsfrSum when T0.CreditSum = 0 and T0.TrsfrSum = 0 and T0.CashSum = 0 then T0.CheckSum end as 'AmountPaid'" +
+                    " from ORCT T0 left join rct1 T1 on T0.DocNum = T1.DocNum left join ocrd T2 on T2.CardCode = T0.CardCode left outer join ODSC T3 on T3.BankCode = T0.BankCode left join RCT2 T4 on T0.DocNum = T4.DocNum" +
+                    $" left join OINV T5 on T4.DocEntry = T5.DocEntry where T5.Project = '{Projekt}' and CAST(YEAR(t0.DocDate) AS varchar(5)) + ' - ' + RIGHT(Replicate('0', 2) + CAST(DATEPART(wk, t0.DocDate) AS varchar(5)), 2) <= y.week) z ) as 'Uhrady'" +
+                    "" +
+                    "" +
+                    " from #TempTabPoptavky y DROP TABLE #TempTabPoptavky");
+                sql.Append("");
+                sql.Append("");
+
+
+
+
+                
+
+            
+
+            
+
+            
+
+
+
+
+
+
+                //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
+                SqlConnection cnn = new SqlConnection(connectionString);
+                //SqlConnection con = new SqlConnection(cnn);
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cnn;
+                cmd.CommandText = sql.ToString();
+                cnn.Open();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex) { log.Error("Error number: DocEntry" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    //MAKES IT HERE   
+                    while (dr.Read())
+                    {
+                        CashList item = new CashList();
+                        try
+                        {
+                            item.Week = dr.GetString(dr.GetOrdinal("Week"));
+                        }
+                        catch (Exception ex)
+                        { //log.Error("Error number: DocEntry" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
+                        try
+                        {
+                            item.PlanovaneVynosy = dr.GetDecimal(dr.GetOrdinal("PlanovaneVynosy"));
+                        }
+                        catch (Exception ex)
+                        { //log.Error("Error number: Docnum" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
+                        try
+                        {
+                            item.PlanovaneNaklady = dr.GetDecimal(dr.GetOrdinal("PlanovaneNaklady"));
+                        }
+                        catch (Exception ex)
+                        { //log.Error("Error number: Cancelled" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
+                        try
+                        {
+                            item.SkutecneNaklady = dr.GetDecimal(dr.GetOrdinal("SkutecneNaklady"));
+                        }
+                        catch (Exception ex)
+                        { //log.Error("Error number: DocStatus" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
+                        try
+                        {
+                            item.SkutecneVynosy = dr.GetDecimal(dr.GetOrdinal("SkutecneVynosy"));
+                        }
+                        catch (Exception ex)
+                        { //log.Error("Error number: CardCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
+                        try
+                        {
+                            item.Uhrady = dr.GetDecimal(dr.GetOrdinal("Uhrady"));
+                        }
+                        catch (Exception ex)
+                        { //log.Error("Error number: CardCode" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
+                        item.PlanovanyZisk = item.PlanovaneVynosy - item.PlanovaneNaklady;
+                        item.SkutecnyZisk = item.SkutecneVynosy - item.SkutecneNaklady;
+                        list.Add(item);
+                    }
+                }
+                cnn.Close();
+                return list;
+
+
+            }
+
+        }
+        public String[] Week {
+            get
+            {
+                string[] array = CashList.Select(t => t.Week).ToArray();
+                return array;
+            }
+        }
+        public decimal[] Uhrady
+        {
+            get
+            {
+                decimal[] array = CashList.Select(t => t.Uhrady).ToArray();
+                return array;
+            }
+        }
+        public decimal[] PlanovaneVynosy {
+            get
+            {
+                decimal[] array = CashList.Select(t => t.PlanovaneVynosy).ToArray();
+                return array;
+            }
+        }
+        public decimal[] PlanovaneNaklady {
+            get
+            {
+                decimal[] array = CashList.Select(t => t.PlanovaneNaklady).ToArray();
+                 return array;
+            }
+        }
+        public decimal[] PlanovanyZisk {
+            get
+            {
+                decimal[] array = CashList.Select(t => t.PlanovanyZisk).ToArray();
+                return array;
+            }
+        }
+        public decimal[] SkutecneNaklady {
+            get
+            {
+                decimal[] array = CashList.Select(t => t.SkutecneNaklady).ToArray();
+                return array;
+            }
+        }
+        public decimal[] SkutecneVynosy {
+            get
+            {
+                decimal[] array = CashList.Select(t => t.SkutecneVynosy).ToArray();
+                return array;
+            }
+        }
+        public decimal[] SkutecnyZisk {
+            get
+            {
+                decimal[] array = CashList.Select(t => t.SkutecnyZisk).ToArray();
+                return array;
+            }
+        }
+
+
+
+        
+
+    }
+
+    public class CashList
+    {
+        public string Week { get; set; }
+        public decimal PlanovaneVynosy { get; set; }
+        public decimal PlanovaneNaklady { get; set; }
+        public decimal PlanovanyZisk { get; set; }
+
+        public decimal SkutecneNaklady { get; set; }
+        public decimal SkutecneVynosy { get; set; }
+        public decimal SkutecnyZisk { get; set; }
+
+        public decimal Uhrady { get; set; }
+
+    }
+
     public class SAPORDR
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("SAPORDR");

@@ -36,6 +36,52 @@ namespace VST_sprava_servisu
         [NotMapped]
         public virtual ICollection<RevizeBaterie> RevizeBaterie { get { return CalculateRevizeBaterie(Id); } }
 
+        [NotMapped]
+        public string PoznamkazPredchoziRevize { get {
+
+
+                string Poznamka = "";
+                StringBuilder sql = new StringBuilder();
+                sql.Append(" select Top 1 Poznamka as 'Poznamka' from Revize where");
+                sql.Append($" ProvozId = (select ProvozId from Revize where Id = '{Id}') and");
+                sql.Append($" (UmisteniId = (select UmisteniId from Revize where Id = '{Id}' )");
+                sql.Append($" or(UmisteniId is null and(select UmisteniId from Revize where Id = '{Id}' ) is null))");
+                sql.Append($" and (select DatumRevize from Revize where Id = '{Id}' ) > KontrolaProvedenaDne and Id <> {Id}");
+                sql.Append($" order by KontrolaProvedenaDne desc");
+                sql.Append($"");
+
+                SqlConnection cnn = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cnn;
+                cmd.CommandText = sql.ToString();
+                cnn.Open();
+                cmd.ExecuteNonQuery();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    //MAKES IT HERE   
+                    while (dr.Read())
+                    {
+                        
+                        try
+                        {
+                            Poznamka = dr.GetString(dr.GetOrdinal("Poznamka"));
+                        }
+                        catch (Exception ex)
+                        { //log.Info($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        }
+                        
+                    }
+                }
+                cnn.Close();
+
+
+
+
+                return Poznamka;
+            } }
+
         string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
 

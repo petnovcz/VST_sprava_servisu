@@ -457,5 +457,16 @@ namespace VST_sprava_servisu.Controllers
                 
             return PartialView("DetailsOpch", ordrfp);
         }
+        [Authorize(Roles = "Administrator,Vedení")]
+        public ActionResult GrafForProject(Projekt project)
+        {
+
+            CashFlowforProject item = new CashFlowforProject();
+            item.Projekt = project.Code;
+            item.ProjektName = project.Name;
+            ViewData["FieldsList"] = new string[] { "Hello", "World", "foo", "Bar" };
+
+            return PartialView("GrafForProject", item);
+        }
     }
 }

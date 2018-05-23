@@ -254,7 +254,7 @@ namespace VST_sprava_servisu
                 ViewBag.Zakaznik = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", scimport.Zakaznik);
                 ViewBag.Provozy = new SelectList(db.Provoz.Where(p => p.ZakaznikId == scimport.Zakaznik), "Id", "NazevProvozu", scimport.Provozy);
                 ViewBag.Umisteni = new SelectList(db.Umisteni.Where(u => u.ProvozId == scimport.Provozy), "Id", "NazevUmisteni", scimport.Umisteni);
-                ViewBag.ArtiklId = new SelectList(db.Artikl, "Id", "Nazev", scimport.ArtiklId);
+                ViewBag.ArtiklId = new SelectList(db.Artikl.Where(r => r.SkupinaArtiklu1.Id != 129), "Id", "Nazev", scimport.ArtiklId);
                 ViewBag.BaterieArtikl = new SelectList(db.Artikl.Where(r=>r.SkupinaArtiklu1.Id==2), "Id", "Nazev");
             }
             return View(scimport);

@@ -1,0 +1,140 @@
+﻿@model VST_sprava_servisu.CelkovyManazerskyPrehled
+
+
+@{
+    ViewBag.Title = "Celkový Manažerský Přehled";
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+}
+
+
+<button class="btn btn-block btn-warning" data-toggle="collapse" data-target="#demo">Zobraz možnosti filtrování reportu</button>
+
+<div id="demo" class="collapse">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.DatumOd, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DatumOd, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                    @Html.ValidationMessageFor(model => model.DatumOd, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DatumDo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DatumDo, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                    @Html.ValidationMessageFor(model => model.DatumDo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Načti" class="btn btn-success btn-block" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<center>
+    <h3>Celkový manažerský přehled</h3>
+    Datum od: @Model.DatumOd.ToString("dd.MM.yyyy"), Datum do: @Model.DatumDo.ToString("dd.MM.yyyy"), Měna Reportu: CZK
+
+    <center><h4>Finanční výsledky</h4></center>
+    <table class="table table-condensed table-bordered" style="width:80%">
+        <thead>
+            <tr>
+                <th>Výnosy</th>
+                <th>Náklady</th>
+                <th>Zisk</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@String.Format("{0:n0}", @Model.finVysledkyDleZeme.Vynosy) </td>
+                <td>@String.Format("{0:n0}", @Model.finVysledkyDleZeme.Naklady) </td>
+                <td>@String.Format("{0:n0}", @Model.finVysledkyDleZeme.Zisk) </td>
+
+            </tr>
+        </tbody>
+    </table>
+</center>
+<center>
+    <h4>Statistiky projektů</h4>
+    <table class="table table-condensed table-bordered" style="width:80%;">
+        <thead>
+            <tr>
+                <th>Otevřené projekty</th>
+                <th>Otevřené projekty v prodlení</th>
+                <th>Uzavřené projekty</th>
+                <th>Uzavřené projekty v prodlení</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@String.Format("{0:n0}", @Model.statistikaProjektu.OtevreneProjekty) </td>
+                <td>@String.Format("{0:n0}", @Model.statistikaProjektu.OtevreneProjektyVProdleni) </td>
+                <td>@String.Format("{0:n0}", @Model.statistikaProjektu.UzavreneProjekty) </td>
+                <td>@String.Format("{0:n0}", @Model.statistikaProjektu.UzavreneProjektyVProdleni) </td>
+
+            </tr>
+        </tbody>
+    </table>
+</center>
+<center>
+    <h4>Statistiky fakturace</h4>
+    <table class="table table-condensed table-bordered" style="width:80%">
+        <thead>
+            <tr>
+                <th>Faktury Vydané</th>
+                <th>Faktury přijaté <br> Obchod / RP</th>
+                <th>Výdej pokladna <br> Obchod / RP</th>
+                <th>Mzdy</th>
+                <th>Hrubý zisk</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@String.Format("{0:n0}", @Model.fakturaceProjektu.FakturyVydane) </td>
+                <td>
+                    @String.Format("{0:n0}", @Model.fakturaceProjektu.FakturyPrijate) <br>
+                    @String.Format("{0:n0}", @Model.fakturaceProjektu.FakturyPrijate_Obchod) / @String.Format("{0:n0}", @Model.fakturaceProjektu.FakturyPrijate_RP)
+                </td>
+                <td>
+                    @String.Format("{0:n0}", @Model.fakturaceProjektu.VydejPokladna)<br>
+                    @String.Format("{0:n0}", @Model.fakturaceProjektu.VydejPokladna_Obchod) / @String.Format("{0:n0}", @Model.fakturaceProjektu.VydejPokladna_RP)
+                </td>
+                <td>@String.Format("{0:n0}", @Model.fakturaceProjektu.VydejMzdy) </td>
+                <td>@String.Format("{0:n0}", @Model.fakturaceProjektu.HrubyZisk) </td>
+
+            </tr>
+        </tbody>
+    </table>
+</center>
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        $('.datetimepicker').datetimepicker(
+            {
+
+                //daysOfWeekDisabled: [0, 6]
+                locale: 'cs'
+                , format: 'DD.MM.YYYY',
+                viewMode: 'months',
+
+
+
+            });</script>
+
+}

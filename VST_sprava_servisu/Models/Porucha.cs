@@ -23,12 +23,16 @@ namespace VST_sprava_servisu
 
         internal protected static bool ReklamaceById(int Id)
         {
-            bool decision;
+            //var decision;
+            bool dec;
             using (var db = new Model1Container())
             {
-                decision = db.Porucha.Where(t => t.Id == Id).Include(t=>t.KategoriePoruchy).Select(t=>t.KategoriePoruchy.ReklamaceServisniZasah).FirstOrDefault();
+               var decision = db.Porucha.Where(t => t.Id == Id)
+                    .Include(t=>t.KategoriePoruchy)
+                    //.Select(t=>t.KategoriePoruchy.ReklamaceServisniZasah)
+                    .FirstOrDefault();
                     }
-            return decision;
+            return dec = true;
         }
 
 

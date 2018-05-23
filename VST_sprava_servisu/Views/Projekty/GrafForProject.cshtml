@@ -1,0 +1,244 @@
+﻿@model VST_sprava_servisu.CashFlowforProject
+
+@{ Layout = null;}
+@{  }
+
+<div class="">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">@Model.Projekt - @Model.ProjektName</h4>
+    </div>
+    <div class="modal-body" style="max-height: calc(100% - 120px) ">
+        <div style="width:80%; height:calc(100% - 120px); box-sizing: border-box;">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <script>
+
+            var week = @Html.Raw(Json.Encode(Model.Week));
+            var plv = @Html.Raw(Json.Encode(Model.PlanovaneVynosy));
+            var pln = @Html.Raw(Json.Encode(Model.PlanovaneNaklady));
+            var plz = @Html.Raw(Json.Encode(Model.PlanovanyZisk));
+            var skv = @Html.Raw(Json.Encode(Model.SkutecneVynosy));
+            var skn= @Html.Raw(Json.Encode(Model.SkutecneNaklady));
+            var skz = @Html.Raw(Json.Encode(Model.SkutecnyZisk));
+             var uhrady = @Html.Raw(Json.Encode(Model.Uhrady));
+                var canvas = document.getElementById("myChart");
+                var ctx = canvas.getContext('2d');
+
+                // Global Options:
+                Chart.defaults.global.defaultFontColor = 'black';
+                Chart.defaults.global.defaultFontSize = 16;
+
+                var data = {
+                    labels: week,
+                    datasets: [{
+                        label: "Plánované výnosy",
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(225,0,0,0.4)",
+                        borderColor: "#95c4ff", // The main line color
+                        borderCapStyle: 'square',
+                        borderDash: [], // try [5, 15] for instance
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "black",
+                        pointBackgroundColor: "white",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 8,
+                        pointHoverBackgroundColor: "yellow",
+                        pointHoverBorderColor: "brown",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        // notice the gap in the data and the spanGaps: true
+                        data: plv,
+                        spanGaps: true,
+                    }, {
+                        label: "Plánované náklady",
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(167,105,0,0.4)",
+                            borderColor: "#ffadad",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "white",
+                        pointBackgroundColor: "black",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 8,
+                        pointHoverBackgroundColor: "brown",
+                        pointHoverBorderColor: "yellow",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        // notice the gap in the data and the spanGaps: false
+                        data: pln,
+                        spanGaps: false,
+                        }
+                        , {
+                            label: "Plánovaný zisk",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(167,105,0,0.4)",
+                            borderColor: "#b2fedf",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "white",
+                            pointBackgroundColor: "black",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 8,
+                            pointHoverBackgroundColor: "brown",
+                            pointHoverBorderColor: "yellow",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHitRadius: 10,
+                            // notice the gap in the data and the spanGaps: false
+                            data: plz,
+                            spanGaps: false,
+                        },
+                        {
+                            label: "Skutečné výnosy",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(225,0,0,0.4)",
+                            borderColor: "#006ffc", // The main line color
+                            borderCapStyle: 'square',
+                            borderDash: [], // try [5, 15] for instance
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "black",
+                            pointBackgroundColor: "white",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 8,
+                            pointHoverBackgroundColor: "yellow",
+                            pointHoverBorderColor: "brown",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHitRadius: 10,
+                            // notice the gap in the data and the spanGaps: true
+                            data: skv,
+                            spanGaps: true,
+                        }, {
+                            label: "Skutečné náklady",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(167,105,0,0.4)",
+                            borderColor: "#ff5959",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "white",
+                            pointBackgroundColor: "black",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 8,
+                            pointHoverBackgroundColor: "brown",
+                            pointHoverBorderColor: "yellow",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHitRadius: 10,
+                            // notice the gap in the data and the spanGaps: false
+                            data: skn,
+                            spanGaps: false,
+                        }
+                        , {
+                            label: "Skutečný zisk",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(167,105,0,0.4)",
+                            borderColor: "#00ff97",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "white",
+                            pointBackgroundColor: "black",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 8,
+                            pointHoverBackgroundColor: "brown",
+                            pointHoverBorderColor: "yellow",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHitRadius: 10,
+                            // notice the gap in the data and the spanGaps: false
+                            data: skz,
+                            spanGaps: false,
+                        }
+                        , {
+                            label: "Uhrady",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(167,105,0,0.4)",
+                            borderColor: "#000000",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "white",
+                            pointBackgroundColor: "black",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 8,
+                            pointHoverBackgroundColor: "brown",
+                            pointHoverBorderColor: "yellow",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHitRadius: 10,
+                            // notice the gap in the data and the spanGaps: false
+                            data: uhrady,
+                            spanGaps: false,
+                        }
+
+                    ]
+                };
+
+                // Notice the scaleLabel at the same level as Ticks
+                var options = {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Kč',
+                                fontSize: 20
+                            }
+                        }]
+                    }
+                };
+
+                // Chart declaration:
+                var myBarChart = new Chart(ctx, {
+                    type: 'line',
+                    data: data,
+                    options: options
+                });
+
+        </script>
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('#btnSave').click(function () {
+                $('#modal-container').modal('hide');
+            });
+
+        });
+
+    </script>
+
+
+}
+
+
+

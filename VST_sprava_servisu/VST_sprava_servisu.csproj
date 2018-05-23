@@ -315,6 +315,7 @@
     <Compile Include="Controllers\ServisniZasahPrvekController.cs" />
     <Compile Include="Controllers\ServisniZasahyController.cs" />
     <Compile Include="Controllers\SILController.cs" />
+    <Compile Include="Controllers\StatistikyController.cs" />
     <Compile Include="Controllers\SZSerioveCisloeController.cs" />
     <Compile Include="Controllers\TechniciController.cs" />
     <Compile Include="Controllers\TypPBZController.cs" />
@@ -391,6 +392,7 @@
     <Compile Include="Models\ServisniZasahy.cs" />
     <Compile Include="Models\SessionReader.cs" />
     <Compile Include="Models\SIL.cs" />
+    <Compile Include="Models\Statistiky.cs" />
     <Compile Include="Models\StatusRevize.cs" />
     <Compile Include="Models\Umisteni.cs" />
     <Compile Include="Models\VymenyLahvi.cs" />
@@ -846,6 +848,8 @@
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -1254,6 +1258,9 @@
     <Content Include="Views\UmisteniTypPBZ\Edit.cshtml" />
     <Content Include="Views\UmisteniTypPBZ\Index.cshtml" />
     <Content Include="Views\SIL\Index.cshtml" />
+    <Content Include="Views\Statistiky\Index.cshtml" />
+    <Content Include="Views\Statistiky\CelkovyManazerskyPrehled.cshtml" />
+    <Content Include="Views\Projekty\GrafForProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

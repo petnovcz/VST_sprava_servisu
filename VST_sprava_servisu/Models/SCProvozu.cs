@@ -68,7 +68,10 @@ namespace VST_sprava_servisu
             using (var dbCtx = new Model1Container())
             {
                 sCProvozu = dbCtx.SCProvozu.Where(r => r.Id == SCProvozuId).Include(r=>r.SerioveCislo).Include(r=>r.Artikl).FirstOrDefault();
-                //sCProvozu.Artikl = dbCtx.Artikl.Where(a => a.Id == sCProvozu.SerioveCislo.ArtiklId).FirstOrDefault();
+                if (sCProvozu.SerioveCislo.ArtiklId != null)
+                {
+                    sCProvozu.Artikl = dbCtx.Artikl.Where(a => a.Id == sCProvozu.SerioveCislo.ArtiklId).FirstOrDefault();
+                }
             }
 
             return sCProvozu;
