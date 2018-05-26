@@ -392,6 +392,7 @@
     <Compile Include="Models\ServisniZasahy.cs" />
     <Compile Include="Models\SessionReader.cs" />
     <Compile Include="Models\SIL.cs" />
+    <Compile Include="Models\SPZ.cs" />
     <Compile Include="Models\Statistiky.cs" />
     <Compile Include="Models\StatusRevize.cs" />
     <Compile Include="Models\Umisteni.cs" />

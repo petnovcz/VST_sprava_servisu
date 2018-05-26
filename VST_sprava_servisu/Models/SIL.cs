@@ -153,7 +153,9 @@ namespace VST_sprava_servisu
                     "t4.Id as 'SerioveCisloId'," +
                     "t3.Id as 'SCProvozuId', " +
                     "(SELECT HodinyProvozu FROM( SELECT ROW_NUMBER() OVER(ORDER BY coalesce(t0.KontrolaProvedenaDne, t0.Datumrevize) desc) AS rownumber, t1.HodinyProvozu from Revize t0 left join RevizeSC t1 on t0.Id = t1.RevizeId where Rok <= @rok  and t1.SCProvozuId = t3.id) as foo  WHERE rownumber = 2) as 'I',");
+                sql.Append("(SELECT KontrolaProvedenaDne FROM( SELECT ROW_NUMBER() OVER(ORDER BY coalesce(t0.KontrolaProvedenaDne, t0.Datumrevize) desc) AS rownumber, t0.KontrolaProvedenaDne from Revize t0 left join RevizeSC t1 on t0.Id = t1.RevizeId where Rok <= @rok  and t1.SCProvozuId = t3.id) as foo  WHERE rownumber = 2 ) as 'DatumI', "); 
                 sql.Append(" (SELECT HodinyProvozu FROM( SELECT ROW_NUMBER() OVER (ORDER BY coalesce(t0.KontrolaProvedenaDne, t0.Datumrevize) desc) AS rownumber, t1.HodinyProvozu from Revize t0 left join RevizeSC t1 on t0.Id = t1.RevizeId where Rok <= @rok  and t1.SCProvozuId = t3.id) as foo WHERE rownumber = 1) as 'II',");
+                sql.Append(" (SELECT KontrolaProvedenaDne FROM( SELECT ROW_NUMBER() OVER(ORDER BY coalesce(t0.KontrolaProvedenaDne, t0.Datumrevize) desc) AS rownumber, t0.KontrolaProvedenaDne from Revize t0 left join RevizeSC t1 on t0.Id = t1.RevizeId where Rok <= @rok  and t1.SCProvozuId = t3.id) as foo  WHERE rownumber = 1 ) as 'DatumII',");
                 sql.Append(" CAST(DateDiff(D, ((SELECT KontrolaProvedenaDne FROM( SELECT ROW_NUMBER() OVER(ORDER BY coalesce(t0.KontrolaProvedenaDne, t0.Datumrevize) desc) AS rownumber, t0.KontrolaProvedenaDne from Revize t0 left join RevizeSC t1 on t0.Id = t1.RevizeId where Rok <= @rok  and t1.SCProvozuId = t3.id) as foo WHERE rownumber = 2)),");
                 sql.Append(" (SELECT KontrolaProvedenaDne FROM( SELECT ROW_NUMBER() OVER (ORDER BY coalesce(t0.KontrolaProvedenaDne, t0.Datumrevize) desc) AS rownumber, t0.KontrolaProvedenaDne from Revize t0 left join RevizeSC t1 on t0.Id = t1.RevizeId where Rok <= @rok  and t1.SCProvozuId = t3.id) as foo WHERE rownumber = 1)) as decimal) as 'PocetdnimeziIaIIrevizi',");
                 sql.Append(" (select COUNT(*) from Revize t0 left join RevizeSC t1 on t0.Id = t1.RevizeId where Rok = @rok  and t1.SCProvozuId = t3.id) as 'count' from Zakaznik t0 left join Provoz t1 on t1.ZakaznikId = t0.Id left join Umisteni t2 on t2.ProvozId = t1.Id ");
@@ -263,6 +265,23 @@ namespace VST_sprava_servisu
                         }
                         catch (Exception ex) { //log.Error("Error number: TAKUII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
+                        try
+                        {
+                            //log.Debug("TAKUII ");
+                            sil.DatumI = (dr.GetDateTime(dr.GetOrdinal("DatumI")));
+                        }
+                        catch (Exception ex)
+                        { //log.Error("Error number: TAKUII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
+                        try
+                        {
+                            //log.Debug("TAKUII ");
+                            sil.DatumII = (dr.GetDateTime(dr.GetOrdinal("DatumII")));
+                        }
+                        catch (Exception ex)
+                        { //log.Error("Error number: TAKUII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        }
+
 
                         sil.Zakaznik = Zakaznik.GetById(sil.ZakaznikId);
                         sil.Provoz = Provoz.GetById(sil.ProvozId);
@@ -312,6 +331,8 @@ namespace VST_sprava_servisu
             public decimal TAKU { get; set; }
             [DisplayFormat(DataFormatString = "{0:#.##}")]
             public decimal TAKUII { get; set; }
+            public DateTime? DatumI { get; set; }
+            public DateTime DatumII { get; set; }
         }
 
         public int PocetNebezpecnychPoruch

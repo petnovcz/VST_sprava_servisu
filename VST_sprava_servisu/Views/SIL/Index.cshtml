@@ -77,10 +77,18 @@
                 Sériové číslo
             </th>
             <th>
-                I
+                Datum předposlední revize
             </th>
             <th>
-                II
+                Datum poslední revize
+            </th>
+
+
+            <th>
+                Doba provozu při předposlední revizi
+            </th>
+            <th>
+                Doba provozu při poslední revizi
             </th>
             <th>
                 doba mezi revizemi
@@ -92,7 +100,10 @@
                 TAKU II
             </th>
             <th>
-                počet revizí v roce
+                Plánovaný počet revizí v roce
+            </th>
+            <th>
+                Ukončení záruky
             </th>
         </tr>
     </thead>
@@ -117,15 +128,22 @@
                 @item.SerioveCislo.SerioveCislo1
             </td>
             <td>
-                @String.Format("{0:n2}", @item.DobaprovozuI)
+                @item.DatumI
+            </td>
+            <td>
+                @item.DatumII
+            </td>
+
+            <td>
+                @String.Format("{0:n2}", @item.DobaprovozuI) [h]
 
             </td>
             <td>
-                @String.Format("{0:n2}", @item.DobaprovozuII)
+                @String.Format("{0:n2}", @item.DobaprovozuII) [h]
 
             </td>
             <td>
-                @String.Format("{0:n2}", @item.DniMeziRevizemi)
+                @String.Format("{0:n2}", @item.DniMeziRevizemi) [dni]
 
             </td>
             <td>
@@ -138,6 +156,9 @@
             </td>
             <td>
                 @item.PocetReviziVRoce
+            </td>
+            <td>
+                @item.Umisteni.UkonceniZaruky
             </td>
         </tr>
         }
@@ -211,11 +232,12 @@
     <thead>
         <tr>
             <th>
-                Datum výzvy
-            </th>
-            <th>
                 Datum vzniku poruchy
             </th>
+            <th>
+                Datum výzvy
+            </th>
+
             <th>
                 Datum zásahu
             </th>
@@ -228,35 +250,36 @@
             <th>
                 Název poruchy
             </th>
-           
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.SeznamZavaznychPoruch)
         {
-            <tr>
-                <td>
-                    @item.ServisniZasah.DatumVyzvy
-                </td>
-                <td>
-                    @item.ServisniZasah.DatumVznikuPoruchy
-                </td>
-                <td>
-                    @item.ServisniZasah.DatumZasahu
-                </td>
+        <tr>
+            <td>
+                @item.ServisniZasah.DatumVznikuPoruchy
+            </td>
+            <td>
+                @item.ServisniZasah.DatumVyzvy
+            </td>
 
-                <td>
-                    @item.ServisniZasah.DatumOdstraneni
-                </td>
-                <td>
-                    @item.ServisniZasah.Zakaznik.NazevZakaznika
-                </td>
-                <td>
-                    @item.Porucha.NazevPoruchy
+            <td>
+                @item.ServisniZasah.DatumZasahu
+            </td>
 
-                </td>
-               
-            </tr>
+            <td>
+                @item.ServisniZasah.DatumOdstraneni
+            </td>
+            <td>
+                @item.ServisniZasah.Zakaznik.NazevZakaznika
+            </td>
+            <td>
+                @item.Porucha.NazevPoruchy
+
+            </td>
+
+        </tr>
         }
     </tbody>
 
