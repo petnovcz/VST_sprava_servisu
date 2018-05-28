@@ -9,11 +9,12 @@ namespace VST_sprava_servisu.Controllers
     public class StatistikyController : Controller
     {
         // GET: Statistiky
+        [Authorize(Roles = "Administrator,Vedení")]
         public ActionResult Index()
         {
             return View();
         }
-
+        [Authorize(Roles = "Administrator,Vedení")]
         public ActionResult CelkovyManazerskyPrehled(DateTime? DatumOd, DateTime? DatumDo)
         {
             CelkovyManazerskyPrehled cmp = new CelkovyManazerskyPrehled();

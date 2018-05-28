@@ -289,25 +289,29 @@ namespace VST_sprava_servisu
             
             using (var dbCtx = new Model1Container())
             {
-                var  x =  dbCtx.Revize
+                var x = dbCtx.Revize
+                    //.Where(r => r.Zakaznik.Id == Zakaznik)
                     .Where(r => r.ProvozId == Provoz)
                     .Where(r => r.Rok == Rok)
-                    .Where(r => r.Pololeti == Pololeti); 
-
+                    .Where(r => r.Pololeti == Pololeti);
+                var x1 = x.ToList();
                 var status = dbCtx.StatusRevize.Where(s => s.Realizovana == true).FirstOrDefault();
                 if (Umisteni == null)
                 {}
                 else
                 {
-                    x.Where(r => r.UmisteniId == Umisteni);                  
+                    x = x.Where(r => r.UmisteniId == Umisteni);
+                    var x2 = x.ToList();
                 }
                 if (closed == true)
                 {
-                    x.Where(r => r.StatusRevizeId == status.Id);
+                    x = x.Where(r => r.StatusRevizeId == status.Id);
+                    var x3 = x.ToList();
                 }
                 if (closed == false)
                 {
-                    x.Where(r => r.StatusRevizeId != status.Id);
+                    x = x.Where(r => r.StatusRevizeId != status.Id);
+                    var x3 = x.ToList();
                 }
                 ;
                 revize = x.FirstOrDefault();

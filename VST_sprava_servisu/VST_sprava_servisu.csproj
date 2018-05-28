@@ -315,6 +315,7 @@
     <Compile Include="Controllers\ServisniZasahPrvekController.cs" />
     <Compile Include="Controllers\ServisniZasahyController.cs" />
     <Compile Include="Controllers\SILController.cs" />
+    <Compile Include="Controllers\SPZController.cs" />
     <Compile Include="Controllers\StatistikyController.cs" />
     <Compile Include="Controllers\SZSerioveCisloeController.cs" />
     <Compile Include="Controllers\TechniciController.cs" />
@@ -1262,6 +1263,7 @@
     <Content Include="Views\Statistiky\Index.cshtml" />
     <Content Include="Views\Statistiky\CelkovyManazerskyPrehled.cshtml" />
     <Content Include="Views\Projekty\GrafForProject.cshtml" />
+    <Content Include="Views\SPZ\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

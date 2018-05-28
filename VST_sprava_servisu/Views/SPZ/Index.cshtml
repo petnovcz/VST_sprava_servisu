@@ -1,0 +1,69 @@
+﻿@model VST_sprava_servisu.SPZ
+@{
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
+}
+
+
+<h3>Vyhodnocení importu SPZ dat do SAP</h3>
+
+<h4>Počet importovaných záznamů - @Model.ImportedRecords</h4>
+
+<h4>Počet neimportovaných záznamů - @Model.SPZ_NotImported.Count - Odeslány emailem</h4>
+
+<table class="table table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Datum od
+            </th>
+            <th>
+                Datum do
+            </th>
+            <th>
+                Odkud
+            </th>
+            <th>
+                Kam
+            </th>
+            <th>
+                SPZ
+            </th>
+            <th>
+                Projekt
+            </th>
+            <th>
+                Řidič
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SPZ_NotImported)
+        {
+
+        <tr>
+            <td>
+                @item.U_datumOd
+            </td>
+            <td>
+                 @item.U_datumDo
+            </td>
+            <td>
+                @item.U_MistoOdk
+            </td>
+            <td>
+                @item.U_MistoKam
+            </td>
+            <td>
+                @item.U_SPZ
+            </td>
+            <td>
+                @item.U_projekt
+            </td>
+            <td>
+                @item.U_ridic
+            </td>
+        </tr>
+        }
+        </tbody>
+
+    </table>

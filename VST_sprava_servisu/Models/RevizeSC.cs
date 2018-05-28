@@ -14,7 +14,7 @@ namespace VST_sprava_servisu
 
         internal protected static RevizeSC CalculateDobuProvozu(RevizeSC revizeSC)
         {
-            revizeSC.HodinyProvozu = 1000;
+            //revizeSC.HodinyProvozu = 1000;
 
 
             return revizeSC;
