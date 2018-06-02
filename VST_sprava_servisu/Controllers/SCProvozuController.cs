@@ -122,7 +122,7 @@ namespace VST_sprava_servisu
                 int Provoz = sCProvozu.ProvozId;
                 int Umisteni = sCProvozu.Umisteni.Value;
                 int Zakaznik = db.Provoz.Where(p => p.Id == Provoz).Select(p => p.ZakaznikId).FirstOrDefault();
-                return RedirectToAction("Details","Umistenis", new { id = Umisteni, Provoz = Provoz, Zakaznik = Zakaznik} );
+                return RedirectToAction("Details","Umistenis", new { id = Umisteni, Provoz, Zakaznik} );
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", sCProvozu.ProvozId);
             ViewBag.SerioveCisloId = new SelectList(db.SerioveCislo, "Id", "SerioveCislo1", sCProvozu.SerioveCisloId);

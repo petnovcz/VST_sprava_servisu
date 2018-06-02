@@ -39,9 +39,12 @@ namespace VST_sprava_servisu
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
+            
 
             cnn.Open();
 
@@ -62,31 +65,41 @@ namespace VST_sprava_servisu
                     {
                         sapda.CardCode = dr.GetString(dr.GetOrdinal("CardCode"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    catch (Exception ex)
+                    { 
+                        log.Debug("LoadSAPDeliveryAddresses - Načtení CardCode - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
                     try
                     {
                         sapda.Street = dr.GetString(dr.GetOrdinal("Street"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    catch (Exception ex)
+                    { 
+                        log.Debug("LoadSAPDeliveryAddresses - Načtení Street - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
                     try
                     {
                         sapda.ZipCode = dr.GetString(dr.GetOrdinal("ZipCode"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex)
+                    { 
+                        log.Debug("LoadSAPDeliveryAddresses - Načtení ZipCode - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         sapda.City = dr.GetString(dr.GetOrdinal("City"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex)
+                    { 
+                        log.Error("LoadSAPDeliveryAddresses - Načtení City - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         sapda.Country = dr.GetString(dr.GetOrdinal("Country"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    catch (Exception ex)
+                    {
+                        log.Debug("LoadSAPDeliveryAddresses - Načtení Country - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
 
 

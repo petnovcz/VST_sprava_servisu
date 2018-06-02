@@ -50,7 +50,7 @@ namespace VST_sprava_servisu.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,PrijmeniJmeno,File,ImageSize,FileName,FileIn")] Technici technici)
         {
-            var success = false;
+            //var success = false;
             if (technici.FileIn != null)
             {
                 technici.FileName = technici.FileIn.FileName;

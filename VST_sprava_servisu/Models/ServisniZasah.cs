@@ -65,9 +65,11 @@ namespace VST_sprava_servisu
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -250,7 +252,7 @@ namespace VST_sprava_servisu
                     db.Entry(sz).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                catch (Exception ex) { };
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);  };
             }
 
 
@@ -292,9 +294,11 @@ namespace VST_sprava_servisu
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -352,9 +356,11 @@ namespace VST_sprava_servisu
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -405,9 +411,11 @@ namespace VST_sprava_servisu
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();

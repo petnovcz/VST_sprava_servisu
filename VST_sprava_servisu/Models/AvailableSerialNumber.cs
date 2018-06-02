@@ -41,15 +41,17 @@ namespace VST_sprava_servisu
 
                 sql.Append(" select t0.ItemCode, t0.SysSerial, t0.SuppSerial, t0.IntrSerial, t0.WhsCode, t0.Quantity, t0.Status");
                 sql.Append($"  from OSRI t0 INNER JOIN SRI1 T1 ON T0.ItemCode = T1.ItemCode and T0.SysSerial = T1.SysSerial");
-                
+
                 sql.Append($"  where t0.Status = 0 and t1.ItemCode = '{ArtiklKusovnikSAPKod}' and t0.WhsCode = 'Servis'");
                 sql.Append($"  group by t0.ItemCode, t0.SysSerial, t0.SuppSerial, t0.IntrSerial, t0.WhsCode, t0.Quantity, t0.Status");
- 
+
                 SqlConnection cnn = new SqlConnection(connectionString);
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = cnn;
-                cmd.CommandText = sql.ToString();
+                SqlCommand cmd = new SqlCommand
+                {
+                    Connection = cnn,
+                    CommandText = sql.ToString()
+                };
                 cnn.Open();
                 cmd.ExecuteNonQuery();
                 SqlDataReader dr = cmd.ExecuteReader();

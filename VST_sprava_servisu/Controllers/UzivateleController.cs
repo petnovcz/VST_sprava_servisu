@@ -85,7 +85,7 @@ namespace VST_sprava_servisu
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUsers aspNetUsers)
         {
-            var success = false;
+            //var success = false;
             
             if (ModelState.IsValid)
             {

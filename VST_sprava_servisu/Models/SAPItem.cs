@@ -34,9 +34,12 @@ namespace VST_sprava_servisu
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+
+            };
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -54,13 +57,13 @@ namespace VST_sprava_servisu
                     {
                         sapItem.ItemName = dr.GetString(1);
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         sapItem.ItmsGrpNam = dr.GetString(3);
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
@@ -68,7 +71,7 @@ namespace VST_sprava_servisu
                         int codeint = dr.GetInt16(2);
                         sapItem.ItmsGrpCod = codeint;
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
 
                 }
@@ -89,9 +92,11 @@ namespace VST_sprava_servisu
             sql.Append($"/*and*/ ((select count(*) from [{RS_dtb}].[dbo].[Artikl] where KodSAP COLLATE DATABASE_DEFAULT = ItemCode COLLATE DATABASE_DEFAULT) = 0)");
 
             SqlConnection cnn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -106,25 +111,25 @@ namespace VST_sprava_servisu
                     {
                         sapitem.ItemCode = dr.GetString(dr.GetOrdinal("ItemCode"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         sapitem.ItemName = dr.GetString(dr.GetOrdinal("ItemName"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) {  log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         sapitem.ItmsGrpNam = dr.GetString(dr.GetOrdinal("ItmsGrpNam"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         sapitem.ItmsGrpCod = dr.GetInt16(dr.GetOrdinal("ItmsGrpCod"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
 
                     SAPItemsList.Add(sapitem);

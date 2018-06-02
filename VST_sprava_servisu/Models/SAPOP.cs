@@ -89,10 +89,12 @@ namespace VST_sprava_servisu
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
-
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
+            
             cnn.Open();
 
             cmd.ExecuteNonQuery();
@@ -112,44 +114,45 @@ namespace VST_sprava_servisu
                     {
                         ocrd.CardName = dr.GetString(dr.GetOrdinal("CardName"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
                     try
                     {
                         ocrd.Address = dr.GetString(dr.GetOrdinal("Address"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                     try
                     {
                         ocrd.City = dr.GetString(dr.GetOrdinal("City"));
                     }
-                    catch(Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    catch(Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                             }
                     try
                     {
                         ocrd.ZipCode = dr.GetString(dr.GetOrdinal("ZipCode"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                                 }
                     try
                     {
                         ocrd.Country = dr.GetString(dr.GetOrdinal("Country"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                                     }
                     try
                     {
                         ocrd.LicTradNum = dr.GetString(dr.GetOrdinal("LicTradNum"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                                         }
                     try
                     {
                         ocrd.VatIdUnCmp = dr.GetString(dr.GetOrdinal("VatIdUnCmp"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
-                                            }
+                    catch (Exception ex) {
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    }
                     ocrd.Open = dr.GetInt32(dr.GetOrdinal("Open"));
                     ocrd.Total = dr.GetInt32(dr.GetOrdinal("Total"));
                     listocrd.Add(ocrd);
@@ -173,9 +176,11 @@ namespace VST_sprava_servisu
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -193,67 +198,67 @@ namespace VST_sprava_servisu
                     {
                         sapOP.CardName = dr.GetString(dr.GetOrdinal("CardName"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         sapOP.Address = dr.GetString(dr.GetOrdinal("Address"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                     try
                     {
                         sapOP.City = dr.GetString(dr.GetOrdinal("City"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                             }
                     try
                     {
                         sapOP.ZipCode = dr.GetString(dr.GetOrdinal("ZipCode"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                                 }
                     try
                     {
                         sapOP.Country = dr.GetString(dr.GetOrdinal("Country"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                                     }
                     try
                     {
                         sapOP.LicTradNum = dr.GetString(dr.GetOrdinal("LicTradNum"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                                         }
                     try
                     {
                         sapOP.VatIdUnCmp = dr.GetString(dr.GetOrdinal("VatIdUnCmp"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                                             }
                     try
                     {
                         sapOP.Phone = dr.GetString(dr.GetOrdinal("Phone1"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                                                 }
                     try
                     {
                         sapOP.Email = dr.GetString(dr.GetOrdinal("E_Mail"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                                                     }
                     try
                     {
                         sapOP.JazykId = dr.GetInt32(dr.GetOrdinal("LangCode"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                                                         }
                     try
                     {
                         sapOP.RegionId = dr.GetInt32(dr.GetOrdinal("Territory"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                                                             }
 
                 }

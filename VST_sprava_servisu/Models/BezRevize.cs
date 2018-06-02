@@ -6,9 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web;
-
-
-
+using System.Web.Mvc;
 
 namespace VST_sprava_servisu
 {
@@ -31,6 +29,8 @@ namespace VST_sprava_servisu
         /// <param name="Rok"></param>
         /// <param name="Skupina"></param>
         /// <returns></returns>
+        /// 
+        [Authorize(Roles = "Administrator,Manager")]
         internal protected static List<ZakaznickySeznam> GetCustomerListWithoutRevision(int Rok, int Skupina, string Search)
         {
             List<ZakaznickySeznam> list = new List<ZakaznickySeznam>();
@@ -47,9 +47,8 @@ namespace VST_sprava_servisu
             sql.Append($" where (t3.Skupina = '{Skupina}' or 0 = '{Skupina}') and (t0.NazevZakaznika like '%{Search}%' or '{Search}' = '')");
             sql.Append($" and (select COUNT(*) from Revize where provozid = t1.id and (UmisteniId = t2.id or UmisteniID is null) and rok = '{Rok}') = 0");
 
-            // LOGOVANI
-            //log.Debug($"GetCustomerListWithoutRevision pro revizi pro rok: {Rok}, skupina: {Skupina},Search: {Search}");
-            //log.Debug(sql.ToString());
+            log.Debug($"GetCustomerListWithoutRevision pro Rok: {Rok}, Skupina: {Skupina}, Search: {Search}");
+            log.Debug(sql.ToString());
 
             SqlConnection cnn = new SqlConnection(con);
             SqlCommand cmd = new SqlCommand();
@@ -69,46 +68,54 @@ namespace VST_sprava_servisu
                     {
                         item.ZakaznikId = dr.GetInt32(dr.GetOrdinal("ZakaznikId"));
                     }
-                    catch(Exception ex) { //log.Error($"Nenalazeno ZakaznikId {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex)
+                    {
+                        log.Debug("GetCustomerListWithoutRevision - načtení ZakaznikId: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
                     try
                     {
                         item.Zakaznik = dr.GetString(dr.GetOrdinal("Zakaznik"));
                     }
-                    catch(Exception ex) { //log.Error($"Nenalazeno Zakaznik {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex)
+                    {
+                        log.Debug("GetCustomerListWithoutRevision - načtení Zakaznik: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
                     try
                     {
                         item.ProvozId = dr.GetInt32(dr.GetOrdinal("ProvozId"));
                     }
-                    catch(Exception ex) { //log.Error($"Nenalazeno ProvozId {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex)
+                    {
+                        log.Debug("GetCustomerListWithoutRevision - načtení ProvozId: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
                     try
                     {
                         item.Provoz = dr.GetString(dr.GetOrdinal("Provoz"));
                     }
-                    catch(Exception ex) { //log.Error($"Nenalazeno Provoz {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex)
+                    {
+                        log.Debug("GetCustomerListWithoutRevision - načtení Provoz: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
                     try
                     {
                         item.UmisteniId = dr.GetInt32(dr.GetOrdinal("UmisteniId"));
                     }
-                    catch(Exception ex) { //log.Error($"Nenalazeno UmisteniId {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex)
+                    {
+                        log.Debug("GetCustomerListWithoutRevision - načtení UmisteniId: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
                     try
                     {
                         item.NazevUmisteni = dr.GetString(dr.GetOrdinal("NazevUmisteni"));
                     }
-                    catch(Exception ex) { //log.Error($"Nenalazeno NazevUmisteni {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                    catch(Exception ex)
+                    {
+                        log.Debug("GetCustomerListWithoutRevision - načtení NazevUmisteni: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
-
-
                     list.Add(item);
                 }
             }
             cnn.Close();
-
-
             return list;
         }
     }

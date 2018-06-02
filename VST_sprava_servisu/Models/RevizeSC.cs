@@ -39,7 +39,7 @@ namespace VST_sprava_servisu
                         dbCtx.RevizeSC.Remove(revizesc);
                         dbCtx.SaveChanges();
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
                 }
             }
@@ -57,7 +57,7 @@ namespace VST_sprava_servisu
                     dbCtx.RevizeSC.Remove(revizeSC);
                     dbCtx.SaveChanges();
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             }
         }
 
@@ -83,7 +83,7 @@ namespace VST_sprava_servisu
                         dbCtx.Entry(revizeSC).State = EntityState.Modified;
                         dbCtx.SaveChanges();
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
                 }
 
@@ -181,10 +181,13 @@ namespace VST_sprava_servisu
 
         internal protected void CreateRevizeSC(int RevizeId, int ScProvozu, int UmisteniId)
         {
-            RevizeSC revizeSC = new RevizeSC();
-            revizeSC.RevizeId = RevizeId;
-            revizeSC.SCProvozuId = ScProvozu;
-            revizeSC.UmisteniId = UmisteniId;
+            RevizeSC revizeSC = new RevizeSC
+            {
+                RevizeId = RevizeId,
+                SCProvozuId = ScProvozu,
+                UmisteniId = UmisteniId,
+            };
+            
 
 
             using (var dbCtx = new Model1Container())
@@ -251,11 +254,14 @@ namespace VST_sprava_servisu
         {
             using (var dbCtx = new Model1Container())
             {
-                RevizeSC revizeSCTlkZK = new RevizeSC();
-                revizeSCTlkZK.RevizeId = RevizeTlkZK.Id;
-                revizeSCTlkZK.SCProvozuId = RevizeSC.SCProvozuId;
-                revizeSCTlkZK.UmisteniId = RevizeSC.UmisteniId;
-                revizeSCTlkZK.TlakovaZkouska = RevizeSC.TlakovaZkouska;
+                RevizeSC revizeSCTlkZK = new RevizeSC
+                {
+                    RevizeId = RevizeTlkZK.Id,
+                    SCProvozuId = RevizeSC.SCProvozuId,
+                    UmisteniId = RevizeSC.UmisteniId,
+                    TlakovaZkouska = RevizeSC.TlakovaZkouska
+                };
+                
 
 
                 try

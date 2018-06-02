@@ -15,6 +15,7 @@ namespace VST_sprava_servisu.Controllers
 {
     public class ProjektyController : Controller
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ProjektyController");
         // GET: Projekty
         [Authorize(Roles = "Administrator,Vedení")]
         public ActionResult Index(bool? Send, int? Rok, string ciselnarada, string typprojektu,int? pracovnik, string stavyprojektu,int? region,int? skupinaartiklu, bool? pr, bool? sp, bool? r, bool? tp, bool? cr, bool? sa )
@@ -60,8 +61,9 @@ namespace VST_sprava_servisu.Controllers
             // Nasavení hodnot pri spusteni
             if (Send == false || Send == null)
             {
-                Roky rok = new Roky();
-                rok.Id = Convert.ToInt32(DateTime.Now.Year);
+                Roky rok = new Roky
+                { Id = Convert.ToInt32(DateTime.Now.Year) };
+                
 
                 try
                 {
@@ -73,7 +75,10 @@ namespace VST_sprava_servisu.Controllers
                     projekty.VybraneRokyList.Add(rok);
                 }
                 
-                catch (Exception ex) { }
+                catch (Exception ex)
+                {
+                    log.Error($"Error - : {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+                }
                 try
                 {  if (projekty.VybranaCiselnaRadaList == null)
                     {
@@ -81,7 +86,7 @@ namespace VST_sprava_servisu.Controllers
                         projekty.VybranaCiselnaRadaList = projekty.CiselnaRadaList;
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { log.Error($"Error - : {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}"); }
                 try
                 {
                     if (projekty.VybraneTypyProjektuList == null)
@@ -90,7 +95,7 @@ namespace VST_sprava_servisu.Controllers
                         projekty.VybraneTypyProjektuList = projekty.TypProjektuList;
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { log.Error($"Error - : {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}"); }
                 try
                 {
                     if (projekty.VybraneRegionyList == null)
@@ -99,7 +104,7 @@ namespace VST_sprava_servisu.Controllers
                         projekty.VybraneRegionyList = projekty.RegionyList;
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { log.Error($"Error - : {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}"); }
                 try
                 {
                     if (projekty.VybraneStavyProjektuList == null)
@@ -108,7 +113,7 @@ namespace VST_sprava_servisu.Controllers
                         projekty.VybraneStavyProjektuList = projekty.StavyProjektuList;
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { log.Error($"Error - : {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}"); }
                 try
                 {
                     if (projekty.VybraniPracovniciList == null)
@@ -117,7 +122,7 @@ namespace VST_sprava_servisu.Controllers
                         projekty.VybraniPracovniciList = projekty.PracovniciList;
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { log.Error($"Error - : {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}"); }
                 try
                 {
                     if (projekty.VybranaSkupinaArtikluList == null)
@@ -126,7 +131,7 @@ namespace VST_sprava_servisu.Controllers
                         projekty.VybranaSkupinaArtikluList = projekty.SkupinaArtikluList;
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { log.Error($"Error - : {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}"); }
             }
             // Nastaveni pri odeslani hodnot
             if (Send == true)
@@ -187,15 +192,16 @@ namespace VST_sprava_servisu.Controllers
                 }
                 if (Rok != null)
                 {
-                    Roky rok = new Roky();
-                    rok.Id = Convert.ToInt32(Rok);
+                    Roky rok = new Roky
+                    {
+                        Id = Convert.ToInt32(Rok)
+                    };
                     try
                     {
                         if (projekty.VybraneRokyList == null)
                         {
                             //It's null - create it
-                            projekty.VybraneRokyList = new List<Roky>();
-                            projekty.VybraneRokyList.Add(rok);
+                            projekty.VybraneRokyList = new List<Roky> { rok };                            
                         }
                         else
                         {
@@ -215,21 +221,23 @@ namespace VST_sprava_servisu.Controllers
                         }
 
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 }
 
                 //skupinaartiklu
                 if (skupinaartiklu != null)
                 {
-                    SAPSkupinaArtiklu rok = new SAPSkupinaArtiklu();
-                    rok.Id = Convert.ToInt32(skupinaartiklu);
+                    SAPSkupinaArtiklu rok = new SAPSkupinaArtiklu
+                    {
+                        Id = Convert.ToInt32(skupinaartiklu)
+                    };
                     try
                     {
                         if (projekty.VybranaSkupinaArtikluList == null)
                         {
                             //It's null - create it
-                            projekty.VybranaSkupinaArtikluList = new List<SAPSkupinaArtiklu>();
-                            projekty.VybranaSkupinaArtikluList.Add(rok);
+                            projekty.VybranaSkupinaArtikluList = new List<SAPSkupinaArtiklu> { rok };
+                            
                         }
                         else
                         {
@@ -249,20 +257,22 @@ namespace VST_sprava_servisu.Controllers
                         }
 
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 }
 
                 if (region != null)
                 {
-                    Regiony reg = new Regiony();
-                    reg.TerritryID = Convert.ToInt32(region);
+                    Regiony reg = new Regiony
+                    {
+                        TerritryID = Convert.ToInt32(region)
+                    };
                     try
                     {
                         if (projekty.VybraneRegionyList == null)
                         {
                             //It's null - create it
-                            projekty.VybraneRegionyList = new List<Regiony>();
-                            projekty.VybraneRegionyList.Add(reg);
+                            projekty.VybraneRegionyList = new List<Regiony> { reg};
+                            
                         }
                         else
                         {
@@ -282,19 +292,21 @@ namespace VST_sprava_servisu.Controllers
                         }
 
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 }
                 if (pracovnik != null)
                 {
-                    Pracovnici prac = new Pracovnici();
-                    prac.Kod = Convert.ToInt32(pracovnik);
+                    Pracovnici prac = new Pracovnici
+                    {
+                        Kod = Convert.ToInt32(pracovnik)
+                    };
                     try
                     {
                         if (projekty.VybraniPracovniciList == null)
                         {
                             //It's null - create it
-                            projekty.VybraniPracovniciList = new List<Pracovnici>();
-                            projekty.VybraniPracovniciList.Add(prac);
+                            projekty.VybraniPracovniciList = new List<Pracovnici> { prac};
+                            
                         }
                         else
                         {
@@ -314,19 +326,21 @@ namespace VST_sprava_servisu.Controllers
                         }
 
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 }
                 if ( String.IsNullOrEmpty(ciselnarada) == false )
                 {
-                    CiselnaRadaProjektu cisrada = new CiselnaRadaProjektu();
-                    cisrada.Kod = Convert.ToString(ciselnarada);
+                    CiselnaRadaProjektu cisrada = new CiselnaRadaProjektu
+                    {
+                        Kod = Convert.ToString(ciselnarada)
+                    };
                     try
                     {
                         if (projekty.VybranaCiselnaRadaList == null)
                         {
                             //It's null - create it
-                            projekty.VybranaCiselnaRadaList = new List<CiselnaRadaProjektu>();
-                            projekty.VybranaCiselnaRadaList.Add(cisrada);
+                            projekty.VybranaCiselnaRadaList = new List<CiselnaRadaProjektu> { cisrada};
+                            
                         }
                         else
                         {
@@ -346,19 +360,20 @@ namespace VST_sprava_servisu.Controllers
                         }
 
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 }
                 if (String.IsNullOrEmpty(stavyprojektu) == false)
                 {
-                    StavyProjektu stavpr = new StavyProjektu();
-                    stavpr.Kod = Convert.ToString(stavyprojektu);
+                    StavyProjektu stavpr = new StavyProjektu
+                    {
+                        Kod = Convert.ToString(stavyprojektu)
+                    };
                     try
                     {
                         if (projekty.VybraneStavyProjektuList == null)
                         {
                             //It's null - create it
-                            projekty.VybraneStavyProjektuList = new List<StavyProjektu>();
-                            projekty.VybraneStavyProjektuList.Add(stavpr);
+                            projekty.VybraneStavyProjektuList = new List<StavyProjektu> { stavpr };
                         }
                         else
                         {
@@ -378,19 +393,18 @@ namespace VST_sprava_servisu.Controllers
                         }
 
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 }
                 if (String.IsNullOrEmpty(typprojektu) == false)
                 {
-                    TypProjektu typproj = new TypProjektu();
-                    typproj.Kod = Convert.ToString(typprojektu);
+                    TypProjektu typproj = new TypProjektu {Kod = Convert.ToString(typprojektu) };
                     try
                     {
                         if (projekty.VybraneTypyProjektuList == null)
                         {
                             //It's null - create it
-                            projekty.VybraneTypyProjektuList = new List<TypProjektu>();
-                            projekty.VybraneTypyProjektuList.Add(typproj);
+                            projekty.VybraneTypyProjektuList = new List<TypProjektu> { typproj};
+                            
                         }
                         else
                         {
@@ -410,7 +424,7 @@ namespace VST_sprava_servisu.Controllers
                         }
 
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                 }
             }
 
@@ -429,10 +443,8 @@ namespace VST_sprava_servisu.Controllers
         [Authorize(Roles = "Administrator,Vedení")]
         public ActionResult Details(Projekt project)
         {
-            
-                ORDRforProject ordrfp = new ORDRforProject();
-                ordrfp.Projekt = project.Code;
-                ordrfp.ProjektName = project.Name;
+
+            ORDRforProject ordrfp = new ORDRforProject { Projekt = project.Code, ProjektName = project.Name };
                 
             
             return PartialView("Details", ordrfp);
@@ -440,20 +452,24 @@ namespace VST_sprava_servisu.Controllers
         [Authorize(Roles = "Administrator,Vedení")]
         public ActionResult DetailsOinv(Projekt project)
         {
-            
-                OINVforProject ordrfp = new OINVforProject();
-                ordrfp.Projekt = project.Code;
-                ordrfp.ProjektName = project.Name;
+
+            OINVforProject ordrfp = new OINVforProject
+            {
+                Projekt = project.Code,
+                ProjektName = project.Name
+            };
                 
             return PartialView("DetailsOinv", ordrfp);
         }
         [Authorize(Roles = "Administrator,Vedení")]
         public ActionResult DetailsOpch(Projekt project)
         {
-            
-                OPCHforProject ordrfp = new OPCHforProject();
-                ordrfp.Projekt = project.Code;
-                ordrfp.ProjektName = project.Name;
+
+            OPCHforProject ordrfp = new OPCHforProject
+            {
+                Projekt = project.Code,
+                ProjektName = project.Name
+            };
                 
             return PartialView("DetailsOpch", ordrfp);
         }
@@ -461,9 +477,11 @@ namespace VST_sprava_servisu.Controllers
         public ActionResult GrafForProject(Projekt project)
         {
 
-            CashFlowforProject item = new CashFlowforProject();
-            item.Projekt = project.Code;
-            item.ProjektName = project.Name;
+            CashFlowforProject item = new CashFlowforProject
+            {
+                Projekt = project.Code,
+                ProjektName = project.Name
+            };
             ViewData["FieldsList"] = new string[] { "Hello", "World", "foo", "Bar" };
 
             return PartialView("GrafForProject", item);

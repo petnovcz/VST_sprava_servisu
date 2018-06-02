@@ -51,9 +51,12 @@ namespace VST_sprava_servisu
                 sql.Append($"");
 
                 SqlConnection cnn = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = cnn;
-                cmd.CommandText = sql.ToString();
+                SqlCommand cmd = new SqlCommand
+                {
+                    Connection = cnn,
+                    CommandText = sql.ToString()
+                };
+                
                 cnn.Open();
                 cmd.ExecuteNonQuery();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -69,7 +72,8 @@ namespace VST_sprava_servisu
                             Poznamka = dr.GetString(dr.GetOrdinal("Poznamka"));
                         }
                         catch (Exception ex)
-                        { //log.Info($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        { 
+                            log.Debug($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                         }
                         
                     }
@@ -128,9 +132,11 @@ namespace VST_sprava_servisu
             //log.Debug(sql.ToString());
 
             SqlConnection cnn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };            
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -145,25 +151,25 @@ namespace VST_sprava_servisu
                     {
                         item.BaterieArtikl = dr.GetInt32(dr.GetOrdinal("BaterieArtikl"));
                     }
-                    catch(Exception ex) { //log.Info($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch(Exception ex) { log.Info($"Baterie Artikl prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
                         item.BaterieSAPKod = dr.GetString(dr.GetOrdinal("BaterieSAPKod"));
                     }
-                    catch (Exception ex) { //log.Info($"Baterie SAPKod prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch (Exception ex) { log.Info($"Baterie SAPKod prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
                         item.BaterieName = dr.GetString(dr.GetOrdinal("BaterieName"));
                     }
-                    catch (Exception ex) {// log.Info($"Baterie nazev prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch (Exception ex) { log.Info($"Baterie nazev prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
                         item.Pocet = dr.GetInt32(dr.GetOrdinal("Pocet"));
                     }
-                    catch (Exception ex) { //log.Info($"pocet prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                    catch (Exception ex) { log.Info($"pocet prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     
 
@@ -331,14 +337,17 @@ namespace VST_sprava_servisu
         internal protected static Revize GenerateRevision(int Provoz, int Rok, int Pololeti, DateTime DatumRevize, int StatusRevize, int? Umisteni, string Nabidka, string Projekt)
         {
 
-            Revize revize = new Revize();
-            revize.DatumRevize = DatumRevize;
-            revize.Pololeti = Pololeti;
-            revize.ProvozId = Provoz;
-            revize.Rok = Rok;
-            revize.StatusRevizeId = StatusRevize;
-            revize.Nabidka = Nabidka;
-            revize.Projekt = Projekt;
+            Revize revize = new Revize
+            {
+                DatumRevize = DatumRevize,
+                Pololeti = Pololeti,
+                ProvozId = Provoz,
+                Rok = Rok,
+                StatusRevizeId = StatusRevize,
+                Nabidka = Nabidka,
+                Projekt = Projekt
+            };
+            
             if (Umisteni != 0) { revize.UmisteniId = Umisteni; }
             using (var dbCtx = new Model1Container())
             {

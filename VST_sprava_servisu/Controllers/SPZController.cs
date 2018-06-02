@@ -12,9 +12,8 @@ namespace VST_sprava_servisu
         [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index()
         {
-            SPZ item = new SPZ();
-            item.ImportedRecords = SPZ.importSPZData();
-            item.SPZ_NotImported = SPZ.GetNotImportableData();
+            SPZ item = new SPZ { ImportedRecords = SPZ.ImportSPZData(), SPZ_NotImported = SPZ.GetNotImportableData() };
+            
             if (item.SPZ_NotImported.Count > 0)
             {
                 item.SendEmailWithSPZNotImportableData(item.SPZ_NotImported);

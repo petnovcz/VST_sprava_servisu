@@ -14,9 +14,9 @@ namespace VST_sprava_servisu
     public class SAPImportController : Controller
     {
         
-        string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
-        private string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
-        private string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+        private readonly string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+        private readonly string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
         private Model1Container db = new Model1Container();
 
 

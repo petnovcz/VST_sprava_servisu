@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,23 +17,28 @@ namespace VST_sprava_servisu
         {
             BezRevize BR = new BezRevize();
 
-            List<SelectListItem> skupinalist = new List<SelectListItem>();
+            List<SelectListItem> skupinalist = new List<SelectListItem>
+            { 
             //Add select list item to list of selectlistitems
-            skupinalist.Add(new SelectListItem() { Value = "0", Text = "Vše" });
-            skupinalist.Add(new SelectListItem() { Value = "1", Text = "Česká Republika" });
-            skupinalist.Add(new SelectListItem() { Value = "2", Text = "Polsko" });
-            skupinalist.Add(new SelectListItem() { Value = "3", Text = "Slovensko a Maďarsko" });
-            skupinalist.Add(new SelectListItem() { Value = "4", Text = "Ostatní" });
-
+                new SelectListItem() { Value = "0", Text = "Vše" },
+                new SelectListItem() { Value = "1", Text = "Česká Republika" },
+                new SelectListItem() { Value = "2", Text = "Polsko" },
+                new SelectListItem() { Value = "3", Text = "Slovensko a Maďarsko" },
+                new SelectListItem() { Value = "4", Text = "Ostatní" }
+            };
             //Return the list of selectlistitems as a selectlist
             if (Skupina == null)
             {
                 try
                 {
-                    var x = Session["List_Skupina"].ToString();
+                    string x = Session["List_Skupina"].ToString();
+                    if (!Regex.IsMatch(x, @"\w{1-35}")) throw new ArgumentException("Nepovolené znaky v proměné List_Skupina");
+                    
                     Skupina = Convert.ToInt32(x);
                 }
-                catch(Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);  
+                catch(Exception ex)
+                {
+                    log.Error("BezRevize - index - načtení ze session List_Skupina: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);  
                 }
                 if (Skupina == null)
                 {
@@ -48,11 +54,13 @@ namespace VST_sprava_servisu
                 ViewBag.Skupina = new SelectList(skupinalist, "Value", "Text", 0);
             }
 
-            List<SelectListItem> roklist = new List<SelectListItem>();
-            //Add select list item to list of selectlistitems
-            roklist.Add(new SelectListItem() { Value = DateTime.Now.Year.ToString(), Text = DateTime.Now.Year.ToString() });
-            roklist.Add(new SelectListItem() { Value = (DateTime.Now.Year + 1).ToString(), Text = (DateTime.Now.Year + 1).ToString() });
-            roklist.Add(new SelectListItem() { Value = (DateTime.Now.Year - 1).ToString(), Text = (DateTime.Now.Year - 1).ToString() });
+            List<SelectListItem> roklist = new List<SelectListItem>
+            {
+                new SelectListItem() { Value = DateTime.Now.Year.ToString(), Text = DateTime.Now.Year.ToString() },
+                new SelectListItem() { Value = (DateTime.Now.Year + 1).ToString(), Text = (DateTime.Now.Year + 1).ToString() },
+                new SelectListItem() { Value = (DateTime.Now.Year - 1).ToString(), Text = (DateTime.Now.Year - 1).ToString() }
+            };
+            
             //Return the list of selectlistitems as a selectlist
 
             if (Rok == null) { BR.Rok = DateTime.Now.Year; Rok = DateTime.Now.Year; }

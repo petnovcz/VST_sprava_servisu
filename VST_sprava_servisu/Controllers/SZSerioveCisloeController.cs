@@ -12,6 +12,9 @@ namespace VST_sprava_servisu.Controllers
 {
     public class SZSerioveCisloeController : Controller
     {
+
+
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Model1Container db = new Model1Container();
 
         // GET: SZSerioveCisloe
@@ -57,7 +60,10 @@ namespace VST_sprava_servisu.Controllers
                 {
                     db.SaveChanges();
                 }
-                catch (Exception ex) { }
+                catch (Exception ex)
+                {
+                    log.Error("Details - Session Read - List_StatusRevize - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
                 ServisniZasahPrvek szp = new ServisniZasahPrvek();
                 szp = db.ServisniZasahPrvek.Find(servisniZasahPrvekSerioveCislo.ServisniZasahPrvekId);
                 return RedirectToAction("Predelivery","ServisniZasah", new { Id = szp.ServisniZasahId});

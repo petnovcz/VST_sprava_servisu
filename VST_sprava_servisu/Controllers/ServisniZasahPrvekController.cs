@@ -13,6 +13,9 @@ namespace VST_sprava_servisu.Controllers
 {
     public class ServisniZasahPrvekController : Controller
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasahPrvekController");
+
+
         private Model1Container db = new Model1Container();
 
         // GET: ServisniZasahPrvek
@@ -65,8 +68,11 @@ namespace VST_sprava_servisu.Controllers
 
         public ActionResult Add(int Id)
         {
-            ServisniZasahPrvek szp = new ServisniZasahPrvek();
-            szp.ServisniZasahId = Id;
+            ServisniZasahPrvek szp = new ServisniZasahPrvek
+            {
+                ServisniZasahId = Id
+            };
+            
             ServisniZasah sz = new ServisniZasah();
             sz = db.ServisniZasah.Where(t => t.Id == Id).FirstOrDefault();
             ViewBag.SCProvozuID = new SelectList(db.SCProvozu.Where(t=>t.ProvozId == sz.ProvozId && t.Umisteni == sz.UmisteniId), "Id", "Znaceni");          
@@ -79,21 +85,24 @@ namespace VST_sprava_servisu.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(int ServisniZasahId, int? SCProvozuID)
         {
-            ServisniZasahPrvek szp = new ServisniZasahPrvek();
-            szp.ServisniZasahId = ServisniZasahId;
-            szp.SCProvozuID = SCProvozuID;
+            ServisniZasahPrvek szp = new ServisniZasahPrvek
+            {
+                ServisniZasahId = ServisniZasahId,
+                SCProvozuID = SCProvozuID
+            };
+            
             SCProvozu scprovozu = new SCProvozu();
             try
             {
                  scprovozu = SCProvozu.GetSCProvozuById(szp.SCProvozuID.Value);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { log.Debug("ServisniZasahPrvek/Create Error number: ProvozId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             int? skupina = 0;
             try
             {
                 skupina = scprovozu.Artikl.SkupinaArtiklu;
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { log.Debug("ServisniZasahPrvek/Create Error number: ProvozId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
             ViewBag.ArtiklID = new SelectList(db.Artikl.Where(t=>t.SkupinaArtiklu == 129 && t.KodSAP !="SP02" && t.KodSAP != "SP01"), "Id", "Nazev");
             if (skupina != null && skupina !=0)
@@ -139,6 +148,7 @@ namespace VST_sprava_servisu.Controllers
                 catch(Exception ex)
                 {
                     scprovozu = null;
+                    log.Debug("Error number:" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                 }
                 
                 DateTime? datum = DateTime.Now;

@@ -24,7 +24,7 @@ namespace VST_sprava_servisu
         internal protected static bool ReklamaceById(int Id)
         {
             //var decision;
-            bool dec;
+            bool dec = true;
             using (var db = new Model1Container())
             {
                var decision = db.Porucha.Where(t => t.Id == Id)
@@ -32,7 +32,7 @@ namespace VST_sprava_servisu
                     //.Select(t=>t.KategoriePoruchy.ReklamaceServisniZasah)
                     .FirstOrDefault();
                     }
-            return dec = true;
+            return dec;
         }
 
 

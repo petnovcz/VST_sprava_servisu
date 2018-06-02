@@ -21,9 +21,9 @@ namespace VST_sprava_servisu
         readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Model1Container db = new Model1Container();
 
-        private string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
-        private string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
-        private string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+        private readonly string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+        private readonly string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
 
         // GET: Revize
         [Authorize(Roles = "Administrator,Manager,Uživatel")]
@@ -55,25 +55,33 @@ namespace VST_sprava_servisu
             {
                 ViewBag.ListRegion = Session["List_Skupina"].ToString();
             }
-            catch (Exception ex) { //log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex)
+            {
+                log.Debug("Details - Seassion Read - List_Skupina - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
             try
             {
                 ViewBag.ListDateFrom = Session["List_DateFrom"].ToString();
             }
-            catch (Exception ex) { //log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex)
+            { 
+                log.Debug("Details - Session Read - List_DateFrom - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
             try
             {
                 ViewBag.ListDateTo = Session["List_DateTo"].ToString();
             }
-            catch (Exception ex) { //log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            catch (Exception ex)
+            { 
+                log.Debug("Details - Session Read - List_DateTo - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
             }
             try
             {
                 ViewBag.ListStatusRevize = Session["List_StatusRevize"].ToString();
             }
-            catch (Exception ex) { //log.Error("Details - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex)
+            { 
+                log.Debug("Details - Session Read - List_StatusRevize - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
             //revize.RevizeBaterie = revize.CalculateRevizeBaterie(revize.Id);
             ViewBag.Region = Region;
@@ -97,7 +105,7 @@ namespace VST_sprava_servisu
             {
                 ViewBag.ListRegion = Session["List_Skupina"].ToString();
             }
-            catch (Exception ex) { //log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            catch (Exception ex) { log.Debug("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
             }
 
             try
@@ -106,7 +114,7 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(ListDateFrom);
                 ViewBag.ListDateFrom = xx;
             }
-            catch (Exception ex) { //log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            catch (Exception ex) { log.Debug("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                 }
             try
             {
@@ -114,13 +122,13 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(ListDateTo);
                 ViewBag.ListDateTo = xx;
             }
-            catch (Exception ex) { //log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            catch (Exception ex) { log.Debug("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
             try
             {
                 ViewBag.ListStatus = Session["List_Status"].ToString();
             }
-            catch (Exception ex) { //log.Error("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("Header - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
             if (Region == null)
             {
@@ -284,19 +292,19 @@ namespace VST_sprava_servisu
             {
                 session_rok = Convert.ToInt32(Session["Rok"].ToString());
             }
-            catch (Exception ex) { //log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
             try
             {
                 session_mesic = Convert.ToInt32(Session["Mesic"].ToString());
             }
-            catch (Exception ex) { //log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
             try
             {
                 session_region = Convert.ToInt32(Session["List_Skupina"].ToString());
             }
-            catch (Exception ex) { //log.Error("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("Nahled - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
             if (Rok != null) { Session["Rok"] = Rok; }
             if (Mesic != null) { Session["Mesic"] = Mesic; }
@@ -336,7 +344,7 @@ namespace VST_sprava_servisu
             {
                 ListRegion = Session["List_Skupina"].ToString();
             }
-            catch (Exception ex) { //log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
 
             try
@@ -345,7 +353,7 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(xListDateFrom);
                 ListDateFrom = xx;
             }
-            catch (Exception ex) { //log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
             try
             {
@@ -353,13 +361,13 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(ListDateTox);
                 ListDateTo = xx;
             }
-            catch (Exception ex) {// log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
             try
             {
                 ListStatus = Session["List_Status"].ToString();
             }
-            catch (Exception ex) { //log.Error("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("ListLines - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
 
             ViewBag.ListDateFrom = ListDateFrom;
@@ -392,7 +400,7 @@ namespace VST_sprava_servisu
             {
                 ListRegion = Session["List_Skupina"].ToString();
             }
-            catch (Exception ex) { //log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
 
 
@@ -402,7 +410,7 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(xListDateFrom);
                 ListDateFrom = xx;
             }
-            catch (Exception ex) { //log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+            catch (Exception ex) { log.Debug("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
 
             try
@@ -411,14 +419,14 @@ namespace VST_sprava_servisu
                 DateTime xx = Convert.ToDateTime(ListDateTox);
                 ListDateTo = xx;
             }
-            catch (Exception ex) { //log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            catch (Exception ex) { log.Debug("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
             }
 
             try
             {
                 ListStatus = Session["List_Status"].ToString();
             }
-            catch (Exception ex) { //log.Error("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            catch (Exception ex) { log.Debug("List - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
             }
 
 
@@ -429,14 +437,15 @@ namespace VST_sprava_servisu
 
             RevizeListInput rl = new RevizeListInput();
             //Create a list of select list items - this will be returned as your select list
-            List<SelectListItem> newList = new List<SelectListItem>();
-            //Add select list item to list of selectlistitems
-            newList.Add(new SelectListItem() { Value = "0", Text = "Vše" });
-            newList.Add(new SelectListItem() { Value = "1", Text = "Česká Republika" });
-            newList.Add(new SelectListItem() { Value = "2", Text = "Polsko" });
-            newList.Add(new SelectListItem() { Value = "3", Text = "Slovensko a Maďarsko" });
-            newList.Add(new SelectListItem() { Value = "4", Text = "Ostatní" });
-
+            List<SelectListItem> newList = new List<SelectListItem>
+            {
+                new SelectListItem() { Value = "0", Text = "Vše" },
+                new SelectListItem() { Value = "1", Text = "Česká Republika" },
+                new SelectListItem() { Value = "2", Text = "Polsko" },
+                new SelectListItem() { Value = "3", Text = "Slovensko a Maďarsko" },
+                new SelectListItem() { Value = "4", Text = "Ostatní" }
+            };
+            
             //Return the list of selectlistitems as a selectlist
             if (ListRegion != null)
             {
@@ -539,13 +548,16 @@ namespace VST_sprava_servisu
 
             RevizeListInput rl = new RevizeListInput();
             //Create a list of select list items - this will be returned as your select list
-            List<SelectListItem> newList = new List<SelectListItem>();
+            List<SelectListItem> newList = new List<SelectListItem>
+            {
+                new SelectListItem() { Value = "0", Text = "Vše" },
+                new SelectListItem() { Value = "1", Text = "Česká Republika" },
+                new SelectListItem() { Value = "2", Text = "Polsko" },
+                new SelectListItem() { Value = "3", Text = "Slovensko a Maďarsko" },
+                new SelectListItem() { Value = "4", Text = "Ostatní" }
+            };
             //Add select list item to list of selectlistitems
-            newList.Add(new SelectListItem() { Value = "0", Text = "Vše" });
-            newList.Add(new SelectListItem() { Value = "1", Text = "Česká Republika" });
-            newList.Add(new SelectListItem() { Value = "2", Text = "Polsko" });
-            newList.Add(new SelectListItem() { Value = "3", Text = "Slovensko a Maďarsko" });
-            newList.Add(new SelectListItem() { Value = "4", Text = "Ostatní" });
+         
             rl.DateFrom = DateFrom;
             rl.DateTo = DateTo;
             //Return the list of selectlistitems as a selectlist
@@ -698,7 +710,7 @@ namespace VST_sprava_servisu
                 Response.Flush();
                 //Response.Close();
             }
-            catch (Exception ex) { log.Error($"Nena4tena adresa {path}"); }
+            catch (Exception ex) { log.Error($"Nena4tena adresa {path}" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
         }
 
@@ -730,7 +742,7 @@ namespace VST_sprava_servisu
                 Response.Flush();
                 //Response.Close();
             }
-            catch (Exception ex) { log.Error($"Nena4tena adresa {path}"); }
+            catch (Exception ex) { log.Error($"Nena4tena adresa {path}" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
         }
 
@@ -759,7 +771,7 @@ namespace VST_sprava_servisu
                 Response.Flush();
                // Response.Close();
             }
-            catch(Exception ex) { log.Error($"Nena4tena adresa {path}"); }
+            catch(Exception ex) { log.Error($"Nena4tena adresa {path}" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
             
         }
 

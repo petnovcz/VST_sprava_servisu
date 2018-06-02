@@ -6,35 +6,145 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Text;
+using System.Web.Mvc;
 
 namespace VST_sprava_servisu
 {
     public partial class GenRevizeCust
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("GenRevizeCust");
+
         public int Rok { get; set; }
         public int Skupina { get; set; }
         public string Search { get; set; }
         public int ZakaznikId { get; set; }
         public int ProvozId { get; set; }
         public int UmisteniId { get; set; }
-
-        private Zakaznik Zakaznik { get; set; }
-        private Provoz Provoz { get; set; }
-        private Umisteni Umisteni { get; set; }
-
+        private Zakaznik Zakaznik { get { Zakaznik zakaznik = Zakaznik.GetById(ZakaznikId); return zakaznik; } }
+        private Provoz Provoz { get { Provoz provoz = Provoz.GetById(ProvozId); return provoz; } }
+        private Umisteni Umisteni { get { Umisteni umisteni = Umisteni.GetById(UmisteniId); return umisteni; } }
         private Revize Revize1 { get; set; }
         private Revize Revize2 { get; set; }
-
         public string Nabidka { get; set; }
         public string Projekt { get; set; }
 
+        public List<ListObject> ProjektList {
+            get
+            {
+                List<ListObject> list = new List<ListObject>();
+                string con = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+                StringBuilder sql = new StringBuilder();
+                sql.Append($"Select Code, U_Descript as 'Name' from [dbo].[@VCZ_CT_PRJ] T1 where t1.U_CardCode = '{Zakaznik.KodSAP}' and t1.U_Status not in ('2','7','8')");
+
+                //LOGOVANI
+                log.Debug($"ProjektList pro Zakaznika: {Zakaznik.KodSAP}");
+                log.Debug(sql.ToString());
+
+                SqlConnection cnn = new SqlConnection(con);
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cnn;
+                cmd.CommandText = sql.ToString();
+                cnn.Open();
+                cmd.ExecuteNonQuery();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        ListObject item = new ListObject();
+                        try
+                        {
+                            item.Code = dr.GetString(dr.GetOrdinal("Code"));
+                        }
+                        catch (Exception ex) {
+                            log.Debug("ProjektList - načtení Code: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
+                        try
+                        {
+                            item.Name = dr.GetString(dr.GetOrdinal("Name"));
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Debug("ProjektList - načtení Name: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
+                        list.Add(item);
+                    }
+                }
+                cnn.Close();
+
+                return list;
+            }
+
+        }
+        public List<ListObject> NabidkaList {
+            get {
+                List<ListObject> list = new List<ListObject>();
+                string con = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+                StringBuilder sql = new StringBuilder();
+                sql.Append($"Select t0.Docnum as 'Code', t1.U_Descript as 'Name' from Oqut t0 left join [dbo].[@VCZ_CT_PRJ] T1 on t0.Project = t1.Code where CardCode = '{Zakaznik.KodSAP}' and t1.U_Status not in ('2','7','8')");
+
+                //LOGOVANI
+                log.Debug($"MinimalniDatum pro revizi pro ZakaznikID: {ZakaznikId},ProvozId : {ProvozId}, Rok: {Rok}, UmisteniId: {UmisteniId}");
+                log.Debug(sql.ToString());
+
+                SqlConnection cnn = new SqlConnection(con);
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cnn;
+                cmd.CommandText = sql.ToString();
+                cnn.Open();
+                cmd.ExecuteNonQuery();
+                SqlDataReader dr = cmd.ExecuteReader();             
+                if (dr.HasRows)
+                {  
+                    while (dr.Read())
+                    {
+                        ListObject item = new ListObject();
+                        try
+                        {
+                            item.Code = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Code")));
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Debug("NabidkaList - načtení Code: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
+                        try
+                        {
+                            item.Name = dr.GetString(dr.GetOrdinal("Name"));
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Debug("NabidkaList - načtení Name: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        }
+                        string Name;
+                        Name = item.Code + " - " + item.Name;
+                        item.Name = Name;
+                        list.Add(item);
+                    }
+                }
+                cnn.Close();
+                return list;
+            }
+
+
+        }
+
+
         public DnyRevize Dnyrevize { get; set; }
 
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("GenRevizeCust");
+        
 
+        public partial class ListObject
+        {
+            public string Code { get; set; }
+            public string Name { get; set; }
+
+        }
+
+        [Authorize(Roles = "Administrator,Manager")]
         public static void Run(int ZakaznikId, int ProvozId, int Rok, int? UmisteniId, string Nabidka, string Projekt)
         {
             GenerujRevizi( ZakaznikId, ProvozId, Rok,  UmisteniId,  Nabidka,  Projekt);
+            GenerovaniRevizeTlakoveZkousky.GenerujReviziTlakoveZkousky(ZakaznikId, ProvozId, UmisteniId, Rok);
         }
 
 
@@ -48,6 +158,7 @@ namespace VST_sprava_servisu
         /// <param name="UmisteniId"></param>
         /// <returns></returns>
         /// 
+        [Authorize(Roles = "Administrator,Manager")]
         internal protected static void GenerujRevizi(int ZakaznikId, int ProvozId, int Rok, int? UmisteniId, string Nabidka, string Projekt)
         {
             bool existrevize1;
@@ -74,9 +185,6 @@ namespace VST_sprava_servisu
                     gen.Dnyrevize.PoslednidenobdobiR1 = Poslednidenobdobi(Rok, 1);
                     gen.Dnyrevize.PrvnidenobdobiR2 = Prvnidenobdobi(Rok, 2);
                     gen.Dnyrevize.PoslednidenobdobiR2 = Poslednidenobdobi(Rok, 2);
-
-
-
                     // Prvni revize v obdobi
                     if (
                         (dnyRevize.DenRevize1 >= gen.Dnyrevize.PrvnidenobdobiR1)
@@ -150,17 +258,13 @@ namespace VST_sprava_servisu
                         (dnyRevize.DenRevize1 >= gen.Dnyrevize.PrvnidenobdobiR2)
                         &&
                         (dnyRevize.DenRevize1 <= gen.Dnyrevize.PoslednidenobdobiR2)
-
                         )
                     {
                         gen.Revize2 = Revize.GenerateRevision(ProvozId, Rok, 2, dnyRevize.DenRevize1, 1, null, Nabidka, Projekt);
-
                     }
                 }
             }
-
-            // REVIZE2
-            
+            // REVIZE2            
             if ((UmisteniId != null) && (UmisteniId != 0))
             {
                 existrevize2 = Revize.ExistRevision(ZakaznikId, ProvozId, Rok, 2, UmisteniId);
@@ -173,9 +277,6 @@ namespace VST_sprava_servisu
                 {
                     gen.Dnyrevize.PrvnidenobdobiR2 = Prvnidenobdobi(Rok, 2);
                     gen.Dnyrevize.PoslednidenobdobiR2 = Poslednidenobdobi(Rok, 2);
-
-
-
                     // druha revize v obdobi
                     if (
                         (dnyRevize.DenRevize2 >= gen.Dnyrevize.PrvnidenobdobiR2)
@@ -193,10 +294,7 @@ namespace VST_sprava_servisu
                         )
                     {
                         gen.Revize2 = Revize.GenerateRevision(ProvozId, Rok, 2, gen.Dnyrevize.PrvnidenobdobiR2, 1, UmisteniId, Nabidka, Projekt);
-
-                    }
-                    
-
+                    }                   
                 }
             }
             else
@@ -241,12 +339,18 @@ namespace VST_sprava_servisu
             {
                 Revize.UpdateRevizeHeader(gen.Revize1.Id);
             }
-            catch { }
+            catch(Exception ex)
+            {
+                log.Error("Revize1 - update revize header: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            }
             try
             {
                 Revize.UpdateRevizeHeader(gen.Revize2.Id);
             }
-            catch { }
+            catch(Exception ex)
+            {
+                log.Error("Revize2 - update revize header: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+            }
             // na zaklade prvku provozu spocitat kdy by mela byt dalsi revize 
             // - pokud v obdobi - spoctene datum ()
             // - pokud starsi vygenerovat k 1.1.daneho roku
@@ -359,12 +463,18 @@ namespace VST_sprava_servisu
                     {
                         dnyrevize.DenRevize1 = dr.GetDateTime(dr.GetOrdinal("R1"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("MinimalniDatum - Načtení R1: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         dnyrevize.DenRevize2 = dr.GetDateTime(dr.GetOrdinal("R2"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("MinimalniDatum - Načtení R2: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                 }
             }
             cnn.Close();
@@ -374,12 +484,12 @@ namespace VST_sprava_servisu
             return dnyrevize;
         }
 
-        internal protected static bool Stornootevrenychrevizi(int ZakaznikId, int ProvozId, int Rok, int? UmisteniId)
+        /*internal protected static bool Stornootevrenychrevizi(int ZakaznikId, int ProvozId, int Rok, int? UmisteniId)
         {
             bool result = false;
 
             return result;
-        }
+        }*/
 
         internal protected static List<CalculatedSCForRevision> Calculatescfrorevision(int ZakaznikId, int ProvozId, int? UmisteniId)
         {
@@ -428,47 +538,74 @@ namespace VST_sprava_servisu
                     {
                         item.ZakaznikId = dr.GetInt32(dr.GetOrdinal("ZakaznikId"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení ZakaznikId: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         item.ProvozId = dr.GetInt32(dr.GetOrdinal("ProvozId"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení ProvozId: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         item.UmisteniId = dr.GetInt32(dr.GetOrdinal("UmisteniId"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení UmisteniId: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         item.SCProvozuId = dr.GetInt32(dr.GetOrdinal("SCProvozuId"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení SCProvozuId: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         item.NextRevize = dr.GetDateTime(dr.GetOrdinal("NextRevize"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení NextRevize: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         item.Next2Revize = dr.GetDateTime(dr.GetOrdinal("Next2Revize"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení Next2Revize: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         item.NextPyro = dr.GetDateTime(dr.GetOrdinal("NextPyro"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení NextPyro: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         item.NextBaterie = dr.GetDateTime(dr.GetOrdinal("NextBaterie"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení NextBaterie: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     try
                     {
                         item.NextTlkZk = dr.GetDateTime(dr.GetOrdinal("NextTlkZk"));
                     }
-                    catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení NextTlkZk: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     calc.Add(item);
                 }
             }
@@ -479,23 +616,15 @@ namespace VST_sprava_servisu
         }
 
 
-
+        [Authorize(Roles = "Administrator,Manager")]
         internal protected static void InsertSCtoRevision(GenRevizeCust gen, List<CalculatedSCForRevision> list)
         {
             foreach (var item in list)
             {
                 RevizeSC RSC1 = new RevizeSC();
                 RevizeSC RSC2 = new RevizeSC();
-
-
-
-
-
-
-
                 if (item.NextRevize <= gen.Dnyrevize.PoslednidenobdobiR1)
                 {
-                    
                     RSC1.RevizeId = gen.Revize1.Id;
                     RSC1.SCProvozuId = item.SCProvozuId;
                     RSC1.UmisteniId = item.UmisteniId;
@@ -553,8 +682,6 @@ namespace VST_sprava_servisu
                     {
                         RSC2.TlakovaZkouska = false;
                     }
-
-
                 }
 
                 if (item.Next2Revize <=  gen.Dnyrevize.PoslednidenobdobiR2)
@@ -586,8 +713,6 @@ namespace VST_sprava_servisu
                     {
                         RSC2.TlakovaZkouska = false;
                     }
-
-
                 }
                 using (var dbCtx = new Model1Container())
                 {
@@ -600,8 +725,10 @@ namespace VST_sprava_servisu
                             dbCtx.RevizeSC.Add(RSC1);
                             dbCtx.SaveChanges();
                         }
-                        
-                    catch (Exception ex) { log.Error($"InsertSCtoRevision {ex.Message} {ex.InnerException} {ex.Data}"); }
+                        catch (Exception ex)
+                        {
+                            log.Error($"InsertSCtoRevision - insert REVIZESC do Revize1 {ex.Message} {ex.InnerException} {ex.Data}");
+                        }
                     }
 
                     if (RSC2.RevizeId != 0)
@@ -612,17 +739,13 @@ namespace VST_sprava_servisu
                             dbCtx.RevizeSC.Add(RSC2);
                             dbCtx.SaveChanges();
                         }
-                        catch (Exception ex) { log.Error($"InsertSCtoRevision {ex.Message} {ex.InnerException} {ex.Data}"); }
+                        catch (Exception ex)
+                        {
+                            log.Error($"InsertSCtoRevision - insert REVIZESC do Revize2 {ex.Message} {ex.InnerException} {ex.Data}");
+                        }
                     }
                 }
-
-
-
             }
         }
-
-
-
-
     }
 }

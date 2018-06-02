@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace VST_sprava_servisu
 {
     public class GenerovaniRevizeTlakoveZkousky
     {
+
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("GenerovaniRevizeTlakoveZkousky");
+
+
         private int Rok { get; set; }
         private int ZakaznikId { get; set; }
         private int ProvozId { get; set; }
@@ -21,44 +26,81 @@ namespace VST_sprava_servisu
         private List<RevizeSC> TlakoveZkouskyRev1 { get; set; }
         private List<RevizeSC> TlakoveZkouskyRev2 { get; set; }
 
-
+        [Authorize(Roles = "Administrator,Manager")]
         public static void GenerujReviziTlakoveZkousky(int ZakaznikId, int ProvozId, int? UmisteniId, int Rok)
         {
-            GenerovaniRevizeTlakoveZkousky GRTZ = new GenerovaniRevizeTlakoveZkousky();
-            GRTZ.Rok = Rok;
-            GRTZ.ZakaznikId = ZakaznikId;
-            GRTZ.Zakaznik = Zakaznik.GetById(ZakaznikId);
-            GRTZ.ProvozId = ProvozId;
-            GRTZ.Provoz = Provoz.GetById(ProvozId);
-            GRTZ.UmisteniId = UmisteniId;
+            GenerovaniRevizeTlakoveZkousky GRTZ = new GenerovaniRevizeTlakoveZkousky
+            {
+                Rok = Rok,
+                ZakaznikId = ZakaznikId,
+                Zakaznik = Zakaznik.GetById(ZakaznikId),
+                ProvozId = ProvozId,
+                Provoz = Provoz.GetById(ProvozId),
+                UmisteniId = UmisteniId,
+                // dohledání exisujících revizí pro vybraný rok
+                Revize1 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 1, UmisteniId, false),
+                Revize2 = Revize.ReturnRevision(ZakaznikId, ProvozId, Rok, 2, UmisteniId, false)
+            };
             if (UmisteniId != null)
-            {                
+            {
                 GRTZ.Umisteni = Umisteni.GetById(UmisteniId.Value);
-            }
-            // dohledání exisujících revizí pro vybraný rok
-            GRTZ.Revize1 = Revize.ReturnRevision(GRTZ.ZakaznikId, GRTZ.ProvozId, Rok, 1, GRTZ.UmisteniId, false);
-            GRTZ.Revize2 = Revize.ReturnRevision(GRTZ.ZakaznikId, GRTZ.ProvozId, Rok, 2, GRTZ.UmisteniId, false);
-            // načení záznamů, ketré jsou s evidovanou tlakovou zkouškou
-            GRTZ.TlakoveZkouskyRev1 = RevizeSC.SeznamTlakovychZkousekRevize(GRTZ.Revize1.Id);
-            GRTZ.TlakoveZkouskyRev2 = RevizeSC.SeznamTlakovychZkousekRevize(GRTZ.Revize2.Id);
-            // pokud neexisuje revize na tlakovou zkoušku vygenerování revize
-            var exist = Revize.ExistRevision(GRTZ.ZakaznikId, GRTZ.ProvozId, GRTZ.Rok, 3, GRTZ.UmisteniId);
-            if (exist == true)
-            {
-                //pokud exisuje nacte se 
-                GRTZ.Revize3 = Revize.ReturnRevision(GRTZ.ZakaznikId, GRTZ.ProvozId, Rok, 3, GRTZ.UmisteniId, null);
-            }
-            else
-            {
-                //pokud neexistuje vygeneruje se
-                GRTZ.Revize3 = Revize.GenerateRevision(GRTZ.ProvozId, GRTZ.Rok, 3, System.DateTime.Now,StatusRevize.Planned(), GRTZ.UmisteniId, GRTZ.Revize1.Nabidka, GRTZ.Revize2.Projekt);
-            }
-            RevizeSC.LoopRevizeSCTlakoveZkousky(GRTZ.Revize3, GRTZ.TlakoveZkouskyRev1);
-            RevizeSC.LoopRevizeSCTlakoveZkousky(GRTZ.Revize3, GRTZ.TlakoveZkouskyRev2);
-            Revize.UpdateRevizeHeader(GRTZ.Revize1.Id);
-            Revize.UpdateRevizeHeader(GRTZ.Revize2.Id);
-            Revize.UpdateRevizeHeader(GRTZ.Revize3.Id);
+            } 
+            int pocetTlkZkR1 = 0; int pocetTlkZkR2 = 0;int revize1 = 0; int revize2 = 0;
 
+            try
+            {
+                revize1 = GRTZ.Revize1.Id;
+            }
+            catch (Exception ex)
+            {
+                log.Debug($"Nenalazena Revize1 {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+            }
+            try
+            {
+                revize2 = GRTZ.Revize2.Id;
+            }
+            catch(Exception ex)
+            {
+                log.Debug($"Nenalazena Revize2 {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}");
+            }
+            using (var db = new Model1Container())
+            {
+                //Výpočet počtu artiklů, které mají příznak tlakové zkoušky pro jednotlivé revize
+                pocetTlkZkR1 = db.RevizeSC.Where(t => t.RevizeId == revize1 && t.TlakovaZkouska == true).Count();
+                pocetTlkZkR2 = db.RevizeSC.Where(t => t.RevizeId == revize2 && t.TlakovaZkouska == true).Count();
+
+            }
+
+            int pocetTlkZ = pocetTlkZkR1 + pocetTlkZkR2;
+
+
+            
+            // Pokud existují artikly v revizích, které mají příznak tlakové zkoušky dojde ke generování třetí revize a přesun do speciální tlakové zkoušky
+            if (pocetTlkZ > 0)
+            {
+                // načení záznamů, ketré jsou s evidovanou tlakovou zkouškou
+                GRTZ.TlakoveZkouskyRev1 = RevizeSC.SeznamTlakovychZkousekRevize(GRTZ.Revize1.Id);
+                GRTZ.TlakoveZkouskyRev2 = RevizeSC.SeznamTlakovychZkousekRevize(GRTZ.Revize2.Id);
+                // pokud neexisuje revize na tlakovou zkoušku vygenerování revize
+                var exist = Revize.ExistRevision(GRTZ.ZakaznikId, GRTZ.ProvozId, GRTZ.Rok, 3, GRTZ.UmisteniId);
+                if (exist == true)
+                {
+                    //pokud exisuje nacte se 
+                    GRTZ.Revize3 = Revize.ReturnRevision(GRTZ.ZakaznikId, GRTZ.ProvozId, Rok, 3, GRTZ.UmisteniId, null);
+                }
+                else
+                {
+                    //pokud neexistuje vygeneruje se
+                    GRTZ.Revize3 = Revize.GenerateRevision(GRTZ.ProvozId, GRTZ.Rok, 3, System.DateTime.Now,StatusRevize.Planned(), GRTZ.UmisteniId, GRTZ.Revize1.Nabidka, GRTZ.Revize2.Projekt);
+                }
+                //přesun tlakových zkoušek do speciální revize
+                RevizeSC.LoopRevizeSCTlakoveZkousky(GRTZ.Revize3, GRTZ.TlakoveZkouskyRev1);
+                RevizeSC.LoopRevizeSCTlakoveZkousky(GRTZ.Revize3, GRTZ.TlakoveZkouskyRev2);
+                //aktualizace hlavičkových údajů na jednotlivých revizích
+                Revize.UpdateRevizeHeader(GRTZ.Revize1.Id);
+                Revize.UpdateRevizeHeader(GRTZ.Revize2.Id);
+                Revize.UpdateRevizeHeader(GRTZ.Revize3.Id);
+            }
 
         }
     }

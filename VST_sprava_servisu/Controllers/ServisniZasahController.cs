@@ -18,20 +18,23 @@ namespace VST_sprava_servisu.Controllers
     public class ServisniZasahController : Controller
     {
         private Model1Container db = new Model1Container();
+
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasahController");
-        private string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
-        private string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
-        private string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
+
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+        private readonly string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
+        private readonly string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
 
 
         // GET: ServisniZasah
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index()
         {
-            var servisniZasah = db.ServisniZasah.Include(s => s.Provoz).Include(s => s.Umisteni).Include(s => s.Vozidlo).Include(s => s.Zakaznik);
-            return View(servisniZasah.ToList());
+            List<ServisniZasah> servisniZasah = db.ServisniZasah.Include(s => s.Provoz).Include(s => s.Umisteni).Include(s => s.Vozidlo).Include(s => s.Zakaznik).ToList();
+            return View(servisniZasah);
         }
 
-
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Upload(int Id)
         {
 
@@ -41,36 +44,30 @@ namespace VST_sprava_servisu.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Uploadx(int Id)
         {
             if (Request.Files.Count > 0)
             {
                 var file = Request.Files[0];
-
                 if (file != null && file.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var x = Path.GetDirectoryName(file.FileName);
-                    //var path = Path.GetFullPath(file.FileName);
-                    //var path = Path.Combine((@"C:\Logs\Upload\"), fileName);
-                    //file.SaveAs(path);
                 }
-
-
-
-
-
             }
-            return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
+            return RedirectToAction("Details", "ServisniZasah", new { Id });
         }
 
-
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult GenerateDL(int Id)
         {
             string retval = SAPDIAPI.GenerateDL(Id);
             ServisniZasah.UpdateDelivery(retval, Id);
-            return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
+            return RedirectToAction("Details", "ServisniZasah", new { Id });
         }
+
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult GenerateQuotation(int Id)
         {
             string retval = "";
@@ -89,16 +86,19 @@ namespace VST_sprava_servisu.Controllers
                 log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
             }
 
-                return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
+                return RedirectToAction("Details", "ServisniZasah", new { Id });
         }
+
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult GenerateOrder(int Id)
         {
             string retval = SAPDIAPI.GenerateOrder(Id);
             ServisniZasah.UpdateOrder(retval, Id);
 
-            return RedirectToAction("Details", "ServisniZasah", new { Id = Id });
+            return RedirectToAction("Details", "ServisniZasah", new { Id });
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult SelectProject(int Id)
         {
             ServisniZasah sz = new ServisniZasah();
@@ -108,6 +108,7 @@ namespace VST_sprava_servisu.Controllers
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult SelectProject([Bind(Include = "Code,Name,ServisniZasahId,Status")] Projekt projekt)
         {
             if (ModelState.IsValid)
@@ -126,6 +127,7 @@ namespace VST_sprava_servisu.Controllers
 
 
         // GET: ServisniZasah/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -140,6 +142,8 @@ namespace VST_sprava_servisu.Controllers
             }
             return View(servisniZasah);
         }
+
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Predelivery(int? id)
         {
             if (id == null)
@@ -155,6 +159,7 @@ namespace VST_sprava_servisu.Controllers
             return View(servisniZasah);
         }
 
+        [Authorize(Roles = "Administrator,Manager,SIL,Vedení")]
         public ActionResult Header(int? id)
         {
             if (id == null)
@@ -171,13 +176,16 @@ namespace VST_sprava_servisu.Controllers
         }
 
         // GET: ServisniZasah/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create(int Zakaznik, int Provoz, int Umisteni,string Odkud, string Kam, string Zpet)
         {
-            ServisniZasah sz = new ServisniZasah();
-            sz.ZakaznikID = Zakaznik;
-            sz.ProvozId = Provoz;
-            sz.UmisteniId = Umisteni;
-
+            ServisniZasah sz = new ServisniZasah
+            {
+                ZakaznikID = Zakaznik,
+                ProvozId = Provoz,
+                UmisteniId = Umisteni
+            };
+            
             if (!String.IsNullOrWhiteSpace(Odkud)) { sz.Odkud = Odkud; } else {  sz.Odkud = "Semtín 79, Pardubice, Česká Republika"; }
             if (!String.IsNullOrWhiteSpace(Kam)) { sz.Kam = Kam; }
              else { sz.Kam = db.Provoz.Where(t => t.Id == Provoz).Select(t => t.AdresaProvozu).FirstOrDefault(); }
@@ -206,6 +214,7 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Create([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed,Porjekt,Nabidka,Zakazka,DodaciList")] ServisniZasah servisniZasah, string action)
         {
             if (ModelState.IsValid && !String.IsNullOrWhiteSpace(action))
@@ -232,7 +241,7 @@ namespace VST_sprava_servisu.Controllers
 
                         db.ServisniZasah.Add(servisniZasah);
                         db.SaveChanges();
-                        return RedirectToAction("Details", "ServisniZasah", new { Id = servisniZasah.Id });
+                        return RedirectToAction("Details", "ServisniZasah", new { servisniZasah.Id });
                         
                     
                     default: 
@@ -250,6 +259,7 @@ namespace VST_sprava_servisu.Controllers
         }
 
         // GET: ServisniZasah/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -273,6 +283,7 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Edit([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed,Porjekt,Nabidka,Zakazka,DodaciList")] ServisniZasah servisniZasah)
         {
             if (ModelState.IsValid)
@@ -289,6 +300,7 @@ namespace VST_sprava_servisu.Controllers
         }
 
         // GET: ServisniZasah/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -306,6 +318,7 @@ namespace VST_sprava_servisu.Controllers
         // POST: ServisniZasah/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult DeleteConfirmed(int id)
         {
             ServisniZasah servisniZasah = db.ServisniZasah.Find(id);
@@ -353,7 +366,7 @@ namespace VST_sprava_servisu.Controllers
                 Response.Flush();
                 Response.Close();
             }
-            catch(Exception ex) { //log.Error($"Nena4tena adresa {path}"); 
+            catch(Exception ex) { log.Error($"Nenačtena adresa {path} {ex.Data} {ex.HResult} {ex.InnerException} {ex.Message}"); 
             }
 
         }
@@ -388,10 +401,11 @@ namespace VST_sprava_servisu.Controllers
                 Response.Close();
             }
             catch (Exception ex)
-            { //log.Error($"Nena4tena adresa {path}"); 
+            { log.Error($"Nena4tena adresa {path}" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
 
         }
+        [Authorize(Roles = "Administrator,Manager")]
         public void PrintDelivery(int Id)
         {
             ReportDocument Rel = new ReportDocument();
@@ -421,7 +435,8 @@ namespace VST_sprava_servisu.Controllers
                 Response.Close();
             }
             catch (Exception ex)
-            { //log.Error($"Nena4tena adresa {path}"); 
+            {
+                log.Error($"Nena4tena adresa {path} " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
             }
 
         }

@@ -7,6 +7,7 @@ namespace VST_sprava_servisu
 {
     public partial class VymenyLahvi
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("VymenyLahvi");
 
         internal protected static VymenyLahvi GenerujVymenu(SCProvozu oldSCProvozu, SCProvozu newSCProvozu, DateTime DatumVymeny, int RevizeId, string SClahve)
         {
@@ -35,7 +36,7 @@ namespace VST_sprava_servisu
                     dbCtx.VymenyLahvi.Add(vl);
                     dbCtx.SaveChanges();
                 }
-                catch(Exception ex) {  }
+                catch(Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
             }
             return vl;

@@ -69,9 +69,11 @@ namespace VST_sprava_servisu
             log.Debug(sql.ToString());
 
             SqlConnection cnn = new SqlConnection(conn);
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -88,7 +90,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        //log.Info($"id prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        log.Debug($"id prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
@@ -96,7 +98,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        //log.Info($"Revize prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        log.Debug($"Revize prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
@@ -104,7 +106,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        //log.Info($"Pyro prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        log.Debug($"Pyro prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
@@ -112,7 +114,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        //log.Info($"Baterie prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        log.Debug($"Baterie prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
                     try
                     {
@@ -120,7 +122,7 @@ namespace VST_sprava_servisu
                     }
                     catch (Exception ex)
                     {
-                        //log.Info($"TlkZk prázdné {ex.Message} {ex.InnerException} {ex.Data}");
+                        log.Debug($"TlkZk prázdné {ex.Message} {ex.InnerException} {ex.Data}");
                     }
 
                     listplanrev.Add(item);
@@ -146,10 +148,13 @@ namespace VST_sprava_servisu
                         var exist = dbCtx.RevizeSC.Where(r => r.RevizeId == revize && r.SCProvozuId == sc.Id).Count();
                         if (exist == 0)
                         {
-                            RevizeSC revizesc = new RevizeSC();
-                            revizesc.UmisteniId = sc.Umisteni;
-                            revizesc.RevizeId = revize;
-                            revizesc.SCProvozuId = sc.Id;
+                            RevizeSC revizesc = new RevizeSC
+                            {
+                                UmisteniId = sc.Umisteni ,
+                                RevizeId = revize,
+                                SCProvozuId = sc.Id
+                            };
+                            
                             if (item.Baterie == 1) { revizesc.Baterie = true; }
                             if (item.Pyro == 1) { revizesc.Pyro = true; }
                             if (item.TlkZk == 1) { revizesc.TlakovaZkouska = true; }

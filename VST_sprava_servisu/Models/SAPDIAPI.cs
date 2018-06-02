@@ -22,16 +22,19 @@ namespace VST_sprava_servisu
 
             try
             {
-                Company oCompany = new Company();
-                oCompany.CompanyDB = SAP_dtb;
-                oCompany.Server = "SQL";
-                oCompany.LicenseServer = "SQL:30000";
-                oCompany.DbUserName = "sa";
-                oCompany.DbPassword = "*2012Versino";
-                oCompany.UserName = "novakp";
-                oCompany.Password = "Celtic.13";
-                oCompany.DbServerType = BoDataServerTypes.dst_MSSQL2008;
-                oCompany.UseTrusted = false;
+                Company oCompany = new Company
+                {
+                    CompanyDB = SAP_dtb,
+                    Server = "SQL",
+                    LicenseServer = "SQL:30000",
+                    DbUserName = "sa",
+                    DbPassword = "*2012Versino",
+                    UserName = "novakp",
+                    Password = "Celtic.13",
+                    DbServerType = BoDataServerTypes.dst_MSSQL2008,
+                    UseTrusted = false,
+                };
+                
                 int ret = oCompany.Connect();
                 string ErrMsg = oCompany.GetLastErrorDescription();
                 int ErrNo = oCompany.GetLastErrorCode();
@@ -81,7 +84,7 @@ namespace VST_sprava_servisu
             //var xx = sz.ServisniZasahPrvek.ToList();
             //var z = xx[0];
 
-            bool bRetVal = false;
+            //bool bRetVal = false;
             string docEntry = "";
             int retVal = -1;
             string OrdDocEntry = sz.ZakazkaDocNUm;
@@ -109,7 +112,7 @@ namespace VST_sprava_servisu
                 oDelivery.DocumentSubType = BoDocumentSubType.bod_None;
                 oDelivery.DocObjectCode = BoObjectTypes.oOrders;
                 oDelivery.Project = sz.Projekt;
-                var snindex = 0;
+                //var snindex = 0;
                 for (int i = 0; i < oOrder.Lines.Count; i++)
 
                 {
@@ -170,7 +173,7 @@ namespace VST_sprava_servisu
                 {
                     retVal = oDelivery.Add();
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
                 if (retVal == 0)
                 {
@@ -197,8 +200,8 @@ namespace VST_sprava_servisu
             log.Error("1");
             ServisniZasah sz = new ServisniZasah();
             sz = ServisniZasah.GetZasah(Id);
-            bool bRetVal = false;
-            string sErrMsg; int lErrCode;
+            //bool bRetVal = false;
+            //string sErrMsg; int lErrCode;
             string docEntry = "";
             int retVal = -1;
             log.Error("2");
@@ -343,7 +346,7 @@ namespace VST_sprava_servisu
             ServisniZasah sz = new ServisniZasah();
             sz = ServisniZasah.GetZasah(Id);
 
-            bool bRetVal = false;
+            //bool bRetVal = false;
             string docEntry = "";
             int retVal = -1;
             string QuotDocEntry = sz.NabidkaDocNum;
@@ -401,7 +404,7 @@ namespace VST_sprava_servisu
                 {
                     retVal = oDelivery.Add();
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
                 if (retVal == 0)
                 {

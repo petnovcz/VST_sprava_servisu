@@ -28,7 +28,7 @@ namespace VST_sprava_servisu
         public DateTime DatumOd { get; set; }
         [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum do")]
         public DateTime DatumDo { get; set; }
-        public FinancniVysledkyDleZeme finVysledkyDleZeme {
+        public FinancniVysledkyDleZeme FinVysledkyDleZeme {
             get
             {
                 FinancniVysledkyDleZeme fvdlz = new FinancniVysledkyDleZeme();
@@ -55,9 +55,11 @@ namespace VST_sprava_servisu
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = cnn;
-                cmd.CommandText = sql.ToString();
+                SqlCommand cmd = new SqlCommand
+                {
+                    Connection = cnn,
+                    CommandText = sql.ToString()
+                };
                 cnn.Open();
                 cmd.ExecuteNonQuery();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -72,21 +74,24 @@ namespace VST_sprava_servisu
                             fvdlz.Vynosy = dr.GetDecimal(dr.GetOrdinal("Vynosy"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        { 
+                            log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
                             fvdlz.Naklady = dr.GetDecimal(dr.GetOrdinal("Naklady"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        { 
+                            log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             fvdlz.Zisk = dr.GetDecimal(dr.GetOrdinal("Vysledek"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        { 
+                            log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
 
                     }
@@ -99,7 +104,7 @@ namespace VST_sprava_servisu
             }
     
         }
-        public StatistikaProjektu statistikaProjektu {
+        public StatistikaProjektu StatProjektu {
             get
             {
                 StatistikaProjektu sp = new StatistikaProjektu();
@@ -116,9 +121,11 @@ namespace VST_sprava_servisu
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = cnn;
-                cmd.CommandText = sql.ToString();
+                SqlCommand cmd = new SqlCommand
+                {
+                    Connection = cnn,
+                    CommandText = sql.ToString()
+                };
                 cnn.Open();
                 cmd.ExecuteNonQuery();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -133,28 +140,28 @@ namespace VST_sprava_servisu
                             sp.OtevreneProjekty = dr.GetInt32(dr.GetOrdinal("OtevreneProjekty"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        { log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
                             sp.OtevreneProjektyVProdleni = dr.GetInt32(dr.GetOrdinal("OtevreneProjektyVProdleni"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             sp.UzavreneProjekty = dr.GetInt32(dr.GetOrdinal("UzavreneProjekty"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             sp.UzavreneProjektyVProdleni = dr.GetInt32(dr.GetOrdinal("UzavreneProjektyVProdleni"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
 
                     }
@@ -166,7 +173,7 @@ namespace VST_sprava_servisu
 
 
         }
-        public FakturaceProjektu fakturaceProjektu
+        public FakturaceProjektu FaktProjektu
         {
             get
             {
@@ -217,9 +224,11 @@ namespace VST_sprava_servisu
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = cnn;
-                cmd.CommandText = sql.ToString();
+                SqlCommand cmd = new SqlCommand
+                {
+                    Connection = cnn,
+                    CommandText = sql.ToString()
+                };
                 cnn.Open();
                 cmd.ExecuteNonQuery();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -234,63 +243,63 @@ namespace VST_sprava_servisu
                             fp.FakturyVydane = dr.GetDecimal(dr.GetOrdinal("FakturyVydane"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
                             fp.FakturyPrijate = dr.GetDecimal(dr.GetOrdinal("FakturyPrijate"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             fp.FakturyPrijate_Obchod = dr.GetDecimal(dr.GetOrdinal("FakturyPrijate_Obchod"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             fp.FakturyPrijate_RP = dr.GetDecimal(dr.GetOrdinal("FakturyPrijate_RP"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             fp.VydejMzdy = dr.GetDecimal(dr.GetOrdinal("VydejMzdy"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             fp.VydejPokladna = dr.GetDecimal(dr.GetOrdinal("VydejPokladna"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             fp.VydejPokladna_Obchod = dr.GetDecimal(dr.GetOrdinal("VydejPokladna_Obchod"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             fp.VydejPokladna_RP = dr.GetDecimal(dr.GetOrdinal("VydejPokladna_RP"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
                             fp.HrubyZisk = dr.GetDecimal(dr.GetOrdinal("HrubyZisk"));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        {  log.Debug ("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
 
                     }

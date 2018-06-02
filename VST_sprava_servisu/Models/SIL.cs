@@ -67,9 +67,11 @@ namespace VST_sprava_servisu
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = cnn;
-                cmd.CommandText = sql.ToString();
+                SqlCommand cmd = new SqlCommand
+                {
+                    Connection = cnn,
+                    CommandText = sql.ToString()
+                };
                 cnn.Open();
 
                 cmd.ExecuteNonQuery();
@@ -85,13 +87,13 @@ namespace VST_sprava_servisu
                         {
                             sil.DobaprovozuI = dr.GetInt64(dr.GetOrdinal("I"));
                         }
-                        catch (Exception ex) {// log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
                             sil.DobaprovozuII = dr.GetInt64(dr.GetOrdinal("II"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
 
                         try
@@ -99,19 +101,19 @@ namespace VST_sprava_servisu
                             sil.DniMeziRevizemi = dr.GetDecimal(dr.GetOrdinal("DniMeziRevizemi"));
                             
                         }
-                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
                             sil.TAKU = dr.GetDecimal(dr.GetOrdinal("TAKU"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
                             sil.TAKUII = dr.GetDecimal(dr.GetOrdinal("TAKUII"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
 
 
@@ -134,8 +136,7 @@ namespace VST_sprava_servisu
 
                 string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 StringBuilder sql = new StringBuilder();
-                double tak = 15;
-                double tak2 = 16;
+                
 
                 sql.Append($" declare @rok as int = {Rok} ");
                 sql.Append($" declare @prumerTAKU float = '{this.PrumerDobyProvozu.TAKU.ToString().Replace(",", ".")}'");
@@ -166,9 +167,11 @@ namespace VST_sprava_servisu
                 SqlConnection cnn = new SqlConnection(connectionString);
                 //SqlConnection con = new SqlConnection(cnn);
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = cnn;
-                cmd.CommandText = sql.ToString();
+                SqlCommand cmd = new SqlCommand
+                {
+                    Connection = cnn,
+                    CommandText = sql.ToString()
+                };
                 cnn.Open();
                 cmd.ExecuteNonQuery();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -178,108 +181,94 @@ namespace VST_sprava_servisu
                     while (dr.Read())
                     {
                         SIL_dobaprovozu sil = new SIL_dobaprovozu();
-                        // sil.ServisniZasahId = ServisniZasahId;
-                        //log.Debug("start ");
                         try
                         {
-                            //log.Debug("ZakaznikId ");
                             sil.ZakaznikId = dr.GetInt32(dr.GetOrdinal("ZakaznikId"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: ZakaznikId " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: ZakaznikId " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("ProvozId ");
                             sil.ProvozId = dr.GetInt32(dr.GetOrdinal("ProvozId"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: ProvozId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: ProvozId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
 
                         try
                         {
-                            //log.Debug("UmisteniId ");
                             sil.UmisteniId = dr.GetInt32(dr.GetOrdinal("UmisteniId"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: UmisteniId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: UmisteniId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("SCProvozuId ");
                             sil.SCProvozuId = dr.GetInt32(dr.GetOrdinal("SCProvozuId"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: SCProvozuId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        catch (Exception ex) { log.Debug("Error number: SCProvozuId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                         }
                         try
                         {
-                            //log.Debug("SerioveCisloId ");
                             sil.SerioveCisloId = dr.GetInt32(dr.GetOrdinal("SerioveCisloId"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: SerioveCisloId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: SerioveCisloId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("ArtiklId ");
                             sil.ArtiklId = dr.GetInt32(dr.GetOrdinal("ArtiklId"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: ArtiklId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: ArtiklId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("DobaprovozuI ");
                             sil.DobaprovozuI = dr.GetInt64(dr.GetOrdinal("I"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: DobaprovozuI" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: DobaprovozuI" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("DobaprovozuII ");
                             sil.DobaprovozuII = dr.GetInt64(dr.GetOrdinal("II"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: DobaprovozuII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: DobaprovozuII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("DniMeziRevizemi ");
                             sil.DniMeziRevizemi = dr.GetDecimal(dr.GetOrdinal("PocetdnimeziIaIIrevizi"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: DniMeziRevizemi" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: DniMeziRevizemi" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("PocetReviziVRoce ");
                             sil.PocetReviziVRoce = dr.GetInt32(dr.GetOrdinal("count"));
                         }
-                        catch (Exception ex) { //log.Error("Error number: PocetReviziVRoce" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: PocetReviziVRoce" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("TAKU ");
-                           sil.TAKU = Convert.ToDecimal(dr.GetDouble(dr.GetOrdinal("TAKU")));
+                              sil.TAKU = Convert.ToDecimal(dr.GetDouble(dr.GetOrdinal("TAKU")));
                         }
-                        catch (Exception ex) { //log.Error("Error number: TAKU" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: TAKU" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("TAKUII ");
                             sil.TAKUII = Convert.ToDecimal(dr.GetDouble(dr.GetOrdinal("TAKUII")));
                         }
-                        catch (Exception ex) { //log.Error("Error number: TAKUII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        catch (Exception ex) { log.Debug("Error number: TAKUII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("TAKUII ");
                             sil.DatumI = (dr.GetDateTime(dr.GetOrdinal("DatumI")));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: TAKUII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        {
+                            log.Debug("Error number: TAKUII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
                         try
                         {
-                            //log.Debug("TAKUII ");
                             sil.DatumII = (dr.GetDateTime(dr.GetOrdinal("DatumII")));
                         }
                         catch (Exception ex)
-                        { //log.Error("Error number: TAKUII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                        { 
+                            log.Debug("Error number: TAKUII" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                         }
 
 

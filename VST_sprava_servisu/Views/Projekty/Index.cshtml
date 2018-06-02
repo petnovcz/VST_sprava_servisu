@@ -211,32 +211,32 @@
             <td>CZK</td>
             @{ 
                 decimal x = 0; decimal y = 0;
-                if (@Model.projektyList.Select(t => t.U_ActRev).Sum() != 0)
+                if (@Model.ProjektyList.Select(t => t.U_ActRev).Sum() != 0)
                 {
-                    x = @Model.projektyList.Select(t => t.Zisk).Sum() / @Model.projektyList.Select(t => t.U_ActRev).Sum() * 100;
+                    x = @Model.ProjektyList.Select(t => t.Zisk).Sum() / @Model.ProjektyList.Select(t => t.U_ActRev).Sum() * 100;
                 }
                 else { x = 0; }
-                if (@Model.projektyList.Select(t => t.U_ActRev).Sum() != 0)
+                if (@Model.ProjektyList.Select(t => t.U_ActRev).Sum() != 0)
                 {
-                    y = @Model.projektyList.Select(t => t.ZiskPl).Sum() / @Model.projektyList.Select(t => t.U_PlaRev).Sum() * 100;
+                    y = @Model.ProjektyList.Select(t => t.ZiskPl).Sum() / @Model.ProjektyList.Select(t => t.U_PlaRev).Sum() * 100;
                 }
                 else { y = 0; }
                 }
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.Zisk).Sum()) / @String.Format("{0:n0}", @x) [%]</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_ActRev).Sum())</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_ActExp).Sum())</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.ZiskPl).Sum()) / @String.Format("{0:n0}", @y) [%]</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_PlaRev).Sum())</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_PlaExp).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.Zisk).Sum()) / @String.Format("{0:n0}", @x) [%]</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.U_ActRev).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.U_ActExp).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.ZiskPl).Sum()) / @String.Format("{0:n0}", @y) [%]</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.U_PlaRev).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.U_PlaExp).Sum())</td>
         </tr>
         <tr>
             <td>EUR</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.ZiskSC).Sum()) </td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_ActRevSC).Sum())</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_ActExpSC).Sum())</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.ZiskPlSC).Sum())</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_PlaRevSC).Sum())</td>
-            <td>@String.Format("{0:n0}", @Model.projektyList.Select(t => t.U_PlaExpSC).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.ZiskSC).Sum()) </td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.U_ActRevSC).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.U_ActExpSC).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.ZiskPlSC).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.U_PlaRevSC).Sum())</td>
+            <td>@String.Format("{0:n0}", @Model.ProjektyList.Select(t => t.U_PlaExpSC).Sum())</td>
         </tr>
     </tbody>
 </table>
@@ -271,7 +271,7 @@
     </thead>
     <tbody>
 
-        @foreach (var item in Model.projektyList)
+        @foreach (var item in Model.ProjektyList)
         {
             <tr style="font-size: 11px;">
                 <td>

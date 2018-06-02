@@ -128,9 +128,8 @@ namespace VST_sprava_servisu
         public static int AddSCProvozu(SCImport scimport, int id)
         {
             int idscprovozu = 0;
-            SCProvozu scprovozu = new SCProvozu();
-            scprovozu.SerioveCisloId = id;
-            scprovozu.ProvozId = scimport.Provozy;
+            SCProvozu scprovozu = new SCProvozu { SerioveCisloId = id, ProvozId = scimport.Provozy };
+            
             using (var dbCtx = new Model1Container())
             {
                 scprovozu.StatusId = dbCtx.Status.Where(s => s.Aktivni == true).Select(s => s.Id).FirstOrDefault();

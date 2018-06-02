@@ -27,12 +27,12 @@ namespace VST_sprava_servisu
         public string CardCode { get; set; }
         public string CardName { get; set; }
         public string DocCurr { get; set; }
-        public ORDRforProject ordrforproject { get; set; }
-        public OINVforProject oinvforproject
+        public ORDRforProject Ordrforproject { get; set; }
+        public OINVforProject Oinvforproject
         {
             get; set;
         }
-        public OPCHforProject opchforproject
+        public OPCHforProject Opchforproject
         {
             get; set;
         }
@@ -123,8 +123,8 @@ namespace VST_sprava_servisu
         [Authorize(Roles = "Administrator,Manager")]
         public static List<Projekt> ProjectList(string SAPKod, int ServisniZasahId)
         {
-            
-            
+
+
             List<Projekt> list = new List<Projekt>();
 
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
@@ -134,14 +134,17 @@ namespace VST_sprava_servisu
             sql.Append($" where U_CardCode = '{SAPKod}'");
             sql.Append(" and coalesce(U_ActStart, U_StartDat) <= GETDATE() and coalesce(U_ActEndDt, U_EndDate) >= GETDATE()");
             sql.Append(" and U_Status not in ('7', '8', '2') or t0.Code = 'RP00078'");
-            
+
             log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+
+            };
             cnn.Open();
             cmd.ExecuteNonQuery();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -150,29 +153,33 @@ namespace VST_sprava_servisu
                 //MAKES IT HERE   
                 while (dr.Read())
                 {
-                    Projekt sapItem = new Projekt();
-                    sapItem.ServisniZasahId = ServisniZasahId;
+                    Projekt sapItem = new Projekt
+                    {
+                        ServisniZasahId = ServisniZasahId
+                    };
+                    
                     try
                     {
                         sapItem.Code = dr.GetString(dr.GetOrdinal("Code"));
                     }
                     catch (Exception ex)
                     { 
-                        //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
                     try
                     {
                         sapItem.Name = dr.GetString(dr.GetOrdinal("U_Descript"));
                     }
                     catch (Exception ex)
-                    {// log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    {
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
 
                     try
                     {
                         sapItem.Status = dr.GetString(dr.GetOrdinal("Name"));
                     }
-                    catch (Exception ex) { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    catch (Exception ex) { log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
 
                     list.Add(sapItem);

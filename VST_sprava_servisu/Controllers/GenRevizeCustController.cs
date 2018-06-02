@@ -9,6 +9,7 @@ namespace VST_sprava_servisu.Controllers
     public class GenRevizeCustController : Controller
     {
         // GET: GenRevizeCust
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Index(int ZakaznikId, int ProvozId, int? UmisteniId, int Rok, int Skupina, string Search)
         {
             GenRevizeCust gr = new GenRevizeCust();
@@ -18,10 +19,15 @@ namespace VST_sprava_servisu.Controllers
             gr.UmisteniId = UmisteniId.Value;
             gr.Skupina = Skupina;
             gr.Search = Search;
-            gr.ProvozId = ProvozId;            
+            gr.ProvozId = ProvozId;
+
+            //ViewBag.VozidloId = new SelectList(db.Vozidlo, "Id", "NazevVozidla", 1);
+            ViewBag.Projekt = new SelectList(gr.ProjektList, "Code", "Name",null); 
+            ViewBag.Nabidka = new SelectList(gr.NabidkaList, "Code", "Name", null);
+
             return View(gr);
         }
-
+        [Authorize(Roles = "Administrator,Manager")]
         public ActionResult Send(int ZakaznikId, int ProvozId, int? UmisteniId, int Rok, int Skupina, string Search, string Nabidka, string Projekt)
         {
             GenRevizeCust gr = new GenRevizeCust();
@@ -34,7 +40,7 @@ namespace VST_sprava_servisu.Controllers
             gr.Nabidka = Nabidka;
             gr.Projekt = Projekt;
             GenRevizeCust.Run(ZakaznikId, ProvozId, Rok, UmisteniId, Nabidka, Projekt);
-            return RedirectToAction("Nahled","Revize",null);
+            return RedirectToAction("Index","Revize",new { Zakaznik = ZakaznikId });
         }
     }
 }

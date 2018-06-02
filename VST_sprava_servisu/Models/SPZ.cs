@@ -34,7 +34,7 @@ namespace VST_sprava_servisu
         }
 
 
-        public static int importSPZData()
+        public static int ImportSPZData()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
             string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
@@ -50,16 +50,18 @@ namespace VST_sprava_servisu
             sql.Append(" FROM [spzsql].[dbo].[BeznaKniha] t0 left join [spzsql].[dbo].[Osoby] t1 on t0.LinkOsoba = t1.LinkOsoba left join [spzsql].[dbo].[auta] t2 on t0.LinkAuto = t2.LinkAuto left join [spzsql].[dbo].[zeme] t3 on t0.LinkZeme = t3.LinkZeme left join [spzsql].[dbo].[zeme] t4 on t0.LinkZeme2 = t4.LinkZeme ");
             sql.Append(" where t0.Rok >= '2018' and t1.OsCislo not in ('20','67','18') and UjetoSluzebne<> 0");
             sql.Append($"  and ( select COUNT(*) from {SAP_dtb}.[dbo].[@VCZ_SPZ_DATA] tx where tx.U_DatumOd = t0.DatumOd and tx.U_datumdo = t0.Datumdo and tx.U_ujetoslu = t0.UjetoSluzebne) = 0");
-            sql.Append($" and ( select COUNT(*) from {SAP_dtb}.[dbo].[@VCZ_CT_PRJ] tx where tx.Code COLLATE DATABASE_DEFAULT = substring(t0.Poznamka, 0, 8) COLLATE DATABASE_DEFAULT) > 0");
+            sql.Append($" and ( select COUNT(*) from {SAP_dtb}.[dbo].[OPRJ] tx where tx.PrjCode COLLATE DATABASE_DEFAULT = substring(t0.Poznamka, 0, 8) COLLATE DATABASE_DEFAULT) > 0");
             sql.Append(" and substring(t0.Poznamka,0,8) <> ''");
 
             //log.Debug($"Nacteni dat pri importu artiklu z SAP {sql.ToString()}");
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
             cnn.Open();
             try
             {
@@ -95,9 +97,11 @@ namespace VST_sprava_servisu
             SqlConnection cnn = new SqlConnection(connectionString);
             //SqlConnection con = new SqlConnection(cnn);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cnn;
-            cmd.CommandText = sql.ToString();
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cnn,
+                CommandText = sql.ToString()
+            };
             cnn.Open();
 
             cmd.ExecuteNonQuery();
@@ -114,58 +118,65 @@ namespace VST_sprava_servisu
                         line.U_datumOd = dr.GetDateTime(dr.GetOrdinal("U_datumOd"));
                     }
                     catch (Exception ex)
-                    {// log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    {
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         line.U_datumDo = dr.GetDateTime(dr.GetOrdinal("U_datumDo"));
                     }
                     catch (Exception ex)
-                    { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    {
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
 
                     try
                     {
                         line.U_UjetoSlu = dr.GetDecimal(dr.GetOrdinal("U_UjetoSlu"));
-
                     }
                     catch (Exception ex)
-                    { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    {
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         line.U_MistoOdk = dr.GetString(dr.GetOrdinal("U_MistoOdk"));
                     }
                     catch (Exception ex)
-                    { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    {
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         line.U_MistoKam = dr.GetString(dr.GetOrdinal("U_MistoKam"));
                     }
                     catch (Exception ex)
-                    { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    {
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         line.U_SPZ = dr.GetString(dr.GetOrdinal("U_SPZ"));
                     }
                     catch (Exception ex)
-                    { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    {
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         line.U_projekt = dr.GetString(dr.GetOrdinal("U_projekt"));
                     }
                     catch (Exception ex)
-                    { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    { 
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     try
                     {
                         line.U_ridic = dr.GetString(dr.GetOrdinal("U_ridic"));
                     }
                     catch (Exception ex)
-                    { //log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
+                    { 
+                        log.Debug("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); 
                     }
                     item.Add(line);
 
@@ -209,7 +220,7 @@ namespace VST_sprava_servisu
             }
             catch (Exception ex)
             {
-                
+                log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
             }
 
         }
