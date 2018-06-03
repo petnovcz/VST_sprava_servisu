@@ -1,0 +1,42 @@
+﻿@model VST_sprava_servisu.PoruchaList
+@{
+    Layout = null;
+    ViewBag.Title = "Poruchy";
+    var pocet = Model.Pocet;
+    var prc = 100;
+    if (pocet == 0)
+    { prc = 100; }
+    else {
+        prc = 100 / pocet; }
+}
+
+
+<table style="width:100% !important;">
+    <tr style="width:100% !important;">
+
+        @foreach (var item in Model.SeznamPoruch)
+        {
+        <td style="width:@{@prc}% !important; text-align:center;">
+            @if (Model.Pocet >= 0)
+            {
+                if (Model.VybranaPorucha.Id == item.Id)
+                {
+                    @Html.ActionLink(item.NazevPoruchy.ToString(), "PoruchyChange", "ServisniZasah", new { Id = Model.ServisniZasahId, Porucha = item.Id }, new { @class = "btn-success btn-block" })
+                }
+                else
+                {
+                    @Html.ActionLink(item.NazevPoruchy.ToString(), "PoruchyChange", "ServisniZasah", new { Id = Model.ServisniZasahId, Porucha = item.Id }, new { @class = "btn-default btn-block" })
+                }
+            }
+            else
+            {
+                @Html.ActionLink(item.NazevPoruchy.ToString(), "PoruchyChange", "ServisniZasah", new { Id = Model.ServisniZasahId, Porucha = item.Id }, new { @class = "btn-default btn-block" })
+            }
+
+
+        </td>
+
+
+        }
+    </tr>
+</table>

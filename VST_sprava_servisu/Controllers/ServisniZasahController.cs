@@ -35,10 +35,29 @@ namespace VST_sprava_servisu.Controllers
         }
 
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Upload(int Id)
+        public ActionResult Poruchy(int Id)
         {
+            ServisniZasah item = new ServisniZasah();
+            item = db.ServisniZasah.Find(Id);
+            item.Poruchy = ServisniZasah.Recalculcateporuchy(Id);
+            return View(item.Poruchy);
+        }
 
-            return View(Id);
+        [Authorize(Roles = "Administrator,Manager")]
+        public ActionResult PoruchyChange(int Id, int Porucha)
+        {
+                       
+                ServisniZasahPrvek item2 = new ServisniZasahPrvek();
+                item2.PoruchaID = Porucha;
+                item2.ServisniZasahId = Id;
+                //item2.PoruchaID = 33;
+                db.ServisniZasahPrvek.Add(item2);
+                db.SaveChanges();
+                ServisniZasah sz = db.ServisniZasah.Find(Id);
+                //sz.Poruchy = ServisniZasah.Recalculcateporuchy(Id);
+            
+
+            return RedirectToAction("Details", "ServisniZasah", new { Id });
         }
 
 

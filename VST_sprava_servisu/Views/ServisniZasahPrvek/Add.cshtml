@@ -3,11 +3,15 @@
 @{
     ViewBag.Title = "Create";
     Layout = null;
+    var text1 = "Přidání SIL";
+    var text2 = "Přidání Opravy";
+    var finale = "";
+    if (Model.SIL == true) { finale = text1; } else { finale = text2; }
 }
 
 
 
-@using (Html.BeginForm("Add","ServisniZasahPrvek"))
+@using (Html.BeginForm("Add2","ServisniZasahPrvek"))
 {
     @Html.AntiForgeryToken()
 
@@ -16,7 +20,7 @@
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ServisniZasahId)
-
+    @Html.Hidden("SIL",(object)ViewBag.SIL)
 
     @Html.DropDownListFor(m => m.SCProvozuID, (SelectList)ViewBag.SCProvozuID, "Bez vybraného prvku", new { @class = "form-control" })
     @Html.ValidationMessageFor(model => model.SCProvozuID, "", new { @class = "text-danger" })
@@ -30,7 +34,7 @@
 
     <div class="form-group">
         <div class="">
-            <input type="submit" value="Přidej" class="btn btn-default" />
+            <input type="submit" value="@finale" class="btn btn-default" />
         </div>
     </div>
 </div>

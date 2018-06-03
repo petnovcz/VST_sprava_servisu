@@ -5,7 +5,7 @@
 }
 
 <div style="background-color:rgba(0, 0, 0, 0.7);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
-    
+
     <h4 class="vstcolor">
         @Html.ActionLink(" ", "Redirect", "Zakaznici", new { Model.Provoz.ZakaznikId, Model.ProvozId, Model.UmisteniId }, new { @class = "btn btn-info btn-xs glyphicon glyphicon-arrow-right " })
         @Html.DisplayFor(model => model.Zakaznik.NazevZakaznika), @Html.DisplayFor(model => model.Provoz.NazevProvozu),@Html.DisplayFor(model => model.Umisteni.NazevUmisteni)
@@ -262,11 +262,11 @@
         <div>
 
             <b>Dodaci list </b>
-            
-        @Html.ActionLink(" ", "Predelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon-triangle-right" })
-        @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon btn-xs glyphicon-triangle-right" })
 
-@Html.ActionLink(" ", "PrintDelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
+            @Html.ActionLink(" ", "Predelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon-triangle-right" })
+            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon btn-xs glyphicon-triangle-right" })
+
+            @Html.ActionLink(" ", "PrintDelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
         </div>
         <div>
             @Model.DodaciListDocNum
@@ -275,5 +275,14 @@
     </div>
 </div>
 
-<hr>
-@Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id })
+
+<table style="">
+    <tr>
+        <td>
+            @Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id, SIL = true })
+        </td>
+        <td>
+            @Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id, SIL = false })
+    </td>
+</tr>
+</table>

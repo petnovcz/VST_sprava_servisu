@@ -18,6 +18,39 @@ namespace VST_sprava_servisu
     public partial class ServisniZasah
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasah");
+
+        public PoruchaList Poruchy { get; set;
+            
+        }
+
+        public static PoruchaList Recalculcateporuchy(int Id)
+        {
+            PoruchaList item = new PoruchaList();
+            using (var db = new Model1Container())
+            {
+                item.SeznamPoruch = db.Porucha.Include(t => t.KategoriePoruchy).Where(t => t.SkupinaArtikluId == null).ToList();
+                item.VybranaPorucha = db.ServisniZasahPrvek.Include(t => t.Porucha).Where(t => t.ServisniZasahId == Id && t.Porucha.SkupinaArtikluId == null).Select(t => t.Porucha).FirstOrDefault();
+                item.ServisniZasahId = Id;
+            }
+            return item;
+        }
+
+        public List<ServisniZasahPrvek> Artikly
+        {
+            get
+            {
+                List<ServisniZasahPrvek> item = new List<ServisniZasahPrvek>();
+                using (var db = new Model1Container())
+                {
+                    item = db.ServisniZasahPrvek.Where(t => t.Porucha.SkupinaArtikluId != null && t.ServisniZasahId == Id).ToList();
+                }
+                return item;
+
+            }
+        }
+
+
+
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime? DatumVyprseniZaruky {
             get
@@ -275,7 +308,7 @@ namespace VST_sprava_servisu
                     .FirstOrDefault();
 
             }
-
+            sz.Poruchy = ServisniZasah.Recalculcateporuchy(sz.Id);
             return sz;
         }
 

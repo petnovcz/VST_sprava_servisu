@@ -66,7 +66,7 @@ namespace VST_sprava_servisu.Controllers
             return View(servisniZasahPrvek);
         }
 
-        public ActionResult Add(int Id)
+        public ActionResult Add(int Id, bool SIL)
         {
             ServisniZasahPrvek szp = new ServisniZasahPrvek
             {
@@ -75,29 +75,36 @@ namespace VST_sprava_servisu.Controllers
             
             ServisniZasah sz = new ServisniZasah();
             sz = db.ServisniZasah.Where(t => t.Id == Id).FirstOrDefault();
-            ViewBag.SCProvozuID = new SelectList(db.SCProvozu.Where(t=>t.ProvozId == sz.ProvozId && t.Umisteni == sz.UmisteniId), "Id", "Znaceni");          
+            ViewBag.SCProvozuID = new SelectList(db.SCProvozu.Where(t=>t.ProvozId == sz.ProvozId && t.Umisteni == sz.UmisteniId), "Id", "Znaceni");
+            szp.SIL = SIL;
+            ViewBag.SIL = SIL;
             return View(szp);
         }
 
 
         // GET: ServisniZasahPrvek/Create
-        [HttpPost]
+        
         [ValidateAntiForgeryToken]
-        public ActionResult Add(int ServisniZasahId, int? SCProvozuID)
+        public ActionResult Add2(int ServisniZasahId, bool SIL, int? SCProvozuID)
         {
-            ServisniZasahPrvek szp = new ServisniZasahPrvek
-            {
-                ServisniZasahId = ServisniZasahId,
-                SCProvozuID = SCProvozuID
-            };
-            
             SCProvozu scprovozu = new SCProvozu();
             try
             {
-                 scprovozu = SCProvozu.GetSCProvozuById(szp.SCProvozuID.Value);
+                scprovozu = SCProvozu.GetSCProvozuById(SCProvozuID.Value);
             }
             catch (Exception ex) { log.Debug("ServisniZasahPrvek/Create Error number: ProvozId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-            int? skupina = 0;
+
+
+            ServisniZasahPrvek szp = new ServisniZasahPrvek
+            {
+                ServisniZasahId = ServisniZasahId,
+                SCProvozuID = SCProvozuID,
+                ServisniZasah = ServisniZasah.GetZasah(ServisniZasahId),
+                
+            };
+            
+
+             int? skupina = 0;
             try
             {
                 skupina = scprovozu.Artikl.SkupinaArtiklu;
@@ -113,7 +120,9 @@ namespace VST_sprava_servisu.Controllers
             {
                 ViewBag.PoruchaID = new SelectList(Porucha.GetPoruchyProSkupinu(0), "Id", "NazevPoruchy");
             }
-            
+
+            szp.ServisniZasah.Poruchy.SeznamPoruch = Porucha.GetPoruchyProSkupinu(skupina.Value);
+            szp.SIL = SIL;
             return View("Create",szp);
         }
 
@@ -122,7 +131,7 @@ namespace VST_sprava_servisu.Controllers
         // Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ServisniZasahId,SCProvozuID,PoruchaID,ArtiklID,Pocet,CenaZaKus,CenaCelkem")] ServisniZasahPrvek servisniZasahPrvek)
+        public ActionResult Create([Bind(Include = "Id,ServisniZasahId,SCProvozuID,PoruchaID,ArtiklID,Pocet,CenaZaKus,CenaCelkem,SIL")] ServisniZasahPrvek servisniZasahPrvek)
         {
             if (ModelState.IsValid)
             {

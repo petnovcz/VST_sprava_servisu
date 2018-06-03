@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -35,6 +36,22 @@ namespace VST_sprava_servisu
             return dec;
         }
 
+
+        
+
+
+    }
+    public class PoruchaList
+    {
+        public List<Porucha> SeznamPoruch { get; set; }
+        public Porucha VybranaPorucha { get; set; }
+        [Key]
+        public int ServisniZasahId { get; set; }
+        public int Pocet { get {
+                if (SeznamPoruch.Count() > 0) { return SeznamPoruch.Count(); } else { return 0; } 
+
+
+                    } }
 
     }
 }

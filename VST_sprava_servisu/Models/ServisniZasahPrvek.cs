@@ -13,7 +13,7 @@ namespace VST_sprava_servisu
     public partial class ServisniZasahPrvek
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServisniZasahPrvek");
-
+        public bool SIL;
         public int startindex { get; set; }
         public int endindex { get; set; }
         public int kusovnik_count { get; set; }

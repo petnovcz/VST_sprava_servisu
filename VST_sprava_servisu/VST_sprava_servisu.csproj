@@ -1264,6 +1264,7 @@
     <Content Include="Views\Statistiky\CelkovyManazerskyPrehled.cshtml" />
     <Content Include="Views\Projekty\GrafForProject.cshtml" />
     <Content Include="Views\SPZ\Index.cshtml" />
+    <Content Include="Views\ServisniZasah\Poruchy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

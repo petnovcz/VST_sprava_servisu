@@ -19,6 +19,7 @@ namespace VST_sprava_servisu
         public ServisniZasah()
         {
             this.ServisniZasahPrvek = new HashSet<ServisniZasahPrvek>();
+            this.Poruchy = Recalculcateporuchy(this.Id);
         }
     
         public int Id { get; set; }

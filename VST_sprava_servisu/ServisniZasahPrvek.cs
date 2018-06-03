@@ -20,6 +20,7 @@ namespace VST_sprava_servisu
         {
             this.ServisniZasahPrvekSarze = new HashSet<ServisniZasahPrvekSarze>();
             this.ServisniZasahPrvekSerioveCislo = new HashSet<ServisniZasahPrvekSerioveCislo>();
+            
         }
         [Display(Name = "Id")]
         public int Id { get; set; }
