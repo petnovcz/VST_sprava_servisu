@@ -203,11 +203,11 @@
     <div class="col-lg-3">
         <div>
             <b> Projekt</b>
-            @if (Model.NabidkaDocNum == null || Model.NabidkaDocNum == "")
+            @if ((Model.NabidkaDocNum == null || Model.NabidkaDocNum == "") && (Model.Closed != true))
             {
                 @Html.ActionLink(" ", "SelectProject", new { Id = Model.Id }, new { @class = "btn btn-xs btn-success glyphicon glyphicon-glyphicon glyphicon-search" })
             }
-            @if (Model.Projekt == "" || Model.Projekt == null)
+            @if ((Model.Projekt == "" || Model.Projekt == null)&& (Model.Closed != true))
             {
                 @Html.ActionLink(" ", "GenerateProject", new { Id = Model.Id }, new { @class = "btn btn-xs btn-success glyphicon glyphicon-glyphicon glyphicon-asterisk" })
             }
@@ -222,19 +222,12 @@
     </div>
     <div class="col-lg-3">
         <div>
-            <b>Nabidka</b>
-            @if ((Model.NabidkaDocNum == null || Model.NabidkaDocNum == "") && (Model.ZakazkaDocNUm == null || Model.ZakazkaDocNUm == "") && (Model.DodaciListDocNum == null || Model.DodaciListDocNum == ""))
+            <b>Draft Nabidky</b>
+            @if ((Model.NabidkaDocNum == null || Model.NabidkaDocNum == "") && (Model.DodaciListDocNum == null || Model.DodaciListDocNum == "")&& (Model.Closed != true))
             {
                 @Html.ActionLink(" ", "GenerateQuotation", new { Id = Model.Id }, new { @class = "btn btn-success btn-xs glyphicon glyphicon-asterisk" })
             }
-            @if (Model.NabidkaDocNum != "" && Model.NabidkaDocNum != null)
-            {
-                @Html.ActionLink(" ", "PrintQuotation", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
-                if ((Model.ZakazkaDocNUm == null || Model.ZakazkaDocNUm == "") && (Model.DodaciListDocNum == null || Model.DodaciListDocNum == ""))
-                {
-                    @Html.ActionLink(" ", "GenerateOrder", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon btn-xs glyphicon-triangle-right" })
-                }
-            }
+            
         </div>
         <div>
             @Model.NabidkaDocNum
@@ -242,32 +235,15 @@
         </div>
 
     </div>
+    
     <div class="col-lg-3">
         <div>
-            <b> Zakazka</b>
-            @if (Model.ZakazkaDocNUm != "" && Model.ZakazkaDocNUm != null)
+            <b>Draft dodacího listu </b>
+            @if ((Model.NabidkaDocNum == null || Model.NabidkaDocNum == "") && (Model.DodaciListDocNum == null || Model.DodaciListDocNum == "")&& (Model.Closed != true))
             {
-                @Html.ActionLink(" ", "PrintOrder", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
+                @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon btn-xs glyphicon glyphicon-asterisk" })
             }
-        </div>
-        <div>
-            @Model.ZakazkaDocNUm
-        </div>
-        <div>
-            @Html.Partial("Upload", Model.Id)
-        </div>
-
-    </div>
-    <div class="col-lg-3">
-        <div>
-
-            <b>Dodaci list </b>
-
-            @Html.ActionLink(" ", "Predelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon-triangle-right" })
-            @Html.ActionLink(" ", "GenerateDL", new { Id = Model.Id }, new { @class = "btn btn-success glyphicon btn-xs glyphicon-triangle-right" })
-
-            @Html.ActionLink(" ", "PrintDelivery", "ServisniZasah", new { Id = Model.Id }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-print" })
-        </div>
+            </div>
         <div>
             @Model.DodaciListDocNum
         </div>
@@ -279,10 +255,22 @@
 <table style="">
     <tr>
         <td>
-            @Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id, SIL = true })
+            @if (Model.Closed != true)
+            {
+                @Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id, SIL = true })
+            }
         </td>
         <td>
-            @Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id, SIL = false })
-    </td>
-</tr>
+            @if ((Model.Closed != true)&&(Model.NabidkaDocNum == null || Model.NabidkaDocNum == "") && (Model.DodaciListDocNum == null || Model.DodaciListDocNum == ""))
+            {
+                @Html.Action("Add", "ServisniZasahPrvek", new { Id = Model.Id, SIL = false })
+            }
+        </td>
+        <td>
+            @if ((Model.Closed != true))
+            {
+                @Html.ActionLink("Uzavři servisní zásah","Close", "ServisniZasah", new { Id = Model.Id}, new { @class = "btn btn-md btn-success" })
+            }
+        </td>
+    </tr>
 </table>

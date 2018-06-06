@@ -61,10 +61,18 @@
 
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit","ServisniZasah", new { id = item.Id },null) |
-                    @Html.ActionLink("Details", "Details", "ServisniZasah", new { id = item.Id },null) |
-                    @Html.ActionLink("Delete", "Delete", "ServisniZasah", new { id = item.Id },null)
-                </td>
+                    @Html.ActionLink("Details", "Details", "ServisniZasah", new { id = item.Id }, new { @class = "btn btn-md btn-primary" })
+                    @if (item.Closed != true && item.NabidkaDocNum == null && item.DodaciListDocNum == null)
+                    {
+                        @Html.ActionLink("Edit", "Edit", "ServisniZasah", new { id = item.Id }, new { @class = "btn btn-md btn-warning" })
+                    }
+                        @if (item.Closed != true && item.NabidkaDocNum == null && item.DodaciListDocNum == null)
+                        {
+                            @Html.ActionLink("Delete", "Delete", "ServisniZasah", new { id = item.Id }, new { @class = "btn btn-md btn-danger" })
+                        }
+
+
+                    </td>
 
 
 

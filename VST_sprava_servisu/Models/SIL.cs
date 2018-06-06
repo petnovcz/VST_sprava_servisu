@@ -349,6 +349,7 @@ namespace VST_sprava_servisu
                 {
                     list = db.ServisniZasahPrvek
                         .Include(t => t.Porucha)
+                        //.Include(t=>t.)
                         .Include(t => t.ServisniZasah)
                         .Include(t => t.ServisniZasah.Zakaznik)
                         .Where(t => t.Porucha.SIL == true && t.ServisniZasah.DatumOdstraneni.Year == Rok).ToList();

@@ -28,14 +28,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Porucha.NazevPoruchy)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Artikl.KodSAP) - @Html.DisplayNameFor(model => model.Artikl.Nazev)
-                </th>
+               
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Where(t=>t.PoruchaID != 33))
+            @foreach (var item in Model.Where(t=>t.PoruchaID != 41))
             {
             <tr>
                 <td>
@@ -48,19 +46,15 @@
                 </td>
 
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Artikl.KodSAP) - @Html.DisplayFor(modelItem => item.Artikl.Nazev)
-                </td>
+               
 
 
                 <td>
-                    @*      @if (item.ServisniZasah.NabidkaDocNum == "" || item.ServisniZasah.NabidkaDocNum == null)
-            {*@
                     
-
-
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    @*}*@
+                    @if (item.ServisniZasah.Closed != true)
+                    {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-md btn-danger" })
+                    }
                 </td>
             </tr>
 
@@ -109,7 +103,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Where(t => t.PoruchaID == 33))
+                @foreach (var item in Model.Where(t => t.PoruchaID == 41))
                 {
                     <tr>
                         <td>
@@ -137,16 +131,16 @@
 
 
                         <td>
-                            @*      @if (item.ServisniZasah.NabidkaDocNum == "" || item.ServisniZasah.NabidkaDocNum == null)
-                                {*@
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                            @if (item.ServisniZasah.Closed == false && item.ServisniZasah.NabidkaDocNum == null && item.ServisniZasah.DodaciListDocNum == null)
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-md btn-primary" })
 
-                            @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id })
-                            @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id })
+                                @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id }, new { @class = "btn btn-md btn-warning" })
+                                @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id }, new { @class = "btn btn-md btn-warning" })
 
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                            @*}*@
-                        </td>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-md btn-danger" })
+                            }
+                            </td>
                     </tr>
 
                 }

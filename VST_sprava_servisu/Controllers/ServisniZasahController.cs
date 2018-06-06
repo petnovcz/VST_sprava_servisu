@@ -44,13 +44,13 @@ namespace VST_sprava_servisu.Controllers
         }
 
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult PoruchyChange(int Id, int Porucha)
+        public ActionResult PoruchyChange(int Id, int Porucha, int? SCProvozuID)
         {
                        
                 ServisniZasahPrvek item2 = new ServisniZasahPrvek();
                 item2.PoruchaID = Porucha;
                 item2.ServisniZasahId = Id;
-                //item2.PoruchaID = 33;
+                item2.SCProvozuID = SCProvozuID;
                 db.ServisniZasahPrvek.Add(item2);
                 db.SaveChanges();
                 ServisniZasah sz = db.ServisniZasah.Find(Id);
@@ -178,6 +178,26 @@ namespace VST_sprava_servisu.Controllers
             return View(servisniZasah);
         }
 
+        [Authorize(Roles = "Administrator,Manager")]
+        public ActionResult Close(int? Id)
+        {
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServisniZasah.UpdateHeader(Id.Value);
+            ServisniZasah servisniZasah = db.ServisniZasah.Find(Id);
+            servisniZasah.Closed = true;
+            db.Entry(servisniZasah).State = EntityState.Modified;
+            db.SaveChanges();
+
+            if (servisniZasah == null)
+            {
+                return HttpNotFound();
+            }
+            return RedirectToAction("Details", "ServisniZasah", new { Id });
+        }
+
         [Authorize(Roles = "Administrator,Manager,SIL,Vedení")]
         public ActionResult Header(int? id)
         {
@@ -259,7 +279,12 @@ namespace VST_sprava_servisu.Controllers
 
 
                         db.ServisniZasah.Add(servisniZasah);
-                        db.SaveChanges();
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
                         return RedirectToAction("Details", "ServisniZasah", new { servisniZasah.Id });
                         
                     

@@ -320,8 +320,8 @@ namespace VST_sprava_servisu
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
             StringBuilder sql = new StringBuilder();
             
-            sql.Append(" select DocEntry, Docnum from oqut where ");
-            sql.Append($" DocEntry = '{DocEntry}' ");
+            sql.Append(" select DocEntry, Docnum from ODRF where ");
+            sql.Append($" DocEntry = '{DocEntry}' and ObjType = 23");
 
             log.Debug($"Nacteni meny {sql.ToString()}");
             SqlConnection cnn = new SqlConnection(connectionString);
@@ -437,7 +437,7 @@ namespace VST_sprava_servisu
             string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
             StringBuilder sql = new StringBuilder();
 
-            sql.Append(" select DocEntry, Docnum from odln where ");
+            sql.Append(" select DocEntry, Docnum from ODRF where objtype = 15 and ");
             sql.Append($" DocEntry = '{DocEntry}' ");
 
             log.Debug($"Nacteni meny {sql.ToString()}");
