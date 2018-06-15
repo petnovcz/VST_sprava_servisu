@@ -109,12 +109,26 @@ namespace VST_sprava_servisu
             using (var dbCtx = new Model1Container())
             {
                 var sc = dbCtx.SCProvozu.Find(id);
-                sc.DatumRevize = datumkontroly;
-                sc.DatumPosledniZmeny = datumkontroly;
-                if (Baterie == true) { sc.DatumBaterie = datumkontroly; }
-                if (Pyro == true) { sc.DatumPyro = datumkontroly; }
-                if (TlakovaZkouska == true) { sc.DatumTlkZk = datumkontroly; }
-
+                if (sc.DatumRevize <= datumkontroly)
+                {
+                    sc.DatumRevize = datumkontroly;
+                }
+                if (sc.DatumPosledniZmeny <= datumkontroly)
+                {
+                    sc.DatumPosledniZmeny = datumkontroly;
+                }
+                if (Baterie == true && sc.DatumBaterie <= datumkontroly)
+                {
+                    sc.DatumBaterie = datumkontroly;
+                }
+                if (Pyro == true && sc.DatumPyro <= datumkontroly)
+                {
+                    sc.DatumPyro = datumkontroly;
+                }
+                if (TlakovaZkouska == true && sc.DatumTlkZk <= datumkontroly)
+                {
+                    sc.DatumTlkZk = datumkontroly;
+                }
                 try
                 {
 
@@ -135,8 +149,14 @@ namespace VST_sprava_servisu
                 scprovozu.StatusId = dbCtx.Status.Where(s => s.Aktivni == true).Select(s => s.Id).FirstOrDefault();
             }
             scprovozu.DatumPrirazeni = scimport.DatumDodani;
-            if (scimport.DatumPosledniZmeny == null) { scprovozu.DatumPosledniZmeny = scimport.DatumRevize; }
-            else { scprovozu.DatumPosledniZmeny = scimport.DatumPosledniZmeny; }
+            if (scimport.DatumPosledniZmeny == null)
+            {
+                scprovozu.DatumPosledniZmeny = scimport.DatumRevize;
+            }
+            else
+            {
+                scprovozu.DatumPosledniZmeny = scimport.DatumPosledniZmeny;
+            }
             scprovozu.DatumVymeny = null;
             scprovozu.Umisteni = scimport.Umisteni;
             scprovozu.DatumRevize = scimport.DatumRevize;

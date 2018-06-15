@@ -18,6 +18,33 @@ namespace VST_sprava_servisu
         public int endindex { get; set; }
         public int kusovnik_count { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime? DatumVyprseniZaruky
+        {
+            get
+            {
+                DateTime? ukonceniZaruky = null;
+                using (var db = new Model1Container())
+                {
+                    ukonceniZaruky = db.SCProvozu
+                        .Where(t => t.Id == Id)
+                        .Select(t => t.UkonceniZaruky)
+                        .FirstOrDefault();
+
+
+                }
+
+
+
+                return ukonceniZaruky;
+            }
+
+
+
+        }
+
+
+
         public List<Kusovnik> RadkyKusovniku  {
             get
             {

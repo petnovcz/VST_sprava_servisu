@@ -1933,9 +1933,9 @@
           <Property Name="DatumVznikuPoruchy" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DatumZasahu" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DatumOdstraneni" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Odkud" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Kam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Zpět" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Odkud" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Kam" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Zpět" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Km" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="VozidloId" Type="Int32" />
           <Property Name="CestaCelkem" Type="Decimal" Precision="18" Scale="0" />

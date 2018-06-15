@@ -2,31 +2,27 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 
-<h2>Edit</h2>
+@Html.Partial("~/Views/ServisniZasah/Header.cshtml", Model.ServisniZasah)
 
+<hr>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
-    <h4>ServisniZasahPrvek</h4>
+    <h4>Editace opravy servisního zásahu</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.ServisniZasahId)
     @Html.HiddenFor(model => model.SCProvozuID)
-
-      
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PoruchaID, "PoruchaID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("PoruchaID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.PoruchaID, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    @Html.HiddenFor(model => model.PoruchaID)
+    @Html.HiddenFor(model => model.Reklamace)
+    @Html.HiddenFor(model => model.PoruseniZarucnichPodminek)
+    
 
     <div class="form-group">
         @Html.LabelFor(model => model.ArtiklID, "ArtiklID", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -44,7 +40,7 @@
         </div>
     </div>
 
-    
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -55,5 +51,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Details","ServisniZasah",new { Id = Model.ServisniZasahId},new { @class = "btn btn-warning"})
 </div>

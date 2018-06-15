@@ -241,7 +241,7 @@ namespace VST_sprava_servisu
 
                 var prvku = db.ServisniZasahPrvek.Where(t=>t.ServisniZasahId == sz.Id).Count();
 
-                var reklamace = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == false && t.ServisniZasahId == sz.Id).Count();
+                /*var reklamace = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == false && t.ServisniZasahId == sz.Id).Count();
 
                 if (prvku == reklamace)
                 {
@@ -250,20 +250,20 @@ namespace VST_sprava_servisu
                 else
                 {
                     sz.Reklamace = false;
-                }
+                }*/
 
                 var reklamprvku = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.ServisniZasahId == sz.Id).Count();
 
                 var poruseni = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == true && t.ServisniZasahId == sz.Id).Count();
 
-                if (reklamprvku == poruseni && reklamprvku !=0 && poruseni !=0)
+                /*if (reklamprvku == poruseni && reklamprvku !=0 && poruseni !=0)
                 {
                     sz.PoruseniZarucnichPodminek = true;
                 } 
                 else
                 {
                     sz.PoruseniZarucnichPodminek = false;
-                }
+                }*/
                 var x = db.ServisniZasahPrvek.Where(t => t.ServisniZasahId == Id)
                     .Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == true || t.Reklamace == false)
                     .Select(t => t.CenaCelkem)

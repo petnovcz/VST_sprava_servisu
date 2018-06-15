@@ -165,13 +165,14 @@ namespace VST_sprava_servisu
         public ActionResult DeleteConfirmed(int id)
         {
             Umisteni umisteni = db.Umisteni.Find(id);
+            var provozId = umisteni.ProvozId;
             try
             {
                 db.Umisteni.Remove(umisteni);
                 db.SaveChanges();
             }
             catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Provozy", new { Id = provozId });
         }
 
         protected override void Dispose(bool disposing)

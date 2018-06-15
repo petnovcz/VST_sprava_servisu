@@ -150,8 +150,11 @@
         </div>
 
         <div class="col-lg-6 col-md-12" style="padding:5px;">
-            @Html.ActionLink("Uzavření revize", "Close", "Revize",
-  new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled} {disableduzavreni}" })
+            @if (Model.StatusRevize.Realizovana == true)
+            {@Html.ActionLink("Otevření revize", "Open", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block  " }) }
+        else
+        {@Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled} {disableduzavreni}" })}
+
         </div>
         <div class="col-lg-12 col-md-12" style="padding:5px;">
             <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle" type="button" data-toggle="dropdown">
@@ -194,6 +197,7 @@
                 <li>
                     @Html.ActionLink("Přesuň pyro do předchozí revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
                 </li>
+                
             </ul>
         </div>
         <div class="col-lg-4 col-md-4" style="padding:5px;">

@@ -13,7 +13,7 @@ namespace VST_sprava_servisu
 {
     public class SAPImportController : Controller
     {
-        
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
         private readonly string SAP_dtb = ConfigurationManager.ConnectionStrings["SAP_dtb"].ConnectionString;
         private readonly string RS_dtb = ConfigurationManager.ConnectionStrings["RS_dtb"].ConnectionString;
@@ -230,19 +230,27 @@ namespace VST_sprava_servisu
         {
             int id = 0;
             int idscprovozu = 0;
-            if (scimport.DatumVyroby == DateTime.MinValue) { scimport.DatumVyroby = DateTime.Now; }
-            if (scimport.DatumDodani == DateTime.MinValue) { scimport.DatumDodani = DateTime.Now; }
+            //if (scimport.DatumVyroby == DateTime.MinValue) { scimport.DatumVyroby = DateTime.Now; }
+            //if (scimport.DatumDodani == DateTime.MinValue) { scimport.DatumDodani = DateTime.Now; }
             if (scimport.DatumPosledniZmeny == DateTime.MinValue) { scimport.DatumPosledniZmeny = DateTime.Now; }
             
 
             if (scimport.Submitted == true)
             {
                 if (scimport.DatumPrirazeni == null) { scimport.DatumPrirazeni = scimport.DatumDodani; }
-                if (scimport.DatumTlkZk == null) { scimport.DatumTlkZk = scimport.DatumVyroby; }
+                //if (scimport.DatumTlkZk == null) { scimport.DatumTlkZk = scimport.DatumVyroby; }
                 id = SerioveCislo.AddSeriovecislo(scimport);
                 idscprovozu = SCProvozu.AddSCProvozu(scimport, id);
-
-                
+                // uložení datumů do sesion
+                if (scimport.DatumBaterie > DateTime.MinValue || scimport.DatumBaterie == null) { Session["DatumBaterie"] = scimport.DatumBaterie; }
+                if (scimport.DatumDodani > DateTime.MinValue || scimport.DatumDodani == null) { Session["DatumDodani"] = scimport.DatumDodani; }
+                if (scimport.DatumPrirazeni > DateTime.MinValue || scimport.DatumPrirazeni == null) { Session["DatumPrirazeni"] = scimport.DatumPrirazeni; }
+                if (scimport.DatumPyro > DateTime.MinValue || scimport.DatumPyro == null) { Session["DatumPyro"] = scimport.DatumPyro; }
+                if (scimport.DatumRevize > DateTime.MinValue || scimport.DatumRevize == null) { Session["DatumRevize"] = scimport.DatumRevize; }
+                if (scimport.DatumTlkZk > DateTime.MinValue || scimport.DatumTlkZk == null) { Session["DatumTlkZk"] = scimport.DatumTlkZk; }
+                if (scimport.DatumVymeny > DateTime.MinValue || scimport.DatumVymeny == null) { Session["DatumVymeny"] = scimport.DatumVymeny; }
+                if (scimport.DatumVyroby > DateTime.MinValue || scimport.DatumVyroby == null) { Session["DatumVyroby"] = scimport.DatumVyroby; }
+                if (scimport.UpravenaPeriodaRevize != null) { Session["UpravenaPeriodaRevize"] = scimport.UpravenaPeriodaRevize; }
 
                 if ((id > 0) || (idscprovozu > 0))
                 {
@@ -251,6 +259,98 @@ namespace VST_sprava_servisu
             }
             if ((scimport.Submitted == false) || ((id == 0) || (idscprovozu == 0)))
             {
+                // načtení datumů ze session
+                try
+                {
+                    var DatumBaterie = Convert.ToDateTime(Session["DatumBaterie"]);
+                    if (DatumBaterie > DateTime.MinValue) { scimport.DatumBaterie = DatumBaterie; }
+                    else { scimport.DatumBaterie = null; }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug("Details - Seassion Read - DatumBaterie - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+                try
+                {                    
+                    var DatumDodani = Convert.ToDateTime(Session["DatumDodani"]);
+                    if (DatumDodani > DateTime.MinValue) { scimport.DatumDodani = DatumDodani; }
+                    else { scimport.DatumDodani = DateTime.Now; }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug("Details - Seassion Read - DatumDodani - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+                try
+                {                    
+                    var DatumPrirazeni = Convert.ToDateTime(Session["DatumPrirazeni"]);
+                    if (DatumPrirazeni > DateTime.MinValue) { scimport.DatumPrirazeni = DatumPrirazeni; }
+                    else { scimport.DatumPrirazeni = DateTime.Now; }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug("Details - Seassion Read - DatumPrirazeni - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+                try
+                {                    
+                    var DatumPyro = Convert.ToDateTime(Session["DatumPyro"]);
+                    if (DatumPyro > DateTime.MinValue) { scimport.DatumPyro = DatumPyro; }
+                    else { scimport.DatumPyro = null; }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug("Details - Seassion Read - DatumPyro - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+                try
+                {                   
+                    var DatumRevize = Convert.ToDateTime(Session["DatumRevize"]);
+                    if (DatumRevize > DateTime.MinValue) { scimport.DatumRevize = DatumRevize; }
+                    else { scimport.DatumRevize = null; }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug("Details - Seassion Read - DatumRevize - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+                try
+                {                   
+                    var DatumTlkZk = Convert.ToDateTime(Session["DatumTlkZk"]);
+                    if (DatumTlkZk > DateTime.MinValue) { scimport.DatumTlkZk = DatumTlkZk; }
+                    else { scimport.DatumTlkZk = null; }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug("Details - Seassion Read - DatumTlkZk - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+                try
+                {                   
+                    var DatumVymeny = Convert.ToDateTime(Session["DatumVymeny"]);
+                    if (DatumVymeny > DateTime.MinValue) { scimport.DatumVymeny = DatumVymeny; }
+                    else { scimport.DatumVymeny = null; }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug("Details - Seassion Read - DatumVymeny - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+                try
+                {                    
+                    var DatumVyroby = Convert.ToDateTime(Session["DatumVyroby"]);
+                    if (DatumVyroby > DateTime.MinValue) { scimport.DatumVyroby = DatumVyroby; }
+                    else { scimport.DatumVyroby = DateTime.Now; }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug("Details - Seassion Read - DatumVyroby - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+                try
+                {
+                    int? UpravenaPeriodaRevize = Convert.ToInt32(Session["UpravenaPeriodaRevize"]);
+                    if (UpravenaPeriodaRevize != null && UpravenaPeriodaRevize!=0) { scimport.UpravenaPeriodaRevize = UpravenaPeriodaRevize; }
+                    else { scimport.UpravenaPeriodaRevize = null; }
+                }
+                catch (Exception ex)
+                {
+                    log.Debug("Details - Seassion Read - DatumVyroby - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                }
+
                 ViewBag.Zakaznik = new SelectList(db.Zakaznik, "Id", "NazevZakaznika", scimport.Zakaznik);
                 ViewBag.Provozy = new SelectList(db.Provoz.Where(p => p.ZakaznikId == scimport.Zakaznik), "Id", "NazevProvozu", scimport.Provozy);
                 ViewBag.Umisteni = new SelectList(db.Umisteni.Where(u => u.ProvozId == scimport.Provozy), "Id", "NazevUmisteni", scimport.Umisteni);

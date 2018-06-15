@@ -457,6 +457,32 @@ namespace VST_sprava_servisu
                 return revize;
         }
 
+        internal protected static Revize OpenRevize(int Id)
+        {
+            Revize revize = new Revize();
+            RevizeSC revizesc = new RevizeSC();
+            List<RevizeSC> revizesclist = new List<RevizeSC>();
+
+            using (var dbCtx = new Model1Container())
+            {
+                revize = dbCtx.Revize.Find(Id);
+                revize.StatusRevizeId = dbCtx.StatusRevize.Where(s => s.Potvrzena == true).Select(s => s.Id).FirstOrDefault();
+                try
+                {
+                    dbCtx.Entry(revize).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    log.Error($"CloseRevize revize c.{Id} {ex.Data} {ex.InnerException} {ex.HResult} {ex.Message}");
+                }
+                
+                
+            }
+
+            return revize;
+        }
+
         internal protected static void CallSCProvozupdate(List<RevizeSC> revizesclist,DateTime datumkontroly)
         {
             foreach (var item in revizesclist)

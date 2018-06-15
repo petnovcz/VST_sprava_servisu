@@ -830,5 +830,14 @@ namespace VST_sprava_servisu
 
             return RedirectToAction("Nahled", "Revize");
         }
+        [Authorize(Roles = "Administrator,Manager")]
+        public ActionResult Open(int Id)
+        {
+            Revize revize = new Revize();
+            Revize.OpenRevize(Id);
+
+
+            return RedirectToAction("Details", "Revize", new { Id });
+        }
     }
 }
