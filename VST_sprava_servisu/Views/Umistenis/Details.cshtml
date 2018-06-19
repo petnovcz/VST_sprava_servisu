@@ -11,29 +11,29 @@
 
 <div class="row" style="background-color:rgba(0, 0, 0, 0.5);border:1px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px; padding-top:10px;padding-bottom:10px;">
     @Html.Action("Header", "Umistenis", new { Id = Model.Id })
-
-    @foreach (var item in Model.TypPBZList)
-    {
-         var success = false; 
-        foreach (var itemx in Model.UmisteniTypPBZ)
+    <div class="btn-group btn-group-justified" role="group" aria-label="Basic example">
+        @foreach (var item in Model.TypPBZList)
         {
-            if (itemx.TypPBZId == item.Id)
-            { success = true; }
-        }
-        if (success == true)
-        {
-            @Html.ActionLink(item.NazevPBZ, "Delete", "UmisteniTypPBZ", new { Zakaznik = index, Provoz = index2, Id = Model.Id, TypPBZ = item.Id }, new { @class = "btn btn-xs btn-success" })
-        }
-        else
-        {
-            @Html.ActionLink(item.NazevPBZ, "Create", "UmisteniTypPBZ", new { Zakaznik = index, Provoz = index2, Id = Model.Id, TypPBZ = item.Id }, new { @class = "btn btn-xs btn-default" })
+            var success = false;
+            foreach (var itemx in Model.UmisteniTypPBZ)
+            {
+                if (itemx.TypPBZId == item.Id)
+                { success = true; }
+            }
+            if (success == true)
+            {
+                @Html.ActionLink(item.NazevPBZ, "Delete", "UmisteniTypPBZ", new { Zakaznik = index, Provoz = index2, Id = Model.Id, TypPBZ = item.Id }, new { @class = "btn btn-xs btn-success " })
+            }
+            else
+            {
+                @Html.ActionLink(item.NazevPBZ, "Create", "UmisteniTypPBZ", new { Zakaznik = index, Provoz = index2, Id = Model.Id, TypPBZ = item.Id }, new { @class = "btn btn-xs btn-default " })
 
+            }
         }
-    }
-
-    @Html.Partial("~/Views/SCProvozu/Index.cshtml", (object)ViewBag.SCProvozu)
-</div>
-<br>
-@Html.Action("TestSC", "SAPImport", new { Provoz = Model.ProvozId, Zakaznik = index, Umisteni = Model.Id })
+        </div>
+        @Html.Partial("~/Views/SCProvozu/Index.cshtml", (object)ViewBag.SCProvozu)
+    </div>
+    <br>
+    @Html.Action("TestSC", "SAPImport", new { Provoz = Model.ProvozId, Zakaznik = index, Umisteni = Model.Id })
 
 

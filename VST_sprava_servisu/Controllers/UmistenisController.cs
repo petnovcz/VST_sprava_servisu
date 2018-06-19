@@ -71,7 +71,10 @@ namespace VST_sprava_servisu
             ViewBag.ProvozId = new SelectList(db.Provoz.Where(m=>m.Id == Provoz), "Id", "NazevProvozu",Provoz);
             ViewBag.Provoz = Provoz;
             ViewBag.Zakaznik = Zakaznik;
-            return View();
+            Umisteni um = new Umisteni();
+            um.ProvozId = Provoz;
+            
+            return View(um);
         }
 
         // POST: Umistenis/Create

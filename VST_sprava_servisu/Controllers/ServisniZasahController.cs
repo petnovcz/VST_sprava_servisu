@@ -261,11 +261,11 @@ namespace VST_sprava_servisu.Controllers
 
                 switch (action)
                 {
-                    case "Refresh":
+                    case "Přepočti cestu":
                         servisniZasah.Km = ServisniZasah.GetDistance(servisniZasah.Odkud, servisniZasah.Kam, servisniZasah.Zpět);
                         ModelState.Clear();
                         break;
-                    case "Create":
+                    case "Vytvoř servisní zásah":
                         var km = CenaArtikluZakaznik.GetCena("SP02", servisniZasah.ZakaznikID);
                         decimal kmcena;
                         if (km.ZCCena != 0) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }

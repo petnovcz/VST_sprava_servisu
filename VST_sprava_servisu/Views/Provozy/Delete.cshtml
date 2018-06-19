@@ -14,59 +14,59 @@
 <div class="form-horizontal col-lg-12" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
     
     
-    <dl class="dl-horizontal vstcolorwhite">
-        <dt>
+    <dl class="dl-horizontal vstcolorwhite col-lg-12">
+        <dt class="col-lg-6">
             @Html.DisplayNameFor(model => model.NazevProvozu)
         </dt>
 
-        <dd>
+        <dd class="col-lg-6">
             @Html.DisplayFor(model => model.NazevProvozu)
         </dd>
 
-        <dt>
+        <dt class="col-lg-6">
             @Html.DisplayNameFor(model => model.OddeleniVybuchu)
         </dt>
 
-        <dd>
+        <dd class="col-lg-6">
             @Html.DisplayFor(model => model.OddeleniVybuchu)
         </dd>
 
-        <dt>
+        <dt class="col-lg-6">
             @Html.DisplayNameFor(model => model.PotlaceniVybuchu)
         </dt>
 
-        <dd>
+        <dd class="col-lg-6">
             @Html.DisplayFor(model => model.PotlaceniVybuchu)
         </dd>
 
-        <dt>
+        <dt class="col-lg-6">
             @Html.DisplayNameFor(model => model.OdlehceniVybuchu)
         </dt>
 
-        <dd>
+        <dd class="col-lg-6">
             @Html.DisplayFor(model => model.OdlehceniVybuchu)
         </dd>
 
-        <dt>
+        <dt class="col-lg-6">
             @Html.DisplayNameFor(model => model.AdresaProvozu)
         </dt>
 
-        <dd>
+        <dd class="col-lg-6">
             @Html.DisplayFor(model => model.AdresaProvozu)
         </dd>
 
-        <dt>
+        <dt class="col-lg-6">
             @Html.DisplayNameFor(model => model.Zakaznik.NazevZakaznika)
         </dt>
 
-        <dd>
+        <dd class="col-lg-6">
             @Html.DisplayFor(model => model.Zakaznik.NazevZakaznika)
         </dd>
-        <dt>
+        <dt class="col-lg-6">
             @Html.DisplayNameFor(model => model.SAPAddress)
         </dt>
 
-        <dd>
+        <dd class="col-lg-6">
             @Html.DisplayFor(model => model.SAPAddress)
         </dd>
     </dl>
@@ -75,7 +75,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Smaž" class="btn btn-danger col-lg-offset-2" /> 
+            <input type="submit" value="Smaž" class="btn btn-danger btn-block" /> 
             
         </div>
     }
