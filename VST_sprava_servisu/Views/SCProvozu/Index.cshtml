@@ -32,53 +32,59 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UpravenaPeriodaRevize)<br>
-                        @Html.DisplayNameFor(model => model.UkonceniZaruky)
-                    </th>
+                @Html.DisplayNameFor(model => model.UpravenaPeriodaBaterie)<br>
+                @Html.DisplayNameFor(model => model.UpravenaPeriodaPyro)<br>
+                @Html.DisplayNameFor(model => model.UpravenaPeriodaTlkZk)<br>
+                @Html.DisplayNameFor(model => model.UkonceniZaruky)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SerioveCislo.Artikl.KodSAP)<br>
-                @Html.DisplayFor(modelItem => item.SerioveCislo.Artikl.Nazev)<br>
-                @Html.DisplayFor(modelItem => item.Lokace)<br>
-                @Html.DisplayFor(modelItem => item.Znaceni)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SerioveCislo.SerioveCislo1)<br>
-                @Html.DisplayFor(modelItem => item.Status.NazevStatusu)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerioveCislo.Artikl.KodSAP)<br>
+                    @Html.DisplayFor(modelItem => item.SerioveCislo.Artikl.Nazev)<br>
+                    @Html.DisplayFor(modelItem => item.Lokace)<br>
+                    @Html.DisplayFor(modelItem => item.Znaceni)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerioveCislo.SerioveCislo1)<br>
+                    @Html.DisplayFor(modelItem => item.Status.NazevStatusu)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumPrirazeni)<br>
-                @Html.DisplayFor(modelItem => item.DatumPosledniZmeny)<br>
-                @Html.DisplayFor(modelItem => item.DatumVymeny)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumRevize)<br>
-                @Html.DisplayFor(modelItem => item.DatumBaterie)<br>
-                @Html.DisplayFor(modelItem => item.DatumPyro)<br>
-                @Html.DisplayFor(modelItem => item.DatumTlkZk)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpravenaPeriodaRevize)<br>
-                @Html.DisplayFor(modelItem => item.UkonceniZaruky)
-            </td>
-            <td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumPrirazeni)<br>
+                    @Html.DisplayFor(modelItem => item.DatumPosledniZmeny)<br>
+                    @Html.DisplayFor(modelItem => item.DatumVymeny)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumRevize)<br>
+                    @Html.DisplayFor(modelItem => item.DatumBaterie)<br>
+                    @Html.DisplayFor(modelItem => item.DatumPyro)<br>
+                    @Html.DisplayFor(modelItem => item.DatumTlkZk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpravenaPeriodaRevize)<br>
+                    @Html.DisplayFor(modelItem => item.UpravenaPeriodaBaterie)<br>
+                    @Html.DisplayFor(modelItem => item.UpravenaPeriodaPyro)<br>
+                    @Html.DisplayFor(modelItem => item.UpravenaPeriodaTlkZk)<br>
+                    @Html.DisplayFor(modelItem => item.UkonceniZaruky)
+                </td>
+                <td>
 
-                @Html.ActionLink("Editace prvku provozu", "Edit", "SCProvozu", new { id = item.Id }, new { @class = "btn btn-xs btn-warning btn-block" })
-                @Html.ActionLink("Editace sériového čísla ", "Edit", "SerioveCisloes", new { id = item.SerioveCisloId, umisteni = item.Umisteni, provoz = item.ProvozId, zakaznik = item.Provoz.ZakaznikId }, new { @class = "btn btn-xs btn-warning btn-block" })
+                    @Html.ActionLink("Editace prvku provozu", "Edit", "SCProvozu", new { id = item.Id }, new { @class = "btn btn-xs btn-warning btn-block" })
+                    @Html.ActionLink("Editace sériového čísla ", "Edit", "SerioveCisloes", new { id = item.SerioveCisloId, umisteni = item.Umisteni, provoz = item.ProvozId, zakaznik = item.Provoz.ZakaznikId }, new { @class = "btn btn-xs btn-warning btn-block" })
 
-                @if (item.OpenRevize == false)
-    {
-            @Html.ActionLink("Smazání prvku provozu", "Delete", "SCProvozu", new { id = item.Id }, new { @class = "btn btn-danger btn-xs btn-block" })
+                    @if (item.OpenRevize == false)
+                    {
+                        @Html.ActionLink("Smazání prvku provozu", "Delete", "SCProvozu", new { id = item.Id }, new { @class = "btn btn-danger btn-xs btn-block" })
 
-}
-            </td>
-        </tr>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

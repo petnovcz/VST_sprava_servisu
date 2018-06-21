@@ -73,5 +73,12 @@ namespace VST_sprava_servisu
         public virtual ICollection<VymenyLahvi> VymenyLahvi1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServisniZasahPrvek> ServisniZasahPrvek { get; set; }
+
+        [Display(Name = "Upravená perioda pyro [m]")]
+        public Nullable<int> UpravenaPeriodaPyro { get; set; }
+        [Display(Name = "Upravená perioda baterie [m]")]
+        public Nullable<int> UpravenaPeriodaBaterie { get; set; }
+        [Display(Name = "Upravená perioda Tlakové zkoušky [m]")]
+        public Nullable<int> UpravenaPeriodaTlkZk { get; set; }
     }
 }

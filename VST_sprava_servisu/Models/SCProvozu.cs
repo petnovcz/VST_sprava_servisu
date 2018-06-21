@@ -169,6 +169,9 @@ namespace VST_sprava_servisu
             scprovozu.Proverit = scimport.Proverit;
             scprovozu.BaterieArtikl = scimport.BaterieArtikl;
             scprovozu.UpravenaPeriodaRevize = scimport.UpravenaPeriodaRevize;
+            scprovozu.UpravenaPeriodaBaterie = scimport.UpravenaPeriodaBaterie;
+            scprovozu.UpravenaPeriodaPyro = scimport.UpravenaPeriodaPyro;
+            scprovozu.UpravenaPeriodaTlkZk = scimport.UpravenaPeriodaTlkZk;
             using (var dbCtx = new Model1Container())
             {
                 try

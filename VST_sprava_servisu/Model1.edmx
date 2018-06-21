@@ -176,8 +176,8 @@
           <Property Name="TlakovaZkouska" Type="bit" Nullable="false" />
           <Property Name="Stav" Type="bit" Nullable="false" />
           <Property Name="DobaProvozu" Type="datetime" />
-          <Property Name="DobaProvozuString" Type="nvarchar" MaxLength="50" />
           <Property Name="HodinyProvozu" Type="bigint" />
+          <Property Name="DobaProvozuString" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -202,6 +202,9 @@
           <Property Name="BaterieArtikl" Type="int" />
           <Property Name="UpravenaPeriodaRevize" Type="int" />
           <Property Name="UkonceniZaruky" Type="datetime" />
+          <Property Name="UpravenaPeriodaPyro" Type="int" />
+          <Property Name="UpravenaPeriodaBaterie" Type="int" />
+          <Property Name="UpravenaPeriodaTlkZk" Type="int" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -225,9 +228,9 @@
           <Property Name="DatumVznikuPoruchy" Type="datetime" Nullable="false" />
           <Property Name="DatumZasahu" Type="datetime" Nullable="false" />
           <Property Name="DatumOdstraneni" Type="datetime" Nullable="false" />
-          <Property Name="Odkud" Type="nvarchar" MaxLength="50" />
-          <Property Name="Kam" Type="nvarchar" MaxLength="50" />
-          <Property Name="Zpět" Type="nvarchar" MaxLength="50" />
+          <Property Name="Odkud" Type="nvarchar" MaxLength="250" />
+          <Property Name="Kam" Type="nvarchar" MaxLength="250" />
+          <Property Name="Zpět" Type="nvarchar" MaxLength="250" />
           <Property Name="Km" Type="decimal" Precision="18" Scale="0" />
           <Property Name="VozidloId" Type="int" />
           <Property Name="CestaCelkem" Type="decimal" Precision="18" Scale="0" />
@@ -709,18 +712,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ServisniZasahPrvekSarze_ToServisniZasahPrvek">
-          <End Role="ServisniZasahPrvek" Type="Self.ServisniZasahPrvek" Multiplicity="1" />
-          <End Role="ServisniZasahPrvekSarze" Type="Self.ServisniZasahPrvekSarze" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ServisniZasahPrvek">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ServisniZasahPrvekSarze">
-              <PropertyRef Name="ServisniZasahPrvekId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek">
           <End Role="ServisniZasahPrvek" Type="Self.ServisniZasahPrvek" Multiplicity="1" />
           <End Role="ServisniZasahPrvekSerioveCislo" Type="Self.ServisniZasahPrvekSerioveCislo" Multiplicity="*" />
@@ -973,10 +964,6 @@
           <AssociationSet Name="FK_ServisniZasahPrvek_ToServisniZasah" Association="Self.FK_ServisniZasahPrvek_ToServisniZasah">
             <End Role="ServisniZasah" EntitySet="ServisniZasah" />
             <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ServisniZasahPrvekSarze_ToServisniZasahPrvek" Association="Self.FK_ServisniZasahPrvekSarze_ToServisniZasahPrvek">
-            <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
-            <End Role="ServisniZasahPrvekSarze" EntitySet="ServisniZasahPrvekSarze" />
           </AssociationSet>
           <AssociationSet Name="FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek" Association="Self.FK_ServisniZasahPrvekSerioveCislo_ToServisniZasahPrvek">
             <End Role="ServisniZasahPrvek" EntitySet="ServisniZasahPrvek" />
@@ -1450,6 +1437,9 @@
           <Property Name="UpravenaPeriodaRevize" Type="Int32" />
           <Property Name="UkonceniZaruky" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ServisniZasahPrvek" Relationship="Model1.FK_ServisniZasahPrvek_ToSCProvozu" FromRole="SCProvozu" ToRole="ServisniZasahPrvek" />
+          <Property Name="UpravenaPeriodaPyro" Type="Int32" />
+          <Property Name="UpravenaPeriodaBaterie" Type="Int32" />
+          <Property Name="UpravenaPeriodaTlkZk" Type="Int32" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -2293,7 +2283,10 @@
     <EntitySetMapping Name="SCProvozu">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.SCProvozu)">
         <MappingFragment StoreEntitySet="SCProvozu">
-          <ScalarProperty Name="UkonceniZaruky" ColumnName="UkonceniZaruky" />
+          <ScalarProperty Name="UpravenaPeriodaTlkZk" ColumnName="UpravenaPeriodaTlkZk" />
+                <ScalarProperty Name="UpravenaPeriodaBaterie" ColumnName="UpravenaPeriodaBaterie" />
+                <ScalarProperty Name="UpravenaPeriodaPyro" ColumnName="UpravenaPeriodaPyro" />
+                <ScalarProperty Name="UkonceniZaruky" ColumnName="UkonceniZaruky" />
                 <ScalarProperty Name="UpravenaPeriodaRevize" ColumnName="UpravenaPeriodaRevize" />
                 <ScalarProperty Name="BaterieArtikl" ColumnName="BaterieArtikl" />
                 <ScalarProperty Name="Baterie" ColumnName="Baterie" />

@@ -348,7 +348,10 @@ namespace VST_sprava_servisu
                 Projekt = Projekt
             };
             
-            if (Umisteni != 0) { revize.UmisteniId = Umisteni; }
+            if (Umisteni != 0)
+            {
+                revize.UmisteniId = Umisteni;
+            }
             using (var dbCtx = new Model1Container())
             {
                 try
@@ -357,7 +360,9 @@ namespace VST_sprava_servisu
                     dbCtx.SaveChanges();
                 }
                 catch (Exception ex)
-                { log.Error($"Generovani revize GenerateRevision {ex.Data} {ex.InnerException} {ex.Message}"); }
+                {
+                    log.Error($"Generovani revize GenerateRevision {ex.Data} {ex.InnerException} {ex.Message}");
+                }
             }
             return revize;
         }

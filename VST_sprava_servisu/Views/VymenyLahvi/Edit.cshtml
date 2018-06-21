@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 
 @Html.Action("Header", "Revize", new { Id = Model.Revize, Revize = ViewBag.Revize })
@@ -56,15 +57,14 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Save" class="btn btn-success " />
+            @Html.ActionLink("Zpět na revizi", "Details", "Revize", new { id = Model.Revize }, new { @class = "btn  btn-warning" })
         </div>
     </div>
 </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
 

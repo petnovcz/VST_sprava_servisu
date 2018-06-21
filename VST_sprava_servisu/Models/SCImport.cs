@@ -53,6 +53,16 @@ namespace VST_sprava_servisu
         [Display(Name = "Upravená perioda revize prvku")]
         public Nullable<int> UpravenaPeriodaRevize { get; set; }
 
+        [Display(Name = "Upravená perioda výměny baterie")]
+        public Nullable<int> UpravenaPeriodaBaterie { get; set; }
+
+        [Display(Name = "Upravená perioda výměny pyro")]
+        public Nullable<int> UpravenaPeriodaPyro { get; set; }
+
+        [Display(Name = "Upravená perioda tlakové zkoušky")]
+        public Nullable<int> UpravenaPeriodaTlkZk { get; set; }
+
+
 
 
 

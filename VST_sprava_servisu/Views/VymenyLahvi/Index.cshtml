@@ -77,10 +77,12 @@
             </td>
             <td>
                 @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
-        {
-            @Html.ActionLink("Edit", "Edit", "VymenyLahvi", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-warning btn-md btn-block " })
+                {
 
-}
+                    @Html.ActionLink("Editace výměny", "Edit", "VymenyLahvi", new { id = item.Id, Region = ViewBag.Region }, new { @class = $"btn btn-default btn-xs btn-block " })
+                    @Html.ActionLink("Editace prvku provozu", "Edit", "SCProvozu", new { id = item.SCProvozuNova }, new { @class = "btn btn-xs btn-default btn-block" })
+                    @Html.ActionLink("Editace sériového čísla ", "Edit", "SerioveCisloes", new { id = item.SCProvozu.SerioveCisloId, umisteni = item.Umisteni, provoz = item.SCProvozu.ProvozId, zakaznik = item.SCProvozu.Provoz.ZakaznikId }, new { @class = "btn btn-xs btn-default btn-block" })
+                }
 
             </td>
 

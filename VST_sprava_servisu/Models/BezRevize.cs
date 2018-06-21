@@ -46,6 +46,7 @@ namespace VST_sprava_servisu
             sql.Append(" from Zakaznik t0 inner join Provoz t1 on t0.id = t1.zakaznikid left join Umisteni t2 on t1.id = t2.provozid and t2.samostatnarevize = 1 left join Region t3 on t0.RegionId = t3.Id");
             sql.Append($" where (t3.Skupina = '{Skupina}' or 0 = '{Skupina}') and (t0.NazevZakaznika like '%{Search}%' or '{Search}' = '')");
             sql.Append($" and (select COUNT(*) from Revize where provozid = t1.id and (UmisteniId = t2.id or UmisteniID is null) and rok = '{Rok}') = 0");
+            sql.Append($" and (select COUNT(*) from SCProvozu where provozid = t1.id and (Umisteni = t2.id or Umisteni is null)) > 0");
 
             log.Debug($"GetCustomerListWithoutRevision pro Rok: {Rok}, Skupina: {Skupina}, Search: {Search}");
             log.Debug(sql.ToString());

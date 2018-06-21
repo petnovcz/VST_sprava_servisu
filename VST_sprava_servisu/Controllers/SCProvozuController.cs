@@ -60,7 +60,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Create([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni,BaterieArtikl,UpravenaPeriodaRevize,UkonceniZaruky")] SCProvozu sCProvozu)
+        public ActionResult Create([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni,BaterieArtikl,UpravenaPeriodaRevize,UkonceniZaruky,UpravenaPeriodaBaterie,UpravenaPeriodaPyro,UpravenaPeriodaTlkZk")] SCProvozu sCProvozu)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni,Proverit,Baterie,BaterieArtikl,UpravenaPeriodaRevize,UkonceniZaruky")] SCProvozu sCProvozu)
+        public ActionResult Edit([Bind(Include = "Id,ProvozId,SerioveCisloId,StatusId,DatumPrirazeni,DatumPosledniZmeny,DatumVymeny,Umisteni,DatumRevize,DatumBaterie,DatumPyro,DatumTlkZk,Lokace,Znaceni,Proverit,Baterie,BaterieArtikl,UpravenaPeriodaRevize,UkonceniZaruky,UpravenaPeriodaBaterie,UpravenaPeriodaPyro,UpravenaPeriodaTlkZk")] SCProvozu sCProvozu)
         {
             if (ModelState.IsValid)
             {
