@@ -52,7 +52,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Create([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,SkupinaArtiklu")] Artikl artikl)
+        public ActionResult Create([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,SkupinaArtiklu,TlakovaNadoba,PeriodaRevizeTlakoveNadoby,PeriodaVnitrniRevize")] Artikl artikl)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,SkupinaArtiklu")] Artikl artikl)
+        public ActionResult Edit([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,SkupinaArtiklu,TlakovaNadoba,PeriodaRevizeTlakoveNadoby,PeriodaVnitrniRevize")] Artikl artikl)
         {
             if (ModelState.IsValid)
             {

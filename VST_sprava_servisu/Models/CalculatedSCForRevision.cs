@@ -16,6 +16,8 @@ namespace VST_sprava_servisu
         public Nullable<DateTime> NextBaterie { get; set; }
         public Nullable<DateTime> NextPyro { get; set; }
         public Nullable<DateTime> NextTlkZk { get; set; }
+        public Nullable<DateTime> RevizeTlakoveNadoby { get; set; }
+        public Nullable<DateTime> VnitrniRevizeTlakoveNadoby { get; set; }
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger("CalculatedSCForRevision");
     }

@@ -226,7 +226,7 @@ namespace VST_sprava_servisu
 
         [HttpPost]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumVymeny, DatumDodani, Submitted, DatumRevize, DatumBaterie, DatumPyro, DatumTlkZk, DatumPrirazeni, Lokace, Znaceni,Baterie,Proverit, BaterieArtikl,UpravenaPeriodaRevize,UpravenaPeriodaBaterie,UpravenaPeriodaPyro,UpravenaPeriodaTlkZk")] SCImport scimport)
+        public ActionResult ImportSCtoServis([Bind(Include = "Zakaznik, Provozy, Umisteni, SerioveCislo, ArtiklId, DatumVyroby, DatumVymeny, DatumDodani, Submitted, DatumRevize, DatumBaterie, DatumPyro, DatumTlkZk, DatumPrirazeni, Lokace, Znaceni,Baterie,Proverit, BaterieArtikl,UpravenaPeriodaRevize,UpravenaPeriodaBaterie,UpravenaPeriodaPyro,UpravenaPeriodaTlkZk,DatumRevizeTlakoveNadoby,DatumVnitrniRevizeTlakoveNadoby,UpravenaPeriodaRevizeTlakoveNadoby,UpravenaPeriodaVnitrniRevizeTlakoveNadoby ")] SCImport scimport)
         {
             int id = 0;
             int idscprovozu = 0;

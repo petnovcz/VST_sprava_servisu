@@ -61,11 +61,16 @@ namespace VST_sprava_servisu
         public Nullable<int> M { get; set; }
         public Nullable<int> V { get; set; }
         public Nullable<int> F { get; set; }
+
+        
+
+
         [Display(Name = "Projekt")]
         public string Projekt { get; set; }
         [Display(Name = "Nabídka")]
         public string Nabidka { get; set; }
         [Display(Name = "Poznámka pro další revizi")]
+        [AllowHtml]
         public string Poznamka { get; set; }
 
         public virtual Provoz Provoz { get; set; }

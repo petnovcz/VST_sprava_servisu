@@ -41,6 +41,9 @@ namespace VST_sprava_servisu
         public string DobaProvozuString { get; set; }
         public Nullable<long> HodinyProvozu { get; set; }
 
+        public bool RevizeTlakoveNadoby { get; set; }
+        public bool VnitrniRevizeTlakoveNadoby { get; set; }
+
         public virtual Revize Revize { get; set; }
         public virtual SCProvozu SCProvozu { get; set; }
         public virtual Umisteni Umisteni { get; set; }

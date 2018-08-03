@@ -50,7 +50,6 @@
         <EntityTypeShape EntityType="Model1.Vozidlo" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="Model1.KategoriePoruchy" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="Model1.Porucha" Width="1.5" PointX="3" PointY="16.875" />
-        <AssociationConnector Association="Model1.FK_Porucha_ToKategoriePoruchy" />
         <EntityTypeShape EntityType="Model1.ServisniZasahPrvek" Width="1.5" PointX="13.625" PointY="11.375" />
         <AssociationConnector Association="Model1.FK_ServisniZasahPrvek_ToArtikl" />
         <AssociationConnector Association="Model1.FK_ServisniZasahPrvek_ToPorucha" />

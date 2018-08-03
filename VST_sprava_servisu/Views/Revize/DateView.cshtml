@@ -115,6 +115,24 @@ border-bottom: 2px !important;
             </td>
 
         </tr>
+
+        <tr>
+            <td style="text-align:left; font-size:14px; font-weight:600;padding-left:5px;">
+                @if (item.RTN > 0 || item.VRTN > 0 || item.TZTN > 0)
+                {
+                    <text>Tlakové nádoby:</text>
+                }
+            </td>
+            <td style="text-align:center; font-size:14px; font-weight:600;">
+                @if (item.RTN > 0)
+                {<text>@item.RTN</text><text>RTN</text>}
+                @if (item.VRTN > 0)
+                {<text>@item.VRTN</text><text>VRTN</text>}
+                @if (item.TZTN > 0)
+                {<text>@item.TZTN</text><text>TZTN</text>}
+            </td>
+
+        </tr>
     </table>
 
 

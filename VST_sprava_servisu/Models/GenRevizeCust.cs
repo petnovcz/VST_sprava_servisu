@@ -502,7 +502,12 @@ namespace VST_sprava_servisu
             sql.Append(" DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaRevize,t6.periodarevize)), DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaRevize,t6.periodarevize)), coalesce(t3.datumrevize, t3.datumprirazeni))) as 'Next2Revize',");
             sql.Append(" case when T7.VymenaBaterie = 1 then DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaBaterie,t6.periodabaterie)), coalesce(t3.datumbaterie, t3.datumprirazeni)) else null end as 'NextBaterie',");
             sql.Append(" case when T7.VymenaPyro = 1 then DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaPyro,t6.periodapyro)), coalesce(t3.datumpyro, t3.datumprirazeni)) else null end as 'NextPyro',");
-            sql.Append(" case when T7.tlakovazk = 1 then DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaTlkZk,t6.periodatlakovazk)), coalesce(t3.datumtlkzk, t3.datumprirazeni)) else null end as 'NextTlkZk'");
+            sql.Append(" case when T7.tlakovazk = 1 then DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaTlkZk,t6.periodatlakovazk)), coalesce(t3.datumtlkzk, t3.datumprirazeni)) else null end as 'NextTlkZk',");
+            // revize tlakove nadoby
+            sql.Append(" case when T6.TlakovaNadoba = 1 then DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaRevizeTlakoveNadoby,t6.PeriodaRevizeTlakoveNadoby)), coalesce(t3.DatumRevizeTlakoveNadoby, t3.datumprirazeni)) else null end as 'RevizeTlakoveNadoby',");
+            // vnitrni revize tlakove nadoby
+            sql.Append(" case when T6.TlakovaNadoba = 1 then DATEADD(month, convert(int, coalesce(t3.UpravenaPeriodaVnitrniRevizeTlakoveNadoby,t6.PeriodaVnitrniRevize)), coalesce(t3.DatumVnitrniRevizeTlakoveNadoby, t3.datumprirazeni)) else null end as 'VnitrniRevizeTlakoveNadoby'");
+
             sql.Append(" from Zakaznik t0");
             sql.Append(" left join Provoz T1 on T1.ZakaznikId = T0.Id");
             sql.Append(" left join Umisteni t2 on t2.ProvozId = t1.Id");
@@ -606,6 +611,23 @@ namespace VST_sprava_servisu
                     {
                         log.Debug("Calculatescfrorevision - načtení NextTlkZk: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
                     }
+                    try
+                    {
+                        item.RevizeTlakoveNadoby = dr.GetDateTime(dr.GetOrdinal("RevizeTlakoveNadoby"));
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení RevizeTlakoveNadoby: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
+                    
+                        try
+                    {
+                        item.VnitrniRevizeTlakoveNadoby = dr.GetDateTime(dr.GetOrdinal("VnitrniRevizeTlakoveNadoby"));
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Debug("Calculatescfrorevision - načtení VnitrniRevizeTlakoveNadoby: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException);
+                    }
                     calc.Add(item);
                 }
             }
@@ -652,6 +674,22 @@ namespace VST_sprava_servisu
                     {
                         RSC1.TlakovaZkouska = false;
                     }
+                    if (item.RevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR1)
+                    {
+                        RSC1.RevizeTlakoveNadoby = true;
+                    }
+                    else
+                    {
+                        RSC1.RevizeTlakoveNadoby = false;
+                    }
+                    if (item.VnitrniRevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR1)
+                    {
+                        RSC1.VnitrniRevizeTlakoveNadoby = true;
+                    }
+                    else
+                    {
+                        RSC1.VnitrniRevizeTlakoveNadoby = false;
+                    }
                 }
                 if (item.NextRevize >= gen.Dnyrevize.PrvnidenobdobiR2 && item.NextRevize <= gen.Dnyrevize.PoslednidenobdobiR2)
                 {
@@ -681,6 +719,22 @@ namespace VST_sprava_servisu
                     else
                     {
                         RSC2.TlakovaZkouska = false;
+                    }
+                    if (item.RevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.RevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2)
+                    {
+                        RSC2.RevizeTlakoveNadoby = true;
+                    }
+                    else
+                    {
+                        RSC2.RevizeTlakoveNadoby = false;
+                    }
+                    if (item.VnitrniRevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.VnitrniRevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2)
+                    {
+                        RSC2.VnitrniRevizeTlakoveNadoby = true;
+                    }
+                    else
+                    {
+                        RSC2.VnitrniRevizeTlakoveNadoby = false;
                     }
                 }
 
@@ -712,6 +766,24 @@ namespace VST_sprava_servisu
                     else
                     {
                         RSC2.TlakovaZkouska = false;
+                    }
+
+                    if (item.RevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.RevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2)
+                    {
+                        RSC2.RevizeTlakoveNadoby = true;
+                    }
+                    else
+                    {
+                        RSC2.RevizeTlakoveNadoby = false;
+                    }
+
+                    if (item.VnitrniRevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.VnitrniRevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2)
+                    {
+                        RSC2.VnitrniRevizeTlakoveNadoby = true;
+                    }
+                    else
+                    {
+                        RSC2.VnitrniRevizeTlakoveNadoby = false;
                     }
                 }
                 using (var dbCtx = new Model1Container())

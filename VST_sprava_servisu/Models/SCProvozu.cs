@@ -104,7 +104,7 @@ namespace VST_sprava_servisu
             return list;
         }
 
-        internal protected static void UpdateSC(int id, DateTime datumkontroly, bool Baterie, bool Pyro, bool TlakovaZkouska)
+        internal protected static void UpdateSC(int id, DateTime datumkontroly, bool Baterie, bool Pyro, bool TlakovaZkouska,bool revizeTN, bool vnitrnirevizeTN)
         {
             using (var dbCtx = new Model1Container())
             {
@@ -128,6 +128,14 @@ namespace VST_sprava_servisu
                 if (TlakovaZkouska == true && sc.DatumTlkZk <= datumkontroly)
                 {
                     sc.DatumTlkZk = datumkontroly;
+                }
+                if (revizeTN == true && sc.DatumRevizeTlakoveNadoby <= datumkontroly)
+                {
+                    sc.DatumRevizeTlakoveNadoby = datumkontroly;
+                }
+                if (vnitrnirevizeTN == true && sc.DatumVnitrniRevizeTlakoveNadoby <= datumkontroly)
+                {
+                    sc.DatumVnitrniRevizeTlakoveNadoby = datumkontroly;
                 }
                 try
                 {
@@ -172,6 +180,10 @@ namespace VST_sprava_servisu
             scprovozu.UpravenaPeriodaBaterie = scimport.UpravenaPeriodaBaterie;
             scprovozu.UpravenaPeriodaPyro = scimport.UpravenaPeriodaPyro;
             scprovozu.UpravenaPeriodaTlkZk = scimport.UpravenaPeriodaTlkZk;
+            scprovozu.DatumRevizeTlakoveNadoby = scimport.DatumRevizeTlakoveNadoby;
+            scprovozu.DatumVnitrniRevizeTlakoveNadoby = scimport.DatumVnitrniRevizeTlakoveNadoby;
+            scprovozu.UpravenaPeriodaRevizeTlakoveNadoby = scimport.UpravenaPeriodaRevizeTlakoveNadoby;
+            scprovozu.UpravenaPeriodaVnitrniRevizeTlakoveNadoby = scimport.UpravenaPeriodaVnitrniRevizeTlakoveNadoby;
             using (var dbCtx = new Model1Container())
             {
                 try

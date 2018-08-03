@@ -62,7 +62,14 @@ namespace VST_sprava_servisu
         [Display(Name = "Upravená perioda tlakové zkoušky")]
         public Nullable<int> UpravenaPeriodaTlkZk { get; set; }
 
-
+        [Display(Name = "DatumRevizeTlakoveNadoby")]
+        public Nullable<System.DateTime> DatumRevizeTlakoveNadoby { get; set; }
+        [Display(Name = "DatumVnitrniRevizeTlakoveNadoby")]
+        public Nullable<System.DateTime> DatumVnitrniRevizeTlakoveNadoby { get; set; }
+        [Display(Name = "UpravenaPeriodaRevizeTlakoveNadoby")]
+        public Nullable<int> UpravenaPeriodaRevizeTlakoveNadoby { get; set; }
+        [Display(Name = "UpravenaPeriodaVnitrniRevizeTlakoveNadoby")]
+        public Nullable<int> UpravenaPeriodaVnitrniRevizeTlakoveNadoby { get; set; }
 
 
 

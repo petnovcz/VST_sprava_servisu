@@ -23,14 +23,18 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)<br>
                     @Html.DisplayNameFor(model => model.SCProvozu.Lokace)<br>
-                    @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)
+                    @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)<br>
+                    @Html.DisplayNameFor(model => model.SCProvozu.SerioveCislo.Artikl.TlakovaNadoba)
                 </th>
 
 
                 <th>
                     @Html.DisplayNameFor(model => model.Pyro)<br>
                     @Html.DisplayNameFor(model => model.Baterie)<br>
-                    @Html.DisplayNameFor(model => model.TlakovaZkouska)
+                    @Html.DisplayNameFor(model => model.TlakovaZkouska)<br>
+                    @Html.DisplayNameFor(model => model.RevizeTlakoveNadoby)<br>
+                    @Html.DisplayNameFor(model => model.VnitrniRevizeTlakoveNadoby)
+
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Stav)<br>
@@ -67,13 +71,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)<br>
                     @Html.DisplayFor(modelItem => item.SCProvozu.Lokace)<br>
-                    @Html.DisplayFor(modelItem => item.SCProvozu.Znaceni)
+                    @Html.DisplayFor(modelItem => item.SCProvozu.Znaceni)<br>
+                    @Html.DisplayFor(modelItem => item.SCProvozu.SerioveCislo.Artikl.TlakovaNadoba)
                 </td>
 
                 <td>
                     @Html.DisplayFor(modelItem => item.Pyro)<br>
                     @Html.DisplayFor(modelItem => item.Baterie)<br>
-                    @Html.DisplayFor(modelItem => item.TlakovaZkouska)
+                    @Html.DisplayFor(modelItem => item.TlakovaZkouska)<br>
+                    @Html.DisplayFor(modelItem => item.RevizeTlakoveNadoby)<br>
+                    @Html.DisplayFor(modelItem => item.VnitrniRevizeTlakoveNadoby)
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Stav)<br>

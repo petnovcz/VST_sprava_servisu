@@ -44,6 +44,13 @@ namespace VST_sprava_servisu
             sql.Append($" and((Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) <= 6  and  '{Polol}' = '1')");
             sql.Append($" or(Month(DATEADD(month, convert(int, t6.periodatlakovazk), coalesce(t4.datumtlkzk, t4.datumprirazeni))) > 6  and  '{Polol}' = '2')");
             sql.Append(" )) then 1 else 0 end as 'TlKZK'");
+
+            // revize tlakove nadoby
+            
+
+            // vnitrni revize tlakove nadoby
+            
+
             sql.Append($" from [{RS_dtb}].[dbo].[Region] t0");
             sql.Append($" left join [{RS_dtb}].[dbo].[Zakaznik] t1 on t0.id = t1.regionid");
             sql.Append($" left join [{RS_dtb}].[dbo].[provoz] t2 on t2.zakaznikid = t1.id");

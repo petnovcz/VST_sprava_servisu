@@ -191,7 +191,26 @@ namespace VST_sprava_servisu
                 revize = dbCtx.Revize.Find(id);
                 revize.Baterie = dbCtx.RevizeSC.Where(r=>r.RevizeId == id && r.Baterie == true).Count();
                 revize.Pyro = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.Pyro == true).Count() + dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.Pyro == true && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id >= 134 && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id <= 135).Count();
-                revize.TlkZk = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.TlakovaZkouska == true).Count();
+
+                // 3.8.2018 - úprava na pouze artikly, které nejsou tlakové nádoby
+                revize.TlkZk = dbCtx.RevizeSC
+                    
+                    .Include(r=>r.SCProvozu.Artikl)
+                    .Where(r => r.RevizeId == id && r.TlakovaZkouska == true && r.SCProvozu.Artikl.TlakovaNadoba == false).Count();
+                // 3.8.2018 - přidání artiklů tlakových zkoušek tlakových nádob
+
+                revize.TZTN = dbCtx.RevizeSC
+
+                    .Include(r => r.SCProvozu.Artikl)
+                    .Where(r => r.RevizeId == id && r.TlakovaZkouska == true && r.SCProvozu.Artikl.TlakovaNadoba == true).Count();
+                // 3.8.2018 - přidání revizí tlakových nádob
+                revize.RTN = dbCtx.RevizeSC
+                    .Where(r => r.RevizeId == id && r.RevizeTlakoveNadoby == true && r.SCProvozu.Artikl.TlakovaNadoba == true).Count();
+                // 3.8.2018 - přidání vnitřních revizí tlakových nádob
+                revize.VRTN = dbCtx.RevizeSC
+                    .Where(r => r.RevizeId == id && r.VnitrniRevizeTlakoveNadoby == true && r.SCProvozu.Artikl.TlakovaNadoba == true).Count();
+
+
                 revize.AP = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 131).Count();
                 revize.S = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 1).Count();
                 revize.RJ = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 130).Count();
@@ -492,7 +511,7 @@ namespace VST_sprava_servisu
         {
             foreach (var item in revizesclist)
             {
-                SCProvozu.UpdateSC(item.SCProvozuId, datumkontroly, item.Baterie, item.Pyro, item.TlakovaZkouska);
+                SCProvozu.UpdateSC(item.SCProvozuId, datumkontroly, item.Baterie, item.Pyro, item.TlakovaZkouska,item.RevizeTlakoveNadoby,item.VnitrniRevizeTlakoveNadoby);
             }
 
 

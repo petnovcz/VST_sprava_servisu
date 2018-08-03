@@ -86,7 +86,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Create([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska")] RevizeSC revizeSC)
+        public ActionResult Create([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska,RevizeTlakoveNadoby,VnitrniRevizeTlakoveNadoby")] RevizeSC revizeSC)
         {
             if (ModelState.IsValid)
             {
@@ -141,7 +141,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska,Stav,DobaProvozu,HodinyProvozu,DobaProvozuString")] RevizeSC revizeSC)
+        public ActionResult Edit([Bind(Include = "Id,RevizeId,SCProvozuId,StavKoroze,StavZnecisteni,JineZavady,UmisteniId,Baterie,Pyro,TlakovaZkouska,Stav,DobaProvozu,HodinyProvozu,DobaProvozuString,RevizeTlakoveNadoby,VnitrniRevizeTlakoveNadoby")] RevizeSC revizeSC)
         {
             int RevizeId = 0;
             //revizeSC = RevizeSC.CalculateDobuProvozu(revizeSC);

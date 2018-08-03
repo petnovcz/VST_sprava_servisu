@@ -24,8 +24,8 @@
         @Html.HiddenFor(model => model.RevizeId)
         @Html.HiddenFor(model => model.SCProvozuId)
         @Html.HiddenFor(model => model.UmisteniId)
-        
-        
+
+
 
 
         <div class="form-group">
@@ -56,6 +56,25 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.RevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-4 " })
+            <div class="col-md-8">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.RevizeTlakoveNadoby)
+                    @Html.ValidationMessageFor(model => model.RevizeTlakoveNadoby, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VnitrniRevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-4 " })
+            <div class="col-md-8">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.VnitrniRevizeTlakoveNadoby)
+                    @Html.ValidationMessageFor(model => model.VnitrniRevizeTlakoveNadoby, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.JineZavady, htmlAttributes: new { @class = "control-label col-md-4 " })

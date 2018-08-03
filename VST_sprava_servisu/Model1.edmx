@@ -26,6 +26,9 @@
           <Property Name="PeriodaPyro" Type="nchar" MaxLength="10" />
           <Property Name="ArtoklPyro" Type="nchar" MaxLength="10" />
           <Property Name="SkupinaArtiklu" Type="int" />
+          <Property Name="TlakovaNadoba" Type="bit" Nullable="false" />
+          <Property Name="PeriodaRevizeTlakoveNadoby" Type="nchar" MaxLength="10" />
+          <Property Name="PeriodaVnitrniRevize" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -95,7 +98,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NazevPoruchy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="KategoriePoruchyId" Type="int" Nullable="false" />
+          <Property Name="KategoriePoruchyId" Type="int" />
           <Property Name="SIL" Type="bit" />
           <Property Name="SkupinaArtikluId" Type="int" />
           <Property Name="Aktivace" Type="bit" />
@@ -178,6 +181,8 @@
           <Property Name="DobaProvozu" Type="datetime" />
           <Property Name="HodinyProvozu" Type="bigint" />
           <Property Name="DobaProvozuString" Type="nvarchar" MaxLength="50" />
+          <Property Name="RevizeTlakoveNadoby" Type="bit" Nullable="false" />
+          <Property Name="VnitrniRevizeTlakoveNadoby" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -205,6 +210,10 @@
           <Property Name="UpravenaPeriodaPyro" Type="int" />
           <Property Name="UpravenaPeriodaBaterie" Type="int" />
           <Property Name="UpravenaPeriodaTlkZk" Type="int" />
+          <Property Name="DatumRevizeTlakoveNadoby" Type="datetime" />
+          <Property Name="DatumVnitrniRevizeTlakoveNadoby" Type="datetime" />
+          <Property Name="UpravenaPeriodaRevizeTlakoveNadoby" Type="int" />
+          <Property Name="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" Type="int" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -234,7 +243,7 @@
           <Property Name="Km" Type="decimal" Precision="18" Scale="0" />
           <Property Name="VozidloId" Type="int" />
           <Property Name="CestaCelkem" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="PraceHod" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PraceHod" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PraceSazba" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Pracelidi" Type="decimal" Precision="18" Scale="0" />
           <Property Name="PraceCelkem" Type="decimal" Precision="18" Scale="0" />
@@ -1128,10 +1137,6 @@
           <EntitySet Name="Vozidlo" EntityType="Model1.Vozidlo" />
           <EntitySet Name="KategoriePoruchy" EntityType="Model1.KategoriePoruchy" />
           <EntitySet Name="Porucha" EntityType="Model1.Porucha" />
-          <AssociationSet Name="FK_Porucha_ToKategoriePoruchy" Association="Model1.FK_Porucha_ToKategoriePoruchy">
-            <End Role="KategoriePoruchy" EntitySet="KategoriePoruchy" />
-            <End Role="Porucha" EntitySet="Porucha" />
-          </AssociationSet>
           <EntitySet Name="ServisniZasahPrvek" EntityType="Model1.ServisniZasahPrvek" />
           <AssociationSet Name="FK_ServisniZasahPrvek_ToArtikl" Association="Model1.FK_ServisniZasahPrvek_ToArtikl">
             <End Role="Artikl" EntitySet="Artikl" />
@@ -1345,6 +1350,9 @@
           <NavigationProperty Name="SkupinaArtiklu1" Relationship="Model1.FK_Artikl_SkupinaA" FromRole="Artikl" ToRole="SkupinaArtiklu" />
           <NavigationProperty Name="SCProvozu" Relationship="Model1.FK_SCProvozu_Artikl" FromRole="Artikl" ToRole="SCProvozu" />
           <NavigationProperty Name="ServisniZasahPrvek" Relationship="Model1.FK_ServisniZasahPrvek_ToArtikl" FromRole="Artikl" ToRole="ServisniZasahPrvek" />
+          <Property Name="TlakovaNadoba" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodaRevizeTlakoveNadoby" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PeriodaVnitrniRevize" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Revize">
           <Key>
@@ -1404,6 +1412,8 @@
           <Property Name="DobaProvozu" Type="DateTime" Precision="3" />
           <Property Name="DobaProvozuString" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HodinyProvozu" Type="Int64" />
+          <Property Name="RevizeTlakoveNadoby" Type="Boolean" Nullable="false" />
+          <Property Name="VnitrniRevizeTlakoveNadoby" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SCProvozu">
           <Key>
@@ -1440,6 +1450,10 @@
           <Property Name="UpravenaPeriodaPyro" Type="Int32" />
           <Property Name="UpravenaPeriodaBaterie" Type="Int32" />
           <Property Name="UpravenaPeriodaTlkZk" Type="Int32" />
+          <Property Name="DatumRevizeTlakoveNadoby" Type="DateTime" Precision="3" />
+          <Property Name="DatumVnitrniRevizeTlakoveNadoby" Type="DateTime" Precision="3" />
+          <Property Name="UpravenaPeriodaRevizeTlakoveNadoby" Type="Int32" />
+          <Property Name="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" Type="Int32" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -1821,7 +1835,6 @@
           <Property Name="OpravnenaReklamace" Type="Boolean" Nullable="false" />
           <Property Name="NeopravnenaReklamace" Type="Boolean" Nullable="false" />
           <Property Name="ReklamaceServisniZasah" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Porucha" Relationship="Model1.FK_Porucha_ToKategoriePoruchy" FromRole="KategoriePoruchy" ToRole="Porucha" />
         </EntityType>
         <EntityType Name="Porucha">
           <Key>
@@ -1829,9 +1842,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NazevPoruchy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="KategoriePoruchyId" Type="Int32" Nullable="false" />
+          <Property Name="KategoriePoruchyId" Type="Int32" />
           <Property Name="SIL" Type="Boolean" />
-          <NavigationProperty Name="KategoriePoruchy" Relationship="Model1.FK_Porucha_ToKategoriePoruchy" FromRole="Porucha" ToRole="KategoriePoruchy" />
           <NavigationProperty Name="ServisniZasahPrvek" Relationship="Model1.FK_ServisniZasahPrvek_ToPorucha" FromRole="Porucha" ToRole="ServisniZasahPrvek" />
           <Property Name="SkupinaArtikluId" Type="Int32" />
           <NavigationProperty Name="SkupinaArtiklu" Relationship="Model1.FK_Porucha_ToSkupinaArtiklu" FromRole="Porucha" ToRole="SkupinaArtiklu" />
@@ -1842,18 +1854,6 @@
           <Property Name="UznanaReklamace" Type="Boolean" />
           <Property Name="PozarucniServis" Type="Boolean" />
         </EntityType>
-        <Association Name="FK_Porucha_ToKategoriePoruchy">
-          <End Type="Model1.KategoriePoruchy" Role="KategoriePoruchy" Multiplicity="1" />
-          <End Type="Model1.Porucha" Role="Porucha" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KategoriePoruchy">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Porucha">
-              <PropertyRef Name="KategoriePoruchyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ServisniZasahPrvek">
           <Key>
             <PropertyRef Name="Id" />
@@ -2208,7 +2208,10 @@
     <EntitySetMapping Name="Artikl">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Artikl)">
         <MappingFragment StoreEntitySet="Artikl">
-          <ScalarProperty Name="SkupinaArtiklu" ColumnName="SkupinaArtiklu" />
+          <ScalarProperty Name="PeriodaVnitrniRevize" ColumnName="PeriodaVnitrniRevize" />
+                <ScalarProperty Name="PeriodaRevizeTlakoveNadoby" ColumnName="PeriodaRevizeTlakoveNadoby" />
+                <ScalarProperty Name="TlakovaNadoba" ColumnName="TlakovaNadoba" />
+                <ScalarProperty Name="SkupinaArtiklu" ColumnName="SkupinaArtiklu" />
                 <ScalarProperty Name="ArtoklPyro" ColumnName="ArtoklPyro" />
                 <ScalarProperty Name="PeriodaPyro" ColumnName="PeriodaPyro" />
                 <ScalarProperty Name="VymenaPyro" ColumnName="VymenaPyro" />
@@ -2263,7 +2266,9 @@
     <EntitySetMapping Name="RevizeSC">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.RevizeSC)">
         <MappingFragment StoreEntitySet="RevizeSC">
-          <ScalarProperty Name="HodinyProvozu" ColumnName="HodinyProvozu" />
+          <ScalarProperty Name="VnitrniRevizeTlakoveNadoby" ColumnName="VnitrniRevizeTlakoveNadoby" />
+                <ScalarProperty Name="RevizeTlakoveNadoby" ColumnName="RevizeTlakoveNadoby" />
+                <ScalarProperty Name="HodinyProvozu" ColumnName="HodinyProvozu" />
                 <ScalarProperty Name="DobaProvozuString" ColumnName="DobaProvozuString" />
                 <ScalarProperty Name="DobaProvozu" ColumnName="DobaProvozu" />
                 <ScalarProperty Name="Stav" ColumnName="Stav" />
@@ -2283,7 +2288,11 @@
     <EntitySetMapping Name="SCProvozu">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.SCProvozu)">
         <MappingFragment StoreEntitySet="SCProvozu">
-          <ScalarProperty Name="UpravenaPeriodaTlkZk" ColumnName="UpravenaPeriodaTlkZk" />
+          <ScalarProperty Name="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" ColumnName="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" />
+                <ScalarProperty Name="UpravenaPeriodaRevizeTlakoveNadoby" ColumnName="UpravenaPeriodaRevizeTlakoveNadoby" />
+                <ScalarProperty Name="DatumVnitrniRevizeTlakoveNadoby" ColumnName="DatumVnitrniRevizeTlakoveNadoby" />
+                <ScalarProperty Name="DatumRevizeTlakoveNadoby" ColumnName="DatumRevizeTlakoveNadoby" />
+                <ScalarProperty Name="UpravenaPeriodaTlkZk" ColumnName="UpravenaPeriodaTlkZk" />
                 <ScalarProperty Name="UpravenaPeriodaBaterie" ColumnName="UpravenaPeriodaBaterie" />
                 <ScalarProperty Name="UpravenaPeriodaPyro" ColumnName="UpravenaPeriodaPyro" />
                 <ScalarProperty Name="UkonceniZaruky" ColumnName="UkonceniZaruky" />

@@ -23,6 +23,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.TlakovaZk)<br>
                 @Html.DisplayNameFor(model => model.PeriodaTlakovaZk)
+
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.VymenaBaterie)<br>
@@ -33,6 +34,13 @@
                 @Html.DisplayNameFor(model => model.VymenaPyro)<br>
                 @Html.DisplayNameFor(model => model.PeriodaPyro)<br>
                 @Html.DisplayNameFor(model => model.ArtoklPyro)
+                
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TlakovaNadoba)<br>
+                @Html.DisplayNameFor(model => model.PeriodaRevizeTlakoveNadoby)<br>
+                @Html.DisplayNameFor(model => model.PeriodaVnitrniRevize)
             </th>
             <th></th>
         </tr>
@@ -62,7 +70,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.VymenaPyro)<br>
                     @Html.DisplayFor(modelItem => item.PeriodaPyro)<br>
-                    @Html.DisplayFor(modelItem => item.ArtoklPyro)
+                    @Html.DisplayFor(modelItem => item.ArtoklPyro)<br>
+                    
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TlakovaNadoba)<br>
+                    @Html.DisplayFor(modelItem => item.PeriodaRevizeTlakoveNadoby)<br>
+                    @Html.DisplayFor(modelItem => item.PeriodaVnitrniRevize)
                 </td>
                 <td>
                     @Html.ActionLink(" ", "Edit", "Artikly",new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-edit" }) 

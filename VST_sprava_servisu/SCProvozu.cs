@@ -80,5 +80,10 @@ namespace VST_sprava_servisu
         public Nullable<int> UpravenaPeriodaBaterie { get; set; }
         [Display(Name = "Upravená perioda Tlakové zkoušky [m]")]
         public Nullable<int> UpravenaPeriodaTlkZk { get; set; }
+
+        public Nullable<System.DateTime> DatumRevizeTlakoveNadoby { get; set; }
+        public Nullable<System.DateTime> DatumVnitrniRevizeTlakoveNadoby { get; set; }
+        public Nullable<int> UpravenaPeriodaRevizeTlakoveNadoby { get; set; }
+        public Nullable<int> UpravenaPeriodaVnitrniRevizeTlakoveNadoby { get; set; }
     }
 }

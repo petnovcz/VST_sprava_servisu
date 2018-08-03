@@ -56,7 +56,12 @@ namespace VST_sprava_servisu
         public string ArtoklPyro { get; set; }
         [Display(Name = "Skupina artiklu")]
         public Nullable<int> SkupinaArtiklu { get; set; }
-    
+        [Display(Name = "Tlaková nádoba")]
+        public bool TlakovaNadoba { get; set; }
+        [Display(Name = "Perioda revize tlakové nádoby")]
+        public string PeriodaRevizeTlakoveNadoby { get; set; }
+        [Display(Name = "Vnitøní perioda revize")]
+        public string PeriodaVnitrniRevize { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SerioveCislo> SerioveCislo { get; set; }
         public virtual SkupinaArtiklu SkupinaArtiklu1 { get; set; }
