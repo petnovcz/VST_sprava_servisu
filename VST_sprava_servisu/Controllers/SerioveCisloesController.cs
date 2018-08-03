@@ -95,7 +95,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,ArtiklId,DatumVyroby,DatumPosledniTlakoveZkousky,SerioveCislo1")] SerioveCislo serioveCislo, int provoz, int umisteni, int zakaznik)
+        public ActionResult Edit([Bind(Include = "Id,ArtiklId,DatumVyroby,DatumPosledniTlakoveZkousky,SerioveCislo1")] SerioveCislo serioveCislo, int provoz, int umisteni, int zakaznik, string objekt, int? objektid)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,15 @@ namespace VST_sprava_servisu
                     db.SaveChanges();
                 }
                 catch (Exception ex) { log.Error("Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
-                return RedirectToAction("Details", "Umistenis", new { id = umisteni, provoz, zakaznik });
+
+                if (objekt != null)
+                {
+                    return RedirectToAction("Details", objekt, new { id = objektid });
+                }
+                else
+                {
+                    return RedirectToAction("Details", "Umistenis", new { id = umisteni, provoz, zakaznik });
+                }
             }
             ViewBag.ArtiklId = new SelectList(db.Artikl.Where(r => r.SkupinaArtiklu1.Id != 129), "Id", "Nazev", serioveCislo.ArtiklId);
             return RedirectToAction("Details","Umistenis", new { id = umisteni, provoz, zakaznik });

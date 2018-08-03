@@ -70,10 +70,10 @@
                 <col class="col-lg-3">
                 <col class="col-lg-3">
 
-                <col class="col-lg-3">
-
-
-                <col class="col-lg-3">
+                <col class="col-lg-2">
+                <col class="col-lg-2">
+                <col class="col-lg-2">
+                
             </colgroup>
             <thead>
 
@@ -81,7 +81,7 @@
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.SCProvozu.Znaceni)<br>
-                       
+
                         @Html.DisplayNameFor(model => model.Artikl.Nazev)
                     </th>
                     <th>
@@ -90,11 +90,9 @@
                         @Html.DisplayNameFor(model => model.CenaCelkem)<br>
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Reklamace)
-                        <br>
-                        @Html.DisplayNameFor(model => model.PoruseniZarucnichPodminek)
+                        
                     </th>
-
+                    <th>@Html.DisplayNameFor(model => model.DatumVyprseniZaruky)</th>
 
 
 
@@ -121,12 +119,32 @@
                             @Html.DisplayFor(modelItem => item.CenaCelkem)<br>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DatumVyprseniZaruky)<br>
-                            @Html.DisplayFor(modelItem => item.Reklamace)<br>
-                            @Html.DisplayFor(modelItem => item.PoruseniZarucnichPodminek)
+                            @if (item.ServisniZasah.Closed == false && item.ServisniZasah.NabidkaDocNum == null && item.ServisniZasah.DodaciListDocNum == null)
+                            {
+                                
+                                if (item.Reklamace == true)
+                                {
+                                    @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id }, new { @class = "btn btn-xs btn-success" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                                }
+                                if (item.PoruseniZarucnichPodminek == true)
+                                {
+                                    @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id }, new { @class = "btn btn-xs btn-success" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                                }
+                                
+                            }
                         </td>
 
-
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DatumVyprseniZaruky)
+                        </td>
 
 
 
@@ -134,14 +152,11 @@
                         <td>
                             @if (item.ServisniZasah.Closed == false && item.ServisniZasah.NabidkaDocNum == null && item.ServisniZasah.DodaciListDocNum == null)
                             {
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-md btn-primary" })
-
-                                @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id }, new { @class = "btn btn-md btn-warning" })
-                                @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id }, new { @class = "btn btn-md btn-warning" })
-
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-md btn-danger" })
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
+                                
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })
                             }
-                            </td>
+                        </td>
                     </tr>
 
                 }

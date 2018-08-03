@@ -27,7 +27,7 @@ namespace VST_sprava_servisu
         public int ArtiklId { get; set; }
         [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Datum výroby")]
         public Nullable<System.DateTime> DatumVyroby { get; set; }
-        [Required, Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Poslední tlaková zkouška")]
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Poslední tlaková zkouška")]
         public Nullable<System.DateTime> DatumPosledniTlakoveZkousky { get; set; }
         [Display(Name = "Sériové èíslo")]
         public string SerioveCislo1 { get; set; }

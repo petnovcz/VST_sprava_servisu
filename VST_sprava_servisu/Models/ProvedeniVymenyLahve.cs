@@ -33,11 +33,11 @@ namespace VST_sprava_servisu
             sql.Append($"  left join IGE1 t3 on t2.DocEntry = t3.DocEntry and t3.ItemCode = t1.ItemCode");
             sql.Append($"  left join oitm t4 on t1.ItemCode = t4.ItemCode");
             sql.Append($"  where t3.BaseRef = ");
-            sql.Append($"  (select t3.BaseRef from OSRI t0 ");
+            sql.Append($"  (select top 1 t3.BaseRef from OSRI t0 ");
             sql.Append($"  inner join SRI1 t1 on t0.SysSerial = t1.SysSerial and t0.ItemCode = t1.ItemCode and t1.BaseType = '59'");
             sql.Append($"  left join OIGN t2 on t1.BaseNum = t2.DocNum");
             sql.Append($"  left join IGN1 t3 on t2.DocEntry = t3.DocEntry");
-            sql.Append($"  where t0.IntrSerial = '{SC}' and t3.BaseRef is not null and T0.ItemCode = '{SAPKodArtiklu}') and t4.ItmsGrpCod = '138' ");
+            sql.Append($"  where t0.IntrSerial = '{SC}' and t3.BaseRef is not null and T0.ItemCode = '{SAPKodArtiklu}') and t4.ItmsGrpCod = '138' order by t3.BaseRef desc ");
             
 
 

@@ -328,14 +328,33 @@ namespace VST_sprava_servisu.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed,Porjekt,Nabidka,Zakazka,DodaciList")] ServisniZasah servisniZasah)
+        public ActionResult Edit([Bind(Include = "Id,ZakaznikID,ProvozId,UmisteniId,DatumVyzvy,DatumVznikuPoruchy,DatumZasahu,DatumOdstraneni,Odkud,Kam,Zpět,Km,VozidloId,CestaCelkem,PraceHod,PraceSazba,Pracelidi,PraceCelkem,Celkem,Reklamace,PoruseniZarucnichPodminek,Mena,Closed,Porjekt,Nabidka,Zakazka,DodaciList")] ServisniZasah servisniZasah, string action)
         {
-            if (ModelState.IsValid)
+            switch (action)
             {
-                db.Entry(servisniZasah).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                case "Přepočti cestu":
+                    servisniZasah.Km = ServisniZasah.GetDistance(servisniZasah.Odkud, servisniZasah.Kam, servisniZasah.Zpět);
+                    ModelState.Clear();
+                    break;
+                case "Ulož":
+                    var km = CenaArtikluZakaznik.GetCena("SP02", servisniZasah.ZakaznikID);
+                    decimal kmcena;
+                    if (km.ZCCena != 0) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
+                    servisniZasah.CestaCelkem = servisniZasah.Km * kmcena;
+                    var prace = CenaArtikluZakaznik.GetCena("SP01", servisniZasah.ZakaznikID);
+                    decimal pracecena;
+                    if (prace.ZCCena != 0) { pracecena = prace.ZCCena; } else { pracecena = prace.CenikCena; }
+                    servisniZasah.PraceSazba = pracecena;
+                    servisniZasah.PraceCelkem = servisniZasah.Pracelidi * servisniZasah.PraceSazba * servisniZasah.PraceHod;
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(servisniZasah).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Details", "ServisniZasah", new { servisniZasah.Id });
+                    }
+                    break;
             }
+                    
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", servisniZasah.ProvozId);
             ViewBag.UmisteniId = new SelectList(db.Umisteni, "Id", "NazevUmisteni", servisniZasah.UmisteniId);
             ViewBag.VozidloId = new SelectList(db.Vozidlo, "Id", "NazevVozidla", servisniZasah.VozidloId);
@@ -449,6 +468,74 @@ namespace VST_sprava_servisu.Controllers
             }
 
         }
+        [Authorize(Roles = "Administrator,Manager")]
+        public ActionResult Reklamace(int Id)
+        {
+            var servisniZasah = db.ServisniZasah.Find(Id);
+            if (servisniZasah.Reklamace == true)
+            {
+                servisniZasah.Reklamace = false;
+                foreach (var item in servisniZasah.ServisniZasahPrvek)
+                {
+                    ServisniZasahPrvek szp = new ServisniZasahPrvek();
+                    szp = db.ServisniZasahPrvek.Find(item.Id);
+                    szp.Reklamace = false;
+                    db.Entry(szp).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                servisniZasah.Reklamace = true;
+                foreach (var item in servisniZasah.ServisniZasahPrvek)
+                {
+                    ServisniZasahPrvek szp = new ServisniZasahPrvek();
+                    szp = db.ServisniZasahPrvek.Find(item.Id);
+                    szp.Reklamace = true;
+                    db.Entry(szp).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            db.Entry(servisniZasah).State = EntityState.Modified;
+            db.SaveChanges();
+            ServisniZasah.UpdateHeader(servisniZasah.Id);
+            return RedirectToAction("Details", "ServisniZasah", new { Id = servisniZasah.Id });
+        }
+        [Authorize(Roles = "Administrator,Manager")]
+        public ActionResult Poruseni(int Id)
+        {
+            var servisniZasah = db.ServisniZasah.Find(Id);
+            if (servisniZasah.PoruseniZarucnichPodminek == true)
+            {
+                servisniZasah.PoruseniZarucnichPodminek = false;
+                foreach (var item in servisniZasah.ServisniZasahPrvek)
+                {
+                    ServisniZasahPrvek szp = new ServisniZasahPrvek();
+                    szp = db.ServisniZasahPrvek.Find(item.Id);
+                    szp.PoruseniZarucnichPodminek = false;
+                    db.Entry(szp).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                servisniZasah.PoruseniZarucnichPodminek = true;
+                foreach (var item in servisniZasah.ServisniZasahPrvek)
+                {
+                    ServisniZasahPrvek szp = new ServisniZasahPrvek();
+                    szp = db.ServisniZasahPrvek.Find(item.Id);
+                    szp.PoruseniZarucnichPodminek = true;
+                    db.Entry(szp).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            db.Entry(servisniZasah).State = EntityState.Modified;
+            db.SaveChanges();
+            ServisniZasah.UpdateHeader(servisniZasah.Id);
+            return RedirectToAction("Details", "ServisniZasah", new { Id = servisniZasah.Id });
+        }
+
+
         [Authorize(Roles = "Administrator,Manager")]
         public void PrintDelivery(int Id)
         {

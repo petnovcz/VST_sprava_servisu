@@ -19,10 +19,10 @@ namespace VST_sprava_servisu
         public string Search { get; set; }
         public int ZakaznikId { get; set; }
         public int ProvozId { get; set; }
-        public int UmisteniId { get; set; }
+        public int? UmisteniId { get; set; }
         private Zakaznik Zakaznik { get { Zakaznik zakaznik = Zakaznik.GetById(ZakaznikId); return zakaznik; } }
         private Provoz Provoz { get { Provoz provoz = Provoz.GetById(ProvozId); return provoz; } }
-        private Umisteni Umisteni { get { Umisteni umisteni = Umisteni.GetById(UmisteniId); return umisteni; } }
+        private Umisteni Umisteni { get { Umisteni umisteni = Umisteni.GetById(UmisteniId.Value); return umisteni; } }
         private Revize Revize1 { get; set; }
         private Revize Revize2 { get; set; }
         public string Nabidka { get; set; }
@@ -513,7 +513,7 @@ namespace VST_sprava_servisu
             sql.Append(" where ");
             sql.Append($" t0.id = '{ZakaznikId}'");
             sql.Append($" and t1.Id = '{ProvozId}' ");
-            sql.Append($" and (t2.Id = '{UmisteniId}' or '{UmisteniId}' = '0')");
+            sql.Append($" and (t2.Id = '{UmisteniId}' or '{UmisteniId}' = '')");
             sql.Append($" and T3.StatusId <> 2");
 
             //LOGOVANI

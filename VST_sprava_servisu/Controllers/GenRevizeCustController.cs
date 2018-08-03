@@ -16,7 +16,11 @@ namespace VST_sprava_servisu.Controllers
             if (Rok == 0) { Rok = DateTime.Now.Year; }
             gr.Rok = Rok;
             gr.ZakaznikId = ZakaznikId;
-            gr.UmisteniId = UmisteniId.Value;
+            try
+            {
+                gr.UmisteniId = UmisteniId.Value;
+            }
+            catch (Exception ex) { }
             gr.Skupina = Skupina;
             gr.Search = Search;
             gr.ProvozId = ProvozId;
@@ -33,7 +37,11 @@ namespace VST_sprava_servisu.Controllers
             GenRevizeCust gr = new GenRevizeCust();
             gr.Rok = Rok;
             gr.ZakaznikId = ZakaznikId;
-            gr.UmisteniId = UmisteniId.Value;
+            try
+            {
+                gr.UmisteniId = UmisteniId.Value;
+            }
+            catch (Exception ex) { }
             gr.Skupina = Skupina;
             gr.Search = Search;
             gr.ProvozId = ProvozId;

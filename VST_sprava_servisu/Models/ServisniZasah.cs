@@ -51,7 +51,7 @@ namespace VST_sprava_servisu
 
 
 
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"),Display(Name="Konec záruky")]
         public DateTime? DatumVyprseniZaruky {
             get
             {
@@ -227,43 +227,43 @@ namespace VST_sprava_servisu
             using (var db = new Model1Container())
             {
                 sz = db.ServisniZasah.Where(t => t.Id == Id).FirstOrDefault();
-
+                //načtení ceny za dopravu
                 var km = CenaArtikluZakaznik.GetCena("SP02", sz.ZakaznikID);
                 decimal kmcena;
-                if (km.ZCCena != 0) { kmcena = km.ZCCena; } else { kmcena = km.CenikCena; }
+                //pokud není nastavena zvláštní cena tak potom ceníková
+                if (km.ZCCena != 0)
+                {
+                    kmcena = km.ZCCena;
+                } else
+                {
+                    kmcena = km.CenikCena;
+                }
+                //výpočet ceny celkem za dopravu
                 sz.CestaCelkem = sz.Km * kmcena;
+                //načtení ceny za práci servisních techniků
                 var prace = CenaArtikluZakaznik.GetCena("SP01", sz.ZakaznikID);
                 decimal pracecena;
-                if (prace.ZCCena != 0) { pracecena = prace.ZCCena; } else { pracecena = prace.CenikCena; }
-                sz.PraceSazba = pracecena;
-                sz.PraceCelkem = sz.Pracelidi * sz.PraceSazba * sz.PraceHod;
-
-
-                var prvku = db.ServisniZasahPrvek.Where(t=>t.ServisniZasahId == sz.Id).Count();
-
-                /*var reklamace = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == false && t.ServisniZasahId == sz.Id).Count();
-
-                if (prvku == reklamace)
+                // pokud není nastavena zvláštní cena tak potom ceníková
+                if (prace.ZCCena != 0)
                 {
-                    sz.Reklamace = true;
+                    pracecena = prace.ZCCena;
                 }
                 else
                 {
-                    sz.Reklamace = false;
-                }*/
+                    pracecena = prace.CenikCena;
+                }
+                sz.PraceSazba = pracecena;
+                //výpočet celkové ceny za práci
+                sz.PraceCelkem = sz.Pracelidi * sz.PraceSazba * sz.PraceHod;
+                //výpočet počtu prvků na servisním zásahu
+                var prvku = db.ServisniZasahPrvek.Where(t=>t.ServisniZasahId == sz.Id).Count();
+        
 
                 var reklamprvku = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.ServisniZasahId == sz.Id).Count();
 
                 var poruseni = db.ServisniZasahPrvek.Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == true && t.ServisniZasahId == sz.Id).Count();
 
-                /*if (reklamprvku == poruseni && reklamprvku !=0 && poruseni !=0)
-                {
-                    sz.PoruseniZarucnichPodminek = true;
-                } 
-                else
-                {
-                    sz.PoruseniZarucnichPodminek = false;
-                }*/
+                
                 var x = db.ServisniZasahPrvek.Where(t => t.ServisniZasahId == Id)
                     .Where(t => t.Reklamace == true && t.PoruseniZarucnichPodminek == true || t.Reklamace == false)
                     .Select(t => t.CenaCelkem)

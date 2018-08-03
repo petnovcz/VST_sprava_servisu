@@ -1929,7 +1929,7 @@
           <Property Name="Km" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="VozidloId" Type="Int32" />
           <Property Name="CestaCelkem" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="PraceHod" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PraceHod" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="PraceSazba" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Pracelidi" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="PraceCelkem" Type="Decimal" Precision="18" Scale="0" />

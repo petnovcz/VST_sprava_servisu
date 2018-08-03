@@ -12,6 +12,7 @@ namespace VST_sprava_servisu
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
     public partial class Umisteni
@@ -32,7 +33,8 @@ namespace VST_sprava_servisu
         public string NazevUmisteni { get; set; }
         [Display(Name = "Samostatné revize technologie")]
         public bool SamostatnaRevize { get; set; }
-        [Display(Name = "Ukonèení záruky")]
+       
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Ukonèení záruky")]
         public Nullable<System.DateTime> UkonceniZaruky { get; set; }
 
         public virtual Provoz Provoz { get; set; }

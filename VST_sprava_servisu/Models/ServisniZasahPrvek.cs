@@ -18,7 +18,7 @@ namespace VST_sprava_servisu
         public int endindex { get; set; }
         public int kusovnik_count { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}"), Display(Name = "Konec záruky")]
         public DateTime? DatumVyprseniZaruky
         {
             get
