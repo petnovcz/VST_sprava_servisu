@@ -40,7 +40,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.TlakovaNadoba)<br>
                 @Html.DisplayNameFor(model => model.PeriodaRevizeTlakoveNadoby)<br>
-                @Html.DisplayNameFor(model => model.PeriodaVnitrniRevize)
+                @Html.DisplayNameFor(model => model.PeriodaVnitrniRevize)<br>
+                @Html.DisplayNameFor(model => model.NejvyssiPracovniPretlak)<br>
+                @Html.DisplayNameFor(model => model.ObjemNadoby)
+
             </th>
             <th></th>
         </tr>
@@ -76,7 +79,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TlakovaNadoba)<br>
                     @Html.DisplayFor(modelItem => item.PeriodaRevizeTlakoveNadoby)<br>
-                    @Html.DisplayFor(modelItem => item.PeriodaVnitrniRevize)
+                    @Html.DisplayFor(modelItem => item.PeriodaVnitrniRevize)<br>
+                    @Html.DisplayFor(modelItem => item.NejvyssiPracovniPretlak)<br>
+                    @Html.DisplayFor(modelItem => item.ObjemNadoby)<br>
                 </td>
                 <td>
                     @Html.ActionLink(" ", "Edit", "Artikly",new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-edit" }) 

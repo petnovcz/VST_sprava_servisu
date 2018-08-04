@@ -29,6 +29,8 @@
           <Property Name="TlakovaNadoba" Type="bit" Nullable="false" />
           <Property Name="PeriodaRevizeTlakoveNadoby" Type="nchar" MaxLength="10" />
           <Property Name="PeriodaVnitrniRevize" Type="nchar" MaxLength="10" />
+          <Property Name="NejvyssiPracovniPretlak" Type="nchar" MaxLength="20" />
+          <Property Name="ObjemNadoby" Type="nchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -1356,6 +1358,8 @@
           <Property Name="TlakovaNadoba" Type="Boolean" Nullable="false" />
           <Property Name="PeriodaRevizeTlakoveNadoby" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PeriodaVnitrniRevize" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NejvyssiPracovniPretlak" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="ObjemNadoby" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Revize">
           <Key>
@@ -2214,7 +2218,9 @@
     <EntitySetMapping Name="Artikl">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Artikl)">
         <MappingFragment StoreEntitySet="Artikl">
-          <ScalarProperty Name="PeriodaVnitrniRevize" ColumnName="PeriodaVnitrniRevize" />
+          <ScalarProperty Name="ObjemNadoby" ColumnName="ObjemNadoby" />
+                <ScalarProperty Name="NejvyssiPracovniPretlak" ColumnName="NejvyssiPracovniPretlak" />
+                <ScalarProperty Name="PeriodaVnitrniRevize" ColumnName="PeriodaVnitrniRevize" />
                 <ScalarProperty Name="PeriodaRevizeTlakoveNadoby" ColumnName="PeriodaRevizeTlakoveNadoby" />
                 <ScalarProperty Name="TlakovaNadoba" ColumnName="TlakovaNadoba" />
                 <ScalarProperty Name="SkupinaArtiklu" ColumnName="SkupinaArtiklu" />

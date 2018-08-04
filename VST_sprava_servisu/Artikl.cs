@@ -62,6 +62,12 @@ namespace VST_sprava_servisu
         public string PeriodaRevizeTlakoveNadoby { get; set; }
         [Display(Name = "Vnitøní perioda revize")]
         public string PeriodaVnitrniRevize { get; set; }
+
+        public string NejvyssiPracovniPretlak { get; set; }
+        public string ObjemNadoby { get; set; }
+
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SerioveCislo> SerioveCislo { get; set; }
         public virtual SkupinaArtiklu SkupinaArtiklu1 { get; set; }
