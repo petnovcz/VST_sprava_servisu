@@ -81,7 +81,15 @@
                         @if (Model.M > 0)
     {<text>@Model.M</text><text>M</text>}
                     </td>
-                    <td>
+                    <td style="text-align:left; font-size:18px; font-weight:700;">
+                        @if (Model.RTN > 0)
+                        {<text>@Model.RTN</text><text>RTN</text>}
+                        @if (Model.VRTN > 0)
+                        {<text>@Model.VRTN</text><text>VRTN</text>}
+                        @if (Model.TZTN > 0)
+                        {<text>@Model.TZTN</text><text>TZTN</text>}
+                    </td>
+                    <td style="text-align:left; font-size:18px; font-weight:700;">
                         @if (Model.Baterie > 0)
     {
         foreach (var x in Model.RevizeBaterie)
@@ -95,121 +103,149 @@
         <div class="col-lg-6 col-md-6 vstcolorwhite">
             <div class="col-lg-4 col-md-4" style="padding:5px;">
                 @using (Html.BeginForm("Nahled", "Revize"))
-        {@Html.Hidden("Rok", Model.DatumRevize.Year) @Html.Hidden("Mesic", Model.DatumRevize.Month) @Html.Hidden("Region", Model.Region)
-        @Html.AntiForgeryToken()
-        <input type="submit" value="Kalendář" class="btn btn-info btn-block btn-xs btn-block" />
-}
+                {@Html.Hidden("Rok", Model.DatumRevize.Year) @Html.Hidden("Mesic", Model.DatumRevize.Month) @Html.Hidden("Region", Model.Region)
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Kalendář" class="btn btn-info btn-block btn-xs btn-block" />
+            }
             </div>
             <div class="col-lg-4 col-md-4" style="padding:5px;">
                 @using (Html.BeginForm("List", "Revize"))
-        {@Html.Hidden("Send", true) @Html.Hidden("Skupina", (object)ViewBag.ListRegion) @Html.Hidden("Status", (object)ViewBag.ListStatus)
-        @Html.Hidden("DateTo", (object)ViewBag.ListDateTo) @Html.Hidden("DateFrom", (object)ViewBag.ListDateFrom)
-        @Html.AntiForgeryToken()
-        <input type="submit" value="Seznam revizi" class="btn btn-info btn-xs btn-block" />
-}
+                {@Html.Hidden("Send", true) @Html.Hidden("Skupina", (object)ViewBag.ListRegion) @Html.Hidden("Status", (object)ViewBag.ListStatus)
+                @Html.Hidden("DateTo", (object)ViewBag.ListDateTo) @Html.Hidden("DateFrom", (object)ViewBag.ListDateFrom)
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Seznam revizi" class="btn btn-info btn-xs btn-block" />
+            }
             </div>
             <div class="col-lg-4 col-md-4" style="padding:5px;">
                 @Html.ActionLink("Přeplánování", "Edit", "Revize", new { Id = Model.Id, Region = Model.Region },
       new { @class = $"btn btn-{color} btn-xs btn-block {disabled}" })
             </div>
             @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Manager")))
-    {
+            {
 
-        <div class="col-lg-12 col-md-12" style="padding:5px;">
-            <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle @disabled " type="button" data-toggle="dropdown">
-                Tisk záznamu o kontrole
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Česká verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
-                <li>@Html.ActionLink("Anglická verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
-                <li>@Html.ActionLink("Německá verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
-                <li>@Html.ActionLink("Polská verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
-                <li>@Html.ActionLink("Slovenská verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
-            </ul>
-        </div>
-        <div class="col-lg-12 col-md-12" style="padding:5px;">
-            <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                Protokol o provedení tlakové zkoušky
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Česká verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
-                <li>@Html.ActionLink("Anglická verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
-                <li>@Html.ActionLink("Německá verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
-                <li>@Html.ActionLink("Polská verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
-                <li>@Html.ActionLink("Slovenská verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
-                <li>@Html.ActionLink("Slovenská verze - vlak", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "skvlak" }, null)</li>
-            </ul>
-        </div>
-
-
-        <div class="col-lg-6 col-md-12" style="padding:5px;">
-            @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize",
-  new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
-        </div>
-
-        <div class="col-lg-6 col-md-12" style="padding:5px;">
-            @if (Model.StatusRevize.Realizovana == true)
-            {@Html.ActionLink("Otevření revize", "Open", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block  " }) }
-        else
-        {@Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled} {disableduzavreni}" })}
-
-        </div>
-        <div class="col-lg-12 col-md-12" style="padding:5px;">
-            <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                Doklad o provozuschopnosti
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Česká verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
-                <li>@Html.ActionLink("Anglická verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
-                <li>@Html.ActionLink("Německá verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
-                <li>@Html.ActionLink("Polská verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
-                <li>@Html.ActionLink("Slovenská verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
-                <li>@Html.ActionLink("Slovenská verze - vlak", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "skvlak" }, null)</li>
-            </ul>
-        </div>
-        <div class="col-lg-4 col-md-4" style="padding:5px;">
-            @Html.ActionLink("Přidej prvek", "Create", "RevizeSC",
-  new { RevizeId = Model.Id }, new { @class = $"btn btn-success btn-block btn-xs {disabled}" })
-        </div>
-        <div class="col-lg-4 col-md-4" style="padding:5px;">
-            <button class="btn btn-vstprimary btn-block btn-xs dropdown-toggle @disabled" type="button" data-toggle="dropdown">
-                Automatické úpravy
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    @Html.ActionLink("Přesuň tlakové zkoušky do samostatné revize", "Index", "GenerovaniRevizeTlakoveZkousky", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
-                </li>
-                <li>
-                    @Html.ActionLink("Přesuň baterie do následné revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
-
-                </li>
-                <li>
-                    @Html.ActionLink("Přesuň pyro do následné revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
-
-                </li>
-                <li>
-                    @Html.ActionLink("Přesuň baterie do předchozí revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
-                </li>
-                <li>
-                    @Html.ActionLink("Přesuň pyro do předchozí revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
-                </li>
-                
-            </ul>
-        </div>
-        <div class="col-lg-4 col-md-4" style="padding:5px;">
-            @Html.ActionLink("Smaž revizi", "Delete", "Revize", new { Id = Model.Id }, new { @class = $"btn btn-xs btn-danger btn-block {disabled} {disabledelete} " })
-        </div>
+                <div class="col-lg-12 col-md-12" style="padding:5px;">
+                    <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle @disabled " type="button" data-toggle="dropdown">
+                        Tisk záznamu o kontrole
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Česká verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
+                        <li>@Html.ActionLink("Anglická verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
+                        <li>@Html.ActionLink("Německá verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
+                        <li>@Html.ActionLink("Polská verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze", "OpenPDF", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
+                    </ul>
+                </div>
+                <div class="col-lg-12 col-md-12" style="padding:5px;">
+                    <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                        Protokol o provedení tlakové zkoušky
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Česká verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
+                        <li>@Html.ActionLink("Anglická verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
+                        <li>@Html.ActionLink("Německá verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
+                        <li>@Html.ActionLink("Polská verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze - vlak", "OpenPDFTlkZK", "Revize", new { Id = Model.Id, lang = "skvlak" }, null)</li>
+                    </ul>
+                </div>
 
 
+                <div class="col-lg-6 col-md-12" style="padding:5px;">
+                    @Html.ActionLink("Vyplnění záznamu o kontrole", "Fill", "Revize",
+          new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled}" })
+                </div>
+
+                <div class="col-lg-6 col-md-12" style="padding:5px;">
+                    @if (Model.StatusRevize.Realizovana == true)
+                    {@Html.ActionLink("Otevření revize", "Open", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block  " }) }
+                else
+                {@Html.ActionLink("Uzavření revize", "Close", "Revize", new { Id = Model.Id, Region = Model.Region }, new { @class = $"btn btn-vstprimary btn-xs btn-block {disabled} {disableduzavreni}" })}
+
+                </div>
+                <div class="col-lg-4 col-md-4" style="padding:5px;">
+                    <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                        Doklad o provozuschopnosti
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Česká verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
+                        <li>@Html.ActionLink("Anglická verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
+                        <li>@Html.ActionLink("Německá verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
+                        <li>@Html.ActionLink("Polská verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze - vlak", "OpenPDFPotvrzeni", "Revize", new { Id = Model.Id, lang = "skvlak" }, null)</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4" style="padding:5px;">
+                    <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                        Revize TN
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Česká verze", "PRTN", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
+                        <li>@Html.ActionLink("Anglická verze", "PRTN", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
+                        <li>@Html.ActionLink("Německá verze", "PRTN", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
+                        <li>@Html.ActionLink("Polská verze", "PRTN", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze", "PRTN", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4" style="padding:5px;">
+                    <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                        Vnitřní revize TN
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Česká verze", "VRTN", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
+                        <li>@Html.ActionLink("Anglická verze", "VRTN", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
+                        <li>@Html.ActionLink("Německá verze", "VRTN", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
+                        <li>@Html.ActionLink("Polská verze", "VRTN", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
+                        <li>@Html.ActionLink("Slovenská verze", "VRTN", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4" style="padding:5px;">
+                    @Html.ActionLink("Přidej prvek", "Create", "RevizeSC",
+          new { RevizeId = Model.Id }, new { @class = $"btn btn-success btn-block btn-xs {disabled}" })
+                </div>
+                <div class="col-lg-4 col-md-4" style="padding:5px;">
+                    <button class="btn btn-vstprimary btn-block btn-xs dropdown-toggle @disabled" type="button" data-toggle="dropdown">
+                        Automatické úpravy
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Html.ActionLink("Přesuň tlakové zkoušky do samostatné revize", "Index", "GenerovaniRevizeTlakoveZkousky", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Přesuň baterie do následné revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+
+                        </li>
+                        <li>
+                            @Html.ActionLink("Přesuň pyro do následné revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+
+                        </li>
+                        <li>
+                            @Html.ActionLink("Přesuň baterie do předchozí revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Přesuň pyro do předchozí revize", "", "", new { RevizeId = Model.Id }, new { @class = $" {disabled}" })
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4" style="padding:5px;">
+                    @Html.ActionLink("Smaž revizi", "Delete", "Revize", new { Id = Model.Id }, new { @class = $"btn btn-xs btn-danger btn-block {disabled} {disabledelete} " })
+                </div>
 
 
 
 
-}
+
+
+            }
 
         </div>
         </div>

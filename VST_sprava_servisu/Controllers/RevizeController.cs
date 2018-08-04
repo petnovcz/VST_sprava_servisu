@@ -219,6 +219,7 @@ namespace VST_sprava_servisu
                     db.SaveChanges();
                 }
                 catch (Exception ex) { log.Error("Edit - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+         //       Revize.UpdateRevizeHeader(revize.Id);
                 return RedirectToAction("Details","Revize",new { revize.Id, Region});
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
@@ -646,6 +647,7 @@ namespace VST_sprava_servisu
                     db.SaveChanges();
                 }
                 catch (Exception ex) { log.Error("Replan - Error number: " + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+           //     Revize.UpdateRevizeHeader(revize.Id);
                 return RedirectToAction("Nahled", "Revize", new { Rok = revize.DatumRevize.Year, Mesic = revize.DatumRevize.Month, Region = region });
             }
             ViewBag.ProvozId = new SelectList(db.Provoz, "Id", "NazevProvozu", revize.ProvozId);
@@ -688,6 +690,70 @@ namespace VST_sprava_servisu
             ReportDocument Rel = new ReportDocument();
             string path = $"C:\\Logs\\Crystal\\Servis_{lang}.rpt";
             
+
+
+            log.Error($"adresa {path}");
+
+            try
+            {
+
+                Rel.Load(path);
+                Rel.SetParameterValue("Id@", Id);
+                Rel.SetDatabaseLogon("sa", "*2012Versino",
+                                   "SQL", RS_dtb, false);
+
+                BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+                Rel.Close();
+                Rel.Dispose();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.ContentType = "application/pdf";
+                Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+                Response.Flush();
+                //Response.Close();
+            }
+            catch (Exception ex) { log.Error($"Nena4tena adresa {path}" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
+        }
+
+        [Authorize(Roles = "Administrator,Manager")]
+        public void PRTN(int Id, string lang)
+        {
+            ReportDocument Rel = new ReportDocument();
+            string path = $"C:\\Logs\\Crystal\\PRTN_{lang}.rpt";
+
+
+
+            log.Error($"adresa {path}");
+
+            try
+            {
+
+                Rel.Load(path);
+                Rel.SetParameterValue("Id@", Id);
+                Rel.SetDatabaseLogon("sa", "*2012Versino",
+                                   "SQL", RS_dtb, false);
+
+                BinaryReader stream = new BinaryReader(Rel.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat));
+                Rel.Close();
+                Rel.Dispose();
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.ContentType = "application/pdf";
+                Response.BinaryWrite(stream.ReadBytes(Convert.ToInt32(stream.BaseStream.Length)));
+                Response.Flush();
+                //Response.Close();
+            }
+            catch (Exception ex) { log.Error($"Nena4tena adresa {path}" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
+        }
+
+        [Authorize(Roles = "Administrator,Manager")]
+        public void VRTN(int Id, string lang)
+        {
+            ReportDocument Rel = new ReportDocument();
+            string path = $"C:\\Logs\\Crystal\\VRTN_{lang}.rpt";
+
 
 
             log.Error($"adresa {path}");

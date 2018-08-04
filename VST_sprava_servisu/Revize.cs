@@ -62,7 +62,9 @@ namespace VST_sprava_servisu
         public Nullable<int> V { get; set; }
         public Nullable<int> F { get; set; }
 
-        
+        public Nullable<int> RTN { get; set; }
+        public Nullable<int> VRTN { get; set; }
+        public Nullable<int> TZTN { get; set; }
 
 
         [Display(Name = "Projekt")]

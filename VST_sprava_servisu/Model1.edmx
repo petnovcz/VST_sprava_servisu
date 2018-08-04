@@ -162,6 +162,9 @@
           <Property Name="F" Type="int" />
           <Property Name="ReviziProvedl" Type="int" />
           <Property Name="Poznamka" Type="nvarchar(max)" />
+          <Property Name="RTN" Type="int" />
+          <Property Name="VRTN" Type="int" />
+          <Property Name="TZTN" Type="int" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -1390,6 +1393,9 @@
           <Property Name="ReviziProvedl" Type="Int32" />
           <NavigationProperty Name="Technici" Relationship="Model1.FK_Revize_ToTechnici" FromRole="Revize" ToRole="Technici" />
           <Property Name="Poznamka" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RTN" Type="Int32" />
+          <Property Name="VRTN" Type="Int32" />
+          <Property Name="TZTN" Type="Int32" />
         </EntityType>
         <EntityType Name="RevizeSC">
           <Key>
@@ -2234,6 +2240,9 @@
     <EntitySetMapping Name="Revize">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Revize)">
         <MappingFragment StoreEntitySet="Revize">
+                <ScalarProperty Name="TZTN" ColumnName="TZTN" />
+                <ScalarProperty Name="VRTN" ColumnName="VRTN" />
+                <ScalarProperty Name="RTN" ColumnName="RTN" />
                 <ScalarProperty Name="Poznamka" ColumnName="Poznamka" />
                 <ScalarProperty Name="ReviziProvedl" ColumnName="ReviziProvedl" />
                 <ScalarProperty Name="F" ColumnName="F" />

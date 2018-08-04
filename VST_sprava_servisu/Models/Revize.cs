@@ -195,20 +195,22 @@ namespace VST_sprava_servisu
                 // 3.8.2018 - úprava na pouze artikly, které nejsou tlakové nádoby
                 revize.TlkZk = dbCtx.RevizeSC
                     
-                    .Include(r=>r.SCProvozu.Artikl)
-                    .Where(r => r.RevizeId == id && r.TlakovaZkouska == true && r.SCProvozu.Artikl.TlakovaNadoba == false).Count();
+                    .Include(r=>r.SCProvozu.SerioveCislo.Artikl)
+                    .Where(r => r.RevizeId == id && r.TlakovaZkouska == true && r.SCProvozu.SerioveCislo.Artikl.TlakovaNadoba == false).Count();
                 // 3.8.2018 - přidání artiklů tlakových zkoušek tlakových nádob
 
                 revize.TZTN = dbCtx.RevizeSC
 
-                    .Include(r => r.SCProvozu.Artikl)
-                    .Where(r => r.RevizeId == id && r.TlakovaZkouska == true && r.SCProvozu.Artikl.TlakovaNadoba == true).Count();
+                    .Include(r => r.SCProvozu.SerioveCislo.Artikl)
+                    .Where(r => r.RevizeId == id && r.TlakovaZkouska == true && r.SCProvozu.SerioveCislo.Artikl.TlakovaNadoba == true).Count();
                 // 3.8.2018 - přidání revizí tlakových nádob
                 revize.RTN = dbCtx.RevizeSC
-                    .Where(r => r.RevizeId == id && r.RevizeTlakoveNadoby == true && r.SCProvozu.Artikl.TlakovaNadoba == true).Count();
+                    .Include(r => r.SCProvozu.SerioveCislo.Artikl)
+                    .Where(r => r.RevizeId == id && r.RevizeTlakoveNadoby == true && r.SCProvozu.SerioveCislo.Artikl.TlakovaNadoba == true).Count();
                 // 3.8.2018 - přidání vnitřních revizí tlakových nádob
                 revize.VRTN = dbCtx.RevizeSC
-                    .Where(r => r.RevizeId == id && r.VnitrniRevizeTlakoveNadoby == true && r.SCProvozu.Artikl.TlakovaNadoba == true).Count();
+                    .Include(r => r.SCProvozu.SerioveCislo.Artikl)
+                    .Where(r => r.RevizeId == id && r.VnitrniRevizeTlakoveNadoby == true && r.SCProvozu.SerioveCislo.Artikl.TlakovaNadoba == true).Count();
 
 
                 revize.AP = dbCtx.RevizeSC.Where(r => r.RevizeId == id && r.SCProvozu.SerioveCislo.Artikl.SkupinaArtiklu1.Id == 131).Count();
