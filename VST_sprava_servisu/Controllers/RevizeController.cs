@@ -730,7 +730,7 @@ namespace VST_sprava_servisu
             {
 
                 Rel.Load(path);
-                Rel.SetParameterValue("Id@", Id);
+                Rel.SetParameterValue("Revize@", Id);
                 Rel.SetDatabaseLogon("sa", "*2012Versino",
                                    "SQL", RS_dtb, false);
 

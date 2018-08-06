@@ -71,7 +71,8 @@ namespace VST_sprava_servisu
         [Display(Name = "UpravenaPeriodaVnitrniRevizeTlakoveNadoby")]
         public Nullable<int> UpravenaPeriodaVnitrniRevizeTlakoveNadoby { get; set; }
 
-
+        [Display(Name = "SCLahve")]
+        public string SCLahve { get; set; }
 
 
     }

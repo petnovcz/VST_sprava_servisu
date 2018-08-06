@@ -674,14 +674,7 @@ namespace VST_sprava_servisu
                     {
                         RSC1.TlakovaZkouska = false;
                     }
-                    if (item.RevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR1)
-                    {
-                        RSC1.RevizeTlakoveNadoby = true;
-                    }
-                    else
-                    {
-                        RSC1.RevizeTlakoveNadoby = false;
-                    }
+
                     if (item.VnitrniRevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR1)
                     {
                         RSC1.VnitrniRevizeTlakoveNadoby = true;
@@ -690,6 +683,16 @@ namespace VST_sprava_servisu
                     {
                         RSC1.VnitrniRevizeTlakoveNadoby = false;
                     }
+
+                    if ((item.RevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR1) && (RSC1.VnitrniRevizeTlakoveNadoby != true))
+                    {
+                        RSC1.RevizeTlakoveNadoby = true;
+                    }
+                    else
+                    {
+                        RSC1.RevizeTlakoveNadoby = false;
+                    }
+                    
                 }
                 if (item.NextRevize >= gen.Dnyrevize.PrvnidenobdobiR2 && item.NextRevize <= gen.Dnyrevize.PoslednidenobdobiR2)
                 {
@@ -720,14 +723,7 @@ namespace VST_sprava_servisu
                     {
                         RSC2.TlakovaZkouska = false;
                     }
-                    if (item.RevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.RevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2)
-                    {
-                        RSC2.RevizeTlakoveNadoby = true;
-                    }
-                    else
-                    {
-                        RSC2.RevizeTlakoveNadoby = false;
-                    }
+
                     if (item.VnitrniRevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.VnitrniRevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2)
                     {
                         RSC2.VnitrniRevizeTlakoveNadoby = true;
@@ -736,6 +732,16 @@ namespace VST_sprava_servisu
                     {
                         RSC2.VnitrniRevizeTlakoveNadoby = false;
                     }
+
+                    if ((item.RevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.RevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2) && RSC2.VnitrniRevizeTlakoveNadoby != true)
+                    {
+                        RSC2.RevizeTlakoveNadoby = true;
+                    }
+                    else
+                    {
+                        RSC2.RevizeTlakoveNadoby = false;
+                    }
+                    
                 }
 
                 if (item.Next2Revize <=  gen.Dnyrevize.PoslednidenobdobiR2)
@@ -768,15 +774,6 @@ namespace VST_sprava_servisu
                         RSC2.TlakovaZkouska = false;
                     }
 
-                    if (item.RevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.RevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2)
-                    {
-                        RSC2.RevizeTlakoveNadoby = true;
-                    }
-                    else
-                    {
-                        RSC2.RevizeTlakoveNadoby = false;
-                    }
-
                     if (item.VnitrniRevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.VnitrniRevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2)
                     {
                         RSC2.VnitrniRevizeTlakoveNadoby = true;
@@ -785,6 +782,17 @@ namespace VST_sprava_servisu
                     {
                         RSC2.VnitrniRevizeTlakoveNadoby = false;
                     }
+
+                    if ((item.RevizeTlakoveNadoby >= gen.Dnyrevize.PrvnidenobdobiR2 && item.RevizeTlakoveNadoby <= gen.Dnyrevize.PoslednidenobdobiR2) && RSC2.VnitrniRevizeTlakoveNadoby != true)
+                    {
+                        RSC2.RevizeTlakoveNadoby = true;
+                    }
+                    else
+                    {
+                        RSC2.RevizeTlakoveNadoby = false;
+                    }
+
+                    
                 }
                 using (var dbCtx = new Model1Container())
                 {

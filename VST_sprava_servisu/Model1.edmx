@@ -219,6 +219,7 @@
           <Property Name="DatumVnitrniRevizeTlakoveNadoby" Type="datetime" />
           <Property Name="UpravenaPeriodaRevizeTlakoveNadoby" Type="int" />
           <Property Name="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" Type="int" />
+          <Property Name="SCLahve" Type="nchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -1464,6 +1465,7 @@
           <Property Name="DatumVnitrniRevizeTlakoveNadoby" Type="DateTime" Precision="3" />
           <Property Name="UpravenaPeriodaRevizeTlakoveNadoby" Type="Int32" />
           <Property Name="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" Type="Int32" />
+          <Property Name="SCLahve" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="SerioveCislo">
           <Key>
@@ -2303,7 +2305,8 @@
     <EntitySetMapping Name="SCProvozu">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.SCProvozu)">
         <MappingFragment StoreEntitySet="SCProvozu">
-          <ScalarProperty Name="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" ColumnName="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" />
+          <ScalarProperty Name="SCLahve" ColumnName="SCLahve" />
+                <ScalarProperty Name="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" ColumnName="UpravenaPeriodaVnitrniRevizeTlakoveNadoby" />
                 <ScalarProperty Name="UpravenaPeriodaRevizeTlakoveNadoby" ColumnName="UpravenaPeriodaRevizeTlakoveNadoby" />
                 <ScalarProperty Name="DatumVnitrniRevizeTlakoveNadoby" ColumnName="DatumVnitrniRevizeTlakoveNadoby" />
                 <ScalarProperty Name="DatumRevizeTlakoveNadoby" ColumnName="DatumRevizeTlakoveNadoby" />

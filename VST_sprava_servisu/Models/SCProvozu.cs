@@ -136,6 +136,7 @@ namespace VST_sprava_servisu
                 if (vnitrnirevizeTN == true && sc.DatumVnitrniRevizeTlakoveNadoby <= datumkontroly)
                 {
                     sc.DatumVnitrniRevizeTlakoveNadoby = datumkontroly;
+                    sc.DatumRevizeTlakoveNadoby = datumkontroly;
                 }
                 try
                 {
@@ -184,6 +185,7 @@ namespace VST_sprava_servisu
             scprovozu.DatumVnitrniRevizeTlakoveNadoby = scimport.DatumVnitrniRevizeTlakoveNadoby;
             scprovozu.UpravenaPeriodaRevizeTlakoveNadoby = scimport.UpravenaPeriodaRevizeTlakoveNadoby;
             scprovozu.UpravenaPeriodaVnitrniRevizeTlakoveNadoby = scimport.UpravenaPeriodaVnitrniRevizeTlakoveNadoby;
+            scprovozu.SCLahve = scimport.SCLahve;
             using (var dbCtx = new Model1Container())
             {
                 try

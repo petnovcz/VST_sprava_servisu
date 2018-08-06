@@ -85,5 +85,7 @@ namespace VST_sprava_servisu
         public Nullable<System.DateTime> DatumVnitrniRevizeTlakoveNadoby { get; set; }
         public Nullable<int> UpravenaPeriodaRevizeTlakoveNadoby { get; set; }
         public Nullable<int> UpravenaPeriodaVnitrniRevizeTlakoveNadoby { get; set; }
+
+        public string SCLahve { get; set; }
     }
 }
