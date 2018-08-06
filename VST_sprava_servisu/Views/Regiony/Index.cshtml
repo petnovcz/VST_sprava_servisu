@@ -8,38 +8,39 @@
     <center><h4>Administrace regionů</h4></center>
 </div>
 
-<div class="form-horizontal" style="border-top: 1px !important; border: 2px !important; border-style: solid !important; border-color: #f5f5f5 !important; background-color:#f5f5f5">
+<div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
     <p>
-        @Html.ActionLink(" ", "Create",null,new { @class = "btn btn-success glyphicon glyphicon-plus"})
+        @Html.ActionLink(" ", "Create", null, new { @class = "btn btn-success glyphicon glyphicon-plus" })
     </p>
     <table class="table table-condensed">
         <thead>
-        <tr class="">
-            <th class="col-lg-6">
-                @Html.DisplayNameFor(model => model.NazevRegionu)
-            </th>
-            <th class="col-lg-4">
-                @Html.DisplayNameFor(model => model.Skupina)
-            </th>
-            <th class="col-lg-2"></th>
-        </tr>
-</thead><tbody>
-        @foreach (var item in Model)
-        {
-        <tr class="">
-            <td>
-                @Html.DisplayFor(modelItem => item.NazevRegionu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Skupina)
-            </td>
-            <td style="text-align: right">
-                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-edit" })
-                
-                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
-            </td>
-        </tr>
-        }
+            <tr class="">
+                <th class="col-lg-6">
+                    @Html.DisplayNameFor(model => model.NazevRegionu)
+                </th>
+                <th class="col-lg-4">
+                    @Html.DisplayNameFor(model => model.Skupina)
+                </th>
+                <th class="col-lg-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NazevRegionu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Skupina)
+                    </td>
+                    <td style="text-align: right">
+                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-warning glyphicon glyphicon-edit" })
+
+                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

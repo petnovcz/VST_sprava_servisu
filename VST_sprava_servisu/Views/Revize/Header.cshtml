@@ -4,6 +4,7 @@
 }
 @{
     Layout = ""; var @color = ""; var @color2 = ""; var @disabled = ""; var @disableduzavreni = ""; var @disabledelete = "";
+    var disabledrtn = ""; var disabledvrtn = "";
 }
 @{
     if (Model.KontrolaProvedenaDne == null)
@@ -14,7 +15,14 @@
     { disabledelete = "disabled"; }
 
 
-
+    if (Model.RTN == 0)
+    {
+        disabledrtn = "disabled";
+    }
+    if (Model.VRTN == 0)
+    {
+        disabledvrtn = "disabled";
+    }
 
     if (Model.StatusRevizeId == 1)
     {
@@ -179,31 +187,23 @@
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-4" style="padding:5px;">
-                    <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle @disabledrtn" type="button" data-toggle="dropdown">
                         Revize TN
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Česká verze", "PRTN", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
-                        <li>@Html.ActionLink("Anglická verze", "PRTN", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
-                        <li>@Html.ActionLink("Německá verze", "PRTN", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
-                        <li>@Html.ActionLink("Polská verze", "PRTN", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
-                        <li>@Html.ActionLink("Slovenská verze", "PRTN", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
-
+                      
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-4" style="padding:5px;">
-                    <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-vstprimary btn-xs btn-block dropdown-toggle @disabledvrtn" type="button" data-toggle="dropdown">
                         Vnitřní revize TN
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Česká verze", "VRTN", "Revize", new { Id = Model.Id, lang = "cz" }, null)</li>
-                        <li>@Html.ActionLink("Anglická verze", "VRTN", "Revize", new { Id = Model.Id, lang = "en" }, null)</li>
-                        <li>@Html.ActionLink("Německá verze", "VRTN", "Revize", new { Id = Model.Id, lang = "de" }, null)</li>
-                        <li>@Html.ActionLink("Polská verze", "VRTN", "Revize", new { Id = Model.Id, lang = "pl" }, null)</li>
-                        <li>@Html.ActionLink("Slovenská verze", "VRTN", "Revize", new { Id = Model.Id, lang = "sk" }, null)</li>
-
+                       
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-4" style="padding:5px;">

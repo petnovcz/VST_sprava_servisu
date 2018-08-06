@@ -32,14 +32,11 @@
                 @Html.DisplayNameFor(model => model.DatumRevize)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Provoz.Zakaznik.NazevZakaznika)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)
-            </th>
-            <th>
+                @Html.DisplayNameFor(model => model.Provoz.Zakaznik.NazevZakaznika)<br>
+                @Html.DisplayNameFor(model => model.Provoz.NazevProvozu)<br>
                 @Html.DisplayNameFor(model => model.Umisteni.NazevUmisteni)
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.StatusRevize.NazevStatusuRevize)
             </th>
@@ -62,7 +59,9 @@
                 @Html.DisplayNameFor(model => model.Pyro)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TlkZk)
+                @Html.DisplayNameFor(model => model.TlkZk)<br>        
+                @Html.DisplayNameFor(model => model.TZTN)
+
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AP)
@@ -83,6 +82,12 @@
                 @Html.DisplayNameFor(model => model.F)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.RTN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VRTN)
+            </th>
+            <th>
 
             </th>
 
@@ -99,15 +104,11 @@
                 @Html.DisplayFor(modelItem => item.DatumRevize)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Provoz.Zakaznik.NazevZakaznika)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)
-            </td>
-            <td>
+                @Html.DisplayFor(modelItem => item.Provoz.Zakaznik.NazevZakaznika)<br>
+                @Html.DisplayFor(modelItem => item.Provoz.NazevProvozu)<br>
                 @Html.DisplayFor(modelItem => item.Umisteni.NazevUmisteni)
-
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.StatusRevize.NazevStatusuRevize)
             </td>
@@ -126,17 +127,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Baterie)
                 @foreach (var x in item.RevizeBaterie)
-        {
-            @Html.Raw("<br>" + @x.BaterieSAPKod + " - " + x.Pocet)
+                {
+                    @Html.Raw("<br>" + @x.BaterieSAPKod + " - " + x.Pocet)
 
 
-}
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pyro)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TlkZk)
+            <br>
+                @Html.DisplayFor(modelItem => item.TZTN)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AP)
@@ -155,6 +158,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.F)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RTN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VRTN)
             </td>
             <td>
                 @Html.ActionLink(" ", "Details", "Revize", new { Id = item.Id, Region = item.Provoz.Zakaznik.Region.Skupina }, new { @class = "btn btn-info btn-block  btn-xs btn-default glyphicon glyphicon-play" })

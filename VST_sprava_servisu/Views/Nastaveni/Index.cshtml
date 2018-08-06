@@ -9,10 +9,13 @@
     <div class="col-md-12 vstdark3div">
         <div class="col-md-4 ">
             <h4>Administrace</h4>
+            <p>Nastavení regionů (musí odpovídat regionům v SAP), přiřazení do skupin odpovídá regionům (nikoliv obchodním, ale servisním). Při změně v SAP je třeba změnit i zde.</p>
             <p>@Html.ActionLink("Regiony", "Index", "Regiony", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
-            <p>@Html.ActionLink("Jazyky", "Index", "Jazyky", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
-            <p>@Html.ActionLink("Statusy prvků", "Index", "StatusRevizes", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
-            <p>@Html.ActionLink("Statusy revizí", "Index", "Status", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>Nastavení jednotlivých statusů revizí - při změně nutno změnit i oprávnění k statusům pro jendotlivé druhy uživatelů</p>
+            <p>@Html.ActionLink("Statusy revizí", "Index", "StatusRevizes", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>Natsavení statusů prvků - Aktivní - zobrzaeno a kopíruje se do revizí, neaktivní - nezobrazuje se a nekopíruje se do revizí. Ani jedno - je vidět, ale nekopíruje se do revizí (instaováno, ale nespuštěno.)</p>
+            <p>@Html.ActionLink("Statusy prvků", "Index", "Status", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>Nastavení typů požárně bezpečnostního zařízení - následně třeba přiřadit k jednotlivým technologiím provozů </p>
             <p>@Html.ActionLink("Typ PBZ", "Index", "TypPBZ", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
 
         </div>
@@ -25,33 +28,34 @@
         </div>
         <div class="col-md-4 ">
             <h4>Nastavení</h4>
+            <p>Nastavení skupin artiklů s proklikem na jednotlivé artikly. Pro artikl je nastavována perioda revize, výměn baterií, pyroiniciátorů, tlkaových zkoušek. Nastavení zda se jedná o tlakovou nádobu a její perioda provozní revize, vnitřní revize. </p>
             <p>@Html.ActionLink("Nastavení artiklů", "Index", "SkupinaArtiklu", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
-            <p>@Html.ActionLink("Sériová čísla", "Index", "SerioveCisloes", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
-            <p>@Html.ActionLink("Sériová čísla provozu", "Index", "SCProvozu", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+
         </div>
         <div class="col-md-4 ">
             <h4>Uživatelé</h4>
+            <p>Nastavení rolí uživatelů</p>
             <p>@Html.ActionLink("Role", "Index", "Role", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>Přiřazení rolí k existujícím uživatelům</p>
             <p>@Html.ActionLink("Role uživatelů", "Index", "RoleUzivatele", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
-            <p>@Html.ActionLink("Uživatelé", "Index", "Technici", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>Administrace techniku a upload razítek k technikům</p>
+            <p>@Html.ActionLink("Technici", "Index", "Technici", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>Seznam definovaných uživatelů</p>
+            <p>@Html.ActionLink("Uživatelé", "Index", "Uzivatele", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
 
         </div>
         <div class="col-md-4 ">
             <h4>Servisní zásahy</h4>
-            <p>@Html.ActionLink("Nastavení vozidel", "Index", "Vozidlo", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            <p>Administrace typů poruch</p>
             <p>@Html.ActionLink("Poruchy", "Index", "Porucha", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
-            <p>@Html.ActionLink("Kategorie poruch", "Index", "KategoriePoruchy", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
+            
 
 
         </div>
-        <div class="col-md-4 ">
-            <h4>Generování revizí</h4>
-            <p>@Html.ActionLink("2018", "RunGenerator", "GenerovaniRevizi", new { Year = 2018 }, new { @class = "btn btn-xs btn-default btn-block" })</p>
-
-
-        </div>
+        
         <div class="col-md-4 ">
             <h4>Integrace SPZ</h4>
+            <p>Provedení importu dat do SPZ pro záznamy, které projdou kontrolou a odeslání seznamu nesprávných záznamů do emailu.</p>
             <p>@Html.ActionLink("Import dat z SPZ", "Index", "SPZ", null, new { @class = "btn btn-xs btn-default btn-block" })</p>
 
 

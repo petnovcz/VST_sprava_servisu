@@ -8,41 +8,41 @@
     <center><h4>Administrace regionů</h4></center>
 </div>
 
-<div class="form-horizontal" style="border-top: 1px !important; border: 2px !important; border-style: solid !important; border-color: #f5f5f5 !important; background-color:#f5f5f5">
+<div class="form-horizontal" style="background-color:rgba(0, 0, 0, 0.5);border:2px !important;border-style:solid !important; border-color:#fdc800 !important;margin:0px;padding:10px">
+    
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h4 class="vstcolor">Vytvoření nového regionu</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group vstcolorwhite">
+                    @Html.LabelFor(model => model.NazevRegionu, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NazevRegionu, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NazevRegionu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group vstcolorwhite">
+                    @Html.LabelFor(model => model.Skupina, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Skupina, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Skupina, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-    <div class="form-horizontal">
-        <h4 class="vstcolor">Vytvoření nového regionu</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group vstcolorwhite">
-            @Html.LabelFor(model => model.NazevRegionu, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NazevRegionu, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NazevRegionu, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Vytvoř" class="btn btn-success" />
+                        @Html.ActionLink(" ", "Index", null, new { @class = "btn btn-info glyphicon glyphicon-th-list" })
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group vstcolorwhite">
-            @Html.LabelFor(model => model.Skupina, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Skupina, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Skupina, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Vytvoř" class="btn btn-success" />
-                @Html.ActionLink(" ", "Index", null, new { @class = "btn btn-success glyphicon glyphicon-th-list" })
-            </div>
+        <div>
+
         </div>
     </div>
-    }
-
-    <div>
-        
-    </div>
-</div>
