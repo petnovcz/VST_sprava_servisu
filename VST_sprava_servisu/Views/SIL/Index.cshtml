@@ -7,17 +7,19 @@
     Layout = "~/Views/Shared/_Layout_FullW.cshtml";
 }
 
-<h3>Vyhodnocení SIL - @Model.Rok </h3>
+<h3 class ="vstcolor" style="text-align:center;"><b>Vyhodnocení SIL - @Model.Rok </b></h3>
 
-<h4>Výpočet průměrných hodnot</h4>
+<h4><b>Výpočet průměrných hodnot</b></h4>
+<p>Výpočet průměrných hodnot pro řídící jednotky, které mají vyplněnu (uzavřenu) poslední a předposlední revizi. Výpočet je pro revize, které byly realizovány ve vybraném roce a dříve. Průměrné hodnoty jsou následně využity pro výpočet celkových hodnot pro všechny řídící jednotky.</p>
+
 <table class="table table-condensed table-bordered">
     <thead>
         <tr>
             <th>
-                Průměr doby provozu I.revize
+                Průměr doby provozu předposlední revize
             </th>
             <th>
-                Průměr doby provozu II. revize
+                Průměr doby provozu poslední revize
             </th>
             <th>
                 Průměrný počet dnů mezi revizemi
@@ -58,6 +60,7 @@
 
 </table>
 <h4>Přehled všech jednotek - chybějící data nahrazena průměrem</h4>
+<p>Načtení všech řídících jednotek, které mají alespoň jednu revizi generovanou pro vybraný rok, k řídící jednotce jsou dohledány poslední dvě revize. Pokud má řídící jendotka nevyplněné údaje o hodinách provozu jsou údaje doplněny průměrnými hodnotami.</p>
 <table id="myTable" class="table table-condensed table-bordered">
     <thead>
         <tr>
@@ -173,15 +176,17 @@
             <th>
                 Počet prvků (řídících jednotek)
             </th>
-            <th>
-                Suma doby provozu 1. revize
-            </th>
-            <th>
-                Suma provozu 2. revize
-            </th>
-            <th>
-                Průměr dní mezi revizemi
-            </th>
+            @*
+        <th>
+            Suma doby provozu 1. revize
+        </th>
+        <th>
+            Suma provozu 2. revize
+        </th>
+        <th>
+            Průměr dní mezi revizemi
+        </th>
+            *@
             <th>
                 Průměrné TAKU na 24 hodin
             </th>
@@ -197,19 +202,21 @@
             <td>
                 @Model.SIL_DobaProvozu.Count()
             </td>
-            <td>
-                @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Sum(i => i.DobaprovozuI))
+            @*
+        <td>
+            @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Sum(i => i.DobaprovozuI))
 
 
-            </td>
-            <td>
-                @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Sum(i => i.DobaprovozuII))
+        </td>
+        <td>
+            @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Sum(i => i.DobaprovozuII))
 
-            </td>
-            <td>
-                @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Average(i => i.DniMeziRevizemi))
+        </td>
+        <td>
+            @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Average(i => i.DniMeziRevizemi))
 
-            </td>
+        </td>
+            *@
             <td>
                 @String.Format("{0:n2}", @Model.SIL_DobaProvozu.Average(i => i.TAKU))
 

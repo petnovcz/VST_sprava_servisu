@@ -28,7 +28,7 @@ namespace VST_sprava_servisu
             PoruchaList item = new PoruchaList();
             using (var db = new Model1Container())
             {
-                item.SeznamPoruch = db.Porucha.Include(t => t.KategoriePoruchy).Where(t => t.SkupinaArtikluId == null).ToList();
+                item.SeznamPoruch = db.Porucha.Where(t => t.SkupinaArtikluId == null).ToList();
                 item.VybranaPorucha = db.ServisniZasahPrvek.Include(t => t.Porucha).Where(t => t.ServisniZasahId == Id && t.Porucha.SkupinaArtikluId == null).Select(t => t.Porucha).FirstOrDefault();
                 item.ServisniZasahId = Id;
             }

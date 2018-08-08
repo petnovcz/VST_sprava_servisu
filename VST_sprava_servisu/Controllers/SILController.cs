@@ -17,7 +17,7 @@ namespace VST_sprava_servisu
         {
             SIL sil = new SIL();
             if (Rok == null) { Rok = DateTime.Now.Year; }
-            sil.Rok = Rok.Value;
+            sil = SIL.Run(Rok.Value);
 
 
 
