@@ -34,9 +34,9 @@
     using (Html.BeginForm("Create", "ServisniZasahPrvek"))
     {
         @Html.AntiForgeryToken()
-
+        <h2>Vyber opravu</h2>
         <div class="form-control-sm">
-            <h4>ServisniZasahPrvek</h4>
+            
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ServisniZasahId)
@@ -45,9 +45,9 @@
             @Html.Hidden("PoruchaID", 41)
 
             <div class="form-group">
-                @Html.LabelFor(model => model.ArtiklID, "ArtiklID", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ArtiklID, "ArtiklID", htmlAttributes: new { @class = "control-label  col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("ArtiklID", null, null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("ArtiklID", null, null, htmlAttributes: new { @class = "form-control selectpicker" })
                     @Html.ValidationMessageFor(model => model.ArtiklID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -66,12 +66,33 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Vytvoř" class="btn btn-success btn-block" />
+                    @Html.ActionLink("Zpět", "Index", null, new { @class = " btn btn-warning btn-block btn-md" })
                 </div>
             </div>
+
+
+
         </div>
     }
 }
-<div>
-    @Html.ActionLink("Zpět", "Index",null, new { @class = " btn btn-warning btn-block btn-md" })
-</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $('.selectpicker').selectpicker({
+
+
+        });
+
+
+        $('.datetimepicker').datetimepicker(
+            {
+                format: 'DD.MM.YYYY'
+                //daysOfWeekDisabled: [0, 6]
+                , locale: 'cs'
+
+
+
+            });</script>
+}
