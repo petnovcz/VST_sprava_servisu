@@ -31,6 +31,8 @@
           <Property Name="PeriodaVnitrniRevize" Type="nchar" MaxLength="10" />
           <Property Name="NejvyssiPracovniPretlak" Type="nchar" MaxLength="20" />
           <Property Name="ObjemNadoby" Type="nchar" MaxLength="20" />
+          <Property Name="ServisArtikl" Type="int" />
+          <Property Name="ServisSkupina" Type="int" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -424,6 +426,30 @@
             </Principal>
             <Dependent Role="Artikl">
               <PropertyRef Name="SkupinaArtiklu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Artikl_ToServisArtikl">
+          <End Role="Artikl" Type="Self.Artikl" Multiplicity="0..1" />
+          <End Role="Artikl1" Type="Self.Artikl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artikl1">
+              <PropertyRef Name="ServisArtikl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Artikl_ToServisSkupina">
+          <End Role="SkupinaArtiklu" Type="Self.SkupinaArtiklu" Multiplicity="0..1" />
+          <End Role="Artikl" Type="Self.Artikl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkupinaArtiklu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artikl">
+              <PropertyRef Name="ServisSkupina" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -880,6 +906,14 @@
             <End Role="SkupinaArtiklu" EntitySet="SkupinaArtiklu" />
             <End Role="Artikl" EntitySet="Artikl" />
           </AssociationSet>
+          <AssociationSet Name="FK_Artikl_ToServisArtikl" Association="Self.FK_Artikl_ToServisArtikl">
+            <End Role="Artikl" EntitySet="Artikl" />
+            <End Role="Artikl1" EntitySet="Artikl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Artikl_ToServisSkupina" Association="Self.FK_Artikl_ToServisSkupina">
+            <End Role="SkupinaArtiklu" EntitySet="SkupinaArtiklu" />
+            <End Role="Artikl" EntitySet="Artikl" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -1206,6 +1240,14 @@
             <End Role="Umisteni" EntitySet="Umisteni" />
             <End Role="UmisteniTypPBZ" EntitySet="UmisteniTypPBZ" />
           </AssociationSet>
+          <AssociationSet Name="FK_Artikl_ToServisArtikl" Association="Model1.FK_Artikl_ToServisArtikl">
+            <End Role="Artikl" EntitySet="Artikl" />
+            <End Role="Artikl1" EntitySet="Artikl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Artikl_ToServisSkupina" Association="Model1.FK_Artikl_ToServisSkupina">
+            <End Role="SkupinaArtiklu" EntitySet="SkupinaArtiklu" />
+            <End Role="Artikl" EntitySet="Artikl" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Region">
           <Key>
@@ -1361,6 +1403,11 @@
           <Property Name="PeriodaVnitrniRevize" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="NejvyssiPracovniPretlak" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="ObjemNadoby" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="ServisArtikl" Type="Int32" />
+          <Property Name="ServisSkupina" Type="Int32" />
+          <NavigationProperty Name="Artikl1" Relationship="Model1.FK_Artikl_ToServisArtikl" FromRole="Artikl" ToRole="Artikl1" />
+          <NavigationProperty Name="Artikl2" Relationship="Model1.FK_Artikl_ToServisArtikl" FromRole="Artikl1" ToRole="Artikl" />
+          <NavigationProperty Name="SkupinaArtiklu2" Relationship="Model1.FK_Artikl_ToServisSkupina" FromRole="Artikl" ToRole="SkupinaArtiklu" />
         </EntityType>
         <EntityType Name="Revize">
           <Key>
@@ -1667,6 +1714,7 @@
           <Property Name="ArtoklPyro" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PoradiZobrazeni" Type="Int32" />
           <NavigationProperty Name="Porucha" Relationship="Model1.FK_Porucha_ToSkupinaArtiklu" FromRole="SkupinaArtiklu" ToRole="Porucha" />
+          <NavigationProperty Name="Artikl1" Relationship="Model1.FK_Artikl_ToServisSkupina" FromRole="SkupinaArtiklu" ToRole="Artikl" />
         </EntityType>
         <Association Name="FK_Artikl_SkupinaA">
           <End Type="Model1.SkupinaArtiklu" Role="SkupinaArtiklu" Multiplicity="0..1" />
@@ -2149,6 +2197,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Artikl_ToServisArtikl">
+          <End Type="Model1.Artikl" Role="Artikl" Multiplicity="0..1" />
+          <End Type="Model1.Artikl" Role="Artikl1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artikl1">
+              <PropertyRef Name="ServisArtikl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Artikl_ToServisSkupina">
+          <End Type="Model1.SkupinaArtiklu" Role="SkupinaArtiklu" Multiplicity="0..1" />
+          <End Type="Model1.Artikl" Role="Artikl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkupinaArtiklu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artikl">
+              <PropertyRef Name="ServisSkupina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2220,7 +2292,9 @@
     <EntitySetMapping Name="Artikl">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Artikl)">
         <MappingFragment StoreEntitySet="Artikl">
-          <ScalarProperty Name="ObjemNadoby" ColumnName="ObjemNadoby" />
+          <ScalarProperty Name="ServisSkupina" ColumnName="ServisSkupina" />
+                <ScalarProperty Name="ServisArtikl" ColumnName="ServisArtikl" />
+                <ScalarProperty Name="ObjemNadoby" ColumnName="ObjemNadoby" />
                 <ScalarProperty Name="NejvyssiPracovniPretlak" ColumnName="NejvyssiPracovniPretlak" />
                 <ScalarProperty Name="PeriodaVnitrniRevize" ColumnName="PeriodaVnitrniRevize" />
                 <ScalarProperty Name="PeriodaRevizeTlakoveNadoby" ColumnName="PeriodaRevizeTlakoveNadoby" />

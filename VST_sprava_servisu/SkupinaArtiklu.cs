@@ -19,6 +19,7 @@ namespace VST_sprava_servisu
         {
             this.Artikl = new HashSet<Artikl>();
             this.Porucha = new HashSet<Porucha>();
+            this.Artikl1 = new HashSet<Artikl>();
         }
     
         public int Id { get; set; }
@@ -40,6 +41,9 @@ namespace VST_sprava_servisu
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Porucha> Porucha { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Artikl> Artikl1 { get; set; }
 
+        
     }
 }

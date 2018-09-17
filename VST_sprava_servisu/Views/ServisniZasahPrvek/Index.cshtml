@@ -121,7 +121,7 @@
                         <td>
                             @if (item.ServisniZasah.Closed == false && item.ServisniZasah.NabidkaDocNum == null && item.ServisniZasah.DodaciListDocNum == null)
                             {
-                                
+
                                 if (item.Reklamace == true)
                                 {
                                     @Html.ActionLink("Reklamace", "Reklamace", new { Id = item.Id }, new { @class = "btn btn-xs btn-success" })
@@ -138,7 +138,18 @@
                                 {
                                     @Html.ActionLink("Poruseni", "Poruseni", new { Id = item.Id }, new { @class = "btn btn-xs btn-default" })
                                 }
-                                
+
+                            }
+                            else
+                            {
+                                if (item.Reklamace == true)
+                                {
+                                    <text>Reklamace</text><br>
+                                }
+                                if (item.PoruseniZarucnichPodminek == true)
+                                {
+                                    <text>Porušení záručních podmínek</text>
+                                }
                             }
                         </td>
 

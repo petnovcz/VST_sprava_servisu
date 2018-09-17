@@ -303,6 +303,7 @@
     <Compile Include="Controllers\GenRevizeCustController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KategoriePoruchyController.cs" />
+    <Compile Include="Controllers\KontrolaEvidenceDodavekController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NastaveniController.cs" />
     <Compile Include="Controllers\pdfController.cs" />
@@ -360,6 +361,7 @@
     <Compile Include="Models\DnyRevize.cs" />
     <Compile Include="Models\GenerovaniRevizeTlakoveZkousky.cs" />
     <Compile Include="Models\Jazyk.cs" />
+    <Compile Include="Models\KontrolaEvidenceDodavek.cs" />
     <Compile Include="Models\Porucha.cs" />
     <Compile Include="Models\PresunMeziRevizemii.cs" />
     <Compile Include="Models\GenRevizeCust.cs" />
@@ -1271,6 +1273,7 @@
     <Folder Include="Images\" />
     <Folder Include="Views\Crystal\" />
     <Folder Include="Views\GenerovaniRevizeTlakoveZkousky\" />
+    <Folder Include="Views\KontrolaEvidenceDodavek\" />
     <Folder Include="Views\pdf\" />
     <Folder Include="Views\SAPDIAPI\" />
   </ItemGroup>

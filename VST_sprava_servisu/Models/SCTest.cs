@@ -14,6 +14,7 @@ namespace VST_sprava_servisu
         public int Zakaznik { get; set; }
         public int Provoz { get; set; }
         public int Umisteni { get; set; }
+        public int SkupinaArtiklu { get; set; }
         public IEnumerable<SAPSerioveCislo> SAPSerioveCIslo { get; set; }
         public IEnumerable<SerioveCislo> SerioveCisloList { get; set; }
         public IEnumerable<SCProvozu> SCProvozuList { get; set; }

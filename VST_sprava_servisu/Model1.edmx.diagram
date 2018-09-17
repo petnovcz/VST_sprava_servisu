@@ -71,6 +71,8 @@
         <EntityTypeShape EntityType="Model1.UmisteniTypPBZ" Width="1.5" PointX="9.375" PointY="0.75" />
         <AssociationConnector Association="Model1.FK_UmisteniTypPBZ_ToTypPBZ" />
         <AssociationConnector Association="Model1.FK_UmisteniTypPBZ_ToUmisteni" />
+        <AssociationConnector Association="Model1.FK_Artikl_ToServisArtikl" />
+        <AssociationConnector Association="Model1.FK_Artikl_ToServisSkupina" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

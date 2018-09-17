@@ -111,7 +111,22 @@ namespace VST_sprava_servisu.Controllers
             }
             catch (Exception ex) { log.Debug("ServisniZasahPrvek/Create Error number: ProvozId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
 
-            ViewBag.ArtiklID = new SelectList(db.Artikl.Where(t=>t.SkupinaArtiklu == 129 && t.KodSAP !="SP02" && t.KodSAP != "SP01"), "Id", "Nazev");
+            int? artikl = 0;
+            try
+            {
+                artikl = scprovozu.Artikl.Id;
+            }
+            catch (Exception ex) { log.Debug("ServisniZasahPrvek/Create Error number: ProvozId" + ex.HResult + " - " + ex.Message + " - " + ex.Data + " - " + ex.InnerException); }
+
+            if (artikl != 0)
+            {
+                ViewBag.ArtiklID = new SelectList(db.Artikl.Where(t => (t.ServisArtikl == artikl || t.ServisSkupina == skupina) && t.KodSAP != "SP02" && t.KodSAP != "SP01"), "Id", "Nazev");
+            }
+            else
+            {
+                ViewBag.ArtiklID = new SelectList(db.Artikl.Where(t => t.SkupinaArtiklu == 129 && t.KodSAP != "SP02" && t.KodSAP != "SP01"), "Id", "Nazev");
+            }
+
             if (skupina != null && skupina !=0)
             {
                 ViewBag.PoruchaID = new SelectList(Porucha.GetPoruchyProSkupinu(scprovozu.Artikl.SkupinaArtiklu.Value), "Id", "NazevPoruchy");

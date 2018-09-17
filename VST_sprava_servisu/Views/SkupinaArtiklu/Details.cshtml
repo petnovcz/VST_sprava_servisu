@@ -66,4 +66,11 @@
     
 </div>
 <br>
-@Html.Partial("~/Views/Artikly/Index.cshtml", Model.Artikl)
+@Html.Partial("~/Views/Artikly/Index.cshtml", Model.Artikl,
+    new ViewDataDictionary { { "Skupina", Model.Id }
+                            ,{ "Revize", Model.Revize }
+                            ,{ "TlakovaZk", Model.TlakovaZk }
+                            ,{ "VymenaBaterie", Model.VymenaBaterie}
+                            ,{ "VymenaPyro", Model.VymenaPyro}
+                            
+    })

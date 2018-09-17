@@ -267,9 +267,10 @@ namespace VST_sprava_servisu
                 oDraft.DocDueDate = DateTime.Now;
                 oDraft.TaxDate = DateTime.Now;
                 oDraft.VatDate = DateTime.Now;
-                oDraft.UserFields.Fields.Item("U_VCZ_R014").Value = "SC";
-                oDraft.UserFields.Fields.Item("U_VCZ_P343").Value = "S";
+                oDraft.UserFields.Fields.Item("U_VCZ_R014").Value = "KC";
+                oDraft.UserFields.Fields.Item("U_VCZ_P343").Value = "K";
                 oDraft.UserFields.Fields.Item("U_VST_Oppor").Value = "100";
+                oDraft.TransportationCode = 5;
                 oDraft.DocumentsOwner = 61;
                 oDraft.SalesPersonCode = 47;
                 oDraft.DocType = BoDocumentTypes.dDocument_Items;
@@ -284,7 +285,7 @@ namespace VST_sprava_servisu
                 */
 
 
-                foreach (var item in sz.ServisniZasahPrvek.Where(t=>t.ArtiklID !=null))
+                foreach (var item in sz.ServisniZasahPrvek.Where(t=>t.ArtiklID !=null && (t.Reklamace == false || t.Reklamace == true && t.PoruseniZarucnichPodminek == true)))
                 {
                     /*
                     oDelivery.SpecialLines.LineType = BoDocSpecialLineType.dslt_Text;
@@ -306,34 +307,37 @@ namespace VST_sprava_servisu
                     oDraft.Lines.Add();
                 }
                 /*KM*/
-                if (sz.CestaCelkem > 0)
+                if (sz.Reklamace == false || (sz.Reklamace == true && sz.PoruseniZarucnichPodminek == true))
                 {
-                    oDraft.Lines.ItemCode = "SP02";
-                    oDraft.Lines.Quantity = Convert.ToDouble(sz.Km);
-                    oDraft.Lines.Price = Convert.ToDouble(sz.CestaCelkem / sz.Km);
-                    oDraft.Lines.WarehouseCode = "Servis";
-                    oDraft.Lines.CostingCode = "OB";
-                    oDraft.Lines.COGSCostingCode = "OB";
-                    oDraft.Lines.LineTotal = Convert.ToDouble(sz.CestaCelkem);
-                    oDraft.Lines.ProjectCode = sz.Projekt;
-                    oDraft.Lines.UnitsOfMeasurment = 1;
-                    oDraft.Lines.Add();
+                    if (sz.CestaCelkem > 0)
+                    {
+                        oDraft.Lines.ItemCode = "SP02";
+                        oDraft.Lines.Quantity = Convert.ToDouble(sz.Km);
+                        oDraft.Lines.Price = Convert.ToDouble(sz.CestaCelkem / sz.Km);
+                        oDraft.Lines.WarehouseCode = "Servis";
+                        oDraft.Lines.CostingCode = "OB";
+                        oDraft.Lines.COGSCostingCode = "OB";
+                        oDraft.Lines.LineTotal = Convert.ToDouble(sz.CestaCelkem);
+                        oDraft.Lines.ProjectCode = sz.Projekt;
+                        oDraft.Lines.UnitsOfMeasurment = 1;
+                        oDraft.Lines.GrossBuyPrice = 5;
+                        oDraft.Lines.Add();
+                    }
+                    /*PRACE*/
+                    if (sz.PraceCelkem > 0)
+                    {
+                        oDraft.Lines.ItemCode = "SP01";
+                        oDraft.Lines.Quantity = Convert.ToDouble(sz.PraceHod * sz.Pracelidi);
+                        oDraft.Lines.Price = Convert.ToDouble(sz.PraceHod);
+                        oDraft.Lines.WarehouseCode = "Servis";
+                        oDraft.Lines.CostingCode = "OB";
+                        oDraft.Lines.COGSCostingCode = "OB";
+                        oDraft.Lines.LineTotal = Convert.ToDouble(sz.PraceCelkem);
+                        oDraft.Lines.ProjectCode = sz.Projekt;
+                        oDraft.Lines.UnitsOfMeasurment = 1;
+                        oDraft.Lines.Add();
+                    }
                 }
-                /*PRACE*/
-                if (sz.PraceCelkem > 0)
-                {
-                    oDraft.Lines.ItemCode = "SP01";
-                    oDraft.Lines.Quantity = Convert.ToDouble(sz.PraceHod * sz.Pracelidi);
-                    oDraft.Lines.Price = Convert.ToDouble(sz.PraceHod);
-                    oDraft.Lines.WarehouseCode = "Servis";
-                    oDraft.Lines.CostingCode = "OB";
-                    oDraft.Lines.COGSCostingCode = "OB";
-                    oDraft.Lines.LineTotal = Convert.ToDouble(sz.PraceCelkem);
-                    oDraft.Lines.ProjectCode = sz.Projekt;
-                    oDraft.Lines.UnitsOfMeasurment = 1;
-                    oDraft.Lines.Add();
-                }
-
 
                 
 

@@ -15,6 +15,7 @@ namespace VST_sprava_servisu
             List<Porucha> list = new List<Porucha>();
             using (var db = new Model1Container())
             {
+
                 list = db.Porucha.Where(t => t.SkupinaArtikluId == null || t.SkupinaArtikluId == SkupinaId).ToList();
 
 

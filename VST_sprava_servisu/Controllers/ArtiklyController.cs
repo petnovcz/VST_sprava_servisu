@@ -52,7 +52,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Create([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,SkupinaArtiklu,TlakovaNadoba,PeriodaRevizeTlakoveNadoby,PeriodaVnitrniRevize,NejvyssiPracovniPretlak,ObjemNadoby")] Artikl artikl)
+        public ActionResult Create([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,SkupinaArtiklu,TlakovaNadoba,PeriodaRevizeTlakoveNadoby,PeriodaVnitrniRevize,NejvyssiPracovniPretlak,ObjemNadoby,ServisArtikl,ServisSkupina")] Artikl artikl)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +68,8 @@ namespace VST_sprava_servisu
                 return RedirectToAction("Details","SkupinaArtiklu",new { id = artikl.SkupinaArtiklu});
             }
             ViewBag.SkupinaArtiklu = new SelectList(db.SkupinaArtiklu, "Id", "Skupina",artikl.SkupinaArtiklu);
+            ViewBag.ServisArtikl = new SelectList(db.Artikl, "Id", "Nazev", artikl.ServisArtikl);
+            ViewBag.ServisSkupina = new SelectList(db.SkupinaArtiklu, "Id", "Skupina", artikl.ServisSkupina);
             return View(artikl);
         }
 
@@ -85,6 +87,8 @@ namespace VST_sprava_servisu
                 return HttpNotFound();
             }
             ViewBag.SkupinaArtiklu = new SelectList(db.SkupinaArtiklu, "Id", "Skupina", artikl.SkupinaArtiklu);
+            ViewBag.ServisArtikl = new SelectList(db.Artikl, "Id", "Nazev", artikl.ServisArtikl);
+            ViewBag.ServisSkupina = new SelectList(db.SkupinaArtiklu, "Id", "Skupina", artikl.ServisSkupina);
             return View(artikl);
         }
 
@@ -94,7 +98,7 @@ namespace VST_sprava_servisu
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public ActionResult Edit([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,SkupinaArtiklu,TlakovaNadoba,PeriodaRevizeTlakoveNadoby,PeriodaVnitrniRevize,NejvyssiPracovniPretlak,ObjemNadoby")] Artikl artikl)
+        public ActionResult Edit([Bind(Include = "Id,Nazev,Oznaceni,Typ,RozsahProvoznichTeplot,KodSAP,Revize,PeriodaRevize,TlakovaZk,PeriodaTlakovaZk,VymenaBaterie,PeriodaBaterie,ArtiklBaterieSAP,VymenaPyro,PeriodaPyro,ArtoklPyro,SkupinaArtiklu,TlakovaNadoba,PeriodaRevizeTlakoveNadoby,PeriodaVnitrniRevize,NejvyssiPracovniPretlak,ObjemNadoby,ServisArtikl,ServisSkupina")] Artikl artikl)
         {
             if (ModelState.IsValid)
             {
@@ -110,6 +114,8 @@ namespace VST_sprava_servisu
                 return RedirectToAction("Details", "SkupinaArtiklu", new { id = artikl.SkupinaArtiklu });
             }
             ViewBag.SkupinaArtiklu = new SelectList(db.SkupinaArtiklu, "Id", "Skupina", artikl.SkupinaArtiklu);
+            ViewBag.ServisArtikl = new SelectList(db.Artikl, "Id", "Nazev", artikl.ServisArtikl);
+            ViewBag.ServisSkupina = new SelectList(db.SkupinaArtiklu, "Id", "Skupina", artikl.ServisSkupina);
             return View(artikl);
         }
 

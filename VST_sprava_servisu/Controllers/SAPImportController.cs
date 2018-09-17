@@ -220,6 +220,8 @@ namespace VST_sprava_servisu
             sctest.SerioveCisloList = db.SerioveCislo.Where(s => s.SerioveCislo1 == sctest.SC).Include(a => a.Artikl);
             sctest.SCProvozuList = db.SCProvozu.Where(s => s.SerioveCislo.SerioveCislo1 == sctest.SC && s.Status.Aktivni == true )
                 .Include(a => a.Provoz).Include(a=>a.Umisteni1).Include(p=>p.Provoz.Zakaznik);
+            
+            //sctest.SkupinaArtiklu = 
             return View(sctest);
         }
         
@@ -230,6 +232,15 @@ namespace VST_sprava_servisu
         {
             int id = 0;
             int idscprovozu = 0;
+            ViewBag.SkupinaArtiklu = db.Artikl.Where(t => t.Id == scimport.ArtiklId).Select(t=>t.SkupinaArtiklu).FirstOrDefault();
+            ViewBag.Revize = db.Artikl.Where(t => t.Id == scimport.ArtiklId).Select(t => t.Revize).FirstOrDefault();
+            ViewBag.TlakovaZk = db.Artikl.Where(t => t.Id == scimport.ArtiklId).Select(t => t.TlakovaZk).FirstOrDefault();
+            ViewBag.VymenaBaterie = db.Artikl.Where(t => t.Id == scimport.ArtiklId).Select(t => t.VymenaBaterie).FirstOrDefault();
+            ViewBag.VymenaPyro = db.Artikl.Where(t => t.Id == scimport.ArtiklId).Select(t => t.VymenaPyro).FirstOrDefault();
+            ViewBag.TlakovaNadoba = db.Artikl.Where(t => t.Id == scimport.ArtiklId).Select(t => t.TlakovaNadoba).FirstOrDefault();
+
+
+
             //if (scimport.DatumVyroby == DateTime.MinValue) { scimport.DatumVyroby = DateTime.Now; }
             //if (scimport.DatumDodani == DateTime.MinValue) { scimport.DatumDodani = DateTime.Now; }
             if (scimport.DatumPosledniZmeny == DateTime.MinValue) { scimport.DatumPosledniZmeny = DateTime.Now; }

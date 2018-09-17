@@ -17,174 +17,211 @@
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            @Html.Hidden("submitted", true)
+
             @Html.Hidden("Provozy", Model.Provozy)
             @Html.Hidden("Zakaznik", Model.Zakaznik)
             @Html.Hidden("Umisteni", Model.Umisteni)
             @Html.Hidden("DatumPrirazeni", Model.DatumPrirazeni)
             @Html.Hidden("DatumPosledniZmeny", Model.DatumPosledniZmeny)
 
+            @if (Model.ArtiklId != 0)
+            {
+                @Html.Hidden("ArtiklId", Model.ArtiklId)
+                @Html.Hidden("submitted", true)
+                if (Model.SerioveCislo != null)
+                {
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.ArtiklId, "ArtiklId", htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.DropDownList("ArtiklId", null, htmlAttributes: new { @class = "form-control selectpicker", data_live_search = true })
-                    @Html.ValidationMessageFor(model => model.ArtiklId, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    @Html.Hidden("SerioveCislo", Model.SerioveCislo)
+                }
+                else
+                {
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.SerioveCislo, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.SerioveCislo, new { htmlAttributes = new { @class = "form-control", style = "width:100% !important" } })
-                    @Html.ValidationMessageFor(model => model.SerioveCislo, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Lokace, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.Lokace, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Lokace, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Znaceni, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.Znaceni, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Znaceni, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SerioveCislo, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.SerioveCislo, new { htmlAttributes = new { @class = "form-control", style = "width:100% !important" } })
+                            @Html.ValidationMessageFor(model => model.SerioveCislo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.DatumVyroby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.DatumVyroby, new { htmlAttributes = new { @class = "form-control datetimepicker " } })
-                    @Html.ValidationMessageFor(model => model.DatumVyroby, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DatumDodani, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.DatumDodani, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                    @Html.ValidationMessageFor(model => model.DatumDodani, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                }
 
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.DatumRevize, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                    @Html.ValidationMessageFor(model => model.DatumRevize, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DatumBaterie, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.DatumBaterie, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                    @Html.ValidationMessageFor(model => model.DatumBaterie, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.BaterieArtikl, "BaterieArtikl", htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.DropDownList("BaterieArtikl", null, " ", htmlAttributes: new { @class = "form-control selectpicker", data_live_search = true })
-                    @Html.ValidationMessageFor(model => model.BaterieArtikl, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DatumPyro, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.DatumPyro, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                    @Html.ValidationMessageFor(model => model.DatumPyro, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DatumTlkZk, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.DatumTlkZk, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                    @Html.ValidationMessageFor(model => model.DatumTlkZk, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Proverit, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.Proverit)
-                        @Html.ValidationMessageFor(model => model.Proverit, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Lokace, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.Lokace, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Lokace, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Znaceni, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.Znaceni, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Znaceni, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.UpravenaPeriodaRevize, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.UpravenaPeriodaRevize, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UpravenaPeriodaRevize, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DatumVyroby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.DatumVyroby, new { htmlAttributes = new { @class = "form-control datetimepicker " } })
+                        @Html.ValidationMessageFor(model => model.DatumVyroby, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.UpravenaPeriodaBaterie, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.UpravenaPeriodaBaterie, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UpravenaPeriodaBaterie, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DatumDodani, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.DatumDodani, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                        @Html.ValidationMessageFor(model => model.DatumDodani, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.UpravenaPeriodaPyro, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.UpravenaPeriodaPyro, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UpravenaPeriodaPyro, "", new { @class = "text-danger" })
+
+                if (ViewBag.Revize == true)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DatumRevize, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.DatumRevize, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                            @Html.ValidationMessageFor(model => model.DatumRevize, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UpravenaPeriodaRevize, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.UpravenaPeriodaRevize, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UpravenaPeriodaRevize, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                if (ViewBag.VymenaBaterie == true)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DatumBaterie, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.DatumBaterie, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                            @Html.ValidationMessageFor(model => model.DatumBaterie, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BaterieArtikl, "BaterieArtikl", htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.DropDownList("BaterieArtikl", null, " ", htmlAttributes: new { @class = "form-control selectpicker", data_live_search = true })
+                            @Html.ValidationMessageFor(model => model.BaterieArtikl, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UpravenaPeriodaBaterie, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.UpravenaPeriodaBaterie, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UpravenaPeriodaBaterie, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                if (ViewBag.VymenaPyro == true)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DatumPyro, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.DatumPyro, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                            @Html.ValidationMessageFor(model => model.DatumPyro, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UpravenaPeriodaPyro, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.UpravenaPeriodaPyro, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UpravenaPeriodaPyro, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                if (ViewBag.TlakovaZk == true)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DatumTlkZk, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.DatumTlkZk, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                            @Html.ValidationMessageFor(model => model.DatumTlkZk, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UpravenaPeriodaTlkZk, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.UpravenaPeriodaTlkZk, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UpravenaPeriodaTlkZk, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Proverit, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                    <div class="col-md-7">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Proverit)
+                            @Html.ValidationMessageFor(model => model.Proverit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.UpravenaPeriodaTlkZk, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.UpravenaPeriodaTlkZk, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UpravenaPeriodaTlkZk, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.DatumRevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.DatumRevizeTlakoveNadoby, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                    @Html.ValidationMessageFor(model => model.DatumRevizeTlakoveNadoby, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DatumVnitrniRevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.DatumVnitrniRevizeTlakoveNadoby, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
-                    @Html.ValidationMessageFor(model => model.DatumVnitrniRevizeTlakoveNadoby, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.UpravenaPeriodaRevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.UpravenaPeriodaRevizeTlakoveNadoby, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UpravenaPeriodaRevizeTlakoveNadoby, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.UpravenaPeriodaVnitrniRevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.UpravenaPeriodaVnitrniRevizeTlakoveNadoby, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UpravenaPeriodaVnitrniRevizeTlakoveNadoby, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                if (ViewBag.TlakovaNadoba == true)
+                {
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCLahve, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.SCLahve, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCLahve, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DatumRevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.DatumRevizeTlakoveNadoby, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                            @Html.ValidationMessageFor(model => model.DatumRevizeTlakoveNadoby, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DatumVnitrniRevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.DatumVnitrniRevizeTlakoveNadoby, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                            @Html.ValidationMessageFor(model => model.DatumVnitrniRevizeTlakoveNadoby, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UpravenaPeriodaRevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.UpravenaPeriodaRevizeTlakoveNadoby, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UpravenaPeriodaRevizeTlakoveNadoby, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UpravenaPeriodaVnitrniRevizeTlakoveNadoby, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.UpravenaPeriodaVnitrniRevizeTlakoveNadoby, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UpravenaPeriodaVnitrniRevizeTlakoveNadoby, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SCLahve, htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.SCLahve, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SCLahve, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ArtiklId, "ArtiklId", htmlAttributes: new { @class = "control-label col-md-5 vstcolorwhite" })
+                    <div class="col-md-7">
+                        @Html.DropDownList("ArtiklId", null, htmlAttributes: new { @class = "form-control selectpicker", data_live_search = true })
+                        @Html.ValidationMessageFor(model => model.ArtiklId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
             <div class="form-group">
                 <div class="col-md-offset-5 col-md-7">
                     <input type="submit" value="Ulož" class="btn btn-success btn-block" />
