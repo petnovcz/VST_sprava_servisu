@@ -277,7 +277,7 @@ namespace VST_sprava_servisu
                 oDraft.DocumentSubType = BoDocumentSubType.bod_None;
                 oDraft.DocObjectCode = BoObjectTypes.oQuotations;
                 oDraft.Project = sz.Projekt;
-
+                 
                 /*
                 oDelivery.SpecialLines.LineType = BoDocSpecialLineType.dslt_Text;
                 oDelivery.SpecialLines.LineText = "úvodník";
